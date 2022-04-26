@@ -1,0 +1,14 @@
+.flex {
+  display: flex;
+  gap: 15px;
+}
+
+.selectWidth {
+  min-width: 160px;
+  max-width: 300px;
+}
+
+.selectWidthComparison {
+  min-width: 80px;
+  max-width: 130px;
+}
