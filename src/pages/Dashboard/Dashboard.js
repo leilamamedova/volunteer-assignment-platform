@@ -3,7 +3,7 @@ import './Dashboard.scss';
 
 const Dashboard =  () => {
     return(
-        <p>hi</p>
+        <p>Dashboard</p>
     )
 };
 

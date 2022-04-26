@@ -5,7 +5,7 @@ import AdminLayout from '../layouts/AdminLayout/AdminLayout';
 import AuthLayout from "../layouts/AuthLayout/AuthLayout.js";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Login from "../pages/Login/Login";
-import Test from "../pages/Test/Test";
+import SearchAndAssign from "../pages/Test/SearchAndAssign";
 
 const AppRoutes = () => {
     return (
@@ -14,7 +14,7 @@ const AppRoutes = () => {
                 <Routes>     
                     <Route element={<AdminLayout/>}>
                         <Route path='/' element={<Dashboard/>}/>
-                        <Route path='/test' element={<Test/>}/>
+                        <Route path='/search-and-assign' element={<SearchAndAssign/>}/>
                     </Route>   
 
                     <Route element={<AuthLayout/>}>
