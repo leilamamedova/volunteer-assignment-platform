@@ -30,7 +30,7 @@ const MainLayout = () => {
             label: 'nav 3',
             children: [
                 {
-                    key: "1",
+                    key: "3-1",
                     label: `option1`
                 }
             ]

@@ -1,0 +1,27 @@
+.assign-search-result {
+    .action-icons{
+        .anticon-check-circle{
+            svg {
+                color: green;
+                font-size: 20px;
+            }
+        }
+        .anticon-close-circle{
+            svg {
+                color: red;
+                font-size: 20px;
+            }
+        }
+        button {
+            border: 0;
+            background-color: transparent;
+            box-shadow: none;
+        }
+    }
+    .ant-table-thead>tr>th{
+        text-align: center;
+    }
+    .ant-table-tbody{
+        text-align: center;
+    }
+}

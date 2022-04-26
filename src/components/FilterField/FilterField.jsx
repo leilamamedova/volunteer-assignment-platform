@@ -71,7 +71,7 @@ function FilterField(props) {
           </Option>
         ))}
       </Select>
-      <Input className="inputWidht" placeholder="value" />
+      <Input className="inputWidth" placeholder="value" />
       <Button
         type="primary"
         danger
