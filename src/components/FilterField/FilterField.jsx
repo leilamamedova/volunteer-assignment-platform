@@ -1,7 +1,5 @@
-import React from "react";
-import { Select, Input } from "antd";
-import classes from "./FilterField.module.css";
-
+import { Select, Input, Button } from "antd";
+import "./FilterField.scss";
 const { Option } = Select;
 
 const DUMMY_OPTIONS = [
@@ -54,32 +52,34 @@ const DUMMY_COMPARISON = [
   },
 ];
 
-function FilterField() {
+function FilterField(props) {
   return (
-    <div className={classes.flex}>
-      <div>
-        <Select className={classes.selectWidth} defaultValue="Choose a field">
-          <Option disabled>Default</Option>
-          {DUMMY_OPTIONS.map((el) => (
-            <Option key={el.id} value={el.value}>
-              {el.value}
-            </Option>
-          ))}
-        </Select>
-      </div>
-      <div>
-        <Select className={classes.selectWidthComparison} defaultValue="Filter">
-          <Option disabled>Default</Option>
-          {DUMMY_COMPARISON.map((el) => (
-            <Option key={el.id} value={el.value}>
-              {el.value}
-            </Option>
-          ))}
-        </Select>
-      </div>
-      <div>
-        <Input className={classes.} placeholder="value" />
-      </div>
+    <div className="flex">
+      <Select className="selectWidth" defaultValue="Choose a field">
+        <Option disabled>Default</Option>
+        {DUMMY_OPTIONS.map((el) => (
+          <Option key={el.id} value={el.value}>
+            {el.value}
+          </Option>
+        ))}
+      </Select>
+      <Select className="selectWidthComparison" defaultValue="Filter">
+        <Option disabled>Default</Option>
+        {DUMMY_COMPARISON.map((el) => (
+          <Option key={el.id} value={el.value}>
+            {el.value}
+          </Option>
+        ))}
+      </Select>
+      <Input className="inputWidht" placeholder="value" />
+      <Button
+        type="primary"
+        danger
+        disabled={props.default}
+        onClick={() => props.handleDelete(props.id)}
+      >
+        Del
+      </Button>
     </div>
   );
 }
