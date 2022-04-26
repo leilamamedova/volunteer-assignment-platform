@@ -78,7 +78,7 @@ function FilterField() {
         </Select>
       </div>
       <div>
-        <Input className={classes.} placeholder="value" />
+        <Input className={classes.inputWidth} placeholder="value" />
       </div>
     </div>
   );
