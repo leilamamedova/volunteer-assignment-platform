@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Layout, Menu, Row, Col } from 'antd';
-import { UserOutlined,  
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-    VideoCameraOutlined,
-    UploadOutlined} from '@ant-design/icons';
+import { UserOutlined, MenuUnfoldOutlined, MenuFoldOutlined} from '@ant-design/icons';
 import Account from '../../components/Account/Account';
 import './AdminLayout.scss';
 
@@ -14,6 +10,32 @@ const { Header, Content, Sider } = Layout;
 const MainLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
+
+    const sideMenu = [
+        {
+            key: '1',
+            icon: <UserOutlined />,
+            label: 'Dashboard',
+            onClick: () =>  navigate('/')
+        },
+        {
+            key: '2',
+            icon: <UserOutlined />,
+            label: 'Search & Assign',
+            onClick: () =>  navigate('/search-and-assign')
+        },
+        {
+            key: '3',
+            icon: <UserOutlined />,
+            label: 'nav 3',
+            children: [
+                {
+                    key: "1",
+                    label: `option1`
+                }
+            ]
+        },
+    ]
 
     const toggle = () => {
         setCollapsed(!collapsed)
@@ -27,31 +49,7 @@ const MainLayout = () => {
                     theme="dark"
                     mode="inline"
                     defaultSelectedKeys={['1']}
-                    items={[
-                    {
-                        key: '1',
-                        icon: <UserOutlined />,
-                        label: 'nav 1',
-                        onClick: () =>  navigate('/')
-                    },
-                    {
-                        key: '2',
-                        icon: <VideoCameraOutlined />,
-                        label: 'nav 2',
-                        onClick: () =>  navigate('/test')
-                    },
-                    {
-                        key: '3',
-                        icon: <UploadOutlined />,
-                        label: 'nav 3',
-                        children: [
-                            {
-                                key: "1",
-                                label: `option1`
-                            }
-                        ]
-                    },
-                    ]}
+                    items={sideMenu}
                 />
             </Sider>
             <Layout className="admin-layout">
