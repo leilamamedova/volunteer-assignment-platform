@@ -3,7 +3,9 @@ import './SearchAndAssign.scss';
 
 const SearchAndAssign =  () => {
     return(
-        <p>Search and Assign</p>
+        <>
+        
+        </>
     )
 };
 
