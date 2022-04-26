@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Layout, Menu, Row, Col } from 'antd';
-import { UserOutlined, MenuUnfoldOutlined, MenuFoldOutlined} from '@ant-design/icons';
+import { UserOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import Account from '../../components/Account/Account';
 import './AdminLayout.scss';
 

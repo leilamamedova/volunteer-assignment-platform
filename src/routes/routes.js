@@ -5,7 +5,7 @@ import AdminLayout from '../layouts/AdminLayout/AdminLayout';
 import AuthLayout from "../layouts/AuthLayout/AuthLayout.js";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Login from "../pages/Login/Login";
-import SearchAndAssign from "../pages/Test/SearchAndAssign";
+import SearchAndAssign from "../pages/SearchAndAssign/SearchAndAssign";
 
 const AppRoutes = () => {
     return (
@@ -25,4 +25,4 @@ const AppRoutes = () => {
     )
 }
 
-export default AppRoutes;
+export default AppRoutes;  
