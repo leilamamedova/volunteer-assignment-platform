@@ -1,12 +1,8 @@
-import React from 'react';
-import './SearchAndAssign.scss';
+import React from "react";
+import "./SearchAndAssign.scss";
 
-const SearchAndAssign =  () => {
-    return(
-        <>
-        
-        </>
-    )
+const SearchAndAssign = () => {
+  return <></>;
 };
 
 export default SearchAndAssign;
