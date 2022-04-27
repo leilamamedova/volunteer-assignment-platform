@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Layout, Menu, Row, Col } from 'antd';
-import { UserOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { UserOutlined, MenuUnfoldOutlined, MenuFoldOutlined, DashboardOutlined, SearchOutlined } from '@ant-design/icons';
 import Account from '../../components/Account/Account';
 import './AdminLayout.scss';
 
@@ -11,16 +11,22 @@ const MainLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (performance.getEntriesByType("navigation")) {
+            navigate('/')
+          }
+    }, [])
+
     const sideMenu = [
         {
             key: '1',
-            icon: <UserOutlined />,
+            icon: <DashboardOutlined />,
             label: 'Dashboard',
             onClick: () =>  navigate('/')
         },
         {
             key: '2',
-            icon: <UserOutlined />,
+            icon: <SearchOutlined />,
             label: 'Search & Assign',
             onClick: () =>  navigate('/search-and-assign')
         },
@@ -48,7 +54,7 @@ const MainLayout = () => {
                 <Menu
                     theme="dark"
                     mode="inline"
-                    defaultSelectedKeys={['1']}
+                    defaultSelectedKeys={['1']}                    
                     items={sideMenu}
                 />
             </Sider>

@@ -13,7 +13,7 @@ const AppRoutes = () => {
             <ScrollToTop/>
                 <Routes>     
                     <Route element={<AdminLayout/>}>
-                        <Route path='/' element={<Dashboard/>}/>
+                        <Route path='/' element={<Dashboard/>} exact/>
                         <Route path='/search-and-assign' element={<SearchAndAssign/>}/>
                     </Route>   
 
