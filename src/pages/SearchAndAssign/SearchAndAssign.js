@@ -1,6 +1,8 @@
 import { Space } from "antd";
 import React from "react";
 import FilterWrapper from "../../components/FilterWrapper/FilterWrapper";
+import AssigningTo from '../../components/AssigningTo/AssigningTo';
+import AssignSearchResult from '../../components/AssignSearchResult/AssignSearchResult';
 import "./SearchAndAssign.scss";
 
 const SearchAndAssign = () => {
