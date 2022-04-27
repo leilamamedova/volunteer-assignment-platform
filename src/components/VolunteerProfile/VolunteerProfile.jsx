@@ -3,7 +3,11 @@ import "./VolunteerProfile.scss";
 
 function VolunteerProfile() {
   return (
-    <Space direction="vertical" size="large" className="volunteer--card">
+    <Space
+      direction="vertical"
+      size="large"
+      className="overflow-y--auto card volunteer--card"
+    >
       <Space size="middle">
         <span className="fs-xl">Role Match: </span>
         <span className="perfect fs-xl bold">98%</span>

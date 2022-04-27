@@ -59,7 +59,7 @@ function FilterWrapper() {
 
   return (
     <>
-      <div className={"card flexv "}>
+      <div className={"card flexv overflow-y--auto"}>
         <form onSubmit={handleSubmit} style={{ width: "100%" }}>
           <Space className="sticky" size="middle">
             <Button type="primary" onClick={handleNewField}>

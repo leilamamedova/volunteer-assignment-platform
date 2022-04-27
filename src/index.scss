@@ -1,0 +1,65 @@
+//-----------------------------
+// VARIALBES -- Start
+$retro-green: #06d6a0;
+$retro-orange: #f3722c;
+$retro-red: #ef233c;
+//VARIABLES -- End
+//-----------------------------
+//******************************************************
+
+// Utility Selector -- Start
+//Colors -- Start
+
+.perfect {
+  color: $retro-green;
+}
+.average {
+  color: $retro-orange;
+}
+.poor {
+  color: $retro-red;
+}
+
+//Colors -- End
+//-----------------------------
+//Font Size Management -- Start
+.fs-2xl {
+  font-size: 2rem;
+}
+
+.fs-xl {
+  font-size: 1.5rem;
+}
+
+.fs-lg {
+  font-size: 1.2rem;
+}
+
+.bold {
+  font-weight: bold;
+}
+//Font Size Management -- End
+//-----------------------------
+
+//-----------------------------
+//Components -- Start
+.card {
+  padding: 20px 30px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 25px;
+  min-height: 150px;
+  max-height: 550px;
+}
+//Components -- End
+//-----------------------------
+
+//-----------------------------
+
+.overflow-y--auto {
+  overflow-y: auto;
+}
+
+//-----------------------------
+
+// Utility Selector -- End
