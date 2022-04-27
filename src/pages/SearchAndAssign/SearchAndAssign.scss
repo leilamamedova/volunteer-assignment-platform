@@ -1,0 +1,14 @@
+.search-and-assign {
+    & > .ant-space {
+        gap: 65px !important;
+    }
+    .search-and-assign-filters{
+        gap: 30px !important;
+    }
+    .card {
+        padding: 20px 30px;
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 25px;
+      }      
+}
