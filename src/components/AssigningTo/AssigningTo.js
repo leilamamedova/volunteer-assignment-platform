@@ -11,7 +11,7 @@ function handleChange(value) {
 const AssigningTo = () => {
     return (
         <div>
-            <Space direction='horizontal' className='assignin-to-component'>
+            <Space direction='horizontal' className='assignin-to-component card'>
                 <Space direction='vertical'>
                     <Select defaultValue="default" onChange={handleChange}>
                         <Option value="default">FA</Option>

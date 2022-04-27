@@ -1,5 +1,5 @@
 .admin-layout {
-    height: 100vh;
+    height: max-content;
     .admin-layout-background {
         background: #fff;
         padding: 0;
@@ -10,7 +10,9 @@
         padding-right: 30px;
     }
 }
-
+.ant-layout-sider{
+    height: 100vh;
+}
 .trigger {
     padding: 0 24px;
     font-size: 18px;

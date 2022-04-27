@@ -1,18 +1,8 @@
 .flexv {
   display: flex;
-  flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
   min-width: 450px;
   max-width: 550px;
   gap: 15px;
-}
-
-.card {
-  padding: 20px 30px;
-  background: #fff;
-  border-radius: 15px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  max-height: 600px;
-  overflow: scroll;
 }

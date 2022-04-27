@@ -1,6 +1,8 @@
 .assignin-to-component{
+    min-width: 100%;
+    gap: 20px !important;
     .ant-select {
-        width: 200px;
+        width: 375px;
     }
     .ant-card {
         height: 115px;
