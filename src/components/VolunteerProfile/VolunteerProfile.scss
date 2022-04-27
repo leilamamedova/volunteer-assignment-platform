@@ -1,0 +1,40 @@
+.flex {
+  display: flex;
+  gap: 15px;
+}
+
+.perfect {
+  color: rgb(20, 199, 20);
+}
+.average {
+  color: rgb(202, 134, 6);
+}
+.poor {
+  color: rgb(200, 11, 11);
+}
+
+.fs-2xl {
+  font-size: 2rem;
+}
+
+.fs-xl {
+  font-size: 1.5rem;
+}
+
+.fs-lg {
+  font-size: 1.2rem;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.volunteer--card {
+  min-width: 400px;
+  max-height: 600px;
+  overflow-y: scroll;
+  padding: 20px 30px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
