@@ -55,7 +55,11 @@ const DUMMY_COMPARISON = [
 function FilterField(props) {
   return (
     <div className="flex">
-      <Select className="selectWidth" defaultValue="Choose a field">
+      <Select
+        className="selectWidth"
+        defaultValue={props.field}
+        onSelect={(e) => props.handleSelect(e, props.id, "field")}
+      >
         <Option disabled>Default</Option>
         {DUMMY_OPTIONS.map((el) => (
           <Option key={el.id} value={el.value}>
@@ -63,7 +67,11 @@ function FilterField(props) {
           </Option>
         ))}
       </Select>
-      <Select className="selectWidthComparison" defaultValue="Filter">
+      <Select
+        className="selectWidthComparison"
+        defaultValue={props.comparison}
+        onSelect={(e) => props.handleSelect(e, props.id, "comparison")}
+      >
         <Option disabled>Default</Option>
         {DUMMY_COMPARISON.map((el) => (
           <Option key={el.id} value={el.value}>
@@ -71,7 +79,13 @@ function FilterField(props) {
           </Option>
         ))}
       </Select>
-      <Input className="inputWidth" placeholder="value" />
+      <Input
+        className="inputWidth"
+        placeholder="value"
+        value={props.value}
+        name="value"
+        onChange={(e) => props.handleChange(e, props.id)}
+      />
       <Button
         type="primary"
         danger
