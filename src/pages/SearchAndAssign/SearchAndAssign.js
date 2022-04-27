@@ -4,12 +4,7 @@ import VolunteerProfile from "../../components/VolunteerProfile/VolunteerProfile
 import "./SearchAndAssign.scss";
 
 const SearchAndAssign = () => {
-  return (
-    <>
-      <FilterWrapper />
-      <VolunteerProfile />
-    </>
-  );
+  return <></>;
 };
 
 export default SearchAndAssign;
