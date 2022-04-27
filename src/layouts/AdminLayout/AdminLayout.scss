@@ -1,30 +1,30 @@
 .admin-layout {
-    height: max-content;
-    .admin-layout-background {
-        background: #fff;
-        padding: 0;
-        border-radius: 8px;
-    }
-    .header-account{
-        text-align: right;
-        padding-right: 30px;
-    }
+  min-height: 100vh;
+  .admin-layout-background {
+    background: #fff;
+    padding: 0;
+    border-radius: 8px;
+  }
+  .header-account {
+    text-align: right;
+    padding-right: 30px;
+  }
 }
-.ant-layout-sider{
-    height: 100vh;
+.ant-layout-sider {
+  min-height: 100vh;
 }
 .trigger {
-    padding: 0 24px;
-    font-size: 18px;
-    line-height: 64px;
-    cursor: pointer;
-    transition: color 0.3s;
-    &:hover {
-        color: #1890ff;
-    }
-} 
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+  &:hover {
+    color: #1890ff;
+  }
+}
 .logo {
-    height: 32px;
-    margin: 16px;
-    background: rgba(255, 255, 255, 0.3);
-} 
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}

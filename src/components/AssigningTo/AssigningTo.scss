@@ -1,11 +1,11 @@
-.assignin-to-component{
-    min-width: 100%;
-    gap: 20px !important;
-    .ant-select {
-        width: 375px;
-    }
-    .ant-card {
-        height: 115px;
-        text-align: center;
-    }
+.assignin-to-component {
+  width: 100%;
+  justify-content: space-between;
+  gap: 20px !important;
+  .ant-select {
+    width: 275px;
+  }
+  .ant-card {
+    text-align: center;
+  }
 }
