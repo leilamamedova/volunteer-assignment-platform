@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Layout, Menu, Row, Col } from 'antd';
-import { UserOutlined, MenuUnfoldOutlined, MenuFoldOutlined, DashboardOutlined, SearchOutlined } from '@ant-design/icons';
+import { ControlOutlined, MenuUnfoldOutlined, MenuFoldOutlined, DashboardOutlined, UserOutlined, FileTextOutlined } from '@ant-design/icons';
 import Account from '../../components/Account/Account';
 import './AdminLayout.scss';
 
@@ -26,21 +26,35 @@ const MainLayout = () => {
         },
         {
             key: '2',
-            icon: <SearchOutlined />,
-            label: 'Search & Assign',
-            onClick: () =>  navigate('/search-and-assign')
+            icon: <ControlOutlined />,
+            label: 'Management',
+            children: [
+                {
+                    key: "a",
+                    label: `Function & Requirements`,
+                    onClick: () =>  navigate('/function-and-requirements')
+                },
+                {
+                    key: "b",
+                    label: `Search & Assign`,
+                    onClick: () =>  navigate('/search-and-assign')
+                },
+                {
+                    key: "c",
+                    label: `Assignment Management`
+                }
+            ]
         },
         {
             key: '3',
             icon: <UserOutlined />,
-            label: 'nav 3',
-            children: [
-                {
-                    key: "3-1",
-                    label: `option1`
-                }
-            ]
+            label: 'Volunteers'
         },
+        {
+            key: '4',
+            icon: <FileTextOutlined />,
+            label: 'Report'
+        }
     ]
 
     const toggle = () => {

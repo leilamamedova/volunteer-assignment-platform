@@ -28,3 +28,10 @@
   margin: 16px;
   background: rgba(255, 255, 255, 0.3);
 }
+.action-icons {
+  button, button:hover {
+    border: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
