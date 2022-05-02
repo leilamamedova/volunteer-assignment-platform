@@ -1,5 +1,4 @@
 .assign-search-result {
-  width: 100%;
   .action-icons {
     .anticon-check-circle {
       svg {
@@ -12,11 +11,6 @@
         color: red;
         font-size: 20px;
       }
-    }
-    button {
-      border: 0;
-      background-color: transparent;
-      box-shadow: none;
     }
   }
   .ant-table-thead > tr > th {
