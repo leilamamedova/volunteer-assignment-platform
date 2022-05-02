@@ -6,6 +6,7 @@ import AuthLayout from "../layouts/AuthLayout/AuthLayout.js";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Login from "../pages/Login/Login";
 import SearchAndAssign from "../pages/SearchAndAssign/SearchAndAssign";
+import FunctionAndRequirements from "../pages/FunctionAndRequirements/FunctionAndRequirements";
 
 const AppRoutes = () => {
     return (
@@ -15,6 +16,7 @@ const AppRoutes = () => {
                     <Route element={<AdminLayout/>}>
                         <Route path='/' element={<Dashboard/>} exact/>
                         <Route path='/search-and-assign' element={<SearchAndAssign/>}/>
+                        <Route path='/function-and-requirements' element={<FunctionAndRequirements/>}/>
                     </Route>   
 
                     <Route element={<AuthLayout/>}>
