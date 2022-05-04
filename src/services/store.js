@@ -11,6 +11,12 @@ const useStore = create((set) => ({
       (state) =>
         (state.filterRequirements = [...state.filterRequirements, ...req])
     ),
+  removeFilterRequirement: (reqID) =>
+    set((state) => {
+      state.filterRequirements = state.filterRequirements.filter(
+        (el) => el.id == reqID
+      );
+    }),
 }));
 
 export default useStore;
