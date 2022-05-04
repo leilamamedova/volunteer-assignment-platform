@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { Button, Space, Table, Tag, InputNumber } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import FunctionAndRequirementsModal from "./components/FunctionAndRequirementsModal/FunctionAndRequirementsModal";
+import useStore from "../../services/store";
 import "./FunctionAndRequirementsTable.scss";
 
 const FunctionAndRequirementsTable = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
+  const functionalRequirements = useStore(({functionalRequirements})=>functionalRequirements);
 
   const handleHeadcount = (value) => {
     console.log(value);
@@ -13,6 +16,7 @@ const FunctionAndRequirementsTable = () => {
 
   const handleModal = (key) => {
     console.log(key);
+    setSelectedRow(key);
     setIsModalVisible(true)
   }
 
@@ -36,15 +40,21 @@ const FunctionAndRequirementsTable = () => {
     {
       title: "Functional Requirements",
       dataIndex: "functional_requirements",
-      render: tags => (
+      width: 300,
+      render: (tags, record) => (
         <>
-          {tags.map(tag => {
-            return (
-              <Tag key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
+          {
+            tags.map((tag) => (
+              tag.id === record.key ?   
+                tag.requirement.map((item, index) => (
+                  <Tag key={index}>
+                    {item.toUpperCase()}
+                  </Tag>
+                )) 
+              :
+              null
+            ))
+          }
         </>
       ),
     },
@@ -65,7 +75,7 @@ const FunctionAndRequirementsTable = () => {
       venue: "Lorem Ipsum",
       functional_area: 'Lorem Ipsum',
       job_title: "Lorem Ipsum",
-      functional_requirements: ['Lorem', 'Ipsum'],
+      functional_requirements: functionalRequirements,
       headcount: <InputNumber defaultValue={3} onChange={handleHeadcount}/>
     },
     {
@@ -73,7 +83,7 @@ const FunctionAndRequirementsTable = () => {
       venue: "Lorem Ipsum",
       functional_area: 'Lorem Ipsum',
       job_title: "Lorem Ipsum",
-      functional_requirements: ['Lorem', 'Ipsum'],
+      functional_requirements: functionalRequirements,
       headcount: <InputNumber defaultValue={3}/>
     },
     {
@@ -81,7 +91,7 @@ const FunctionAndRequirementsTable = () => {
       venue: "Lorem Ipsum",
       functional_area: 'Lorem Ipsum',
       job_title: "Lorem Ipsum",
-      functional_requirements: ['Lorem', 'Ipsum'],
+      functional_requirements: functionalRequirements,
       headcount: <InputNumber defaultValue={3}/>
     },
   ];
@@ -94,7 +104,7 @@ const FunctionAndRequirementsTable = () => {
           dataSource={data}
         />
       </div>
-      <FunctionAndRequirementsModal isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible} />
+      <FunctionAndRequirementsModal isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible} selectedRow={selectedRow}/>
     </>
   );
 };
