@@ -44,13 +44,11 @@ const FunctionAndRequirementsTable = () => {
       render: (tags, record) => (
         <>
           {
-            tags.map((tag) => (
+            tags.map((tag, index) => (
               tag.id === record.key ?   
-                tag.requirement.map((item, index) => (
-                  <Tag key={index}>
-                    {item.toUpperCase()}
-                  </Tag>
-                )) 
+                <Tag key={index}>
+                  {tag.requirement.toUpperCase()}
+                </Tag>                
               :
               null
             ))

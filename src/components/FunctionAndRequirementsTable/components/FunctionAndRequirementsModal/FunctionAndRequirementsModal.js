@@ -38,7 +38,7 @@ const FunctionAndRequirementsModal = ({isModalVisible, setIsModalVisible, select
     };
 
     const handleSelect = value => {
-        setFunctionalRequirements([...functionalRequirements, {id: selectedRow, requirement: [value]}])     
+        setFunctionalRequirements([...functionalRequirements, {id: selectedRow, requirement: value}])     
     }
     
     const deleteTag = (tag) => {
