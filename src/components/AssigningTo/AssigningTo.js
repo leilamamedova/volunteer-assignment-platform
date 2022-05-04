@@ -1,14 +1,42 @@
 import React from "react";
 import { Space, Select, Card } from "antd";
+import useStore from "../../services/store";
+
 import "./AssigningTo.scss";
 
 const { Option } = Select;
 
-function handleChange(value) {
-  console.log(`selected ${value}`);
-}
-
 const AssigningTo = () => {
+  const filterRequirements = useStore(
+    ({ filterRequirements }) => filterRequirements
+  );
+  const setFilterRequirements = useStore(
+    ({ setFilterRequirements }) => setFilterRequirements
+  );
+
+  function handleChange(value) {
+    console.log("value changed");
+    setFilterRequirements([
+      {
+        id: 4,
+        default: false,
+        field: "name",
+        comparison: "=",
+        value: "Jane",
+        logical: "and",
+      },
+      {
+        id: 5,
+        default: false,
+        field: "age",
+        comparison: ">",
+        value: "6",
+        logical: "and",
+      },
+    ]);
+    console.log(filterRequirements);
+  }
+
   return (
     <div style={{ width: "100%" }}>
       <Space direction="horizontal" className="assignin-to-component card">
