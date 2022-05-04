@@ -6,3 +6,11 @@
 .volunteer--card {
   width: 100%;
 }
+
+.volunteer-profile {
+  .ant-modal-content {
+    border-radius: 15px;
+    padding: 20px !important;
+    background: red;
+  }
+}
