@@ -8,6 +8,7 @@ import Login from "../pages/Login/Login";
 import SearchAndAssign from "../pages/SearchAndAssign/SearchAndAssign";
 import FunctionAndRequirements from "../pages/FunctionAndRequirements/FunctionAndRequirements";
 import AssignmentManagement from "../pages/AssignmentManagement/AssignmentManagement";
+import Users from "../pages/Users/Users";
 
 const AppRoutes = () => {
   return (
@@ -25,6 +26,7 @@ const AppRoutes = () => {
             path="/assignment-management"
             element={<AssignmentManagement />}
           />
+          <Route path="/users" element={<Users />} />
         </Route>
 
         <Route element={<AuthLayout />}>
