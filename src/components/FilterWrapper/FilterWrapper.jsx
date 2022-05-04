@@ -8,6 +8,9 @@ function FilterWrapper() {
   const filterRequirements = useStore(
     ({ filterRequirements }) => filterRequirements
   );
+  const removeFilterRequirement = useStore(
+    ({ removeFilterRequirement }) => removeFilterRequirement
+  );
 
   // Array to hold ald Filter Fields data.
   const [filterFields, setFilterFields] = useState([
@@ -43,6 +46,12 @@ function FilterWrapper() {
   const removeField = (del_id) => {
     const list = [...filterFields];
     list.splice(del_id, 1);
+
+    //Remove From store if exists
+    filterRequirements.forEach((el) => console.log(el.id));
+    if (filterRequirements.find((el) => el.id == del_id) !== "undefined") {
+      removeFilterRequirement(del_id);
+    }
     setFilterFields(list);
   };
 

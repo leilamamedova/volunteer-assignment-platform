@@ -34,7 +34,6 @@ const AssigningTo = () => {
         logical: "and",
       },
     ]);
-    console.log(filterRequirements);
   }
 
   return (
