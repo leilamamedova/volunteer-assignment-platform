@@ -25,7 +25,7 @@ const props = {
     },
 };
 
-const FunctionAndRequirementsModal = ({isModalVisible, setIsModalVisible}) => {
+const FunctionAndRequirementsModal = ({isModalVisible, setIsModalVisible, selectedRow}) => {
     const functionalRequirements = useStore(({functionalRequirements})=>functionalRequirements);
     const setFunctionalRequirements = useStore(({setFunctionalRequirements})=>setFunctionalRequirements);
 
@@ -38,15 +38,15 @@ const FunctionAndRequirementsModal = ({isModalVisible, setIsModalVisible}) => {
     };
 
     const handleSelect = value => {
-        if(!functionalRequirements.includes(value)){
-            setFunctionalRequirements([...functionalRequirements, value])
-        }
+        setFunctionalRequirements([...functionalRequirements, {id: selectedRow, requirement: [value]}])     
+    }
+    
+    const deleteTag = (tag) => {
+        const filterTags = functionalRequirements.filter(item => item.requirement !== tag)
+        setFunctionalRequirements(filterTags);
     }
 
-    const deleteTag = (tag) => {
-        const filterTags = functionalRequirements.filter((req) => req !== tag)
-        setFunctionalRequirements(filterTags)
-    }
+    console.log('functionalRequirements', functionalRequirements);
 
     return (
         <>
@@ -75,9 +75,14 @@ const FunctionAndRequirementsModal = ({isModalVisible, setIsModalVisible}) => {
                             <Option value="ipsum">Ipsum</Option>
                         </Select>                        
                     </Col>
-                    {functionalRequirements && functionalRequirements.map((tag, index) => (
-                        <Tag key={index} closable onClose={() => deleteTag(tag)}>{tag}</Tag>
-                    ))}
+                    {
+                        functionalRequirements.map((tag, index)=> (
+                            tag.id === selectedRow ?   
+                            <Tag key={index} closable onClose={() => deleteTag(tag.requirement)}>{tag.requirement}</Tag>
+                            :
+                            null
+                        ))
+                    }
                 </Row>
             </Modal>
         </>
