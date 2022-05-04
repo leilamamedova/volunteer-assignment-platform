@@ -51,6 +51,11 @@ const MainLayout = () => {
           label: `Assignment Management`,
           onClick: () => navigate("/assignment-management"),
         },
+        {
+          key: "e",
+          label: `Users`,
+          onClick: () => navigate("/users"),
+        },
       ],
     },
     {
