@@ -11,13 +11,6 @@ const AssignSearchResult = () => {
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
   const columns = [
     {
       title: "Name",
@@ -132,8 +125,7 @@ const AssignSearchResult = () => {
       </div>
       <VolunteerProfile
         isModalVisible={isModalVisible}
-        handleOk={handleOk}
-        handleCancel={handleCancel}
+        setIsVolunteerModalVisible={setIsModalVisible}
       />
     </>
   );
