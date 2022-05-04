@@ -1,5 +1,4 @@
-import { Space, Row, Col } from "antd";
-import React from "react";
+import { Row, Col } from "antd";
 import FilterWrapper from "../../components/FilterWrapper/FilterWrapper";
 import AssigningTo from "../../components/AssigningTo/AssigningTo";
 import AssignSearchResult from "../../components/AssignSearchResult/AssignSearchResult";
@@ -15,10 +14,10 @@ const SearchAndAssign = () => {
         </Col>
 
         <Col xs={24} md={12} lg={13}>
-            <AssigningTo />
+          <AssigningTo />
         </Col>
       </Row>
-      
+
       <AssignSearchResult />
       <VolunteerProfile />
     </div>
