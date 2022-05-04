@@ -1,15 +1,18 @@
-import { Space, Modal, Button } from "antd";
+import { Space, Modal } from "antd";
 
 import "./VolunteerProfile.scss";
 
 function VolunteerProfile(props) {
+  const handleOk = () => props.setIsVolunteerModalVisible(false);
+  const handleCancel = () => props.setIsVolunteerModalVisible(false);
+
   return (
     <Modal
       className="volunteer-profile--modal"
       title="Details"
       visible={props.isModalVisible}
-      onOk={props.handleOk}
-      onCancel={props.handleCancel}
+      onOk={handleOk}
+      onCancel={handleCancel}
       width={700}
     >
       <Space
