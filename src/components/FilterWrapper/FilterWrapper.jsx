@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Space, Radio } from "antd";
+import useStore from "../../services/store";
 import "./FilterWrapper.scss";
 import FilterField from "../FilterField/FilterField";
 
 function FilterWrapper() {
+  const filterRequirements = useStore(
+    ({ filterRequirements }) => filterRequirements
+  );
+
   // Array to hold ald Filter Fields data.
   const [filterFields, setFilterFields] = useState([
     {
@@ -14,7 +19,11 @@ function FilterWrapper() {
       value: "",
       logical: "and",
     },
+    ...filterRequirements,
   ]);
+  useEffect(() => {
+    setFilterFields((prev) => [...prev, ...filterRequirements]);
+  }, [filterRequirements]);
 
   // Creating a new field
   const handleNewField = () => {
