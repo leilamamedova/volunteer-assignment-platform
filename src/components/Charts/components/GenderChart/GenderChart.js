@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Card } from 'antd';
-import './GenderChart.scss';
-import {PieChart} from "./components/Charts";
+import {PieChart} from "../../Charts";
 
 const UserData = [
     {
