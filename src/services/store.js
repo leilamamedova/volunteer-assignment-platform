@@ -17,7 +17,16 @@ const useStore = create((set) => ({
         (el) => el.id == reqID
       );
     }),
-    filterFields: [],
+    filterFields: [
+        {
+          id: 1,
+          default: true,
+          field: "default",
+          comparison: "default",
+          value: "",
+          logical: "and",
+        },
+      ],
     setFilterFields:(filter) => set((state) => ({ filterFields: filter }))
 }));
 

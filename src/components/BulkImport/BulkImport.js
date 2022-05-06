@@ -22,13 +22,13 @@ const props = {
     },
 };
 
-const BulkImport = () => {
+const BulkImport = ({title}) => {
     return (
-        <Row className='import-requirements' justify='end'>            
-            <Upload {...props}  maxCount={1}>
-                <Button icon={<DownloadOutlined />}>Click to Import</Button>
+        <div className='bulk-import'>            
+            <Upload {...props}  maxCount={1} showUploadList={false}>
+                <Button icon={<DownloadOutlined />}>Import {title}</Button>
             </Upload>
-        </Row>
+        </div>
     );
 };
 
