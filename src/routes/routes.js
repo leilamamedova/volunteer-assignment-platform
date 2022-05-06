@@ -5,6 +5,7 @@ import AdminLayout from "../layouts/AdminLayout/AdminLayout";
 import AuthLayout from "../layouts/AuthLayout/AuthLayout.js";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Login from "../pages/Login/Login";
+import ChangePassword from "../pages/ChangePassword/ChangePassword";
 import SearchAndAssign from "../pages/SearchAndAssign/SearchAndAssign";
 import FunctionAndRequirements from "../pages/FunctionAndRequirements/FunctionAndRequirements";
 import AssignmentManagement from "../pages/AssignmentManagement/AssignmentManagement";
@@ -31,6 +32,7 @@ const AppRoutes = () => {
 
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
+          <Route path="/change-password" element={<ChangePassword />} />
         </Route>
       </Routes>
     </Router>
