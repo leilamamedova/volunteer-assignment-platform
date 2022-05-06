@@ -29,7 +29,7 @@ const data = {
 
 const NationalityChart = () => {
     return (
-        <div>
+        <div className='card'>
             <VerticalBarChart data={data} options={options}/>            
         </div>
     );
