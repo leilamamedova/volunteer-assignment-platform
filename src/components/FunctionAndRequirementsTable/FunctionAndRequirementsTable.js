@@ -43,7 +43,7 @@ const FunctionAndRequirementsTable = () => {
       width: 300,
       render: (tags, record) => (
         <>
-          {
+          {/* {
             tags.map((tag, index) => (
               tag.id === record.key ?   
                 <Tag key={index}>
@@ -52,7 +52,7 @@ const FunctionAndRequirementsTable = () => {
               :
               null
             ))
-          }
+          } */}
         </>
       ),
     },
