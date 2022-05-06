@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Card } from 'antd';
 import {PieChart} from "../../Charts";
+import './GenderChart.scss';
 
 const UserData = [
     {
@@ -33,7 +33,7 @@ const GenderChart = () => {
       });
 
     return (
-        <div style={{width: 200}} >
+        <div className='gender-chart card'>
             <PieChart chartData={userData} />
         </div>        
     );
