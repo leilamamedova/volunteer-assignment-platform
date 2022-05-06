@@ -17,6 +17,8 @@ const useStore = create((set) => ({
         (el) => el.id == reqID
       );
     }),
+    filterFields: [],
+    setFilterFields:(filter) => set((state) => ({ filterFields: filter }))
 }));
 
 export default useStore;
