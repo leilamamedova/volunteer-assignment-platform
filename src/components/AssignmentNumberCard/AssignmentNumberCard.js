@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card, Space } from 'antd';
-import AnalysisImg from '../../../../assets/img/analysis.png';
-import './AssignmentNumberChart.scss';
+import AnalysisImg from '../../assets/img/analysis.png';
+import './AssignmentNumberCard.scss';
 
-const AssignmentNumberChart = () => {
+const AssignmentNumberCard = () => {
     return (
         <Card className='assignment-number-card'>
             <Space direction='horizontal'>
@@ -17,4 +17,4 @@ const AssignmentNumberChart = () => {
     );
 };
 
-export default AssignmentNumberChart;
+export default AssignmentNumberCard;

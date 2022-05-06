@@ -6,7 +6,6 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   DashboardOutlined,
-  UserOutlined,
   FileTextOutlined,
 } from "@ant-design/icons";
 import Account from "../../components/Account/Account";
@@ -60,11 +59,6 @@ const MainLayout = () => {
     },
     {
       key: "3",
-      icon: <UserOutlined />,
-      label: "Volunteers",
-    },
-    {
-      key: "4",
       icon: <FileTextOutlined />,
       label: "Report",
     },
