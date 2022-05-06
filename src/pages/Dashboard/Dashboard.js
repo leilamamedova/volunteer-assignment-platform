@@ -1,16 +1,40 @@
 import React from 'react';
 import GenderChart from '../../components/Charts/components/GenderChart/GenderChart';
 import NationalityChart from '../../components/Charts/components/NationalityChart/NationalityChart';
-import AssignmentNumberChart from '../../components/Charts/components/AssignmentNumberChart/AssignmentNumberChart';
+import AssignmentNumberCard from '../../components/AssignmentNumberCard/AssignmentNumberCard';
+import FaRoleVenueStatistics from '../../components/FaRoleVenueStatistics/FaRoleVenueStatistics';
+import { Col, Row } from 'antd';
 import './Dashboard.scss';
 
 const Dashboard =  () => {
     return (
-        <>
-            <GenderChart/>       
-            <NationalityChart/> 
-            <AssignmentNumberChart/>
-        </>
+        <div className='dashboard'>
+            <Row justify="center" gutter={30}>
+                <Col span={8}>
+                    <AssignmentNumberCard/>            
+                </Col>
+
+                <Col span={8}>
+                    <AssignmentNumberCard/>            
+                </Col>
+
+                <Col span={8}>
+                    <AssignmentNumberCard/>            
+                </Col>
+            </Row>
+
+            <Row justify="center" align='middle' gutter={30}>
+                <Col span={16}>
+                    <NationalityChart/>            
+                </Col>
+
+                <Col span={8}>
+                    <GenderChart/>           
+                </Col>
+            </Row>
+
+            <FaRoleVenueStatistics/>
+        </div>
     )
 };
 
