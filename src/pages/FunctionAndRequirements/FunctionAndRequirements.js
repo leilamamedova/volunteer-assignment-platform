@@ -1,3 +1,4 @@
+import { Row, Space } from 'antd';
 import React from 'react';
 import BulkImport from '../../components/BulkImport/BulkImport';
 import FunctionAndRequirementsTable from '../../components/FunctionAndRequirementsTable/FunctionAndRequirementsTable';
@@ -5,7 +6,12 @@ import FunctionAndRequirementsTable from '../../components/FunctionAndRequiremen
 const FunctionAndRequirements = () => {
     return (
         <div>
-            <BulkImport/>
+            <Row justify='end'>
+                <Space direction='horizontal'>
+                    <BulkImport title={'Roles'}/>
+                    <BulkImport title={'Requirements'}/>
+                </Space>
+            </Row>
             <FunctionAndRequirementsTable/>            
         </div>
     );
