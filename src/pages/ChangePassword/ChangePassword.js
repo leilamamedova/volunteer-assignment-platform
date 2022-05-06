@@ -2,13 +2,13 @@ import React from "react";
 import {Typography, Form, Input, Button} from 'antd';
 import {Link } from "react-router-dom";
 
-const {Title, Text} = Typography;
+const {Title} = Typography;
 
-const Login = () => {
+const ChangePassword = () => {
 
     return (
         <>
-        <Title level={2}>Login</Title>
+        <Title level={2}>Change Password</Title>
         
         <Form
       name="apply"
@@ -19,48 +19,61 @@ const Login = () => {
     >
 
         <Form.Item
-            name="email"
-            rules={[
-            {
-                type: 'email',
-                message: 'The input is not valid!',
-            },
-            {
-                required: true,
-                message: 'Please input your login!',
-            },
-            ]}
-        >
-            <Input placeholder="Login"/>
-        </Form.Item>
-
-        <Form.Item
-            name="password"
+            name="old_password"
             rules={[
             {
                 required: true,
-                message: 'Please input your password!',
+                message: 'Please input your previous password!',
             },
             ]}
         >
         <Input
           type="password"
-          placeholder="Password"
+          placeholder="Old password"
+        />
+        </Form.Item>
+
+        <Form.Item
+            name="new_password"
+            rules={[
+            {
+                required: true,
+                message: 'Please input your new password!',
+            },
+            ]}
+        >
+        <Input
+          type="password"
+          placeholder="New password"
+        />
+        </Form.Item>
+
+        <Form.Item
+            name="confirm_password"
+            rules={[
+            {
+                required: true,
+                message: 'Please confirm your password!',
+            },
+            ]}
+        >
+        <Input
+          type="password"
+          placeholder="Confirm password"
         />
         </Form.Item>
 
         <Form.Item >
-            <Link to='/'>
+            <Link to='/login'>
                 <Button className="blue-button" htmlType="submit">
-                    Login
+                    Change
                 </Button>            
             </Link>
             
         </Form.Item>
     </Form>
-    <Link to='/change-password'><Text>Change password</Text></Link>
     </>
     )
 }
  
-export default Login;
+export default ChangePassword;
