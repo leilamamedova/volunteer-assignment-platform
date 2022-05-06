@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button, Space, Radio } from "antd";
 import useStore from "../../services/store";
-import "./FilterWrapper.scss";
 import FilterField from "../FilterField/FilterField";
+import "./FilterWrapper.scss";
 
 function FilterWrapper() {
   const filterRequirements = useStore(
@@ -11,27 +11,35 @@ function FilterWrapper() {
   const removeFilterRequirement = useStore(
     ({ removeFilterRequirement }) => removeFilterRequirement
   );
+  const filterFields = useStore(
+    ({ filterFields }) => filterFields
+  );
+  const setFilterFields = useStore(
+    ({ setFilterFields }) => setFilterFields
+  );
 
-  // Array to hold ald Filter Fields data.
-  const [filterFields, setFilterFields] = useState([
-    {
-      id: 1,
-      default: true,
-      field: "default",
-      comparison: "default",
-      value: "",
-      logical: "and",
-    },
-    ...filterRequirements,
-  ]);
   useEffect(() => {
-    setFilterFields((prev) => [...prev, ...filterRequirements]);
+    setFilterFields([
+      {
+        id: 1,
+        default: true,
+        field: "default",
+        comparison: "default",
+        value: "",
+        logical: "and",
+      },
+      ...filterRequirements,
+    ])
+  },[])
+
+  useEffect(() => {
+    setFilterFields([...filterFields, ...filterRequirements]);
   }, [filterRequirements]);
 
   // Creating a new field
   const handleNewField = () => {
-    setFilterFields((prev) => [
-      ...prev,
+    setFilterFields([
+      ...filterFields,
       {
         id: filterFields[filterFields.length - 1] + Math.random() * 100,
         default: false,
@@ -42,6 +50,7 @@ function FilterWrapper() {
       },
     ]);
   };
+
   // Removing a filter field
   const removeField = (del_id) => {
     const list = [...filterFields];
