@@ -34,8 +34,8 @@ const FunctionAndRequirementsTable = () => {
       dataIndex: "functional_area",
     },
     {
-      title: "Job Title",
-      dataIndex: "job_title",
+      title: "Role",
+      dataIndex: "role",
     },
     {
       title: "Headcount",
@@ -47,16 +47,9 @@ const FunctionAndRequirementsTable = () => {
       width: 300,
       render: (tags, record) => (
         <>
-          {/* {
-            tags.map((tag, index) => (
-              tag.id === record.key ?   
-                <Tag key={index}>
-                  {tag.requirement.toUpperCase()}
-                </Tag>                
-              :
-              null
-            ))
-          } */}
+         <Tag>
+            Test
+          </Tag>  
         </>
       ),
     },
@@ -77,7 +70,7 @@ const FunctionAndRequirementsTable = () => {
       entity: 'Q22',
       venue: "Lorem Ipsum",
       functional_area: 'Lorem Ipsum',
-      job_title: "Lorem Ipsum",
+      role: "Lorem Ipsum",
       functional_requirements: functionalRequirements,
       headcount: <InputNumber defaultValue={3} onChange={handleHeadcount}/>
     },
@@ -86,7 +79,7 @@ const FunctionAndRequirementsTable = () => {
       entity: 'Q22',
       venue: "Lorem Ipsum",
       functional_area: 'Lorem Ipsum',
-      job_title: "Lorem Ipsum",
+      role: "Lorem Ipsum",
       functional_requirements: functionalRequirements,
       headcount: <InputNumber defaultValue={3}/>
     },
@@ -95,7 +88,7 @@ const FunctionAndRequirementsTable = () => {
       entity: 'Q22',
       venue: "Lorem Ipsum",
       functional_area: 'Lorem Ipsum',
-      job_title: "Lorem Ipsum",
+      role: "Lorem Ipsum",
       functional_requirements: functionalRequirements,
       headcount: <InputNumber defaultValue={3}/>
     },
