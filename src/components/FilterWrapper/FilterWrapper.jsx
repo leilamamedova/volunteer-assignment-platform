@@ -1,47 +1,40 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Button, Space, Radio } from "antd";
 import useStore from "../../services/store";
 import FilterField from "../FilterField/FilterField";
 import "./FilterWrapper.scss";
 
-function FilterWrapper() {
-  const filterRequirements = useStore(
-    ({ filterRequirements }) => filterRequirements
-  );
+function FilterWrapper(props) {
   const removeFilterRequirement = useStore(
     ({ removeFilterRequirement }) => removeFilterRequirement
   );
-  const filterFields = useStore(
-    ({ filterFields }) => filterFields
+  const filterRequirements = useStore(
+    ({ filterRequirements }) => filterRequirements
   );
-  const setFilterFields = useStore(
-    ({ setFilterFields }) => setFilterFields
-  );
+  const [filters, setFilters] = useState([
+    {
+      id: 1,
+      default: true,
+      field: "default",
+      comparison: "default",
+      value: "",
+      logical: "and",
+    },
+  ]);
 
+  //If import is required
   useEffect(() => {
-    setFilterFields([
-      {
-        id: 1,
-        default: true,
-        field: "default",
-        comparison: "default",
-        value: "",
-        logical: "and",
-      },
-      ...filterRequirements,
-    ])
-  },[])
-
-  useEffect(() => {
-    setFilterFields([...filterFields, ...filterRequirements]);
+    if (props.importRequired) {
+      setFilters((prev) => [...prev, ...filterRequirements]);
+    }
   }, [filterRequirements]);
 
   // Creating a new field
   const handleNewField = () => {
-    setFilterFields([
-      ...filterFields,
+    setFilters([
+      ...filters,
       {
-        id: filterFields[filterFields.length - 1] + Math.random() * 100,
+        id: filters[filters.length - 1] + Math.random() * 100,
         default: false,
         field: "default",
         comparison: "default",
@@ -53,15 +46,15 @@ function FilterWrapper() {
 
   // Removing a filter field
   const removeField = (del_id) => {
-    const list = [...filterFields];
+    console.log(del_id);
+    const list = [...filters];
     list.splice(del_id, 1);
 
     //Remove From store if exists
-    filterRequirements.forEach((el) => console.log(el.id));
-    if (filterRequirements.find((el) => el.id == del_id) !== "undefined") {
+    if (filters.find((el) => el.id === del_id) !== "undefined") {
       removeFilterRequirement(del_id);
     }
-    setFilterFields(list);
+    setFilters(list);
   };
 
   // Submit Logic...
@@ -73,15 +66,15 @@ function FilterWrapper() {
   // Handling Change events
   const handleChange = (e, index) => {
     const { name, value } = e.target;
-    const list = [...filterFields];
+    const list = [...filters];
     list[index][name] = value;
-    setFilterFields(list);
+    setFilters(list);
   };
   // Handling Select events
   const handleSelect = (e, index, name) => {
-    const list = [...filterFields];
+    const list = [...filters];
     list[index][name] = e;
-    setFilterFields(list);
+    setFilters(list);
   };
 
   return (
@@ -102,14 +95,14 @@ function FilterWrapper() {
               See results
             </Button>
           </Space>
-          {filterFields.map((el, index) => (
+          {filters.map((el, index) => (
             <Space
               direction="vertical"
               size="middle"
               key={el.id + "filter"}
               style={{ margin: "15px 0" }}
             >
-              {index != 0 ? (
+              {index !== 0 ? (
                 <Radio.Group
                   name="logical"
                   onChange={(e) => handleChange(e, index)}
