@@ -6,7 +6,7 @@ import "./AssignmentManagement.scss";
 function AssignmentManagement() {
   return (
     <div>
-      <FilterWrapper />
+      <FilterWrapper importRequired={false} />
       <AssignmentTable />
     </div>
   );
