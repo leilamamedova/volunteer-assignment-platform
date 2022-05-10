@@ -1,10 +1,20 @@
-import { Space, Modal } from "antd";
+import { Space, Modal, Row, Button } from "antd";
+import { useState } from "react";
+import MatchingModal from "../MatchingModal/MatchingModal";
 
 import "./VolunteerProfile.scss";
 
 function VolunteerProfile(props) {
-  const handleOk = () => props.setIsVolunteerModalVisible(false);
-  const handleCancel = () => props.setIsVolunteerModalVisible(false);
+  const [showMatching, setShowMatching] = useState(false)
+
+  const handleOk = () => {
+    props.setIsVolunteerModalVisible(false)
+    setShowMatching(false)
+  };
+  const handleCancel = () => {
+    props.setIsVolunteerModalVisible(false)
+    setShowMatching(false)
+  };
 
   return (
     <Modal
@@ -14,7 +24,15 @@ function VolunteerProfile(props) {
       onOk={handleOk}
       onCancel={handleCancel}
       width={700}
+      centered
     >
+    {showMatching ?
+      <MatchingModal/>
+      :
+      <>
+      <Row justify='end'>
+        <Button onClick={() => setShowMatching(true)}>Matching</Button>
+      </Row>
       <Space
         direction="vertical"
         size="large"
@@ -52,6 +70,8 @@ function VolunteerProfile(props) {
           </div>
         </Space>
       </Space>
+      </>    
+    }      
     </Modal>
   );
 }

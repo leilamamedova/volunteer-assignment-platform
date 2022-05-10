@@ -1,0 +1,26 @@
+.matching-modal{
+    .matching-modal-requirements:first-child {
+        margin-bottom: 40px;
+    }
+    .ant-table-wrapper{
+        width: 200px;
+        margin-top: 10px;
+    }
+    .ant-select{
+        width: 200px;
+    }
+    .matching-modal-coincidences{
+        overflow-y: auto;
+        height: 350px;
+        .match{
+            background-color: #F6FFED;
+            padding: 8px;
+            width: fit-content;
+        }
+        .not-match{
+            background-color: #FFF2F0;
+            padding: 8px;
+            width: fit-content;
+        }
+    }
+}
