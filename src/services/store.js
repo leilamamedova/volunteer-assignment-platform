@@ -7,27 +7,24 @@ const useStore = create((set) => ({
   //Filter Functional Requirements
   filterRequirements: [],
   setFilterRequirements: (req) =>
-    set(
-      (state) =>
-        (state.filterRequirements = [...state.filterRequirements, ...req])
-    ),
+    set((state) => (state.filterRequirements = [...req])),
   removeFilterRequirement: (reqID) =>
     set((state) => {
       state.filterRequirements = state.filterRequirements.filter(
-        (el) => el.id == reqID
+        (el) => el.id === reqID
       );
     }),
-    filterFields: [
-        {
-          id: 1,
-          default: true,
-          field: "default",
-          comparison: "default",
-          value: "",
-          logical: "and",
-        },
-      ],
-    setFilterFields:(filter) => set((state) => ({ filterFields: filter }))
+  filterFields: [
+    {
+      id: 1,
+      default: true,
+      field: "default",
+      comparison: "default",
+      value: "",
+      logical: "and",
+    },
+  ],
+  setFilterFields: (filter) => set((state) => ({ filterFields: filter })),
 }));
 
 export default useStore;

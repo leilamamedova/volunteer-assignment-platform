@@ -7,9 +7,6 @@ import "./AssigningTo.scss";
 const { Option } = Select;
 
 const AssigningTo = () => {
-  const filterRequirements = useStore(
-    ({ filterRequirements }) => filterRequirements
-  );
   const setFilterRequirements = useStore(
     ({ setFilterRequirements }) => setFilterRequirements
   );
@@ -18,7 +15,7 @@ const AssigningTo = () => {
     console.log("value changed");
     setFilterRequirements([
       {
-        id: 4,
+        id: Math.random() * 100,
         default: false,
         field: "name",
         comparison: "=",
@@ -26,7 +23,7 @@ const AssigningTo = () => {
         logical: "and",
       },
       {
-        id: 5,
+        id: Math.random() * 100,
         default: false,
         field: "age",
         comparison: ">",
