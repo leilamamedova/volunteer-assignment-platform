@@ -37,20 +37,32 @@ const AssigningTo = () => {
     <div style={{ width: "100%" }}>
       <Space direction="horizontal" className="assignin-to-component card">
         <Space direction="vertical">
-          <Select defaultValue="default" onChange={handleChange}>
-            <Option value="default">FA</Option>
+          <Select 
+            defaultValue="FA" 
+            showSearch 
+            optionFilterProp="children" 
+            onChange={handleChange}
+          >
             <Option value="1">One</Option>
             <Option value="2">Two</Option>
           </Select>
 
-          <Select defaultValue="default" onChange={handleChange}>
-            <Option value="default">Role</Option>
+          <Select 
+            defaultValue="Role" 
+            showSearch 
+            optionFilterProp="children" 
+            onChange={handleChange}
+          >
             <Option value="1">One</Option>
             <Option value="2">Two</Option>
           </Select>
 
-          <Select defaultValue="default" onChange={handleChange}>
-            <Option value="default">Venue</Option>
+          <Select 
+            defaultValue="Venue" 
+            showSearch 
+            optionFilterProp="children" 
+            onChange={handleChange}
+          >
             <Option value="1">One</Option>
             <Option value="2">Two</Option>
           </Select>

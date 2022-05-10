@@ -52,45 +52,61 @@ const MatchingModal = () => {
 
     return (
         <Row className='matching-modal'>
-            <Col span={12}>
+            <Col span={14}>
                 <div className='matching-modal-requirements'>
                     <h5>Functional Requirements</h5>
-                    <Select defaultValue="default" onChange={handleFunctional}>
-                        <Option value="default">Choose requirement</Option>
+                    <Select 
+                        showSearch 
+                        optionFilterProp="children"
+                        defaultValue="Select requirement" 
+                        onChange={handleFunctional}
+                    >
                         {selectOptions.map((option, index) => (
                             <Option key={index} value={option.value}>{option.data}</Option>
                         ))}
                     </Select>
+                    
                     <Table 
-                    pagination={false} 
-                    showHeader={false} 
-                    dataSource={selectedFunctional} 
-                    columns={columns}  
-                    scroll={{ x: false, y: 120 }}
-                    />
+                        pagination={false} 
+                        showHeader={false} 
+                        dataSource={selectedFunctional} 
+                        columns={columns}  
+                        scroll={{ x: false, y: 120 }}
+                    />                
                 </div>
 
                 <div className='matching-modal-requirements'>
                     <h5>Template Requirements</h5>
-                    <Select defaultValue="default" onChange={handleTemplate}>
-                        <Option value="default">Choose requirement</Option>
+                    <Select 
+                        showSearch 
+                        optionFilterProp="children"
+                        defaultValue="Select requirement" 
+                        onChange={handleTemplate}
+                    >
                         {selectOptions.map((option, index) => (
                             <Option key={index} value={option.value}>{option.data}</Option>
                         ))}
                     </Select>
+                  
                     <Table 
-                    pagination={false} 
-                    showHeader={false} 
-                    dataSource={selectedTemplate} 
-                    columns={columns}  
-                    scroll={{ x: false, y: 120 }}
+                        pagination={false} 
+                        showHeader={false} 
+                        dataSource={selectedTemplate} 
+                        columns={columns}  
+                        scroll={{ x: false, y: 120 }}
                     />
                 </div>
             </Col>
 
-            <Col span={12}>
+            <Col span={10}>
                 <h5>Сoincidences:</h5>
                 <div className='matching-modal-coincidences'>
+                    <p className='match'>Age: 35</p>
+                    <p className='not-match'>Age: 35</p>
+                    <p className='match'>Age: 35</p>
+                    <p className='not-match'>Age: 35</p>
+                    <p className='match'>Age: 35</p>
+                    <p className='not-match'>Age: 35</p>
                     <p className='match'>Age: 35</p>
                     <p className='not-match'>Age: 35</p>
                 </div>               
