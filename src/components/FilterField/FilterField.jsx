@@ -56,6 +56,8 @@ function FilterField(props) {
   return (
     <div className="flex">
       <Select
+        showSearch 
+        optionFilterProp="children"
         className="selectWidth"
         defaultValue={props.field}
         onSelect={(e) => props.handleSelect(e, props.id, "field")}
