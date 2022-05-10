@@ -10,7 +10,7 @@ const SearchAndAssign = () => {
     <div className="search-and-assign">
       <Row gutter={15} wrap={true} justify="space-between">
         <Col xs={24} md={12} lg={11}>
-          <FilterWrapper />
+          <FilterWrapper importRequired={true} />
         </Col>
 
         <Col xs={24} md={12} lg={13}>
