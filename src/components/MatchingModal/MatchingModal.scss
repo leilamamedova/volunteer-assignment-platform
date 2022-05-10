@@ -1,26 +1,22 @@
 .matching-modal{
-    .matching-modal-requirements:first-child {
-        margin-bottom: 40px;
-    }
-    .ant-table-wrapper{
-        width: 200px;
-        margin-top: 10px;
-    }
-    .ant-select{
-        width: 200px;
+    .matching-modal-select{
+        margin-bottom: 20px;
     }
     .matching-modal-coincidences{
-        overflow-y: auto;
-        height: 350px;
         .match{
-            background-color: #F6FFED;
+            color: #3F9E3F;
             padding: 8px;
             width: fit-content;
+            margin-bottom: 1px;
         }
         .not-match{
-            background-color: #FFF2F0;
+            color: #FE0000;
             padding: 8px;
             width: fit-content;
+            margin-bottom: 1px;
         }
+    }
+    .ant-table-cell{
+        padding: 8px;
     }
 }

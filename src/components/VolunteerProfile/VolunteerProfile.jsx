@@ -1,4 +1,4 @@
-import { Space, Modal, Row, Button } from "antd";
+import { Space, Modal, Row, Button, Image } from "antd";
 import { useState } from "react";
 import MatchingModal from "../MatchingModal/MatchingModal";
 
@@ -23,7 +23,6 @@ function VolunteerProfile(props) {
       visible={props.isModalVisible}
       onOk={handleOk}
       onCancel={handleCancel}
-      width={700}
       centered
     >
     {showMatching ?
@@ -36,17 +35,23 @@ function VolunteerProfile(props) {
       <Space
         direction="vertical"
         size="large"
-        className="overflow-y--auto card volunteer--card"
+        className="overflow-y--auto volunteer--card"
       >
         <Space size="middle">
           <span className="fs-xl">Role Match: </span>
           <span className="perfect fs-xl bold">98%</span>
         </Space>
-        <Space direction="vertical" size="small">
-          <div className="fs-lg">
-            <span className="bold">ID</span>: #JKSD23
+        <Space direction="horizontal" size="small">
+          <Image
+            width={200}
+            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+          />
+          <div>
+            <div className="fs-lg">
+              <span className="bold">ID</span>: #JKSD23
+            </div>
+            <i className="fs-lg">Jerome Willhenberg</i>
           </div>
-          <i className="fs-lg">Jerome Willhenberg</i>
         </Space>
         <Space direction="vertical" size="small">
           <div className="fs-lg">
