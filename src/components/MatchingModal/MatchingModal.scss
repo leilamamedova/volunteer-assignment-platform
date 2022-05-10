@@ -1,22 +1,23 @@
 .matching-modal{
     .matching-modal-select{
-        margin-bottom: 20px;
+        margin-bottom: 30px;
     }
     .matching-modal-coincidences{
         .match{
             color: #3F9E3F;
             padding: 8px;
             width: fit-content;
-            margin-bottom: 1px;
+            margin-bottom: 0px;
         }
         .not-match{
             color: #FE0000;
             padding: 8px;
             width: fit-content;
-            margin-bottom: 1px;
+            margin-bottom: 0px;
         }
     }
     .ant-table-cell{
         padding: 8px;
+        border-bottom: none;
     }
 }

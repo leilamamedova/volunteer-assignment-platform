@@ -63,8 +63,9 @@ const MatchingModal = () => {
                     ))}
                 </Select>                
             </div>
-             <Row gutter={24} align='top'>
-                <Col span={12}>
+             <Row align='top'>
+                <Col span={10}>
+                    <h5>Requirements:</h5>
                     <Table 
                         columns={columns} 
                         dataSource={data} 
@@ -73,7 +74,8 @@ const MatchingModal = () => {
                     />
                 </Col>
 
-                <Col span={12}>
+                <Col span={10} offset={4}>
+                    <h5>Сoincidences:</h5>
                     <div className='matching-modal-coincidences'>
                         <p className='match'>Age: 35</p>
                         <p className='not-match'>Gender: Male</p>
