@@ -22,6 +22,10 @@ const FunctionAndRequirementsTable = () => {
 
   const columns = [
     {
+      title: "Entity",
+      dataIndex: "entity",
+    },
+    {
       title: "Venue",
       dataIndex: "venue",
     },
@@ -70,6 +74,7 @@ const FunctionAndRequirementsTable = () => {
   const data = [
     {
       key: "1",
+      entity: 'Q22',
       venue: "Lorem Ipsum",
       functional_area: 'Lorem Ipsum',
       job_title: "Lorem Ipsum",
@@ -78,6 +83,7 @@ const FunctionAndRequirementsTable = () => {
     },
     {
       key: "2",
+      entity: 'Q22',
       venue: "Lorem Ipsum",
       functional_area: 'Lorem Ipsum',
       job_title: "Lorem Ipsum",
@@ -86,6 +92,7 @@ const FunctionAndRequirementsTable = () => {
     },
     {
       key: "3",
+      entity: 'Q22',
       venue: "Lorem Ipsum",
       functional_area: 'Lorem Ipsum',
       job_title: "Lorem Ipsum",
