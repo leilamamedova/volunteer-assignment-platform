@@ -10,6 +10,7 @@ import SearchAndAssign from "../pages/SearchAndAssign/SearchAndAssign";
 import FunctionAndRequirements from "../pages/FunctionAndRequirements/FunctionAndRequirements";
 import AssignmentManagement from "../pages/AssignmentManagement/AssignmentManagement";
 import Users from "../pages/Users/Users";
+import SavedFilters from "../pages/SavedFilters/SavedFilters";
 
 const AppRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const AppRoutes = () => {
       <Routes>
         <Route element={<AdminLayout />}>
           <Route path="/" element={<Dashboard />} exact />
+          <Route path="/savedfilters" element={<SavedFilters />} />
           <Route path="/search-and-assign" element={<SearchAndAssign />} />
           <Route
             path="/function-and-requirements"

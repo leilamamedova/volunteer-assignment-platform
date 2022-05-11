@@ -8,13 +8,10 @@ import "./AssigningTo.scss";
 const { Option } = Select;
 
 const AssigningTo = () => {
-  const setFilterRequirements = useStore(
-    ({ setFilterRequirements }) => setFilterRequirements
-  );
+  const setFilterFields = useStore(({ setFilterFields }) => setFilterFields);
 
   function handleChange(value) {
-    console.log("value changed");
-    setFilterRequirements([
+    setFilterFields([
       {
         id: Math.random() * 100,
         default: false,
