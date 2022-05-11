@@ -1,6 +1,7 @@
 import React from "react";
-import { Space, Select, Card } from "antd";
+import { Space, Select } from "antd";
 import useStore from "../../services/store";
+import FulfillmentCard from "../FulfillmentCard/FulfillmentCard";
 
 import "./AssigningTo.scss";
 
@@ -34,30 +35,40 @@ const AssigningTo = () => {
     <div style={{ width: "100%" }}>
       <Space direction="horizontal" className="assignin-to-component card">
         <Space direction="vertical">
-          <Select defaultValue="default" onChange={handleChange}>
-            <Option value="default">FA</Option>
+          <Select 
+            defaultValue="FA" 
+            showSearch 
+            optionFilterProp="children" 
+            onChange={handleChange}
+          >
             <Option value="1">One</Option>
             <Option value="2">Two</Option>
           </Select>
 
-          <Select defaultValue="default" onChange={handleChange}>
-            <Option value="default">Role</Option>
+          <Select 
+            defaultValue="Role" 
+            showSearch 
+            optionFilterProp="children" 
+            onChange={handleChange}
+          >
             <Option value="1">One</Option>
             <Option value="2">Two</Option>
           </Select>
 
-          <Select defaultValue="default" onChange={handleChange}>
-            <Option value="default">Venue</Option>
+          <Select 
+            defaultValue="Venue" 
+            showSearch 
+            optionFilterProp="children" 
+            onChange={handleChange}
+          >
             <Option value="1">One</Option>
             <Option value="2">Two</Option>
           </Select>
         </Space>
 
-        <Card size="small">
-          <p>Role Fulfillment</p>
-          <p>90 out of 100</p>
-          <p>90%</p>
-        </Card>
+        <FulfillmentCard title='Role' value='90' percent='90'/>
+        <FulfillmentCard title='Waitlist' value='80' percent='80'/>
+        
       </Space>
     </div>
   );
