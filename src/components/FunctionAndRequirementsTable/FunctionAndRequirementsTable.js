@@ -62,7 +62,6 @@ const FunctionAndRequirementsTable = () => {
     {
       title: "Functional Requirements",
       dataIndex: "functional_requirements",
-      width: 300,
       render: (tags, record) => (
         <>
          <a onClick={handleReqModal}>           
