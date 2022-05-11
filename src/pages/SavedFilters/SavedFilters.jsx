@@ -10,9 +10,8 @@ function SavedFilters() {
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const favoriteFilters = useStore((state) => state.favoriteFilters);
   const removeFavoriteFilter = useStore((state) => state.removeFavoriteFilter);
-  const filterFields = useStore((state) => state.filterFields);
   const setFilterFields = useStore((state) => state.setFilterFields);
-
+  const [id, setId] = useState("");
   const handleDelete = (id) => {
     removeFavoriteFilter(id);
   };
@@ -24,6 +23,7 @@ function SavedFilters() {
   const handleEditModal = (id) => {
     const el = favoriteFilters.find((el) => el.key === id);
     setFilterFields(el.filters);
+    setId(id);
     setIsEditModalVisible(true);
   };
   // Table Data -- Column
@@ -72,6 +72,7 @@ function SavedFilters() {
       <FilterTemplateModal
         isModalVisible={isEditModalVisible}
         setIsModalVisible={setIsEditModalVisible}
+        templateId={id}
       />
     </div>
   );
