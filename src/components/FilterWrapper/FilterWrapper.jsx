@@ -14,7 +14,6 @@ function FilterWrapper(props) {
   const resetFilterFields = useStore(
     ({ resetFilterFields }) => resetFilterFields
   );
-
   //Everytime componenet loads, we are resetting the store
   useEffect(() => {
     if (!props.noReset) {
@@ -91,7 +90,7 @@ function FilterWrapper(props) {
               <FilterField
                 key={el.id}
                 id={index}
-                default={index === 0 ? true : false}
+                default={!props.isFav && index === 0 ? true : false}
                 comparison={el.comparison}
                 field={el.field}
                 value={el.value}
