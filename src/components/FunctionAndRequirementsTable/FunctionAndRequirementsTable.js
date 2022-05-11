@@ -1,23 +1,41 @@
-import React, { useState } from "react";
-import { Button, Space, Table, Tag, InputNumber } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Space, Table, InputNumber } from "antd";
 import { EditOutlined } from "@ant-design/icons";
+import EditRequirementsModal from "./components/EditRequirementsModal/EditRequirementsModal";
 import FunctionAndRequirementsModal from "./components/FunctionAndRequirementsModal/FunctionAndRequirementsModal";
 import useStore from "../../services/store";
 import "./FunctionAndRequirementsTable.scss";
 
 const FunctionAndRequirementsTable = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+  const [isReqModalVisible, setIsReqEditModalVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
   const functionalRequirements = useStore(({functionalRequirements})=>functionalRequirements);
+  const setFunctionalRequirements = useStore(({setFunctionalRequirements})=>setFunctionalRequirements);
+
+  // Dummy data
+  useEffect(() => {
+    setFunctionalRequirements([
+      {
+        requirement: 'Age',
+        comparison: '>',
+        value: 19
+      }
+    ])
+  }, [])
 
   const handleHeadcount = (value) => {
     console.log(value);
   }
 
-  const handleModal = (key) => {
-    console.log(key);
+  const handleEditModal = (key) => {
     setSelectedRow(key);
-    setIsModalVisible(true)
+    setIsEditModalVisible(true)
+  }
+
+  const handleReqModal = (key) => {
+    setSelectedRow(key);
+    setIsReqEditModalVisible(true)
   }
 
   const columns = [
@@ -47,9 +65,9 @@ const FunctionAndRequirementsTable = () => {
       width: 300,
       render: (tags, record) => (
         <>
-         <Tag>
-            Test
-          </Tag>  
+         <a onClick={handleReqModal}>           
+            {functionalRequirements.length}...
+          </a>  
         </>
       ),
     },
@@ -58,7 +76,7 @@ const FunctionAndRequirementsTable = () => {
       key: "action",
       render: (_, record) => (
           <Space className="action-icons">
-              <Button icon={<EditOutlined />} onClick={() =>  handleModal(record.key)} />
+              <Button icon={<EditOutlined />} onClick={() =>  handleEditModal(record.key)} />
           </Space>
       ),
     },
@@ -102,7 +120,8 @@ const FunctionAndRequirementsTable = () => {
           dataSource={data}
         />
       </div>
-      <FunctionAndRequirementsModal isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible} selectedRow={selectedRow}/>
+      <FunctionAndRequirementsModal isReqModalVisible={isReqModalVisible} setIsReqEditModalVisible={setIsReqEditModalVisible} functionalRequirements={functionalRequirements}/>
+      <EditRequirementsModal isEditModalVisible={isEditModalVisible} setIsEditModalVisible={setIsEditModalVisible}/>
     </>
   );
 };
