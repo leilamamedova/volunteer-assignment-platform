@@ -4,16 +4,7 @@ const useStore = create((set) => ({
   functionalRequirements: [],
   setFunctionalRequirements: (req) =>
     set((state) => ({ functionalRequirements: req })),
-  //Filter Functional Requirements
-  filterRequirements: [],
-  setFilterRequirements: (req) =>
-    set((state) => (state.filterRequirements = [...req])),
-  removeFilterRequirement: (reqID) =>
-    set((state) => {
-      state.filterRequirements = state.filterRequirements.filter(
-        (el) => el.id === reqID
-      );
-    }),
+  //Filters
   filterFields: [
     {
       id: 1,
@@ -24,7 +15,41 @@ const useStore = create((set) => ({
       logical: "and",
     },
   ],
-  setFilterFields: (filter) => set((state) => ({ filterFields: filter })),
+  resetFilterFields: () =>
+    set(
+      (state) =>
+        (state.filterFields = [
+          {
+            id: Math.random(),
+            default: true,
+            field: "default",
+            comparison: "default",
+            value: "",
+            logical: "and",
+          },
+        ])
+    ),
+  setFilterFields: (filters) =>
+    set((state) => (state.filterFields = [...filters])),
+  addFilterField: (filter) =>
+    set((state) => (state.filterFields = [...state.filterFields, filter])),
+  removeFilterField: (id) =>
+    set((state) => {
+      state.filterFields = [...state.filterFields.filter((el) => el.id === id)];
+    }),
+  favoriteFilters: [],
+  addFavoriteFilter: (templateFilter) =>
+    set(
+      (state) =>
+        (state.favoriteFilters = [...state.favoriteFilters, templateFilter])
+    ),
+  removeFavoriteFilter: (template_id) =>
+    set(
+      (state) =>
+        (state.favoriteFilters = [
+          ...state.favoriteFilters.filter((el) => el.key !== template_id),
+        ])
+    ),
 }));
 
 export default useStore;
