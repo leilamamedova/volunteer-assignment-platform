@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Row, Select, Table } from 'antd';
-import './MatchingModal.scss';
+import './MatchingData.scss';
 
 const { Option } = Select;
 
@@ -39,7 +39,7 @@ const data = [
 
 const selectOptions = ['Functional Requirements', 'Template Requirements', 'Both']
 
-const MatchingModal = () => {
+const MatchingData = () => {
     const [selectedFunctional, setSelectedFunctional] = useState([])
 
     const handleFunctional = (value) => {
@@ -86,4 +86,4 @@ const MatchingModal = () => {
     );
 };
 
-export default MatchingModal;
+export default MatchingData;
