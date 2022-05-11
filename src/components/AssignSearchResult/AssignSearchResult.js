@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Button, Space, Table, Tooltip, Typography } from "antd";
-import { CloseCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
+import { Button, Col, Row, Space, Table, Typography } from "antd";
 import VolunteerProfile from "../VolunteerProfile/VolunteerProfile";
 import "./AssignSearchResult.scss";
+
 const { Link } = Typography;
+
 const AssignSearchResult = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -26,28 +27,6 @@ const AssignSearchResult = () => {
     {
       title: "Address",
       dataIndex: "address",
-    },
-    {
-      title: <a>Assign all</a>,
-      key: "assign",
-      render: () => (
-        <Space className="action-icons">
-          <Tooltip title="Assign">
-            <Button icon={<CheckCircleOutlined />} />
-          </Tooltip>
-        </Space>
-      ),
-    },
-    {
-      title: <a>Deassign all</a>,
-      key: "deassign",
-      render: () => (
-        <Space className="action-icons">
-          <Tooltip title="Deassign">
-            <Button icon={<CloseCircleOutlined />} />
-          </Tooltip>
-        </Space>
-      ),
     },
   ];
 
@@ -115,6 +94,15 @@ const AssignSearchResult = () => {
   return (
     <>
       <div className="assign-search-result">
+        <Row justify='end' gutter={16}>
+          <Col>          
+            <Button type="primary">Assign</Button>
+          </Col>
+          <Col>
+            <Button type='danger'>Waitlist</Button>
+          </Col>
+        </Row>
+
         <Table
           rowSelection={{
             ...rowSelection,
