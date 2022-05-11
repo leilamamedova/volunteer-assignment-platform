@@ -36,6 +36,11 @@ const MainLayout = () => {
       label: "Management",
       children: [
         {
+          key: "f",
+          label: `Saved Filters`,
+          onClick: () => navigate("/savedfilters"),
+        },
+        {
           key: "a",
           label: `Function & Requirements`,
           onClick: () => navigate("/function-and-requirements"),

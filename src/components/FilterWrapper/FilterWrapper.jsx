@@ -1,101 +1,75 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Button, Space, Radio } from "antd";
 import useStore from "../../services/store";
 import FilterField from "../FilterField/FilterField";
 import "./FilterWrapper.scss";
 
 function FilterWrapper(props) {
-  const removeFilterRequirement = useStore(
-    ({ removeFilterRequirement }) => removeFilterRequirement
+  const filterFields = useStore(({ filterFields }) => filterFields);
+  const setFilterFields = useStore(({ setFilterFields }) => setFilterFields);
+  const addFilterField = useStore(({ addFilterField }) => addFilterField);
+  const removeFilterField = useStore(
+    ({ removeFilterField }) => removeFilterField
   );
-  const filterRequirements = useStore(
-    ({ filterRequirements }) => filterRequirements
+  const resetFilterFields = useStore(
+    ({ resetFilterFields }) => resetFilterFields
   );
-  const [filters, setFilters] = useState([
-    {
-      id: 1,
-      default: true,
+
+  //Everytime componenet loads, we are resetting the store
+  useEffect(() => {
+    if (!props.noReset) {
+      resetFilterFields();
+    }
+  }, []);
+
+  // Creating a new field
+  const handleNewField = () => {
+    addFilterField({
+      id: Math.random() * 100,
+      default: false,
       field: "default",
       comparison: "default",
       value: "",
       logical: "and",
-    },
-  ]);
-
-  //If import is required
-  useEffect(() => {
-    if (props.importRequired) {
-      setFilters((prev) => [...prev, ...filterRequirements]);
-    }
-  }, [filterRequirements]);
-
-  // Creating a new field
-  const handleNewField = () => {
-    setFilters([
-      ...filters,
-      {
-        id: filters[filters.length - 1] + Math.random() * 100,
-        default: false,
-        field: "default",
-        comparison: "default",
-        value: "",
-        logical: "and",
-      },
-    ]);
+    });
   };
 
   // Removing a filter field
   const removeField = (del_id) => {
-    console.log(del_id);
-    const list = [...filters];
+    const list = [...filterFields];
     list.splice(del_id, 1);
 
     //Remove From store if exists
-    if (filters.find((el) => el.id === del_id) !== "undefined") {
-      removeFilterRequirement(del_id);
+    if (filterFields.find((el) => el.id === del_id) !== "undefined") {
+      removeFilterField(del_id);
     }
-    setFilters(list);
-  };
-
-  // Submit Logic...
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    //Logic for creating the query will be here...
+    setFilterFields(list);
   };
 
   // Handling Change events
   const handleChange = (e, index) => {
     const { name, value } = e.target;
-    const list = [...filters];
+    const list = [...filterFields];
     list[index][name] = value;
-    setFilters(list);
+    setFilterFields(list);
   };
   // Handling Select events
   const handleSelect = (e, index, name) => {
-    const list = [...filters];
+    const list = [...filterFields];
     list[index][name] = e;
-    setFilters(list);
+    setFilterFields(list);
   };
 
   return (
     <>
       <div className={"card flexv overflow-y--auto"}>
-        <form
-          onSubmit={handleSubmit}
-          style={{ width: "100%" }}
-          className="flexv"
-        >
+        <div style={{ width: "100%" }} className="flexv">
           <Space className="sticky" size="middle">
             <Button type="primary" onClick={handleNewField}>
               Add
             </Button>
-            <Button type="primary">Save Search</Button>
-            <Button type="primary">Load Search</Button>
-            <Button type="primary" htmlType="submit">
-              See results
-            </Button>
           </Space>
-          {filters.map((el, index) => (
+          {filterFields.map((el, index) => (
             <Space
               direction="vertical"
               size="middle"
@@ -117,7 +91,7 @@ function FilterWrapper(props) {
               <FilterField
                 key={el.id}
                 id={index}
-                default={el.default}
+                default={index === 0 ? true : false}
                 comparison={el.comparison}
                 field={el.field}
                 value={el.value}
@@ -127,7 +101,7 @@ function FilterWrapper(props) {
               />
             </Space>
           ))}
-        </form>
+        </div>
       </div>
     </>
   );
