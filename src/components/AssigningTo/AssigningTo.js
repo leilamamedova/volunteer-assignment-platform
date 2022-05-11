@@ -1,6 +1,7 @@
 import React from "react";
-import { Space, Select, Card } from "antd";
+import { Space, Select } from "antd";
 import useStore from "../../services/store";
+import FulfillmentCard from "../FulfillmentCard/FulfillmentCard";
 
 import "./AssigningTo.scss";
 
@@ -68,11 +69,9 @@ const AssigningTo = () => {
           </Select>
         </Space>
 
-        <Card size="small">
-          <p>Role Fulfillment</p>
-          <p>90 out of 100</p>
-          <p>90%</p>
-        </Card>
+        <FulfillmentCard title='Role' value='90' percent='90'/>
+        <FulfillmentCard title='Waitlist' value='80' percent='80'/>
+        
       </Space>
     </div>
   );
