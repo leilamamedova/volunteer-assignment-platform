@@ -1,21 +1,22 @@
 import React from 'react';
 import { Modal } from 'antd';
-import FilterWrapper from '../../../FilterWrapper/FilterWrapper.jsx';
 import './FunctionAndRequirementsModal.scss';
 
-const FunctionAndRequirementsModal = ({isModalVisible, setIsModalVisible, selectedRow}) => {
+const FunctionAndRequirementsModal = ({isReqModalVisible, setIsReqEditModalVisible, functionalRequirements}) => {
     const handleOk = () => {
-        setIsModalVisible(false);
+        setIsReqEditModalVisible(false);
     };
 
     const handleCancel = () => {
-        setIsModalVisible(false);
+        setIsReqEditModalVisible(false);
     };    
 
     return (
         <>
-            <Modal centered closable={false} className='function-and-requirements-modal' visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-               <FilterWrapper/>
+            <Modal centered closable={false} className='function-and-requirements-modal' visible={isReqModalVisible} onOk={handleOk} onCancel={handleCancel}>
+               {functionalRequirements.map((item,index) => (
+                   <p key={index}>{item.requirement} {item.comparison} {item.value}</p>
+               ))}
             </Modal>
         </>
     );
