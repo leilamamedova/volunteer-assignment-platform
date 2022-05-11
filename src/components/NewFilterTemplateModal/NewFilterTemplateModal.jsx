@@ -1,9 +1,12 @@
 import { Modal, Button, Form, Input } from "antd";
 import FilterWrapper from "../FilterWrapper/FilterWrapper";
 import useStore from "../../services/store";
+import { useEffect } from "react";
 
 function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
   const filterFields = useStore((state) => state.filterFields);
+  const favoriteFilters = useStore((state) => state.favoriteFilters);
+
   const resetFilterFields = useStore((state) => state.resetFilterFields);
   const addFavoriteFilter = useStore((state) => state.addFavoriteFilter);
 
