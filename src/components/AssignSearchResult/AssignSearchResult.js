@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { Button, Col, Row, Space, Table, Typography } from "antd";
+import { Col, Row, Table, Typography } from "antd";
 import VolunteerProfile from "../VolunteerProfile/VolunteerProfile";
 import "./AssignSearchResult.scss";
-
+import AssignButton from "../StatusChangeActions/AssignButton";
+import WaitlistButton from "../StatusChangeActions/WaitlistButton";
 const { Link } = Typography;
 
 const AssignSearchResult = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedUsers, setSelectedUsers] = useState([]);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -81,25 +83,22 @@ const AssignSearchResult = () => {
     },
   ];
 
+  //Updating Store on Selection
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
+      setSelectedUsers(selectedRowKeys);
     },
   };
 
   return (
     <>
       <div className="assign-search-result">
-        <Row justify='end' gutter={16}>
-          <Col>          
-            <Button type="primary">Assign</Button>
+        <Row justify="end" gutter={16}>
+          <Col>
+            <AssignButton users={selectedUsers} />
           </Col>
           <Col>
-            <Button type='danger'>Waitlist</Button>
+            <WaitlistButton users={selectedUsers} />
           </Col>
         </Row>
 
