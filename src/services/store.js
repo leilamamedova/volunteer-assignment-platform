@@ -5,8 +5,7 @@ const useStore = create((set) => ({
   setFunctionalRequirements: (req) =>
     set((state) => ({ functionalRequirements: req })),
   usersData: [],
-  setUsersData: (data) =>
-      set((state) => ({ usersData: data })),    
+  setUsersData: (data) => set((state) => ({ usersData: data })),
   //Filters
   filterFields: [
     {
@@ -53,6 +52,8 @@ const useStore = create((set) => ({
           ...state.favoriteFilters.filter((el) => el.key !== template_id),
         ])
     ),
+  selectedUsers: [],
+  setSelectedUsers: (data) => set((state) => (state.selectedUsers = [...data])),
 }));
 
 export default useStore;
