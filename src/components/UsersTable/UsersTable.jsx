@@ -9,10 +9,12 @@ const AssignSearchResult = () => {
   const [isVolunteerModalVisible, setIsVolunteerModalVisible] = useState(false);
   const [columns, setColumns] = useState([]);
   const [dataKeys, setDataKeys] = useState([]);
+  const [userID, setUserID] = useState([]);
   const usersData = useStore(({usersData}) => usersData);
 
   //Later id will fetch the active modal data.
   const showVolunteerModal = (id) => {
+    setUserID(id);
     setIsVolunteerModalVisible(true);
   };
 
@@ -29,7 +31,7 @@ const AssignSearchResult = () => {
 
   useEffect(()=> {
       dataKeys.length>0 && (dataKeys.find(el => el.dataIndex === 'first_name')['render'] = 
-        (data, record) => <Link onClick={() => showVolunteerModal(record.key)}>{data}</Link>    
+        (data, record) => <Link onClick={() => showVolunteerModal(record.id)}>{data}</Link>    
       )
       setColumns(dataKeys);
   },[dataKeys])
@@ -60,6 +62,7 @@ const AssignSearchResult = () => {
       <VolunteerProfile
         isModalVisible={isVolunteerModalVisible}
         setIsVolunteerModalVisible={setIsVolunteerModalVisible}
+        userID={userID}
       />
     </>
   );
