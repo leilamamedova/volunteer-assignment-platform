@@ -4,14 +4,18 @@ import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import useStore from "../../services/store";
 import NewFilterTemplateModal from "../../components/NewFilterTemplateModal/NewFilterTemplateModal";
 import FilterTemplateModal from "../../components/FilterTemplateModal/FilterTemplateModal";
-
+import FilterListModal from "../../components/FilterListModal/FilterListModal";
 function SavedFilters() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+  const [isFilterListModalVisible, setIsFilterListModalVisible] =
+    useState(false);
+  const [id, setId] = useState("");
   const favoriteFilters = useStore((state) => state.favoriteFilters);
   const removeFavoriteFilter = useStore((state) => state.removeFavoriteFilter);
   const setFilterFields = useStore((state) => state.setFilterFields);
-  const [id, setId] = useState("");
+  const filterFields = useStore((state) => state.filterFields);
+
   const handleDelete = (id) => {
     removeFavoriteFilter(id);
   };
@@ -20,11 +24,18 @@ function SavedFilters() {
     setIsModalVisible(true);
   };
 
+  //Collects the Template's filters and id
+  //---------------------------------------
   const handleEditModal = (id) => {
     const el = favoriteFilters.find((el) => el.key === id);
     setFilterFields(el.filters);
     setId(id);
     setIsEditModalVisible(true);
+  };
+  const handleFilterListModal = (id) => {
+    const el = favoriteFilters.find((el) => el.key === id);
+    setFilterFields(el.filters);
+    setIsFilterListModalVisible(true);
   };
   // Table Data -- Column
   const columns = [
@@ -33,6 +44,14 @@ function SavedFilters() {
       dataIndex: "name",
       key: "name",
       render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "Filters List",
+      dataIndex: "filters",
+      key: "filters",
+      render: (_, field) => (
+        <a onClick={() => handleFilterListModal(field.key)}>See Filters</a>
+      ),
     },
     {
       title: "Action",
@@ -73,6 +92,11 @@ function SavedFilters() {
         isModalVisible={isEditModalVisible}
         setIsModalVisible={setIsEditModalVisible}
         templateId={id}
+      />
+      <FilterListModal
+        isModalVisible={isFilterListModalVisible}
+        setIsModalVisible={setIsFilterListModalVisible}
+        filterList={filterFields}
       />
     </div>
   );
