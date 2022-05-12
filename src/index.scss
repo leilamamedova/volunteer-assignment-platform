@@ -1,9 +1,10 @@
 //-----------------------------
 // VARIALBES -- Start
 $retro-green: #06d6a0;
+$retro-dark-green: #0ebd8f;
 $retro-orange: #f3722c;
 $retro-red: #ef233c;
-$retro-yellow: #FCFC02;
+$retro-yellow: #fcfc02;
 //VARIABLES -- End
 //-----------------------------
 //******************************************************
@@ -20,7 +21,14 @@ $retro-yellow: #FCFC02;
 .poor {
   color: $retro-red;
 }
-
+.green-bg {
+  color: #fff;
+  background-color: $retro-green;
+}
+.green-bg:hover {
+  background-color: $retro-dark-green;
+  color: #fff;
+}
 //Colors -- End
 //-----------------------------
 //Font Size Management -- Start

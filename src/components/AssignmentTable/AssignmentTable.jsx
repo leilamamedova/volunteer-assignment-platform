@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { Button, Space, Table, Typography } from "antd";
+import { Button, Space, Table, Typography, Row, Col } from "antd";
+import AssignButton from "../StatusChangeActions/AssignButton";
+import WaitlistButton from "../StatusChangeActions/WaitlistButton";
+import FreeButton from "../StatusChangeActions/FreeButton";
 import { EditOutlined } from "@ant-design/icons";
 import VolunteerProfile from "../VolunteerProfile/VolunteerProfile";
 import AssignmentModal from "./AssignmentModal/AssignmentModal";
@@ -68,6 +71,8 @@ const data = [
 const AssignSearchResult = () => {
   const [isVolunteerModalVisible, setIsVolunteerModalVisible] = useState(false);
   const [isStatusModalVisible, setIsStatusModalVisible] = useState(false);
+  const [selectedUsers, setSelectedUsers] = useState([]);
+
   //Later id will fetch the active modal data.
   const showVolunteerModal = (id) => {
     setIsVolunteerModalVisible(true);
@@ -109,17 +114,24 @@ const AssignSearchResult = () => {
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
+      setSelectedUsers(selectedRowKeys);
     },
   };
 
   return (
     <>
       <div className="assign-search-result">
+        <Row justify="end" gutter={16}>
+          <Col>
+            <AssignButton users={selectedUsers} />
+          </Col>
+          <Col>
+            <WaitlistButton users={selectedUsers} />
+          </Col>
+          <Col>
+            <FreeButton users={selectedUsers} />
+          </Col>
+        </Row>
         <Table
           rowSelection={{
             ...rowSelection,
