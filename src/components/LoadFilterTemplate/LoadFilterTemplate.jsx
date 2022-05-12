@@ -10,7 +10,7 @@ function LoadFilterTemplate() {
   const handleSelect = (e) => {
     console.log(e);
     const el = favoriteFilters.find((el) => el.key === e);
-    setFilterFields([...filterFields, ...el.filters]);
+    setFilterFields([...filterFields, ...el.filtersY]);
   };
   return (
     <Select
