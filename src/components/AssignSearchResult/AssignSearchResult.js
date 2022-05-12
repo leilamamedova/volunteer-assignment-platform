@@ -86,7 +86,7 @@ const AssignSearchResult = () => {
       console.log(
         `selectedRowKeys: ${selectedRowKeys}`,
         "selectedRows: ",
-        selectedRows
+        selectedRowKeys
       );
     },
   };
@@ -94,12 +94,12 @@ const AssignSearchResult = () => {
   return (
     <>
       <div className="assign-search-result">
-        <Row justify='end' gutter={16}>
-          <Col>          
+        <Row justify="end" gutter={16}>
+          <Col>
             <Button type="primary">Assign</Button>
           </Col>
           <Col>
-            <Button type='danger'>Waitlist</Button>
+            <Button type="danger">Waitlist</Button>
           </Col>
         </Row>
 
