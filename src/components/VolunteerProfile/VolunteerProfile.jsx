@@ -5,18 +5,18 @@ import "./VolunteerProfile.scss";
 
 const { TabPane } = Tabs;
 
-function VolunteerProfile(props) {
+function VolunteerProfile({isModalVisible, setIsVolunteerModalVisible, userID}) {
   const handleOk = () => {
-    props.setIsVolunteerModalVisible(false)
+    setIsVolunteerModalVisible(false)
   };
   const handleCancel = () => {
-    props.setIsVolunteerModalVisible(false)
+    setIsVolunteerModalVisible(false)
   };
 
   return (
     <Modal
       className="volunteer-profile--modal"
-      visible={props.isModalVisible}
+      visible={isModalVisible}
       onOk={handleOk}
       onCancel={handleCancel}
       centered
@@ -24,7 +24,7 @@ function VolunteerProfile(props) {
 
       <Tabs defaultActiveKey="1" >
         <TabPane tab="Details" key="1">
-          <VolunteerData/>
+          <VolunteerData userID={userID}/>
         </TabPane>
         <TabPane tab="Matching" key="2">
           <MatchingData/>
