@@ -20,8 +20,8 @@ const VolunteerData = ({userID}) => {
                 src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
             />
             {
-                Object.entries(usersData.find(data => data.id === userID)).map(item => (
-                    <div className='fs-lg'>
+                Object.entries(usersData.find(data => data.id === userID)).map((item, index) => (
+                    <div key={index} className='fs-lg'>
                         <span>{item[0].replaceAll('_', ' ')}</span>                           
                         <span> : </span> 
                         <span className="bold">{item[1]}</span>
