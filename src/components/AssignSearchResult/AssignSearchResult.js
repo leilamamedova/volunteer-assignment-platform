@@ -86,15 +86,7 @@ const AssignSearchResult = () => {
   //Updating Store on Selection
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-<<<<<<< HEAD
       setSelectedUsers(selectedRowKeys);
-=======
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRowKeys
-      );
->>>>>>> 1a98932ce207b1cd4334ad0f5c7c2a5a6433b906
     },
   };
 
@@ -103,17 +95,10 @@ const AssignSearchResult = () => {
       <div className="assign-search-result">
         <Row justify="end" gutter={16}>
           <Col>
-<<<<<<< HEAD
             <AssignButton users={selectedUsers} />
           </Col>
           <Col>
             <WaitlistButton users={selectedUsers} />
-=======
-            <Button type="primary">Assign</Button>
-          </Col>
-          <Col>
-            <Button type="danger">Waitlist</Button>
->>>>>>> 1a98932ce207b1cd4334ad0f5c7c2a5a6433b906
           </Col>
         </Row>
 
