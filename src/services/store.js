@@ -6,6 +6,8 @@ const useStore = create((set) => ({
     set((state) => ({ functionalRequirements: req })),
   usersData: [],
   setUsersData: (data) => set((state) => ({ usersData: data })),
+  usersDataFields: [],
+  setUsersDataFields: (field) => set((state) => ({ usersDataFields: field })),
   //Filters
   filterFields: [
     {

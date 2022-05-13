@@ -34,9 +34,10 @@ const operator = [
 function FilterField(props) {
   const usersData = useStore(({usersData}) => usersData);
   const [requirements, setRequirements] = useState([]);
+  const usersDataFields = useStore(({usersDataFields}) => usersDataFields);
 
   useEffect(() => {
-    usersData.length>0 && Object.keys(usersData[0]).map((item, index) => {
+    usersData.length>0 && usersDataFields.map((item, index) => {
       setRequirements((prev) => [...prev, 
         {
           id: index,
