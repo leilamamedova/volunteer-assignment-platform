@@ -5,14 +5,16 @@ import AssignmentNumberCard from '../../components/AssignmentNumberCard/Assignme
 import FaRoleVenueStatistics from '../../components/FaRoleVenueStatistics/FaRoleVenueStatistics';
 import { Col, Row } from 'antd';
 import useStore from '../../services/store';
-import { UsersFetch } from '../../services/fetch';
+import { UsersFetch, UsersFieldsFetch } from '../../services/fetch';
 import './Dashboard.scss';
 
 const Dashboard =  () => {
     const setUsersData = useStore(({setUsersData}) => setUsersData);
+    const setUsersDataFields = useStore(({setUsersDataFields}) => setUsersDataFields);
 
     useEffect(() => {
         UsersFetch(setUsersData);
+        UsersFieldsFetch(setUsersDataFields)
     },[])
 
     return (
