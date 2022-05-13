@@ -1,0 +1,25 @@
+.ant-checkbox-group.column--list {
+  position: absolute;
+  top: 40px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #fff;
+  width: 300px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  height: 200px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  .ant-checkbox-inner {
+    width: 20px;
+    height: 20px;
+  }
+  span {
+    font-size: 1.1rem;
+  }
+}
+.column--list-wrapper {
+  position: relative;
+}
