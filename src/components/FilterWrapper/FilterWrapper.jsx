@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Button, Space, Radio } from "antd";
 import useStore from "../../services/store";
 import FilterField from "../FilterField/FilterField";
+import ResultButton from "../ResultButton/ResultButton";
+import { FilterUserFetch } from "../../services/fetch";
 import "./FilterWrapper.scss";
 
 function FilterWrapper(props) {
@@ -27,7 +29,7 @@ function FilterWrapper(props) {
       id: Math.random() * 100,
       default: false,
       field: "default",
-      comparison: "default",
+      operator: "default",
       value: "",
       logical: "and",
     });
@@ -67,7 +69,9 @@ function FilterWrapper(props) {
             <Button type="primary" onClick={handleNewField}>
               Add
             </Button>
+            <ResultButton fetch={FilterUserFetch}/>
           </Space>
+          
           {filterFields.map((el, index) => (
             <Space
               direction="vertical"
@@ -91,7 +95,7 @@ function FilterWrapper(props) {
                 key={el.id}
                 id={index}
                 default={!props.isFav && index === 0 ? true : false}
-                comparison={el.comparison}
+                operator={el.operator}
                 field={el.field}
                 value={el.value}
                 handleSelect={handleSelect}
