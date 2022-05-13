@@ -11,9 +11,9 @@ const columns = [
       key: 'requirement',
     },
     {
-        title: 'Comparison',
-        dataIndex: 'comparison',
-        key: 'comparison',
+        title: 'Operator',
+        dataIndex: 'operator',
+        key: 'operator',
     },
     {
       title: 'Value',
@@ -26,13 +26,13 @@ const data = [
     {
         key: '1',
         requirement: 'Age',
-        comparison: '>',
+        operator: '>',
         value: 19,
     },
     {
         key: '2',
         requirement: 'Gender',
-        comparison: 'Contains',
+        operator: 'contains',
         value: 'Female',
     }
 ]

@@ -14,3 +14,17 @@ export const UsersFetch = (setUsersData) => {
     })
     .catch((err) => {console.log(err.message)});   
 };
+
+export const FilterUserFetch = (filterFields, setUsersData) => {
+    fetch(`${process.env.REACT_APP_API_BASE}/filter-volunteers`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"users": filterFields})
+      })
+      .then(response => response.json())
+      .then(data => setUsersData(data))
+      .catch(err => setUsersData([]));  
+};
