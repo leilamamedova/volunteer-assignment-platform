@@ -57,7 +57,7 @@ $retro-yellow: #fcfc02;
   background: #fff;
   border-radius: 15px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 25px;
-  min-height: 150px;
+  min-height: 174px;
   max-height: 500px;
 }
 //Components -- End
@@ -74,6 +74,9 @@ $retro-yellow: #fcfc02;
   overflow-y: auto;
 }
 
+.hide {
+  display: none;
+}
 //-----------------------------
 
 // Utility Selector -- End
