@@ -13,6 +13,7 @@ const AssignSearchResult = () => {
   const [columns, setColumns] = useState([]);
   const [userID, setUserID] = useState([]);
   const usersData = useStore(({usersData}) => usersData);
+  const usersDataFields = useStore(({usersDataFields}) => usersDataFields);
 
   //Fetch the active modal data.
   const showVolunteerModal = (id) => {
@@ -22,7 +23,7 @@ const AssignSearchResult = () => {
 
   // Set data to table
   useEffect(() => {
-    usersData.length>0 && Object.keys(usersData[0]).map((item) => {
+    usersDataFields.length>0 && usersDataFields.map((item) => {
       setDataKeys((prev) => [...prev,
         { 
           title: item.replaceAll('_', " "),
@@ -31,7 +32,7 @@ const AssignSearchResult = () => {
         }
       ])
     })    
-  }, [usersData])
+  }, [usersDataFields])
 
   useEffect(()=> {
       dataKeys.length>0 && (dataKeys.find(el => el.dataIndex === 'first_name')['render'] = 

@@ -15,6 +15,23 @@ export const UsersFetch = (setUsersData) => {
     .catch((err) => {console.log(err.message)});   
 };
 
+export const UsersFieldsFetch = (setUsersDataFields) => {
+    fetch(`${process.env.REACT_APP_API_BASE}/volunteer-fields`)
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(
+            `This is an HTTP error: The status is ${response.status}`
+            );
+        }
+        return response.json();
+    })
+    .then((data) => {
+        console.log('Users data fields', data);
+        setUsersDataFields(data);
+    })
+    .catch((err) => {console.log(err.message)});   
+};
+
 export const FilterUserFetch = (filterFields, setUsersData) => {
     fetch(`${process.env.REACT_APP_API_BASE}/filter-volunteers`, {
         method: 'POST',
