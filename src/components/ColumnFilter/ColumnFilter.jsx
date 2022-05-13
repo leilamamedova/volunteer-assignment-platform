@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Checkbox, Button } from "antd";
 import "./ColumnFilter.scss";
 function ColumnFilter({ columns, handleColumns }) {
   const [toggle, setToggle] = useState(false);
+
   const handleChange = (value) => {
     handleColumns(value);
   };

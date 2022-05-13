@@ -69,9 +69,9 @@ function FilterWrapper(props) {
             <Button type="primary" onClick={handleNewField}>
               Add
             </Button>
-            <ResultButton fetch={FilterUserFetch}/>
+            <ResultButton fetch={FilterUserFetch} />
           </Space>
-          
+
           {filterFields.map((el, index) => (
             <Space
               direction="vertical"
