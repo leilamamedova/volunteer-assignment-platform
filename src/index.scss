@@ -103,3 +103,9 @@ $retro-yellow: #fcfc02;
 //Custom Scrollbar -- End
 
 //-----------------------------
+//ANT DESIGN TABLE CELL
+.custom-table-cell--width {
+  .ant-table-cell {
+    min-width: 200px;
+  }
+}

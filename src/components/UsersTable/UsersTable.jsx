@@ -1,65 +1,149 @@
 import { useEffect, useState } from "react";
-import { Table, Typography } from "antd";
+import { Table, Typography, Space, Row, Col, Button } from "antd";
 import VolunteerProfile from "../VolunteerProfile/VolunteerProfile";
+import { EditOutlined } from "@ant-design/icons";
 import { getColumnSearchProps } from "./ColumnSearch/ColumnSearch";
 import useStore from "../../services/store";
-import './UsersTable.scss';
+import ColumnFilter from "../ColumnFilter/ColumnFilter";
+import AssignButton from "../StatusChangeActions/AssignButton";
+import WaitlistButton from "../StatusChangeActions/WaitlistButton";
+import FreeButton from "../StatusChangeActions/FreeButton";
+import "./UsersTable.scss";
 
 const { Link } = Typography;
 
-const AssignSearchResult = () => {
+const UsersTable = (props) => {
   const [isVolunteerModalVisible, setIsVolunteerModalVisible] = useState(false);
+  const [isStatusModalVisible, setIsStatusModalVisible] = useState(false);
   const [dataKeys, setDataKeys] = useState([]);
   const [columns, setColumns] = useState([]);
+  const [selectedUsers, setSelectedUsers] = useState([]);
+  const [tableColumns, setTableColumns] = useState(columns);
   const [userID, setUserID] = useState([]);
-  const usersData = useStore(({usersData}) => usersData);
-  const usersDataFields = useStore(({usersDataFields}) => usersDataFields);
+  const usersData = useStore(({ usersData }) => usersData);
+  const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
 
   //Fetch the active modal data.
   const showVolunteerModal = (id) => {
     setUserID(id);
     setIsVolunteerModalVisible(true);
   };
-
+  const showStatusModal = (id, status) => {
+    setIsStatusModalVisible(true);
+  };
   // Set data to table
   useEffect(() => {
-    usersDataFields.length>0 && usersDataFields.map((item) => {
-      setDataKeys((prev) => [...prev,
-        { 
-          title: item.replaceAll('_', " "),
-          dataIndex: item,
-          ...getColumnSearchProps(item)
-        }
-      ])
-    })    
-  }, [usersDataFields])
+    usersDataFields.length > 0 &&
+      usersDataFields.map((item) => {
+        setDataKeys((prev) => [
+          ...prev,
+          {
+            title: item.replaceAll("_", " "),
+            dataIndex: item,
+            ...getColumnSearchProps(item),
+          },
+        ]);
+      });
+  }, [usersDataFields]);
 
-  useEffect(()=> {
-      dataKeys.length>0 && (dataKeys.find(el => el.dataIndex === 'first_name')['render'] = 
-        (data, record) => <Link onClick={() => showVolunteerModal(record.id)}>{data}</Link>    
-      )
-      setColumns(dataKeys);
-  },[dataKeys])
+  useEffect(() => {
+    dataKeys.length > 0 &&
+      (dataKeys.find((el) => el.dataIndex === "first_name")["render"] = (
+        data,
+        record
+      ) => (
+        <Link
+          key={Math.floor(Math.random() * 100)}
+          onClick={() => showVolunteerModal(record.id)}
+        >
+          {data}
+        </Link>
+      ));
+    if (props.isStatusColumn) {
+      dataKeys.splice(1, 0, {
+        title: "Status",
+        key: "status",
+        render: (_, field) => (
+          <Space
+            key={Math.ceil(Math.random() * 100)}
+            className="action-icons"
+            align="baseline"
+          >
+            <p>{field.status}</p>
+            <Button
+              icon={<EditOutlined />}
+              onClick={() => showStatusModal(field.id, field.status)}
+            />
+          </Space>
+        ),
+      });
+    }
+    setColumns(dataKeys);
+    setTableColumns(dataKeys);
+  }, [dataKeys]);
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
+      setSelectedUsers(selectedRowKeys);
     },
+  };
+
+  const handleColumns = (value) => {
+    const result = [];
+    if (value.length === 0) {
+      setTableColumns(columns);
+    } else {
+      for (let i = 0; i < columns.length; i++) {
+        for (let j = 0; j < value.length; j++) {
+          if (columns[i].title === value[j]) {
+            result.push(columns[i]);
+          }
+        }
+      }
+      setTableColumns(result);
+    }
+  };
+
+  const handleReset = () => {
+    setTableColumns(columns);
   };
 
   return (
     <>
       <div className="assign-search-result">
+        <Row justify="space-between" gutter={16}>
+          <Col>
+            <Space align="stretch">
+              <ColumnFilter columns={columns} handleColumns={handleColumns} />
+              <Button type="primary" onClick={handleReset}>
+                Reset
+              </Button>
+            </Space>
+          </Col>
+          <Col>
+            <Space>
+              {props.isAssignAction ? (
+                <AssignButton users={selectedUsers} />
+              ) : (
+                ""
+              )}
+              {props.isWaitlistAction ? (
+                <WaitlistButton users={selectedUsers} />
+              ) : (
+                ""
+              )}
+              {props.isFreeAction ? <FreeButton users={selectedUsers} /> : ""}
+            </Space>
+          </Col>
+        </Row>
+
         <Table
+          className="custom-table-cell--width"
           rowSelection={{
             ...rowSelection,
           }}
           scroll={{ x: 240 }}
-          columns={columns}
+          columns={tableColumns}
           dataSource={usersData}
         />
       </div>
@@ -72,4 +156,4 @@ const AssignSearchResult = () => {
   );
 };
 
-export default AssignSearchResult;
+export default UsersTable;
