@@ -15,7 +15,7 @@ const FunctionAndRequirementsModal = ({isReqModalVisible, setIsReqEditModalVisib
         <>
             <Modal centered closable={false} className='function-and-requirements-modal' visible={isReqModalVisible} onOk={handleOk} onCancel={handleCancel}>
                {functionalRequirements.map((item,index) => (
-                   <p key={index}>{item.requirement} {item.comparison} {item.value}</p>
+                   <p key={index}>{item.requirement} {item.operator} {item.value}</p>
                ))}
             </Modal>
         </>

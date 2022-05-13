@@ -1,38 +1,17 @@
 import { Select, Input, Button } from "antd";
+import { useEffect, useState } from "react";
+import useStore from "../../services/store";
 import "./FilterField.scss";
 const { Option } = Select;
 
-const DUMMY_OPTIONS = [
-  {
-    id: 1,
-    value: "name",
-  },
-  {
-    id: 2,
-    value: "surname",
-  },
-  {
-    id: 3,
-    value: "age",
-  },
-  {
-    id: 4,
-    value: "nationality",
-  },
-  {
-    id: 5,
-    value: "residence",
-  },
-];
-
-const DUMMY_COMPARISON = [
+const operator = [
   {
     id: 1,
     value: "=",
   },
   {
     id: 2,
-    value: "Contains",
+    value: "contains",
   },
   {
     id: 3,
@@ -53,29 +32,41 @@ const DUMMY_COMPARISON = [
 ];
 
 function FilterField(props) {
+  const usersData = useStore(({usersData}) => usersData);
+  const [requirements, setRequirements] = useState([]);
+
+  useEffect(() => {
+    usersData.length>0 && Object.keys(usersData[0]).map((item, index) => {
+      setRequirements((prev) => [...prev, 
+        {
+          id: index,
+          value: item,
+        }    
+      ])
+    })    
+  }, [usersData])
+
   return (
     <div className="flex">
       <Select
         showSearch 
         optionFilterProp="children"
         className="selectWidth"
-        defaultValue={props.field}
+        placeholder='Requirement'
         onSelect={(e) => props.handleSelect(e, props.id, "field")}
       >
-        <Option disabled>Default</Option>
-        {DUMMY_OPTIONS.map((el) => (
+        {requirements.map((el) => (
           <Option key={el.id} value={el.value}>
             {el.value}
           </Option>
         ))}
       </Select>
       <Select
-        className="selectWidthComparison"
-        defaultValue={props.comparison}
-        onSelect={(e) => props.handleSelect(e, props.id, "comparison")}
+        className="selectWidthOperator"
+        placeholder='Operator'
+        onSelect={(e) => props.handleSelect(e, props.id, "operator")}
       >
-        <Option disabled>Default</Option>
-        {DUMMY_COMPARISON.map((el) => (
+        {operator.map((el) => (
           <Option key={el.id} value={el.value}>
             {el.value}
           </Option>
