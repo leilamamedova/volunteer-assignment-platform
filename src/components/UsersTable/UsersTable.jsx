@@ -60,7 +60,6 @@ const AssignSearchResult = () => {
           scroll={{ x: 240 }}
           columns={columns}
           dataSource={usersData}
-          rowKey={record => record.uid}
         />
       </div>
       <VolunteerProfile

@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "antd";
 import useStore from "../../services/store";
 
-function ResultButton() {
+function ResultButton({fetch}) {
   const filterFields = useStore(({ filterFields }) => filterFields);
-
+  const setUsersData = useStore(({ setUsersData }) => setUsersData);
+  
   const getResults = () => {
-    console.log(filterFields);
+    fetch(filterFields, setUsersData);
   };
+  
   return (
     <Button onClick={getResults} type="primary">
       See Results

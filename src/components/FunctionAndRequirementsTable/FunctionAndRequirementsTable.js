@@ -18,7 +18,7 @@ const FunctionAndRequirementsTable = () => {
     setFunctionalRequirements([
       {
         requirement: 'Age',
-        comparison: '>',
+        operator: '>',
         value: 19
       }
     ])

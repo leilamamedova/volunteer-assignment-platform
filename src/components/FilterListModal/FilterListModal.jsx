@@ -27,7 +27,7 @@ const FunctionAndRequirementsModal = ({
         {filterList.map((item, index) => (
           <p key={index} className="filter-list-text">
             <span className="field">{item.field}</span>{" "}
-            <span className="operator">{item.comparison}</span>
+            <span className="operator">{item.operator}</span>
             <span className="value">
               {item.value.trim() === "" ? "Empty" : item.value}
             </span>
