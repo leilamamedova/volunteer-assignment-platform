@@ -14,7 +14,6 @@ const AssigningTo = () => {
   function handleChange(value) {
     setFilterFields([
       {
-        id: Math.random() * 100,
         default: false,
         requirement: "name",
         operator: "=",
@@ -22,7 +21,6 @@ const AssigningTo = () => {
         logical: "and",
       },
       {
-        id: Math.random() * 100,
         default: false,
         requirement: "age",
         operator: ">",

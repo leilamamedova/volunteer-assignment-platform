@@ -15,7 +15,7 @@ const EditRequirementsModal = ({isEditModalVisible, setIsEditModalVisible}) => {
     return (
         <>
             <Modal centered closable={false} className='function-and-requirements-modal' visible={isEditModalVisible} onOk={handleOk} onCancel={handleCancel}>
-               <FilterWrapper/>
+               <FilterWrapper seeResultBtn={true}/>
             </Modal>
         </>
     );

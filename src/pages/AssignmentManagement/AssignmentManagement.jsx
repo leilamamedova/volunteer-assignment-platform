@@ -6,7 +6,7 @@ import "./AssignmentManagement.scss";
 function AssignmentManagement() {
   return (
     <div>
-      <FilterWrapper importRequired={false} />
+      <FilterWrapper importRequired={false} seeResultBtn={true} />
       <UsersTable
         isAssignAction={true}
         isWaitlistAction={true}
