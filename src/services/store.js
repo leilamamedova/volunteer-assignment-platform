@@ -56,6 +56,8 @@ const useStore = create((set) => ({
     ),
   selectedUsers: [],
   setSelectedUsers: (data) => set((state) => (state.selectedUsers = [...data])),
+  roleOffers: [],
+  setRoleOffers: (data) => set((state) => (state.roleOffers = [...data])),
 }));
 
 export default useStore;
