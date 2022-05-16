@@ -26,10 +26,9 @@ function FilterWrapper(props) {
   // Creating a new field
   const handleNewField = () => {
     addFilterField({
-      id: Math.random() * 100,
       default: false,
-      requirement: "default",
-      operator: "default",
+      requirement: "Requirement",
+      operator: "Operator",
       value: "",
       logical: "and",
     });
@@ -69,14 +68,16 @@ function FilterWrapper(props) {
             <Button type="primary" onClick={handleNewField}>
               Add
             </Button>
-            <ResultButton fetch={FilterUserFetch} />
+            {
+              props.seeResultBtn ? <ResultButton fetch={FilterUserFetch} /> : null
+            }
           </Space>
 
           {filterFields.map((el, index) => (
             <Space
               direction="vertical"
               size="middle"
-              key={el.id + "filter"}
+              key={index + "filter"}
               style={{ margin: "15px 0" }}
             >
               {index !== 0 ? (

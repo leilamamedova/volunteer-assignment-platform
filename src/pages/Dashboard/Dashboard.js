@@ -21,9 +21,7 @@ const Dashboard =  () => {
         UsersFieldsFetch(setUsersDataFields)
         SavedFiltersGet(addFavoriteFilter)
         RoleOffersFetch(setRoleOffers);
-    },[])
-
-    console.log(favoriteFilters);
+    },[])   
 
     return (
         <div className='dashboard'>

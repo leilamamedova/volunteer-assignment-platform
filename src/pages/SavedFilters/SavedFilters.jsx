@@ -5,6 +5,7 @@ import useStore from "../../services/store";
 import NewFilterTemplateModal from "../../components/NewFilterTemplateModal/NewFilterTemplateModal";
 import FilterTemplateModal from "../../components/FilterTemplateModal/FilterTemplateModal";
 import FilterListModal from "../../components/FilterListModal/FilterListModal";
+import { SavedFiltersGet } from "../../services/fetch";
 
 function SavedFilters() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -14,12 +15,12 @@ function SavedFilters() {
   const [id, setId] = useState("");
   const favoriteFilters = useStore((state) => state.favoriteFilters);
   const addFavoriteFilter = useStore((state) => state.addFavoriteFilter);
-  const removeFavoriteFilter = useStore((state) => state.removeFavoriteFilter);
   const setFilterFields = useStore((state) => state.setFilterFields);
   const filterFields = useStore((state) => state.filterFields);
 
   useEffect(() => {
     addFavoriteFilter(favoriteFilters)
+    SavedFiltersGet(addFavoriteFilter)
   },[favoriteFilters])
 
   const handleDelete = (id) => {    
@@ -33,7 +34,6 @@ function SavedFilters() {
       return response.json();
     })
     .catch((err) => console.log(err));  
-    removeFavoriteFilter(id)
   };
 
   const handleModal = () => {
@@ -59,7 +59,6 @@ function SavedFilters() {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      render: (text) => <a>{text}</a>,
     },
     {
       title: "Filters List",
@@ -99,7 +98,7 @@ function SavedFilters() {
       <Button type="primary" className="mb-20" onClick={handleModal}>
         Create
       </Button>
-      <Table columns={columns} dataSource={favoriteFilters} />
+      <Table  columns={columns} dataSource={favoriteFilters} />
       <NewFilterTemplateModal
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
