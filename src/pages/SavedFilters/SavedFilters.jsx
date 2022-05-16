@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Table, Space } from "antd";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import useStore from "../../services/store";
 import NewFilterTemplateModal from "../../components/NewFilterTemplateModal/NewFilterTemplateModal";
 import FilterTemplateModal from "../../components/FilterTemplateModal/FilterTemplateModal";
 import FilterListModal from "../../components/FilterListModal/FilterListModal";
+
 function SavedFilters() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -12,12 +13,27 @@ function SavedFilters() {
     useState(false);
   const [id, setId] = useState("");
   const favoriteFilters = useStore((state) => state.favoriteFilters);
+  const addFavoriteFilter = useStore((state) => state.addFavoriteFilter);
   const removeFavoriteFilter = useStore((state) => state.removeFavoriteFilter);
   const setFilterFields = useStore((state) => state.setFilterFields);
   const filterFields = useStore((state) => state.filterFields);
 
-  const handleDelete = (id) => {
-    removeFavoriteFilter(id);
+  useEffect(() => {
+    addFavoriteFilter(favoriteFilters)
+  },[favoriteFilters])
+
+  const handleDelete = (id) => {    
+    fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates/delete/${id}`, { method: 'DELETE' })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        );
+      }
+      return response.json();
+    })
+    .catch((err) => console.log(err));  
+    removeFavoriteFilter(id)
   };
 
   const handleModal = () => {
