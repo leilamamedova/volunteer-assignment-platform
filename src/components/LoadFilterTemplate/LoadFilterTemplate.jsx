@@ -32,11 +32,12 @@ function LoadFilterTemplate() {
         Default
       </Option>
 
-      {favoriteFilters.map((el) => (
-        <Option key={el.key} value={el.key}>
-          {el.name}
-        </Option>
-      ))}
+      {favoriteFilters &&
+        favoriteFilters.map((el) => (
+          <Option key={el.key} value={el.key}>
+            {el.name}
+          </Option>
+        ))}
     </Select>
   );
 }
