@@ -12,6 +12,7 @@ function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    resetFilterFields();
   };
 
   const handleSubmit = (values) => {
