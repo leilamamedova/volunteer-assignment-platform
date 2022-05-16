@@ -1,6 +1,14 @@
 import React from "react";
 import { Button } from "antd";
+import useStore from "../../services/store";
+import { UsersFetch, UsersFieldsFetch } from "../../services/fetch";
+
 function AssignButton(props) {
+  const setUsersData = useStore(({ setUsersData }) => setUsersData);
+  const setUsersDataFields = useStore(
+    ({ setUsersDataFields }) => setUsersDataFields
+  );
+
   const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}`;
 
   const handleAssign = () => {
@@ -16,7 +24,10 @@ function AssignButton(props) {
       },
       body: JSON.stringify(postData),
     })
-      .then((response) => console.log(response))
+      .then((response) => {
+        console.log(response);
+        UsersFetch(setUsersData);
+      })
       .catch((err) => console.log(err));
   };
 
