@@ -53,9 +53,10 @@ function FilterField(props) {
         showSearch 
         optionFilterProp="children"
         className="selectWidth"
-        placeholder='Requirement'
+        defaultValue = {props.requirement}
         onSelect={(e) => props.handleSelect(e, props.id, "requirement")}
       >
+        <Option value={props.requirement}>{props.requirement}</Option>
         {requirements.map((el) => (
           <Option key={el.id} value={el.value}>
             {el.value}
@@ -64,9 +65,10 @@ function FilterField(props) {
       </Select>
       <Select
         className="selectWidthOperator"
-        placeholder='Operator'
+        defaultValue = {props.operator}
         onSelect={(e) => props.handleSelect(e, props.id, "operator")}
       >
+        <Option value={props.operator}>{props.operator}</Option>
         {operator.map((el) => (
           <Option key={el.id} value={el.value}>
             {el.value}

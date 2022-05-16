@@ -13,24 +13,25 @@ function LoadFilterTemplate() {
     setFilterFields([...filterFields, ...el.filters]);
   };
   return (
-    <Select
-      onChange={handleSelect}
-      showSearch
-      style={{ width: 200 }}
-      placeholder="Search to Select"
-      optionFilterProp="children"
-      filterOption={(input, option) =>
-        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-      }
-      filterSort={(optionA, optionB) =>
-        optionA.children
-          .toLowerCase()
-          .localeCompare(optionB.children.toLowerCase())
-      }
-    >
-      <Option value="0" selected disabled>
-        Default
-      </Option>
+    <></>
+    // <Select
+    //   onChange={handleSelect}
+    //   showSearch
+    //   style={{ width: 200 }}
+    //   placeholder="Search to Select"
+    //   optionFilterProp="children"
+    //   filterOption={(input, option) =>
+    //     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+    //   }
+    //   filterSort={(optionA, optionB) =>
+    //     optionA.children
+    //       .toLowerCase()
+    //       .localeCompare(optionB.children.toLowerCase())
+    //   }
+    // >
+    //   <Option value="0" selected disabled>
+    //     Default
+    //   </Option>
 
       {favoriteFilters &&
         favoriteFilters.map((el) => (

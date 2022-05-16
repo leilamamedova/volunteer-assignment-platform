@@ -10,7 +10,7 @@ function Users() {
      <Row justify='end'>
         <BulkImport title={'Users'}/>
       </Row>
-      <FilterWrapper />
+      <FilterWrapper seeResultBtn={true} />
       <UsersTable />
     </>
   );
