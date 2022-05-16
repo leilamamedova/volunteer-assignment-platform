@@ -23,6 +23,8 @@ const UsersTable = (props) => {
   const usersData = useStore(({ usersData }) => usersData);
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
 
+  const route = props.isAnyStatus ? "ChangeToAnyStatus" : "AssignOrWaitlist";
+
   //Fetch the active modal data.
   const showVolunteerModal = (id) => {
     setUserID(id);
@@ -45,13 +47,11 @@ const UsersTable = (props) => {
         ]);
       });
   }, [usersDataFields]);
-
   useEffect(() => {
     dataKeys.length > 0 &&
-      (dataKeys.find((el) => el.dataIndex === "first_name")["render"] = (
-        data,
-        record
-      ) => (
+      (dataKeys.find((el) => el.dataIndex === "Candidate - Full Name")[
+        "render"
+      ] = (data, record) => (
         <Link
           key={Math.floor(Math.random() * 100)}
           onClick={() => showVolunteerModal(record.id)}
@@ -123,16 +123,32 @@ const UsersTable = (props) => {
           <Col>
             <Space>
               {props.isAssignAction ? (
-                <AssignButton users={selectedUsers} />
+                <AssignButton
+                  route={route}
+                  data={selectedUsers}
+                  users={selectedUsers}
+                />
               ) : (
                 ""
               )}
               {props.isWaitlistAction ? (
-                <WaitlistButton users={selectedUsers} />
+                <WaitlistButton
+                  route={route}
+                  data={selectedUsers}
+                  users={selectedUsers}
+                />
               ) : (
                 ""
               )}
-              {props.isFreeAction ? <FreeButton users={selectedUsers} /> : ""}
+              {props.isFreeAction ? (
+                <FreeButton
+                  route={route}
+                  data={selectedUsers}
+                  users={selectedUsers}
+                />
+              ) : (
+                ""
+              )}
             </Space>
           </Col>
         </Row>
