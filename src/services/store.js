@@ -13,7 +13,7 @@ const useStore = create((set) => ({
     {
       id: 1,
       default: true,
-      field: "default",
+      requirement: "default",
       operator: "default",
       value: "",
       logical: "and",
@@ -26,7 +26,7 @@ const useStore = create((set) => ({
           {
             id: Math.random(),
             default: true,
-            field: "default",
+            requirement: "default",
             operator: "default",
             value: "",
             logical: "and",
@@ -41,11 +41,10 @@ const useStore = create((set) => ({
     set((state) => {
       state.filterFields = [...state.filterFields.filter((el) => el.id === id)];
     }),
-  favoriteFilters: [],
+  favoriteFilters: null,
   addFavoriteFilter: (templateFilter) =>
     set(
-      (state) =>
-        (state.favoriteFilters = [...state.favoriteFilters, templateFilter])
+      (state) => ({ favoriteFilters: templateFilter })
     ),
   removeFavoriteFilter: (template_id) =>
     set(

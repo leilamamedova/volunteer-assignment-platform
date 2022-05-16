@@ -5,17 +5,22 @@ import AssignmentNumberCard from '../../components/AssignmentNumberCard/Assignme
 import FaRoleVenueStatistics from '../../components/FaRoleVenueStatistics/FaRoleVenueStatistics';
 import { Col, Row } from 'antd';
 import useStore from '../../services/store';
-import { UsersFetch, UsersFieldsFetch } from '../../services/fetch';
+import { UsersFetch, UsersFieldsFetch, SavedFiltersGet } from '../../services/fetch';
 import './Dashboard.scss';
 
 const Dashboard =  () => {
     const setUsersData = useStore(({setUsersData}) => setUsersData);
     const setUsersDataFields = useStore(({setUsersDataFields}) => setUsersDataFields);
+    const addFavoriteFilter = useStore(({addFavoriteFilter}) => addFavoriteFilter);
+    const favoriteFilters = useStore(({favoriteFilters}) => favoriteFilters);
 
     useEffect(() => {
         UsersFetch(setUsersData);
         UsersFieldsFetch(setUsersDataFields)
+        SavedFiltersGet(addFavoriteFilter)
     },[])
+
+    console.log(favoriteFilters);
 
     return (
         <div className='dashboard'>
