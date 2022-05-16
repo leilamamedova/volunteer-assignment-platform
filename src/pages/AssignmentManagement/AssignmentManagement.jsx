@@ -12,6 +12,7 @@ function AssignmentManagement() {
         isWaitlistAction={true}
         isFreeAction={true}
         isStatusColumn={true}
+        isAnyStatus={true}
       />
     </div>
   );
