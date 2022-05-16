@@ -28,7 +28,7 @@ function FilterWrapper(props) {
     addFilterField({
       id: Math.random() * 100,
       default: false,
-      field: "default",
+      requirement: "default",
       operator: "default",
       value: "",
       logical: "and",
@@ -96,7 +96,7 @@ function FilterWrapper(props) {
                 id={index}
                 default={!props.isFav && index === 0 ? true : false}
                 operator={el.operator}
-                field={el.field}
+                requirement={el.requirement}
                 value={el.value}
                 handleSelect={handleSelect}
                 handleChange={handleChange}

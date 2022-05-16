@@ -51,6 +51,25 @@ export const FilterUserFetch = (filterFields, setUsersData) => {
     .catch((err) => setUsersData([]));
 };
 
+export const SavedFiltersGet = (addFavoriteFilter) => {
+    fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `This is an HTTP error: The status is ${response.status}`
+          );
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("SavedFiltersData", data);
+        const mutateData = data.map((el) => Object.assign(el, { key: el.id }));
+        addFavoriteFilter(mutateData)
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+};
 export const RoleOffersFetch = (setRoleOffers) => {
   fetch(`${process.env.REACT_APP_VAP_API_BASE}/RoleOffers`)
     .then((response) => {

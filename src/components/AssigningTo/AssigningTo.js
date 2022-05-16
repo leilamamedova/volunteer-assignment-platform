@@ -16,7 +16,7 @@ const AssigningTo = () => {
       {
         id: Math.random() * 100,
         default: false,
-        field: "name",
+        requirement: "name",
         operator: "=",
         value: "Jane",
         logical: "and",
@@ -24,7 +24,7 @@ const AssigningTo = () => {
       {
         id: Math.random() * 100,
         default: false,
-        field: "age",
+        requirement: "age",
         operator: ">",
         value: "6",
         logical: "and",
