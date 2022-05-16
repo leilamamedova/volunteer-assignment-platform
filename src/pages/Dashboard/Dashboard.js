@@ -5,7 +5,7 @@ import AssignmentNumberCard from '../../components/AssignmentNumberCard/Assignme
 import FaRoleVenueStatistics from '../../components/FaRoleVenueStatistics/FaRoleVenueStatistics';
 import { Col, Row } from 'antd';
 import useStore from '../../services/store';
-import { UsersFetch, UsersFieldsFetch, SavedFiltersGet } from '../../services/fetch';
+import { UsersFetch, UsersFieldsFetch, SavedFiltersGet, RoleOffersFetch } from '../../services/fetch';
 import './Dashboard.scss';
 
 const Dashboard =  () => {
@@ -14,10 +14,13 @@ const Dashboard =  () => {
     const addFavoriteFilter = useStore(({addFavoriteFilter}) => addFavoriteFilter);
     const favoriteFilters = useStore(({favoriteFilters}) => favoriteFilters);
 
+    const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
+
     useEffect(() => {
         UsersFetch(setUsersData);
         UsersFieldsFetch(setUsersDataFields)
         SavedFiltersGet(addFavoriteFilter)
+        RoleOffersFetch(setRoleOffers);
     },[])
 
     console.log(favoriteFilters);

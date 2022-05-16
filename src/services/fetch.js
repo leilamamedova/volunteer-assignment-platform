@@ -70,3 +70,21 @@ export const SavedFiltersGet = (addFavoriteFilter) => {
         console.log(err.message);
       });
 };
+export const RoleOffersFetch = (setRoleOffers) => {
+  fetch(`${process.env.REACT_APP_VAP_API_BASE}/RoleOffers`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        );
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("RoleOffers data", data);
+      setRoleOffers(data);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};

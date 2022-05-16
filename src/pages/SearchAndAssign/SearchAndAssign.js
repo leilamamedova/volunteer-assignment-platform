@@ -1,10 +1,9 @@
-import { Row, Col, Button, Space } from "antd";
+import { Row, Col, Space } from "antd";
 import FilterWrapper from "../../components/FilterWrapper/FilterWrapper";
 import AssigningTo from "../../components/AssigningTo/AssigningTo";
 import AssignSearchResult from "../../components/AssignSearchResult/AssignSearchResult";
 import VolunteerProfile from "../../components/VolunteerProfile/VolunteerProfile";
 import "./SearchAndAssign.scss";
-import ResultButton from "../../components/ResultButton/ResultButton";
 import LoadFilterTemplate from "../../components/LoadFilterTemplate/LoadFilterTemplate";
 
 const SearchAndAssign = () => {
