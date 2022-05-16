@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, Button } from "antd";
 import FilterWrapper from "../FilterWrapper/FilterWrapper";
 import useStore from "../../services/store";
+
 function FilterTemplateModal(props) {
   const filterFields = useStore((state) => state.filterFields);
   const favoriteFilters = useStore((state) => state.favoriteFilters);

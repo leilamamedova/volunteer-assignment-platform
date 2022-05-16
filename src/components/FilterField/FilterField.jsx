@@ -54,7 +54,7 @@ function FilterField(props) {
         optionFilterProp="children"
         className="selectWidth"
         placeholder='Requirement'
-        onSelect={(e) => props.handleSelect(e, props.id, "field")}
+        onSelect={(e) => props.handleSelect(e, props.id, "requirement")}
       >
         {requirements.map((el) => (
           <Option key={el.id} value={el.value}>
