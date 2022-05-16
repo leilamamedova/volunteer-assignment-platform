@@ -5,7 +5,7 @@ function AssignButton(props) {
 
   const handleAssign = () => {
     const postData = props.data.map((el) =>
-      Object.assign({ id: el, role_offer_id: props.roleOfferId, status: 0 })
+      Object.assign({ id: el, role_offer_id: 12885, status: 0 })
     );
     console.log(postData);
     fetch(endpoint, {
