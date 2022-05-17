@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Table, Typography, Space, Row, Col, Button } from "antd";
 import VolunteerProfile from "../VolunteerProfile/VolunteerProfile";
-import { EditOutlined } from "@ant-design/icons";
+import { EyeOutlined } from "@ant-design/icons";
 import { getColumnSearchProps } from "./ColumnSearch/ColumnSearch";
 import useStore from "../../services/store";
 import ColumnFilter from "../ColumnFilter/ColumnFilter";
@@ -47,19 +47,29 @@ const UsersTable = (props) => {
         ]);
       });
   }, [usersDataFields]);
+
   useEffect(() => {
-    dataKeys.length > 0 &&
-      (dataKeys.find((el) => el.dataIndex === "full_name")["render"] = (
-        data,
-        record
-      ) => (
-        <Link
-          key={Math.floor(Math.random() * 100)}
-          onClick={() => showVolunteerModal(record.id)}
-        >
-          {data}
+    // dataKeys.length > 0 &&
+    //   (dataKeys.find((el) => el.dataIndex === "full_name")["render"] = (
+    //     data,
+    //     record
+    //   ) => (
+    //     <Link
+    //       key={Math.floor(Math.random() * 100)}
+    //       onClick={() => showVolunteerModal(record.id)}
+    //     >
+    //       {data}
+    //     </Link>
+    //   ));
+    dataKeys.splice(0, 0, {
+      title: "Details",
+      key: "id",
+      render: (_, field) => (
+        <Link key={field.id} onClick={() => showVolunteerModal(field.id)}>
+          <EyeOutlined />
         </Link>
-      ));
+      ),
+    });
     if (props.isStatusColumn) {
       dataKeys.splice(1, 0, {
         title: "Status",
@@ -71,10 +81,6 @@ const UsersTable = (props) => {
             align="baseline"
           >
             <p>{field.status}</p>
-            <Button
-              icon={<EditOutlined />}
-              onClick={() => showStatusModal(field.id, field.status)}
-            />
           </Space>
         ),
       });
