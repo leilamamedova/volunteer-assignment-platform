@@ -109,3 +109,9 @@ $retro-yellow: #fcfc02;
     min-width: 200px;
   }
 }
+.ant-table-tbody .ant-table-row .ant-table-cell:not(.ant-table-selection-column){
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
