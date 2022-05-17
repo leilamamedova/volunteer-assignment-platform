@@ -56,7 +56,7 @@ function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
         >
           <Input />
         </Form.Item>
-        <FilterWrapper seeResultBtn={true} />
+        <FilterWrapper seeResultBtn={false} />
         <Button className="mt-20" type="primary" htmlType="submit">
           Submit
         </Button>
