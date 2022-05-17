@@ -83,8 +83,8 @@ export const RoleOffersFetch = (setRoleOffers) => {
       return response.json();
     })
     .then((data) => {
-      console.log("RoleOffers data", data);
-      setRoleOffers(data);
+      console.log("RoleOffers data", data.value);
+      setRoleOffers(data.value);
     })
     .catch((err) => {
       console.log(err.message);
