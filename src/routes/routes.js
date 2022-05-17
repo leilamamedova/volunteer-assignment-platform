@@ -25,11 +25,11 @@ const AppRoutes = () => {
             path="/function-and-requirements"
             element={<FunctionAndRequirements />}
           />
-          <Route
+          {/* <Route
             path="/assignment-management"
             element={<AssignmentManagement />}
           />
-          <Route path="/users" element={<Users />} />
+          <Route path="/users" element={<Users />} /> */}
         </Route>
 
         <Route element={<AuthLayout />}>

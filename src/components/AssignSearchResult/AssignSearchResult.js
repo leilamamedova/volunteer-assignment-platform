@@ -9,7 +9,7 @@ const AssignSearchResult = () => {
   return (
     <>
       <div className="assign-search-result">
-        <UsersTable isAssignAction={true} isWaitlistAction={true} />
+        <UsersTable isAssignAction={true} isWaitlistAction={true} isFreeAction={true} />
       </div>
       <VolunteerProfile
         isModalVisible={isModalVisible}
