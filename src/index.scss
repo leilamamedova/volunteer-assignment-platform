@@ -70,6 +70,9 @@ $retro-yellow: #fcfc02;
 .mt-20 {
   margin-top: 20px;
 }
+.ml-20 {
+  margin-left: 20px;
+}
 .overflow-y--auto {
   overflow-y: auto;
 }
@@ -109,7 +112,9 @@ $retro-yellow: #fcfc02;
     min-width: 200px;
   }
 }
-.ant-table-tbody .ant-table-row .ant-table-cell:not(.ant-table-selection-column){
+.ant-table-tbody
+  .ant-table-row
+  .ant-table-cell:not(.ant-table-selection-column) {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

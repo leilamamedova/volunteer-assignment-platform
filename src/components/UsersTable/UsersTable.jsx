@@ -49,9 +49,10 @@ const UsersTable = (props) => {
   }, [usersDataFields]);
   useEffect(() => {
     dataKeys.length > 0 &&
-      (dataKeys.find((el) => el.dataIndex === "full_name")[
-        "render"
-      ] = (data, record) => (
+      (dataKeys.find((el) => el.dataIndex === "full_name")["render"] = (
+        data,
+        record
+      ) => (
         <Link
           key={Math.floor(Math.random() * 100)}
           onClick={() => showVolunteerModal(record.id)}
@@ -104,10 +105,6 @@ const UsersTable = (props) => {
     }
   };
 
-  const handleReset = () => {
-    setTableColumns(columns);
-  };
-
   return (
     <>
       <div className="assign-search-result">
@@ -115,9 +112,6 @@ const UsersTable = (props) => {
           <Col>
             <Space align="stretch">
               <ColumnFilter columns={columns} handleColumns={handleColumns} />
-              <Button type="primary" onClick={handleReset}>
-                Reset
-              </Button>
             </Space>
           </Col>
           <Col>
