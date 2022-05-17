@@ -51,8 +51,8 @@ const AssigningTo = () => {
               <Option default disabled>
                 Functional Area
               </Option>
-              {roleOffers.map((el) => (
-                <Option key={el.functionalArea.id} value={el.functionalArea.id}>
+              {roleOffers.map((el, index) => (
+                <Option key={index} value={el.functionalArea.id}>
                   {el.functionalArea.name}
                 </Option>
               ))}
@@ -67,9 +67,9 @@ const AssigningTo = () => {
               <Option default disabled>
                 Role - Job Title
               </Option>
-              {roleOffers.map((el) => (
-                <Option key={el.jobTitle.id} value={el.jobTitle.id}>
-                  {el.jobTitle.name}
+              {roleOffers.map((el, index) => (
+                <Option key={index} value={el.functionalArea.jobTitle.id}>
+                  {el.functionalArea.jobTitle.name}
                 </Option>
               ))}
             </Select>
@@ -83,9 +83,9 @@ const AssigningTo = () => {
               <Option default disabled>
                 Venue
               </Option>
-              {roleOffers.map((el) => (
-                <Option key={el.venue.id} value={el.venue.id}>
-                  {el.venue.name}
+              {roleOffers.map((el,index) => (
+                <Option key={index} value={el.functionalArea.jobTitle.venue.id}>
+                  {el.functionalArea.jobTitle.venue.name}
                 </Option>
               ))}
             </Select>
