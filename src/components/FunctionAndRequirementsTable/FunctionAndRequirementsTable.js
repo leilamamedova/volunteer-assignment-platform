@@ -10,6 +10,9 @@ const FunctionAndRequirementsTable = () => {
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [isReqModalVisible, setIsReqEditModalVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
+  const [data, setData] = useState([]);
+
+  const roleOffers = useStore(({roleOffers})=>roleOffers);
   const functionalRequirements = useStore(({functionalRequirements})=>functionalRequirements);
   const setFunctionalRequirements = useStore(({setFunctionalRequirements})=>setFunctionalRequirements);
 
@@ -23,6 +26,22 @@ const FunctionAndRequirementsTable = () => {
       }
     ])
   }, [])
+
+  useEffect(() => {
+    roleOffers.map((offer, index) => {
+      setData((prev) => [...prev,
+        {
+          key: offer.id,
+          entity: 'Q22',
+          venue: offer.functionalArea.jobTitle.venue.name,
+          functionalArea: offer.functionalArea.name,
+          jobTitle: offer.functionalArea.jobTitle.name,
+          functional_requirements: functionalRequirements,
+          headcount: <InputNumber defaultValue={offer.headcount} onChange={handleHeadcount}/>
+        }
+      ])
+    })
+  }, [roleOffers])
 
   const handleHeadcount = (value) => {
     console.log(value);
@@ -44,20 +63,21 @@ const FunctionAndRequirementsTable = () => {
       dataIndex: "entity",
     },
     {
+      title: "Functional Area",
+      dataIndex: "functionalArea",
+    },
+    {
+      title: "Job Title",
+      dataIndex: "jobTitle",
+    },
+    {
       title: "Venue",
       dataIndex: "venue",
     },
     {
-      title: "Functional Area",
-      dataIndex: "functional_area",
-    },
-    {
-      title: "Role",
-      dataIndex: "role",
-    },
-    {
       title: "Headcount",
       dataIndex: "headcount",
+      
     },
     {
       title: "Functional Requirements",
@@ -78,36 +98,6 @@ const FunctionAndRequirementsTable = () => {
               <Button icon={<EditOutlined />} onClick={() =>  handleEditModal(record.key)} />
           </Space>
       ),
-    },
-  ];
-  
-  const data = [
-    {
-      key: "1",
-      entity: 'Q22',
-      venue: "Lorem Ipsum",
-      functional_area: 'Lorem Ipsum',
-      role: "Lorem Ipsum",
-      functional_requirements: functionalRequirements,
-      headcount: <InputNumber defaultValue={3} onChange={handleHeadcount}/>
-    },
-    {
-      key: "2",
-      entity: 'Q22',
-      venue: "Lorem Ipsum",
-      functional_area: 'Lorem Ipsum',
-      role: "Lorem Ipsum",
-      functional_requirements: functionalRequirements,
-      headcount: <InputNumber defaultValue={3}/>
-    },
-    {
-      key: "3",
-      entity: 'Q22',
-      venue: "Lorem Ipsum",
-      functional_area: 'Lorem Ipsum',
-      role: "Lorem Ipsum",
-      functional_requirements: functionalRequirements,
-      headcount: <InputNumber defaultValue={3}/>
     },
   ];
 
