@@ -8,6 +8,8 @@ import LoadFilterTemplate from "../../components/LoadFilterTemplate/LoadFilterTe
 import BulkImport from "../../components/BulkImport/BulkImport";
 
 const SearchAndAssign = () => {
+  const url = `${process.env.REACT_APP_API_BASE}/import-users-data`;
+
   return (
     <div className="search-and-assign">
       <Row justify="space-between">
@@ -16,7 +18,7 @@ const SearchAndAssign = () => {
         </Col>
 
         <Col>
-          <BulkImport title={'Users'}/>
+          <BulkImport title={'Users'} url={url}/>
         </Col>
       </Row>
       <Row gutter={15} wrap={true} justify="space-between">
