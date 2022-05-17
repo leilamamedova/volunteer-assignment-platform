@@ -12,8 +12,6 @@ const Dashboard =  () => {
     const setUsersData = useStore(({setUsersData}) => setUsersData);
     const setUsersDataFields = useStore(({setUsersDataFields}) => setUsersDataFields);
     const addFavoriteFilter = useStore(({addFavoriteFilter}) => addFavoriteFilter);
-    const favoriteFilters = useStore(({favoriteFilters}) => favoriteFilters);
-
     const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
 
     useEffect(() => {

@@ -49,7 +49,7 @@ const UsersTable = (props) => {
   }, [usersDataFields]);
   useEffect(() => {
     dataKeys.length > 0 &&
-      (dataKeys.find((el) => el.dataIndex === "Candidate - Full Name")[
+      (dataKeys.find((el) => el.dataIndex === "full_name")[
         "render"
       ] = (data, record) => (
         <Link
