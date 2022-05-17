@@ -28,10 +28,6 @@ function LoadFilterTemplate() {
           .localeCompare(optionB.children.toLowerCase())
       }
     >
-      <Option value="0" selected disabled>
-        Default
-      </Option>
-
       {favoriteFilters &&
         favoriteFilters.map((el) => (
           <Option key={el.key} value={el.key}>

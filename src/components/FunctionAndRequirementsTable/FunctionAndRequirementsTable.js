@@ -5,6 +5,7 @@ import EditRequirementsModal from "./components/EditRequirementsModal/EditRequir
 import FunctionAndRequirementsModal from "./components/FunctionAndRequirementsModal/FunctionAndRequirementsModal";
 import useStore from "../../services/store";
 import "./FunctionAndRequirementsTable.scss";
+import { getColumnSearchProps } from "../UsersTable/ColumnSearch/ColumnSearch";
 
 const FunctionAndRequirementsTable = () => {
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -61,23 +62,26 @@ const FunctionAndRequirementsTable = () => {
     {
       title: "Entity",
       dataIndex: "entity",
+      ...getColumnSearchProps('entity')
     },
     {
       title: "Functional Area",
       dataIndex: "functionalArea",
+      ...getColumnSearchProps('functionalArea')
     },
     {
       title: "Job Title",
       dataIndex: "jobTitle",
+      ...getColumnSearchProps('jobTitle')
     },
     {
       title: "Venue",
       dataIndex: "venue",
+      ...getColumnSearchProps('venue')
     },
     {
       title: "Headcount",
-      dataIndex: "headcount",
-      
+      dataIndex: "headcount",      
     },
     {
       title: "Functional Requirements",

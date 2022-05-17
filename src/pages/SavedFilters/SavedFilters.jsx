@@ -6,6 +6,7 @@ import NewFilterTemplateModal from "../../components/NewFilterTemplateModal/NewF
 import FilterTemplateModal from "../../components/FilterTemplateModal/FilterTemplateModal";
 import FilterListModal from "../../components/FilterListModal/FilterListModal";
 import { SavedFiltersGet } from "../../services/fetch";
+import { getColumnSearchProps } from "../../components/UsersTable/ColumnSearch/ColumnSearch";
 
 function SavedFilters() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -59,6 +60,7 @@ function SavedFilters() {
       title: "Name",
       dataIndex: "name",
       key: "name",
+      ...getColumnSearchProps('name')
     },
     {
       title: "Filters List",
