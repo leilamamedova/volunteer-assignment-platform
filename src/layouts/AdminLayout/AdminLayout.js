@@ -36,30 +36,30 @@ const MainLayout = () => {
       label: "Management",
       children: [
         {
-          key: "f",
-          label: `Saved Filters`,
-          onClick: () => navigate("/savedfilters"),
-        },
-        {
           key: "a",
           label: `Function & Requirements`,
           onClick: () => navigate("/function-and-requirements"),
         },
         {
           key: "b",
-          label: `Search & Assign`,
-          onClick: () => navigate("/search-and-assign"),
+          label: `Saved Filters`,
+          onClick: () => navigate("/savedfilters"),
         },
         {
           key: "c",
-          label: `Assignment Management`,
-          onClick: () => navigate("/assignment-management"),
+          label: `Search & Assign`,
+          onClick: () => navigate("/search-and-assign"),
         },
-        {
-          key: "e",
-          label: `Users`,
-          onClick: () => navigate("/users"),
-        },
+        // {
+        //   key: "c",
+        //   label: `Assignment Management`,
+        //   onClick: () => navigate("/assignment-management"),
+        // },
+        // {
+        //   key: "e",
+        //   label: `Users`,
+        //   onClick: () => navigate("/users"),
+        // },
       ],
     },
     {
