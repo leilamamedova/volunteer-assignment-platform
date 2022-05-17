@@ -49,18 +49,6 @@ const UsersTable = (props) => {
   }, [usersDataFields]);
 
   useEffect(() => {
-    // dataKeys.length > 0 &&
-    //   (dataKeys.find((el) => el.dataIndex === "full_name")["render"] = (
-    //     data,
-    //     record
-    //   ) => (
-    //     <Link
-    //       key={Math.floor(Math.random() * 100)}
-    //       onClick={() => showVolunteerModal(record.id)}
-    //     >
-    //       {data}
-    //     </Link>
-    //   ));
     dataKeys.splice(0, 0, {
       title: "Details",
       key: "id",
@@ -74,6 +62,7 @@ const UsersTable = (props) => {
       dataKeys.splice(1, 0, {
         title: "Status",
         key: "status",
+        ...getColumnSearchProps('status'),
         render: (_, field) => (
           <Space
             key={Math.ceil(Math.random() * 100)}

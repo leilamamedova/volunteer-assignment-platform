@@ -65,7 +65,7 @@ export const SavedFiltersGet = (addFavoriteFilter) => {
         return response.json();
       })
       .then((data) => {
-        const mutateData = data.map((el) => Object.assign(el, { key: el.id }));
+        const mutateData = data.value.map((el) => Object.assign(el, { key: el.id }));
         addFavoriteFilter(mutateData)
       })
       .catch((err) => {
