@@ -47,7 +47,10 @@ export const FilterUserFetch = (filterFields, setUsersData) => {
     body: JSON.stringify({ users: filterFields }),
   })
     .then((response) => response.json())
-    .then((data) => setUsersData(data))
+    .then((data) => {
+      const mutateData = data[0].map((el) => Object.assign(el, { key: el.id }));
+      setUsersData(mutateData)
+    })
     .catch((err) => setUsersData([]));
 };
 
