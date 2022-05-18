@@ -55,6 +55,8 @@ const useStore = create((set) => ({
   setSelectedUsers: (data) => set((state) => (state.selectedUsers = [...data])),
   roleOffers: [],
   setRoleOffers: (data) => set((state) => (state.roleOffers = [...data])),
+  tableLoading: false,
+  setTableLoading: (status) => set((state) => ({ tableLoading: status })),
 }));
 
 export default useStore;
