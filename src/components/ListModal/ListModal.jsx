@@ -1,12 +1,9 @@
 import React from "react";
 import { Modal } from "antd";
-import "./FilterListModal.scss";
+import "./ListModal.scss";
 
-const FunctionAndRequirementsModal = ({
-  isModalVisible,
-  setIsModalVisible,
-  filterList,
-}) => {
+const ListModal = ({ isModalVisible, setIsModalVisible, list }) => {
+  
   const handleOk = () => {
     setIsModalVisible(false);
   };
@@ -14,6 +11,7 @@ const FunctionAndRequirementsModal = ({
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+
   return (
     <>
       <Modal
@@ -24,12 +22,12 @@ const FunctionAndRequirementsModal = ({
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        {filterList.map((item, index) => (
+        {list.map((item, index) => (
           <p key={index} className="filter-list-text">
             <span className="requirement">{item.requirement}</span>{" "}
             <span className="operator">{item.operator}</span>
             <span className="value">
-              {item.value.trim() === "" ? "Empty" : item.value}
+              {item.value === "" ? "Empty" : item.value}
             </span>
           </p>
         ))}
@@ -38,4 +36,4 @@ const FunctionAndRequirementsModal = ({
   );
 };
 
-export default FunctionAndRequirementsModal;
+export default ListModal;

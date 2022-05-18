@@ -16,6 +16,7 @@ function FilterWrapper(props) {
   const resetFilterFields = useStore(
     ({ resetFilterFields }) => resetFilterFields
   );
+
   //Everytime componenet loads, we are resetting the store
   useEffect(() => {
     if (!props.noReset) {

@@ -4,7 +4,7 @@ import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import useStore from "../../services/store";
 import NewFilterTemplateModal from "../../components/NewFilterTemplateModal/NewFilterTemplateModal";
 import FilterTemplateModal from "../../components/FilterTemplateModal/FilterTemplateModal";
-import FilterListModal from "../../components/FilterListModal/FilterListModal";
+import ListModal from "../../components/ListModal/ListModal";
 import { SavedFiltersGet } from "../../services/fetch";
 import { getColumnSearchProps } from "../../components/UsersTable/ColumnSearch/ColumnSearch";
 
@@ -17,8 +17,8 @@ function SavedFilters() {
   const favoriteFilters = useStore((state) => state.favoriteFilters);
   const addFavoriteFilter = useStore((state) => state.addFavoriteFilter);
   const setFilterFields = useStore((state) => state.setFilterFields);
-  const filterFields = useStore((state) => state.filterFields);
   const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
+  const filterFields = useStore((state) => state.filterFields);
 
   useEffect(() => {
     addFavoriteFilter(favoriteFilters)
@@ -111,10 +111,10 @@ function SavedFilters() {
         setIsModalVisible={setIsEditModalVisible}
         templateId={id}
       />
-      <FilterListModal
+      <ListModal
         isModalVisible={isFilterListModalVisible}
         setIsModalVisible={setIsFilterListModalVisible}
-        filterList={filterFields}
+        list = {filterFields}
       />
     </div>
   );
