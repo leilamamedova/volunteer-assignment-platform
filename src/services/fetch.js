@@ -57,7 +57,6 @@ export const FilterUserFetch = (filterFields, setUsersData) => {
 };
 
 export const SavedFiltersGet = (addFavoriteFilter, setTableLoading) => {
-    setTableLoading(true)
     fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates`)
       .then((response) => {
         if (!response.ok) {
@@ -70,14 +69,12 @@ export const SavedFiltersGet = (addFavoriteFilter, setTableLoading) => {
       .then((data) => {
         const mutateData = data.value.map((el) => Object.assign(el, { key: el.id }));
         addFavoriteFilter(mutateData)
-        setTableLoading(false)
       })
       .catch((err) => {
         console.log(err.message);
       });
 };
 export const RoleOffersFetch = (setRoleOffers, setTableLoading) => {
-  setTableLoading(true)
   fetch(`${process.env.REACT_APP_VAP_API_BASE}/RoleOffers`)
     .then((response) => {
       if (!response.ok) {
@@ -90,7 +87,6 @@ export const RoleOffersFetch = (setRoleOffers, setTableLoading) => {
     .then((data) => {
       console.log("RoleOffers data", data.value);
       setRoleOffers(data.value);
-      setTableLoading(false)
     })
     .catch((err) => {
       console.log(err.message);
