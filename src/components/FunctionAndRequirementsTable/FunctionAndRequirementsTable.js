@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Button, Space, Table, InputNumber } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import EditRequirementsModal from "./components/EditRequirementsModal/EditRequirementsModal";
-import FunctionAndRequirementsModal from "./components/FunctionAndRequirementsModal/FunctionAndRequirementsModal";
 import useStore from "../../services/store";
 import "./FunctionAndRequirementsTable.scss";
 import { getColumnSearchProps } from "../UsersTable/ColumnSearch/ColumnSearch";
+import ListModal from "../ListModal/ListModal";
 
 const FunctionAndRequirementsTable = () => {
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -15,46 +15,47 @@ const FunctionAndRequirementsTable = () => {
 
   const roleOffers = useStore(({roleOffers})=>roleOffers);
   const functionalRequirements = useStore(({functionalRequirements})=>functionalRequirements);
-  const setFunctionalRequirements = useStore(({setFunctionalRequirements})=>setFunctionalRequirements);
+  const setFilterFields = useStore(({setFilterFields})=>setFilterFields);
+  const filterFields = useStore((state) => state.filterFields);
 
-  // Dummy data
-  useEffect(() => {
-    setFunctionalRequirements([
-      {
-        requirement: 'Age',
-        operator: '>',
-        value: 19
-      }
-    ])
-  }, [])
+  const dummy = [
+    {
+      entity: {name: 'Q22', id: 1, functionalArea: {name: 'Fa', id: 2, jobTitle: {name: 'Job', id: 3, venue: {name: 'Venue', id: 4, headcount: {name: 51, id:5} }}} }
+    },
+    {
+      entity: {name: 'Q22', id: 1, functionalArea: {name: 'Fa', id: 2, jobTitle: {name: 'Job', id: 3, venue: {name: 'Venue', id: 4, headcount: {name: 51, id:6} }}} }
+    },
+  ]
 
   useEffect(() => {
-    roleOffers.map((offer, index) => {
-      setData((prev) => [...prev,
-        {
-          key: offer.id,
-          entity: 'Q22',
-          venue: offer.functionalArea.jobTitle.venue.name,
-          functionalArea: offer.functionalArea.name,
-          jobTitle: offer.functionalArea.jobTitle.name,
-          functional_requirements: functionalRequirements,
-          headcount: <InputNumber defaultValue={offer.headcount} onChange={handleHeadcount}/>
-        }
-      ])
-    })
-  }, [roleOffers])
+    const newRO = dummy.map((offer) => {
+      const requirements = functionalRequirements.find(el => el.id === offer.entity.functionalArea.jobTitle.venue.headcount.id).requirements;
+      return{
+        key: offer.entity.functionalArea.jobTitle.venue.headcount.id,
+        entity: offer.entity.name,
+        venue: offer.entity.functionalArea.jobTitle.venue.name,
+        functionalArea:  offer.entity.functionalArea.name,
+        jobTitle: offer.entity.functionalArea.jobTitle.name,
+        functional_requirements: requirements.length,
+        headcount: <InputNumber defaultValue={offer.entity.functionalArea.jobTitle.venue.headcount.name} onChange={handleHeadcount}/>
+  }}) 
+      setData(newRO)
+  }, [roleOffers, functionalRequirements])
 
   const handleHeadcount = (value) => {
     console.log(value);
   }
 
   const handleEditModal = (key) => {
+    const el = functionalRequirements.find(el => el.id === key).requirements;
+    setFilterFields(el)
     setSelectedRow(key);
     setIsEditModalVisible(true)
   }
 
   const handleReqModal = (key) => {
-    setSelectedRow(key);
+    const el = functionalRequirements.find(el => el.id === key).requirements;
+    setFilterFields(el)
     setIsReqEditModalVisible(true)
   }
 
@@ -86,13 +87,7 @@ const FunctionAndRequirementsTable = () => {
     {
       title: "Functional Requirements",
       dataIndex: "functional_requirements",
-      render: (tags, record) => (
-        <>
-         <a onClick={handleReqModal}>           
-            {functionalRequirements.length}...
-          </a>  
-        </>
-      ),
+      render: (data, record) => <a onClick={() => handleReqModal(record.key)}>  {data}... </a>,
     },
     {
       title: 'Action',
@@ -113,8 +108,16 @@ const FunctionAndRequirementsTable = () => {
           dataSource={data}
         />
       </div>
-      <FunctionAndRequirementsModal isReqModalVisible={isReqModalVisible} setIsReqEditModalVisible={setIsReqEditModalVisible} functionalRequirements={functionalRequirements}/>
-      <EditRequirementsModal isEditModalVisible={isEditModalVisible} setIsEditModalVisible={setIsEditModalVisible}/>
+      <ListModal 
+        isModalVisible={isReqModalVisible} 
+        setIsModalVisible={setIsReqEditModalVisible} 
+        list={filterFields}
+      />
+      <EditRequirementsModal 
+        isEditModalVisible={isEditModalVisible} 
+        setIsEditModalVisible={setIsEditModalVisible}
+        selectedRow = {selectedRow}
+      />
     </>
   );
 };
