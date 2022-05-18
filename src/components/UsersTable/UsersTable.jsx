@@ -50,12 +50,12 @@ const UsersTable = (props) => {
   }, [usersDataFields]);
 
   useEffect(() => {
-    dataKeys.splice(0, 0, {
+    dataKeys.length>0 && dataKeys.splice(0, 0, {
       title: "#",
       key: "index",
       render: (_, field, index) => <p key={index}>{index + 1}</p>,
     });
-    dataKeys.splice(1, 0, {
+    dataKeys.length>0 && dataKeys.splice(1, 0, {
       title: "Details",
       key: "id",
       render: (_, field) => (
@@ -65,7 +65,7 @@ const UsersTable = (props) => {
       ),
     });
     if (props.isStatusColumn) {
-      dataKeys.splice(2, 0, {
+      dataKeys.length>0 && dataKeys.splice(2, 0, {
         title: "Status",
         key: "status",
         ...getColumnSearchProps("status"),
