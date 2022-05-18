@@ -1,7 +1,39 @@
 import create from "zustand";
 
 const useStore = create((set) => ({
-  functionalRequirements: [],
+  functionalRequirements: [
+    {
+      requirements: 
+      [
+        {
+          id: 5,
+          requirement: 'Age',
+          operator: '>',
+          value: 19
+        }        
+      ]       
+      ,
+      id: 5
+    },
+    {
+      requirements: 
+        [{
+          id: 6,
+          requirement: 'Name',
+          operator: '=',
+          value: 'Leyla'
+        },
+        {
+          id: 7,
+          requirement: 'Age',
+          operator: '=',
+          value: '32'
+        }
+      ]
+      ,
+      id: 6
+    }
+  ],
   setFunctionalRequirements: (req) =>
     set((state) => ({ functionalRequirements: req })),
   usersData: [],
