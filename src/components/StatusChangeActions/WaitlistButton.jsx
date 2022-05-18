@@ -9,8 +9,10 @@ function WaitlistButton(props) {
   );
 
   const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}`;
+  const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
 
   const handleWaitlist = () => {
+
     const postData = props.data.map((el) =>
       Object.assign({ id: el, role_offer_id: props.roleOfferId, status: 1 })
     );
@@ -25,7 +27,7 @@ function WaitlistButton(props) {
     })
       .then((response) => {
         console.log(response);
-        UsersFetch(setUsersData);
+        UsersFetch(setUsersData,setTableLoading );
       })
       .catch((err) => console.log(err));
   };

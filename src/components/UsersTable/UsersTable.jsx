@@ -22,6 +22,7 @@ const UsersTable = (props) => {
   const [userID, setUserID] = useState([]);
   const usersData = useStore(({ usersData }) => usersData);
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
+  const tableLoading = useStore(({ tableLoading }) => tableLoading);
 
   const route = props.isAnyStatus ? "ChangeToAnyStatus" : "AssignOrWaitlist";
 
@@ -49,7 +50,7 @@ const UsersTable = (props) => {
   }, [usersDataFields]);
 
   useEffect(() => {
-    dataKeys.splice(0, 0, {
+    dataKeys.length>0 && dataKeys.splice(0, 0, {
       title: "Details",
       key: "id",
       render: (_, field) => (
@@ -59,7 +60,7 @@ const UsersTable = (props) => {
       ),
     });
     if (props.isStatusColumn) {
-      dataKeys.splice(1, 0, {
+      dataKeys.length>0 && dataKeys.splice(1, 0, {
         title: "Status",
         key: "status",
         ...getColumnSearchProps('status'),
@@ -150,6 +151,7 @@ const UsersTable = (props) => {
           scroll={{ x: 240 }}
           columns={tableColumns}
           dataSource={usersData}
+          loading={tableLoading}
         />
       </div>
       <VolunteerProfile
