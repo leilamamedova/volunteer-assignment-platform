@@ -8,6 +8,7 @@ import useStore from '../../services/store';
 const BulkImport = ({title, url}) => {
   const setUsersData = useStore(({setUsersData}) => setUsersData);
   const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
+  const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
 
   const props = {
     name: 'file',
@@ -24,10 +25,10 @@ const BulkImport = ({title, url}) => {
         message.success(`${info.file.name} file uploaded successfully`);
         switch (title) {
           case 'Users':
-            UsersFetch(setUsersData);         
+            UsersFetch(setUsersData, setTableLoading);         
             break;
           case 'Roles':
-            RoleOffersFetch(setRoleOffers);           
+            RoleOffersFetch(setRoleOffers, setTableLoading);           
             break; 
           case 'Requirements':
             console.log('Requirements');          

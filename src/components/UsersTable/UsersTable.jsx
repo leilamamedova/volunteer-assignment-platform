@@ -22,6 +22,7 @@ const UsersTable = (props) => {
   const [userID, setUserID] = useState([]);
   const usersData = useStore(({ usersData }) => usersData);
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
+  const tableLoading = useStore(({ tableLoading }) => tableLoading);
 
   const route = props.isAnyStatus ? "ChangeToAnyStatus" : "AssignOrWaitlist";
 
@@ -155,6 +156,7 @@ const UsersTable = (props) => {
           scroll={{ x: 240 }}
           columns={tableColumns}
           dataSource={usersData}
+          loading={tableLoading}
         />
       </div>
       <VolunteerProfile
