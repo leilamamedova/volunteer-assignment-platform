@@ -18,10 +18,11 @@ function SavedFilters() {
   const addFavoriteFilter = useStore((state) => state.addFavoriteFilter);
   const setFilterFields = useStore((state) => state.setFilterFields);
   const filterFields = useStore((state) => state.filterFields);
+  const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
 
   useEffect(() => {
     addFavoriteFilter(favoriteFilters)
-    SavedFiltersGet(addFavoriteFilter)
+    SavedFiltersGet(addFavoriteFilter, setTableLoading)
   },[favoriteFilters])
 
   const handleDelete = (id) => {    
