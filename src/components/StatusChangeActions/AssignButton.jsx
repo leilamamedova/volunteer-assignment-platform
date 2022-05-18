@@ -5,6 +5,7 @@ import { UsersFetch, UsersFieldsFetch } from "../../services/fetch";
 
 function AssignButton(props) {
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
+  const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
   const setUsersDataFields = useStore(
     ({ setUsersDataFields }) => setUsersDataFields
   );
@@ -26,7 +27,7 @@ function AssignButton(props) {
     })
       .then((response) => {
         console.log(response);
-        UsersFetch(setUsersData);
+        UsersFetch(setUsersData, setTableLoading);
       })
       .catch((err) => console.log(err));
   };
