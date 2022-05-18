@@ -110,6 +110,22 @@ $retro-yellow: #fcfc02;
 .custom-table-cell--width {
   .ant-table-cell {
     min-width: 200px;
+    &:first-child {
+      min-width: 20px;
+    }
+    &:nth-child(2) {
+      min-width: 80px;
+      vertical-align: middle;
+      p {
+        margin-top: 1em;
+      }
+    }
+    &:nth-child(3) {
+      min-width: 80px;
+    }
+    &:nth-child(5) {
+      display: none;
+    }
   }
 }
 .ant-table-tbody
