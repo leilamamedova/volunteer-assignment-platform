@@ -1,5 +1,5 @@
 export const UsersFetch = (setUsersData, setTableLoading) => {
-  setTableLoading(true)
+  setTableLoading(true);
   fetch(`${process.env.REACT_APP_API_BASE}/volunteers`)
     .then((response) => {
       if (!response.ok) {
@@ -13,7 +13,7 @@ export const UsersFetch = (setUsersData, setTableLoading) => {
       console.log("Users data", data);
       const mutateData = data.map((el) => Object.assign(el, { key: el.id }));
       setUsersData(mutateData);
-      setTableLoading(false)
+      setTableLoading(false);
     })
     .catch((err) => {
       console.log(err.message);
@@ -51,28 +51,30 @@ export const FilterUserFetch = (filterFields, setUsersData) => {
     .then((response) => response.json())
     .then((data) => {
       const mutateData = data.map((el) => Object.assign(el, { key: el.id }));
-      setUsersData(mutateData)
+      setUsersData(mutateData);
     })
     .catch((err) => setUsersData([]));
 };
 
 export const SavedFiltersGet = (addFavoriteFilter, setTableLoading) => {
-    fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `This is an HTTP error: The status is ${response.status}`
-          );
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const mutateData = data.value.map((el) => Object.assign(el, { key: el.id }));
-        addFavoriteFilter(mutateData)
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+  fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        );
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const mutateData = data.value.map((el) =>
+        Object.assign(el, { key: el.id })
+      );
+      addFavoriteFilter(mutateData);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 };
 
 export const RoleOffersFetch = (setRoleOffers, setTableLoading) => {
@@ -88,6 +90,25 @@ export const RoleOffersFetch = (setRoleOffers, setTableLoading) => {
     .then((data) => {
       console.log("RoleOffers data", data.value);
       setRoleOffers(data.value);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+export const NestedRoleOffersFetch = (setNestedRoleOffers) => {
+  fetch(`${process.env.REACT_APP_VAP_API_BASE}/RoleOffers/nested`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        );
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("NestedRoleOffers data", data.value);
+      setNestedRoleOffers(data.value);
     })
     .catch((err) => {
       console.log(err.message);

@@ -3,36 +3,33 @@ import create from "zustand";
 const useStore = create((set) => ({
   functionalRequirements: [
     {
-      requirements: 
-      [
+      requirements: [
         {
           id: 5,
-          requirement: 'Age',
-          operator: '>',
-          value: 19
-        }        
-      ]       
-      ,
-      id: 5
+          requirement: "Age",
+          operator: ">",
+          value: 19,
+        },
+      ],
+      id: 5,
     },
     {
-      requirements: 
-        [{
+      requirements: [
+        {
           id: 6,
-          requirement: 'Name',
-          operator: '=',
-          value: 'Leyla'
+          requirement: "Name",
+          operator: "=",
+          value: "Leyla",
         },
         {
           id: 7,
-          requirement: 'Age',
-          operator: '=',
-          value: '32'
-        }
-      ]
-      ,
-      id: 6
-    }
+          requirement: "Age",
+          operator: "=",
+          value: "32",
+        },
+      ],
+      id: 6,
+    },
   ],
   setFunctionalRequirements: (req) =>
     set((state) => ({ functionalRequirements: req })),
@@ -85,8 +82,14 @@ const useStore = create((set) => ({
   setSelectedUsers: (data) => set((state) => (state.selectedUsers = [...data])),
   roleOffers: [],
   setRoleOffers: (data) => set((state) => (state.roleOffers = [...data])),
+  nestedRoleOffers: [],
+  setNestedRoleOffers: (data) =>
+    set((state) => (state.nestedRoleOffers = data)),
   tableLoading: false,
   setTableLoading: (status) => set((state) => ({ tableLoading: status })),
+  activeRoleOfferId: 0,
+  setActiveRoleOfferId: (data) =>
+    set((state) => (state.activeRoleOfferId = data)),
 }));
 
 export default useStore;
