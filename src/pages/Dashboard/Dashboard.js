@@ -10,7 +10,6 @@ import {
   UsersFieldsFetch,
   SavedFiltersGet,
   RoleOffersFetch,
-  NestedRoleOffersFetch,
 } from "../../services/fetch";
 import "./Dashboard.scss";
 
@@ -33,7 +32,6 @@ const Dashboard = () => {
     UsersFieldsFetch(setUsersDataFields);
     SavedFiltersGet(addFavoriteFilter, setTableLoading);
     RoleOffersFetch(setRoleOffers, setTableLoading);
-    NestedRoleOffersFetch(setNestedRoleOffers);
   }, []);
 
   return (
