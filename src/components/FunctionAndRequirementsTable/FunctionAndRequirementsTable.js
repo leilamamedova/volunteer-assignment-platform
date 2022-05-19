@@ -12,58 +12,69 @@ const FunctionAndRequirementsTable = () => {
   const [isReqModalVisible, setIsReqEditModalVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
   const [data, setData] = useState([]);
+  const [headcount, setHeadcount] = useState(null);
 
   const roleOffers = useStore(({roleOffers})=>roleOffers);
   const functionalRequirements = useStore(({functionalRequirements})=>functionalRequirements);
   const setFilterFields = useStore(({setFilterFields})=>setFilterFields);
   const filterFields = useStore((state) => state.filterFields);
 
-  const dummy = [
-    {
-      entity: {name: 'Q22', id: 1, functionalArea: {name: 'Fa', id: 2, jobTitle: {name: 'Job', id: 3, venue: {name: 'Venue', id: 4, headcount: {name: 51, id:5} }}} }
-    },
-    {
-      entity: {name: 'Q22', id: 1, functionalArea: {name: 'Fa', id: 2, jobTitle: {name: 'Job', id: 3, venue: {name: 'Venue', id: 4, headcount: {name: 51, id:6} }}} }
-    },
-  ]
+  useEffect(() => { 
+    setData([])
+    roleOffers.map((offer) => {
+      offer.functionalAreas.map(fa => {
+        fa.jobTitles.map(job => {
+          job.venues.map(venue => {             
+              setData(prev => [...prev,
+                { 
+                  key: venue.roleOffer.id,
+                  id: venue.roleOffer.id,
+                  functionalAreaType: offer.name,
+                  functionalAreaCode: fa.code,
+                  functionalArea: fa.name,
+                  jobTitleCode: job.code,
+                  jobTitle: job.name,
+                  locationCode: venue.code,
+                  location: venue.name,
+                  totalDemand: venue.roleOffer.headcount
+                }
+              ])            
+            }
+          )
+        })
+      })
+    })
+  }, [roleOffers]) 
 
-  useEffect(() => {
-    const newRO = dummy.map((offer) => {
-      const requirements = functionalRequirements.find(el => el.id === offer.entity.functionalArea.jobTitle.venue.headcount.id).requirements;
-      return{
-        key: offer.entity.functionalArea.jobTitle.venue.headcount.id,
-        entity: offer.entity.name,
-        venue: offer.entity.functionalArea.jobTitle.venue.name,
-        functionalArea:  offer.entity.functionalArea.name,
-        jobTitle: offer.entity.functionalArea.jobTitle.name,
-        functional_requirements: requirements.length,
-        headcount: <InputNumber defaultValue={offer.entity.functionalArea.jobTitle.venue.headcount.name} onChange={handleHeadcount}/>
-  }}) 
-      setData(newRO)
-  }, [roleOffers, functionalRequirements])
-
-  const handleHeadcount = (value) => {
-    console.log(value);
-  }
-
-  const handleEditModal = (key) => {
-    const el = functionalRequirements.find(el => el.id === key).requirements;
-    setFilterFields(el)
+  const handleEditModal = (key, headcount) => {
+    // const el = functionalRequirements.find(el => el.id === key).requirements;
+    setFilterFields(functionalRequirements[0].requirements) //dummy
+    setHeadcount(headcount);
     setSelectedRow(key);
     setIsEditModalVisible(true)
   }
 
   const handleReqModal = (key) => {
-    const el = functionalRequirements.find(el => el.id === key).requirements;
-    setFilterFields(el)
+    // const el = functionalRequirements.find(el => el.id === key).requirements;
+    setFilterFields(functionalRequirements[0].requirements) //dummy
     setIsReqEditModalVisible(true)
   }
 
   const columns = [
     {
-      title: "Entity",
-      dataIndex: "entity",
-      ...getColumnSearchProps('entity')
+      title: "Role Offer - ID",
+      dataIndex: "id",
+      ...getColumnSearchProps('id')
+    },
+    {
+      title: "Functional Area Type",
+      dataIndex: "functionalAreaType",
+      ...getColumnSearchProps('functionalAreaType')
+    },
+    {
+      title: "Functional Area Code",
+      dataIndex: "functionalAreaCode",
+      ...getColumnSearchProps('functionalArea')
     },
     {
       title: "Functional Area",
@@ -71,30 +82,42 @@ const FunctionAndRequirementsTable = () => {
       ...getColumnSearchProps('functionalArea')
     },
     {
+      title: "Job Title Code",
+      dataIndex: "jobTitleCode",
+      ...getColumnSearchProps('jobTitleCode')
+    },
+    {
       title: "Job Title",
       dataIndex: "jobTitle",
       ...getColumnSearchProps('jobTitle')
     },
     {
-      title: "Venue",
-      dataIndex: "venue",
-      ...getColumnSearchProps('venue')
+      title: "Location Code",
+      dataIndex: "locationCode",
+      ...getColumnSearchProps('locationCode')
     },
     {
-      title: "Headcount",
-      dataIndex: "headcount",      
+      title: "Location",
+      dataIndex: "location",
+      ...getColumnSearchProps('location')
+    },
+    {
+      title: "Total Demand",
+      dataIndex: "totalDemand",
+      ...getColumnSearchProps('totalDemand')
     },
     {
       title: "Functional Requirements",
       dataIndex: "functional_requirements",
-      render: (data, record) => <a onClick={() => handleReqModal(record.key)}>  {data}... </a>,
+      fixed: 'right',
+      render: (data, record) => <a onClick={() => handleReqModal(record.key)}>  See all... </a>,
     },
     {
       title: 'Action',
       key: "action",
       render: (_, record) => (
           <Space className="action-icons">
-              <Button icon={<EditOutlined />} onClick={() =>  handleEditModal(record.key)} />
+              <Button icon={<EditOutlined />} onClick={() =>  handleEditModal(record.key, record.totalDemand)} />
           </Space>
       ),
     },
@@ -104,6 +127,7 @@ const FunctionAndRequirementsTable = () => {
     <>
       <div className="function-and-requirements-table">
         <Table
+          scroll={{x: 100}}
           columns={columns}
           dataSource={data}
         />
@@ -117,6 +141,7 @@ const FunctionAndRequirementsTable = () => {
         isEditModalVisible={isEditModalVisible} 
         setIsEditModalVisible={setIsEditModalVisible}
         selectedRow = {selectedRow}
+        headcount = {headcount}
       />
     </>
   );
