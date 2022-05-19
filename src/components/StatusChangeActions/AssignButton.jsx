@@ -1,14 +1,11 @@
 import React from "react";
 import { Button } from "antd";
 import useStore from "../../services/store";
-import { UsersFetch, UsersFieldsFetch } from "../../services/fetch";
+import { UsersFetch } from "../../services/fetch";
 
 function AssignButton(props) {
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
   const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
-  const setUsersDataFields = useStore(
-    ({ setUsersDataFields }) => setUsersDataFields
-  );
 
   const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}`;
 
@@ -16,7 +13,6 @@ function AssignButton(props) {
     const postData = props.data.map((el) =>
       Object.assign({ id: el, role_offer_id: 12885, status: 0 })
     );
-    console.log(postData);
     fetch(endpoint, {
       method: "POST",
       headers: {
