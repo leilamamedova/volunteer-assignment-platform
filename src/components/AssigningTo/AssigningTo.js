@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Space, Select, Button } from "antd";
 import useStore from "../../services/store";
 import FulfillmentCard from "../FulfillmentCard/FulfillmentCard";
@@ -9,29 +9,61 @@ const { Option } = Select;
 
 const AssigningTo = () => {
   const setFilterFields = useStore(({ setFilterFields }) => setFilterFields);
-  const roleOffers = useStore(({ roleOffers }) => roleOffers);
+  const nestedRoleOffers = useStore(({ nestedRoleOffers }) => nestedRoleOffers);
+  const setActiveRoleOfferId = useStore(
+    ({ setActiveRoleOfferId }) => setActiveRoleOfferId
+  );
+  const [entities, setEntities] = useState([]);
+  const [functionalAreas, setFunctionalAreas] = useState([]);
+  const [jobTitles, setJobTitles] = useState([]);
+  const [venues, setVenues] = useState([]);
+  const [roleOfferId, setRoleOfferId] = useState(0);
+  const [isFADisabled, setIsFADisabled] = useState(true);
+  const [isJobTitleDisabled, setIsJobTitleDisabled] = useState(true);
+  const [isVenueDisabled, setIsVenueDisabled] = useState(true);
+  const [isSubmitDisabled, setSubmitDisabled] = useState(true);
 
-  function handleChange(value) {
-    setFilterFields([
-      {
-        default: false,
-        requirement: "name",
-        operator: "=",
-        value: "Jane",
-        logical: "and",
-      },
-      {
-        default: false,
-        requirement: "age",
-        operator: ">",
-        value: "6",
-        logical: "and",
-      },
-    ]);
-  }
+  useEffect(() => {
+    const entityData = nestedRoleOffers.map((el) => el.name);
+    setEntities(entityData);
+  }, []);
 
+  //Submit Handler Logic
   const handleSubmit = (e) => {
     e.preventDefault();
+    setActiveRoleOfferId(roleOfferId);
+  };
+
+  //Select Boxes will be Enabled by order (top->bottom)
+  //On every change options for the next select box will change
+  //according to the selected value;
+  const handleEntityChange = (value) => {
+    let functionalAreaData = [];
+    nestedRoleOffers.map((el) =>
+      el.name === value ? (functionalAreaData = [...el.functionalAreas]) : ""
+    );
+    setFunctionalAreas([...functionalAreaData]);
+    setIsFADisabled(false);
+  };
+  const handleFAChange = (value) => {
+    let jobTitleData = [];
+    functionalAreas.map((el) =>
+      el.name === value ? (jobTitleData = [...el.jobTitles]) : ""
+    );
+    setJobTitles(jobTitleData);
+    setIsJobTitleDisabled(false);
+  };
+  const handleJobTitleChange = (value) => {
+    let venueData = [];
+    jobTitles.map((el) =>
+      el.name === value ? (venueData = [...el.venues]) : ""
+    );
+    setVenues(venueData);
+    setIsVenueDisabled(false);
+  };
+  const handleVenueChange = (value) => {
+    console.log(value);
+    setRoleOfferId(value);
   };
 
   return (
@@ -43,53 +75,75 @@ const AssigningTo = () => {
             onSubmit={handleSubmit}
           >
             <Select
+              defaultValue="Entity"
+              showSearch
+              optionFilterProp="children"
+              onChange={handleEntityChange}
+            >
+              <Option default disabled>
+                Entity
+              </Option>
+              {entities.map((el, index) => (
+                <Option key={index} value={el}>
+                  {el}
+                </Option>
+              ))}
+            </Select>
+            <Select
+              disabled={isFADisabled}
               defaultValue="Functional Area"
               showSearch
               optionFilterProp="children"
-              onChange={handleChange}
+              onChange={handleFAChange}
             >
               <Option default disabled>
                 Functional Area
               </Option>
-              {roleOffers.map((el, index) => (
-                <Option key={index} value={el.functionalArea.id}>
-                  {el.functionalArea.name}
+              {functionalAreas.map((el, index) => (
+                <Option key={index} value={el.name}>
+                  {el.name}
                 </Option>
               ))}
             </Select>
 
             <Select
+              disabled={isJobTitleDisabled}
               defaultValue="Role - Job Title"
               showSearch
               optionFilterProp="children"
-              onChange={handleChange}
+              onChange={handleJobTitleChange}
             >
               <Option default disabled>
                 Role - Job Title
               </Option>
-              {roleOffers.map((el, index) => (
-                <Option key={index} value={el.functionalArea.jobTitle.id}>
-                  {el.functionalArea.jobTitle.name}
+              {jobTitles.map((el, index) => (
+                <Option key={index} value={el.name}>
+                  {el.name}
                 </Option>
               ))}
             </Select>
 
             <Select
+              disabled={isVenueDisabled}
               defaultValue="Venue"
               showSearch
               optionFilterProp="children"
-              onChange={handleChange}
+              onChange={handleVenueChange}
             >
               <Option default disabled>
                 Venue
               </Option>
-              {roleOffers.map((el,index) => (
-                <Option key={index} value={el.functionalArea.jobTitle.venue.id}>
-                  {el.functionalArea.jobTitle.venue.name}
+              {venues.map((el, index) => (
+                <Option key={index} value={el.roleOffer.id}>
+                  {el.name}
                 </Option>
               ))}
             </Select>
-            <Button type="primary" htmlType="submit">
+            <Button
+              type="primary"
+              htmlType="submit"
+              disabled={isSubmitDisabled}
+            >
               Submit
             </Button>
           </form>

@@ -1,56 +1,70 @@
-import React, { useEffect } from 'react';
-import GenderChart from '../../components/Charts/components/GenderChart/GenderChart';
-import NationalityChart from '../../components/Charts/components/NationalityChart/NationalityChart';
-import AssignmentNumberCard from '../../components/AssignmentNumberCard/AssignmentNumberCard';
-import FaRoleVenueStatistics from '../../components/FaRoleVenueStatistics/FaRoleVenueStatistics';
-import { Col, Row } from 'antd';
-import useStore from '../../services/store';
-import { UsersFetch, UsersFieldsFetch, SavedFiltersGet, RoleOffersFetch } from '../../services/fetch';
-import './Dashboard.scss';
+import React, { useEffect } from "react";
+import GenderChart from "../../components/Charts/components/GenderChart/GenderChart";
+import NationalityChart from "../../components/Charts/components/NationalityChart/NationalityChart";
+import AssignmentNumberCard from "../../components/AssignmentNumberCard/AssignmentNumberCard";
+import FaRoleVenueStatistics from "../../components/FaRoleVenueStatistics/FaRoleVenueStatistics";
+import { Col, Row } from "antd";
+import useStore from "../../services/store";
+import {
+  UsersFetch,
+  UsersFieldsFetch,
+  SavedFiltersGet,
+  RoleOffersFetch,
+  NestedRoleOffersFetch,
+} from "../../services/fetch";
+import "./Dashboard.scss";
 
-const Dashboard =  () => {
-    const setUsersData = useStore(({setUsersData}) => setUsersData);
-    const setUsersDataFields = useStore(({setUsersDataFields}) => setUsersDataFields);
-    const addFavoriteFilter = useStore(({addFavoriteFilter}) => addFavoriteFilter);
-    const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
-    const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
+const Dashboard = () => {
+  const setUsersData = useStore(({ setUsersData }) => setUsersData);
+  const setUsersDataFields = useStore(
+    ({ setUsersDataFields }) => setUsersDataFields
+  );
+  const addFavoriteFilter = useStore(
+    ({ addFavoriteFilter }) => addFavoriteFilter
+  );
+  const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
+  const setNestedRoleOffers = useStore(
+    ({ setNestedRoleOffers }) => setNestedRoleOffers
+  );
+  const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
 
-    useEffect(() => {
-        UsersFetch(setUsersData, setTableLoading);
-        UsersFieldsFetch(setUsersDataFields)
-        SavedFiltersGet(addFavoriteFilter, setTableLoading)
-        RoleOffersFetch(setRoleOffers, setTableLoading);
-    },[])   
+  useEffect(() => {
+    UsersFetch(setUsersData, setTableLoading);
+    UsersFieldsFetch(setUsersDataFields);
+    SavedFiltersGet(addFavoriteFilter, setTableLoading);
+    RoleOffersFetch(setRoleOffers, setTableLoading);
+    NestedRoleOffersFetch(setNestedRoleOffers);
+  }, []);
 
-    return (
-        <div className='dashboard'>
-            <Row justify="center" gutter={30}>
-                <Col span={8}>
-                    <AssignmentNumberCard/>            
-                </Col>
+  return (
+    <div className="dashboard">
+      <Row justify="center" gutter={30}>
+        <Col span={8}>
+          <AssignmentNumberCard />
+        </Col>
 
-                <Col span={8}>
-                    <AssignmentNumberCard/>            
-                </Col>
+        <Col span={8}>
+          <AssignmentNumberCard />
+        </Col>
 
-                <Col span={8}>
-                    <AssignmentNumberCard/>            
-                </Col>
-            </Row>
+        <Col span={8}>
+          <AssignmentNumberCard />
+        </Col>
+      </Row>
 
-            <Row justify="center" align='middle' gutter={30}>
-                <Col span={16}>
-                    <NationalityChart/>            
-                </Col>
+      <Row justify="center" align="middle" gutter={30}>
+        <Col span={16}>
+          <NationalityChart />
+        </Col>
 
-                <Col span={8}>
-                    <GenderChart/>           
-                </Col>
-            </Row>
+        <Col span={8}>
+          <GenderChart />
+        </Col>
+      </Row>
 
-            <FaRoleVenueStatistics/>
-        </div>
-    )
+      <FaRoleVenueStatistics />
+    </div>
+  );
 };
 
 export default Dashboard;
