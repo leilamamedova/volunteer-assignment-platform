@@ -95,22 +95,3 @@ export const RoleOffersFetch = (setRoleOffers, setTableLoading) => {
       console.log(err.message);
     });
 };
-
-export const NestedRoleOffersFetch = (setNestedRoleOffers) => {
-  fetch(`${process.env.REACT_APP_VAP_API_BASE}/RoleOffers/nested`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(
-          `This is an HTTP error: The status is ${response.status}`
-        );
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log("NestedRoleOffers data", data.value);
-      setNestedRoleOffers(data.value);
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-};

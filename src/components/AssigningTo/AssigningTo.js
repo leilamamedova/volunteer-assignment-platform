@@ -9,7 +9,7 @@ const { Option } = Select;
 
 const AssigningTo = () => {
   const setFilterFields = useStore(({ setFilterFields }) => setFilterFields);
-  const nestedRoleOffers = useStore(({ nestedRoleOffers }) => nestedRoleOffers);
+  const roleOffers = useStore(({ roleOffers }) => roleOffers);
   const setActiveRoleOfferId = useStore(
     ({ setActiveRoleOfferId }) => setActiveRoleOfferId
   );
@@ -24,7 +24,7 @@ const AssigningTo = () => {
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
 
   useEffect(() => {
-    const entityData = nestedRoleOffers.map((el) => el.name);
+    const entityData = roleOffers.map((el) => el.name);
     setEntities(entityData);
   }, []);
 
@@ -39,7 +39,7 @@ const AssigningTo = () => {
   //according to the selected value;
   const handleEntityChange = (value) => {
     let functionalAreaData = [];
-    nestedRoleOffers.map((el) =>
+    roleOffers.map((el) =>
       el.name === value ? (functionalAreaData = [...el.functionalAreas]) : ""
     );
     setFunctionalAreas([...functionalAreaData]);
@@ -64,6 +64,7 @@ const AssigningTo = () => {
   const handleVenueChange = (value) => {
     console.log(value);
     setRoleOfferId(value);
+    setSubmitDisabled(false);
   };
 
   return (
