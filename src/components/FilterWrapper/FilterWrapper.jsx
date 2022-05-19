@@ -3,13 +3,16 @@ import { Button, Space, Radio } from "antd";
 import useStore from "../../services/store";
 import FilterField from "../FilterField/FilterField";
 import ResultButton from "../ResultButton/ResultButton";
-import { FilterUserFetch } from "../../services/fetch";
+import { UsersFetch, FilterUserFetch } from "../../services/fetch";
 import "./FilterWrapper.scss";
 
 function FilterWrapper(props) {
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setFilterFields = useStore(({ setFilterFields }) => setFilterFields);
   const addFilterField = useStore(({ addFilterField }) => addFilterField);
+  const setUsersData = useStore(({ setUsersData }) => setUsersData);
+  const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
+
   const removeFilterField = useStore(
     ({ removeFilterField }) => removeFilterField
   );
@@ -60,7 +63,12 @@ function FilterWrapper(props) {
     list[index][name] = e;
     setFilterFields(list);
   };
-
+  //Handle Reset
+  //Set default FilterFields , Fetch Users without Filter
+  const resetHandler = () => {
+    UsersFetch(setUsersData, setTableLoading);
+    resetFilterFields();
+  };
   return (
     <>
       <div className={"card flexv overflow-y--auto"}>
@@ -69,9 +77,15 @@ function FilterWrapper(props) {
             <Button type="primary" onClick={handleNewField}>
               Add
             </Button>
-            {
-              props.seeResultBtn ? <ResultButton fetch={FilterUserFetch} /> : null
-            }
+            {props.seeResultBtn ? (
+              <ResultButton
+                fetchFiltered={FilterUserFetch}
+                fetchDefault={UsersFetch}
+              />
+            ) : null}
+            <Button onClick={resetHandler} type="primary">
+              Reset
+            </Button>
           </Space>
 
           {filterFields.map((el, index) => (
@@ -81,7 +95,8 @@ function FilterWrapper(props) {
               key={index + "filter"}
               style={{ margin: "15px 0" }}
             >
-              {index !== 0 ? (
+              {/* Logical Statement  */}
+              {/* {index !== 0 ? (
                 <Radio.Group
                   name="logical"
                   onChange={(e) => handleChange(e, index)}
@@ -92,11 +107,11 @@ function FilterWrapper(props) {
                 </Radio.Group>
               ) : (
                 ""
-              )}
+              )} */}
               <FilterField
                 key={el.id}
                 id={index}
-                default={!props.isFav && index === 0 ? true : false}
+                default={el.default}
                 operator={el.operator}
                 requirement={el.requirement}
                 value={el.value}

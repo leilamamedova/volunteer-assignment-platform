@@ -18,7 +18,7 @@ const SearchAndAssign = () => {
         </Col>
 
         <Col>
-          <BulkImport title={'Users'} url={url}/>
+          <BulkImport title={"Users"} url={url} />
         </Col>
       </Row>
       <Row gutter={15} wrap={true} justify="space-between">
@@ -27,7 +27,7 @@ const SearchAndAssign = () => {
         </Col>
 
         <Col xs={24} md={12} lg={13}>
-          <AssigningTo />
+          {/* <AssigningTo /> */}
         </Col>
       </Row>
 
