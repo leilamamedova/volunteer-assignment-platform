@@ -74,8 +74,9 @@ export const SavedFiltersGet = (addFavoriteFilter, setTableLoading) => {
         console.log(err.message);
       });
 };
+
 export const RoleOffersFetch = (setRoleOffers, setTableLoading) => {
-  fetch(`${process.env.REACT_APP_VAP_API_BASE}/RoleOffers`)
+  fetch(`${process.env.REACT_APP_VAP_API_BASE}/RoleOffers/nested`)
     .then((response) => {
       if (!response.ok) {
         throw new Error(
