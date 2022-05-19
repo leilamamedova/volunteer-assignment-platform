@@ -11,7 +11,7 @@ const useStore = create((set) => ({
   //Filters
   filterFields: [
     {
-      default: true,
+      default: false,
       requirement: "Requirement",
       operator: "Operator",
       value: "",
@@ -23,7 +23,7 @@ const useStore = create((set) => ({
       (state) =>
         (state.filterFields = [
           {
-            default: true,
+            default: false,
             requirement: "Requirement",
             operator: "Operator",
             value: "",
@@ -41,9 +41,7 @@ const useStore = create((set) => ({
     }),
   favoriteFilters: [],
   addFavoriteFilter: (templateFilter) =>
-    set(
-      (state) => ({ favoriteFilters: templateFilter })
-    ),
+    set((state) => ({ favoriteFilters: templateFilter })),
   removeFavoriteFilter: (template_id) =>
     set(
       (state) =>
