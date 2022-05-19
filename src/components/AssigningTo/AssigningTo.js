@@ -51,6 +51,7 @@ const AssigningTo = () => {
       el.name === value ? (functionalAreaData = [...el.functionalAreas]) : ""
     );
     setRoleOfferId(0);
+    setActiveRoleOfferId(0);
     setFunctionalAreas([...functionalAreaData]);
     setIsFADisabled(false);
   };
@@ -60,6 +61,7 @@ const AssigningTo = () => {
       el.name === value ? (jobTitleData = [...el.jobTitles]) : ""
     );
     setRoleOfferId(0);
+    setActiveRoleOfferId(0);
     setJobTitles(jobTitleData);
     setIsJobTitleDisabled(false);
   };
@@ -69,11 +71,11 @@ const AssigningTo = () => {
       el.name === value ? (venueData = [...el.venues]) : ""
     );
     setRoleOfferId(0);
+    setActiveRoleOfferId(0);
     setVenues(venueData);
     setIsVenueDisabled(false);
   };
   const handleVenueChange = (value) => {
-    console.log(value);
     setRoleOfferId(value);
     setSubmitDisabled(false);
   };
