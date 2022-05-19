@@ -28,6 +28,14 @@ const AssigningTo = () => {
     setEntities(entityData);
   }, []);
 
+  useEffect(() => {
+    if (roleOfferId === 0) {
+      setSubmitDisabled(true);
+    } else {
+      setSubmitDisabled(false);
+    }
+  }, [roleOfferId]);
+
   //Submit Handler Logic
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,6 +50,7 @@ const AssigningTo = () => {
     roleOffers.map((el) =>
       el.name === value ? (functionalAreaData = [...el.functionalAreas]) : ""
     );
+    setRoleOfferId(0);
     setFunctionalAreas([...functionalAreaData]);
     setIsFADisabled(false);
   };
@@ -50,6 +59,7 @@ const AssigningTo = () => {
     functionalAreas.map((el) =>
       el.name === value ? (jobTitleData = [...el.jobTitles]) : ""
     );
+    setRoleOfferId(0);
     setJobTitles(jobTitleData);
     setIsJobTitleDisabled(false);
   };
@@ -58,6 +68,7 @@ const AssigningTo = () => {
     jobTitles.map((el) =>
       el.name === value ? (venueData = [...el.venues]) : ""
     );
+    setRoleOfferId(0);
     setVenues(venueData);
     setIsVenueDisabled(false);
   };
