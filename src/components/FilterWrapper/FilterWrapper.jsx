@@ -33,7 +33,7 @@ function FilterWrapper(props) {
       default: false,
       requirement: "Requirement",
       operator: "Operator",
-      value: "",
+      value: [""],
       logical: "and",
     });
   };
@@ -50,11 +50,19 @@ function FilterWrapper(props) {
     setFilterFields(list);
   };
 
+  const handleOrInputRemoval = (name, index) => {
+    const list = [...filterFields];
+    list[index][name].splice(1, 1);
+    console.log(list);
+    setFilterFields(list);
+  };
+
   // Handling Change events
-  const handleChange = (e, index) => {
+  const handleChange = (e, index, pos) => {
     const { name, value } = e.target;
     const list = [...filterFields];
-    list[index][name] = value;
+    list[index][name][pos] = value;
+    console.log(list);
     setFilterFields(list);
   };
   // Handling Select events
@@ -118,6 +126,7 @@ function FilterWrapper(props) {
                 handleSelect={handleSelect}
                 handleChange={handleChange}
                 handleDelete={removeField}
+                handleOrInputRemoval={handleOrInputRemoval}
               />
             </Space>
           ))}
