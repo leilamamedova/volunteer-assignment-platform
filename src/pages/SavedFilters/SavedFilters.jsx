@@ -11,19 +11,22 @@ import { getColumnSearchProps } from "../../components/UsersTable/ColumnSearch/C
 function SavedFilters() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-  const [isFilterListModalVisible, setIsFilterListModalVisible] =
-    useState(false);
+  const [isFilterListModalVisible, setIsFilterListModalVisible] = useState(false);
   const [id, setId] = useState("");
   const favoriteFilters = useStore((state) => state.favoriteFilters);
   const addFavoriteFilter = useStore((state) => state.addFavoriteFilter);
   const setFilterFields = useStore((state) => state.setFilterFields);
-  const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
   const filterFields = useStore((state) => state.filterFields);
+  const dataLoading = useStore(({ dataLoading }) => dataLoading);
+  const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
   useEffect(() => {
     addFavoriteFilter(favoriteFilters)
-    SavedFiltersGet(addFavoriteFilter, setTableLoading)
+    SavedFiltersGet(addFavoriteFilter)
+
+    favoriteFilters.length > 0 ? setDataLoading(false) : setDataLoading(true);
   },[favoriteFilters])
+
 
   const handleDelete = (id) => {    
     fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates/delete/${id}`, { method: 'DELETE' })
@@ -101,7 +104,11 @@ function SavedFilters() {
       <Button type="primary" className="mb-20" onClick={handleModal}>
         Create
       </Button>
-      <Table  columns={columns} dataSource={favoriteFilters} />
+      <Table  
+        columns={columns} 
+        dataSource={favoriteFilters}
+        loading={dataLoading}
+       />
       <NewFilterTemplateModal
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}

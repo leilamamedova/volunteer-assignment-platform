@@ -20,9 +20,11 @@ const UsersTable = (props) => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [tableColumns, setTableColumns] = useState(columns);
   const [userID, setUserID] = useState([]);
+
   const usersData = useStore(({ usersData }) => usersData);
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
-  const tableLoading = useStore(({ tableLoading }) => tableLoading);
+  const dataLoading = useStore(({ dataLoading }) => dataLoading);
+  const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
   const route = props.isAnyStatus ? "ChangeToAnyStatus" : "AssignOrWaitlist";
 
@@ -48,6 +50,10 @@ const UsersTable = (props) => {
         ]);
       });
   }, [usersDataFields]);
+
+  useEffect(() => {
+    usersData.length>0 ? setDataLoading(false) : setDataLoading(true);
+  }, [usersData])
 
   useEffect(() => {
     dataKeys.length>0 && dataKeys.splice(0, 0, {
@@ -156,7 +162,7 @@ const UsersTable = (props) => {
           scroll={{ x: 240 }}
           columns={tableColumns}
           dataSource={usersData}
-          loading={tableLoading}
+          loading={dataLoading}
         />
       </div>
       <VolunteerProfile
