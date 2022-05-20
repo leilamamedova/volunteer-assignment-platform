@@ -11,7 +11,6 @@ function FilterWrapper(props) {
   const setFilterFields = useStore(({ setFilterFields }) => setFilterFields);
   const addFilterField = useStore(({ addFilterField }) => addFilterField);
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
-  const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
 
   const removeFilterField = useStore(
     ({ removeFilterField }) => removeFilterField
@@ -74,7 +73,7 @@ function FilterWrapper(props) {
   //Handle Reset
   //Set default FilterFields , Fetch Users without Filter
   const resetHandler = () => {
-    UsersFetch(setUsersData, setTableLoading);
+    UsersFetch(setUsersData);
     resetFilterFields();
   };
   return (

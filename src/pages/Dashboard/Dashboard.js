@@ -22,13 +22,12 @@ const Dashboard = () => {
     ({ addFavoriteFilter }) => addFavoriteFilter
   );
   const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
-  const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
 
   useEffect(() => {
-    UsersFetch(setUsersData, setTableLoading);
+    UsersFetch(setUsersData);
     UsersFieldsFetch(setUsersDataFields);
-    SavedFiltersGet(addFavoriteFilter, setTableLoading);
-    RoleOffersFetch(setRoleOffers, setTableLoading);
+    SavedFiltersGet(addFavoriteFilter);
+    RoleOffersFetch(setRoleOffers);
   }, []);
 
   return (
