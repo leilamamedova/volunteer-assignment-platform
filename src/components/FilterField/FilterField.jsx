@@ -40,7 +40,10 @@ function FilterField(props) {
   const usersData = useStore(({ usersData }) => usersData);
   const [requirements, setRequirements] = useState([]);
   const [orInput, setOrInput] = useState(false);
+
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
+  const dataLoading = useStore(({ dataLoading }) => dataLoading);
+  const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
   useEffect(() => {
     usersData.length > 0 &&
@@ -54,6 +57,10 @@ function FilterField(props) {
         ]);
       });
   }, [usersData]);
+
+  useEffect(() => {
+    requirements.length > 0 ? setDataLoading(false) : setDataLoading(true);
+  }, [requirements])
 
   const handleInputAddition = () => {
     setOrInput(true);
@@ -69,6 +76,7 @@ function FilterField(props) {
         optionFilterProp="children"
         className="selectWidth"
         defaultValue={props.requirement}
+        loading={dataLoading}
         onSelect={(e) => props.handleSelect(e, props.id, "requirement")}
       >
         <Option value={props.requirement}>{props.requirement}</Option>

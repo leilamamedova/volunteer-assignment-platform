@@ -5,7 +5,6 @@ import { UsersFetch } from "../../services/fetch";
 
 function AssignButton(props) {
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
-  const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
   const activeRoleOfferId = useStore(
     ({ activeRoleOfferId }) => activeRoleOfferId
   );
@@ -32,7 +31,7 @@ function AssignButton(props) {
     })
       .then((response) => {
         console.log(response);
-        UsersFetch(setUsersData, setTableLoading);
+        UsersFetch(setUsersData);
       })
       .catch((err) => console.log(err));
   };

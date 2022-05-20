@@ -5,14 +5,13 @@ import useStore from "../../services/store";
 function ResultButton({ fetchDefault, fetchFiltered }) {
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
-  const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
 
   const getResults = (e) => {
     e.preventDefault();
     if (filterFields.length) {
-      fetchFiltered(filterFields, setUsersData);
+      fetchFiltered(filterFields);
     } else {
-      fetchDefault(setUsersData, setTableLoading);
+      fetchDefault(setUsersData);
     }
   };
 

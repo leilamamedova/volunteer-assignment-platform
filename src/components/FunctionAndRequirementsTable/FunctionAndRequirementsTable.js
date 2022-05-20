@@ -6,6 +6,7 @@ import useStore from "../../services/store";
 import "./FunctionAndRequirementsTable.scss";
 import { getColumnSearchProps } from "../UsersTable/ColumnSearch/ColumnSearch";
 import ListModal from "../ListModal/ListModal";
+import { tab } from "@testing-library/user-event/dist/tab";
 
 const FunctionAndRequirementsTable = () => {
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -18,6 +19,8 @@ const FunctionAndRequirementsTable = () => {
   const functionalRequirements = useStore(({functionalRequirements})=>functionalRequirements);
   const setFilterFields = useStore(({setFilterFields})=>setFilterFields);
   const filterFields = useStore((state) => state.filterFields);
+  const dataLoading = useStore(({ dataLoading }) => dataLoading);
+  const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
   useEffect(() => { 
     setData([])
@@ -44,6 +47,8 @@ const FunctionAndRequirementsTable = () => {
         })
       })
     })
+
+    roleOffers.length > 0 ? setDataLoading(false) : setDataLoading(true);
   }, [roleOffers]) 
 
   const handleEditModal = (key, headcount) => {
@@ -131,6 +136,7 @@ const FunctionAndRequirementsTable = () => {
           scroll={{x: 100}}
           columns={columns}
           dataSource={data}
+          loading={dataLoading}
         />
       </div>
       <ListModal 

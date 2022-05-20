@@ -8,7 +8,6 @@ import "./AssigningTo.scss";
 const { Option } = Select;
 
 const AssigningTo = () => {
-  const setFilterFields = useStore(({ setFilterFields }) => setFilterFields);
   const roleOffers = useStore(({ roleOffers }) => roleOffers);
   const setActiveRoleOfferId = useStore(
     ({ setActiveRoleOfferId }) => setActiveRoleOfferId
@@ -23,10 +22,14 @@ const AssigningTo = () => {
   const [isVenueDisabled, setIsVenueDisabled] = useState(true);
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
 
+  const dataLoading = useStore(({ dataLoading }) => dataLoading);
+  const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+
   useEffect(() => {
+    roleOffers.length >0 ? setDataLoading(false) : setDataLoading(true);
     const entityData = roleOffers.map((el) => el.name);
     setEntities(entityData);
-  }, []);
+  }, [roleOffers])
 
   //Submit Handler Logic
   const handleSubmit = (e) => {
@@ -92,6 +95,7 @@ const AssigningTo = () => {
               defaultValue="Entity"
               showSearch
               optionFilterProp="children"
+              loading={dataLoading}
               onChange={handleEntityChange}
             >
               <Option default disabled>
