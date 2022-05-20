@@ -1,5 +1,10 @@
-import { Select, Input, Button } from "antd";
 import { useEffect, useState } from "react";
+import { Select, Input, Space } from "antd";
+import {
+  PlusCircleTwoTone,
+  DeleteFilled,
+  MinusCircleOutlined,
+} from "@ant-design/icons";
 import useStore from "../../services/store";
 import "./FilterField.scss";
 const { Option } = Select;
@@ -32,28 +37,38 @@ const operator = [
 ];
 
 function FilterField(props) {
-  const usersData = useStore(({usersData}) => usersData);
+  const usersData = useStore(({ usersData }) => usersData);
   const [requirements, setRequirements] = useState([]);
-  const usersDataFields = useStore(({usersDataFields}) => usersDataFields);
+  const [orInput, setOrInput] = useState(false);
+  const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
 
   useEffect(() => {
-    usersData.length>0 && usersDataFields.map((item, index) => {
-      setRequirements((prev) => [...prev, 
-        {
-          id: index,
-          value: item,
-        }    
-      ])
-    })    
-  }, [usersData])
+    usersData.length > 0 &&
+      usersDataFields.map((item, index) => {
+        setRequirements((prev) => [
+          ...prev,
+          {
+            id: index,
+            value: item,
+          },
+        ]);
+      });
+  }, [usersData]);
 
+  const handleInputAddition = () => {
+    setOrInput(true);
+  };
+  const handleInputRemoval = () => {
+    props.handleOrInputRemoval("value", props.id);
+    setOrInput(false);
+  };
   return (
     <div className="flex">
       <Select
-        showSearch 
+        showSearch
         optionFilterProp="children"
         className="selectWidth"
-        defaultValue = {props.requirement}
+        defaultValue={props.requirement}
         onSelect={(e) => props.handleSelect(e, props.id, "requirement")}
       >
         <Option value={props.requirement}>{props.requirement}</Option>
@@ -65,7 +80,7 @@ function FilterField(props) {
       </Select>
       <Select
         className="selectWidthOperator"
-        defaultValue = {props.operator}
+        defaultValue={props.operator}
         onSelect={(e) => props.handleSelect(e, props.id, "operator")}
       >
         <Option value={props.operator}>{props.operator}</Option>
@@ -78,18 +93,38 @@ function FilterField(props) {
       <Input
         className="inputWidth"
         placeholder="value"
-        value={props.value}
+        value={props.value[0]}
         name="value"
-        onChange={(e) => props.handleChange(e, props.id)}
+        onChange={(e) => props.handleChange(e, props.id, 0)}
       />
-      <Button
-        type="primary"
-        danger
-        disabled={props.default}
-        onClick={() => props.handleDelete(props.id)}
-      >
-        Del
-      </Button>
+      {orInput ? (
+        <Input
+          className="inputWidth"
+          placeholder="value"
+          value={props.value[1]}
+          name="value"
+          onChange={(e) => props.handleChange(e, props.id, 1)}
+        />
+      ) : (
+        ""
+      )}
+      <Space>
+        {orInput ? (
+          <MinusCircleOutlined
+            style={{ fontSize: "1.5rem" }}
+            onClick={() => handleInputRemoval()}
+          />
+        ) : (
+          <PlusCircleTwoTone
+            style={{ fontSize: "1.5rem" }}
+            onClick={() => handleInputAddition()}
+          />
+        )}
+        <DeleteFilled
+          style={{ color: "red", fontSize: "1.5rem" }}
+          onClick={() => props.handleDelete(props.id)}
+        />
+      </Space>
     </div>
   );
 }
