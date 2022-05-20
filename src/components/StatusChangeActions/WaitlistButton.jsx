@@ -10,7 +10,6 @@ function WaitlistButton(props) {
   const [isDisabled, setIsDisabled] = useState(true);
 
   const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}`;
-  const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
 
   useEffect(() => {
     activeRoleOfferId === 0 ? setIsDisabled(true) : setIsDisabled(false);
@@ -33,7 +32,7 @@ function WaitlistButton(props) {
     })
       .then((response) => {
         console.log(response);
-        UsersFetch(setUsersData, setTableLoading);
+        UsersFetch(setUsersData);
       })
       .catch((err) => console.log(err));
   };
