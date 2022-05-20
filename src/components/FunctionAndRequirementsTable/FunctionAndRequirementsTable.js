@@ -36,7 +36,7 @@ const FunctionAndRequirementsTable = () => {
                   jobTitle: job.name,
                   locationCode: venue.code,
                   location: venue.name,
-                  totalDemand: venue.roleOffer.headcount
+                  totalDemand: venue.roleOffer.totalDemand
                 }
               ])            
             }
@@ -115,6 +115,7 @@ const FunctionAndRequirementsTable = () => {
     {
       title: 'Action',
       key: "action",
+      fixed: 'right',
       render: (_, record) => (
           <Space className="action-icons">
               <Button icon={<EditOutlined />} onClick={() =>  handleEditModal(record.key, record.totalDemand)} />
