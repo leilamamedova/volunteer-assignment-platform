@@ -22,9 +22,6 @@ const Dashboard = () => {
     ({ addFavoriteFilter }) => addFavoriteFilter
   );
   const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
-  const setNestedRoleOffers = useStore(
-    ({ setNestedRoleOffers }) => setNestedRoleOffers
-  );
   const setTableLoading = useStore(({ setTableLoading }) => setTableLoading);
 
   useEffect(() => {
