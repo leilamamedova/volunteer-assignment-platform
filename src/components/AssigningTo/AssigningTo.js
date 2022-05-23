@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Space, Select, Button } from "antd";
+import { Space, Select, Button, Form } from "antd";
 import useStore from "../../services/store";
 import FulfillmentCard from "../FulfillmentCard/FulfillmentCard";
 
@@ -21,6 +21,13 @@ const AssigningTo = () => {
   const [isJobTitleDisabled, setIsJobTitleDisabled] = useState(true);
   const [isVenueDisabled, setIsVenueDisabled] = useState(true);
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
+  const [roleOfferFulfillment, setRoleOfferFulfillment] = useState(0);
+  const [waitlistFulfillment, setWaitlistFulfillment] = useState(0);
+
+  const [entity, setEntity] = useState('');
+  const [functionalArea, setFunctionalArea] = useState('');
+  const [jobTitle, setJobTitle] = useState('');
+  const [location, setLocation] = useState('');
 
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
@@ -35,12 +42,20 @@ const AssigningTo = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setActiveRoleOfferId(roleOfferId);
+    const offer = roleOffers.find(el => el.name===entity)
+                  .functionalAreas.find(el => el.name===functionalArea)
+                  .jobTitles.find(el => el.name===jobTitle)
+                  .locations.find(el => el.name===location)
+                  .roleOffer   
+    setRoleOfferFulfillment(offer.role_offer_fulfillment);
+    setWaitlistFulfillment(offer.waitlist_fulfillment);
   };
 
   //Select Boxes will be Enabled by order (top->bottom)
   //On every change options for the next select box will change
   //according to the selected value;
   const handleEntityChange = (value) => {
+    setEntity(value);
     let functionalAreaData = [];
     roleOffers.map((el) =>
       el.name === value ? (functionalAreaData = [...el.functionalAreas]) : ""
@@ -52,6 +67,7 @@ const AssigningTo = () => {
     setFunctionalAreas([...functionalAreaData]);
   };
   const handleFAChange = (value) => {
+    setFunctionalArea(value)
     let jobTitleData = [];
     functionalAreas.map((el) =>
       el.name === value ? (jobTitleData = [...el.jobTitles]) : ""
@@ -66,6 +82,7 @@ const AssigningTo = () => {
     setJobTitles(jobTitleData);
   };
   const handleJobTitleChange = (value) => {
+    setJobTitle(value)
     let venueData = [];
     jobTitles.map((el) =>
       el.name === value ? (venueData = [...el.locations]) : ""
@@ -78,7 +95,8 @@ const AssigningTo = () => {
     console.log(venueData);
     setLocations(venueData);
   };
-  const handleVenueChange = (value) => {
+  const handleVenueChange = (value, location) => {
+    setLocation(location.children)
     setRoleOfferId(value);
     setSubmitDisabled(false);
   };
@@ -168,8 +186,8 @@ const AssigningTo = () => {
         </Space>
 
         <Space className="fulfillment-wrapper">
-          <FulfillmentCard title="Role" value="90" percent="90" />
-          <FulfillmentCard title="Waitlist" value="80" percent="80" />
+          <FulfillmentCard title="Role" value={roleOfferFulfillment} percent={roleOfferFulfillment} />
+          <FulfillmentCard title="Waitlist" value={waitlistFulfillment} percent={waitlistFulfillment} />
         </Space>
       </Space>
     </div>
