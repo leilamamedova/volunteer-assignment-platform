@@ -64,6 +64,7 @@ function FilterField(props) {
   const handleEnter = (e) => {
     if (e.key === "Enter" && inputValue.trim() !== "") {
       setTagsArray((prev) => [...prev, inputValue]);
+      setInputValue("");
     }
   };
   const handleClose = (index) => {
@@ -83,7 +84,7 @@ function FilterField(props) {
         className="selectWidth"
         defaultValue={props.requirement}
         loading={dataLoading}
-        onSelect={(e) => props.handleSelect(e, props.id, "requirement")}
+        onSelect={(e) => props.handleSelect(e, props.id, "requirement_name")}
       >
         <Option value={props.requirement}>{props.requirement}</Option>
         {requirements.map((el) => (

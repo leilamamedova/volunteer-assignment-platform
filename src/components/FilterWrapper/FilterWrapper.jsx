@@ -30,10 +30,9 @@ function FilterWrapper(props) {
   const handleNewField = () => {
     addFilterField({
       default: false,
-      requirement: "Requirement",
+      requirement_name: "Requirement",
       operator: "Operator",
-      value: [""],
-      logical: "and",
+      value: [],
     });
   };
 
@@ -111,7 +110,7 @@ function FilterWrapper(props) {
                 id={index}
                 default={el.default}
                 operator={el.operator}
-                requirement={el.requirement}
+                requirement={el.requirement_name}
                 value={el.value}
                 handleSelect={handleSelect}
                 handleChange={handleChange}
