@@ -22,15 +22,19 @@ const ListModal = ({ isModalVisible, setIsModalVisible, list }) => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        {list.map((item, index) => (
-          <p key={index} className="filter-list-text">
-            <span className="requirement">{item.requirement}</span>{" "}
-            <span className="operator">{item.operator}</span>
-            <span className="value">
-              {item.value === "" ? "Empty" : item.value}
-            </span>
-          </p>
-        ))}
+        { list.length>0 ?
+          list.map((item, index) => (
+            <p key={index} className="filter-list-text">
+              <span className="requirement">{item.requirement_name}</span>{" "}
+              <span className="operator">{item.operator}</span>
+              <span className="value">
+                {item.value === "" ? "Empty" : item.value.join(", ")}
+              </span>
+            </p>
+          ))
+          :
+          <h1>Empty</h1>
+        }
       </Modal>
     </>
   );
