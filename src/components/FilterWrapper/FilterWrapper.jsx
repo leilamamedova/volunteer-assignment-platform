@@ -49,13 +49,6 @@ function FilterWrapper(props) {
     setFilterFields(list);
   };
 
-  const handleOrInputRemoval = (name, index) => {
-    const list = [...filterFields];
-    list[index][name].splice(1, 1);
-    console.log(list);
-    setFilterFields(list);
-  };
-
   // Handling Change events
   const handleChange = (index, tagsArray) => {
     const list = [...filterFields];

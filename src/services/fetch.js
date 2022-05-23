@@ -76,7 +76,7 @@ export const SavedFiltersGet = (addFavoriteFilter) => {
 };
 
 export const RoleOffersFetch = (setRoleOffers) => {
-  fetch(`${process.env.REACT_APP_VAP_API_BASE}/RoleOffers/nested`)
+  fetch(`${process.env.REACT_APP_VAP_API_BASE}/FunctioanlAreaTypes/nested`)
     .then((response) => {
       if (!response.ok) {
         throw new Error(
