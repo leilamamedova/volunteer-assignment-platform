@@ -10,7 +10,7 @@ export const UsersFetch = (setUsersData) => {
     })
     .then((data) => {
       console.log("Users data", data);
-      const mutateData = data.map((el) => Object.assign(el, { key: el.id }));
+      const mutateData = data.map((el) => Object.assign(el, { key: el.candidate_id }));
       setUsersData(mutateData);
     })
     .catch((err) => {
