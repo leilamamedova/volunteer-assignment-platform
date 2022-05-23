@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, Space, Radio } from "antd";
+import { Button, Space } from "antd";
 import useStore from "../../services/store";
 import FilterField from "../FilterField/FilterField";
 import ResultButton from "../ResultButton/ResultButton";
@@ -57,11 +57,9 @@ function FilterWrapper(props) {
   };
 
   // Handling Change events
-  const handleChange = (e, index, pos) => {
-    const { name, value } = e.target;
+  const handleChange = (index, tagsArray) => {
     const list = [...filterFields];
-    list[index][name][pos] = value;
-    console.log(list);
+    list[index]["value"] = tagsArray;
     setFilterFields(list);
   };
   // Handling Select events
@@ -99,7 +97,7 @@ function FilterWrapper(props) {
             <Space
               direction="vertical"
               size="middle"
-              key={index + "filter"}
+              key={index}
               style={{ margin: "15px 0" }}
             >
               {/* Logical Statement  */}
@@ -125,7 +123,6 @@ function FilterWrapper(props) {
                 handleSelect={handleSelect}
                 handleChange={handleChange}
                 handleDelete={removeField}
-                handleOrInputRemoval={handleOrInputRemoval}
               />
             </Space>
           ))}

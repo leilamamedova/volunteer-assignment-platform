@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
-import { Select, Input, Space } from "antd";
-import {
-  PlusCircleTwoTone,
-  DeleteFilled,
-  MinusCircleOutlined,
-} from "@ant-design/icons";
+import { Select, Input, Space, Tag } from "antd";
+import { DeleteFilled } from "@ant-design/icons";
 import useStore from "../../services/store";
 import "./FilterField.scss";
 const { Option } = Select;
@@ -38,13 +34,12 @@ const operator = [
 
 function FilterField(props) {
   const usersData = useStore(({ usersData }) => usersData);
-  const [requirements, setRequirements] = useState([]);
-  const [orInput, setOrInput] = useState(false);
-
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
-
+  const [requirements, setRequirements] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const [tagsArray, setTagsArray] = useState(props.value);
   useEffect(() => {
     usersData.length > 0 &&
       usersDataFields.map((item, index) => {
@@ -60,15 +55,26 @@ function FilterField(props) {
 
   useEffect(() => {
     requirements.length > 0 ? setDataLoading(false) : setDataLoading(true);
-  }, [requirements])
+  }, [requirements]);
 
-  const handleInputAddition = () => {
-    setOrInput(true);
+  const handleChange = (value) => {
+    setInputValue(value.target.value);
   };
-  const handleInputRemoval = () => {
-    props.handleOrInputRemoval("value", props.id);
-    setOrInput(false);
+
+  const handleEnter = (e) => {
+    if (e.key === "Enter" && inputValue.trim() !== "") {
+      setTagsArray((prev) => [...prev, inputValue]);
+    }
   };
+  const handleClose = (index) => {
+    tagsArray.splice(index, 1);
+    setTagsArray(tagsArray);
+    // setTagsArray(list);
+  };
+
+  useEffect(() => {
+    props.handleChange(props.id, tagsArray);
+  }, [tagsArray]);
   return (
     <div className="flex">
       <Select
@@ -98,36 +104,28 @@ function FilterField(props) {
           </Option>
         ))}
       </Select>
+      <div className="tag-box">
+        {tagsArray.map((el, index) => (
+          <Tag
+            key={index}
+            closable
+            color="#2db7f5"
+            onClose={() => handleClose(index)}
+          >
+            {el}
+          </Tag>
+        ))}
+      </div>
       <Input
         className="inputWidth"
         placeholder="value"
-        value={props.value[0]}
+        value={inputValue}
         name="value"
-        onChange={(e) => props.handleChange(e, props.id, 0)}
+        onKeyUp={handleEnter}
+        onChange={handleChange}
       />
-      {orInput ? (
-        <Input
-          className="inputWidth"
-          placeholder="value"
-          value={props.value[1]}
-          name="value"
-          onChange={(e) => props.handleChange(e, props.id, 1)}
-        />
-      ) : (
-        ""
-      )}
+
       <Space>
-        {orInput ? (
-          <MinusCircleOutlined
-            style={{ fontSize: "1.5rem" }}
-            onClick={() => handleInputRemoval()}
-          />
-        ) : (
-          <PlusCircleTwoTone
-            style={{ fontSize: "1.5rem" }}
-            onClick={() => handleInputAddition()}
-          />
-        )}
         <DeleteFilled
           style={{ color: "red", fontSize: "1.5rem" }}
           onClick={() => props.handleDelete(props.id)}
