@@ -1,38 +1,9 @@
 import create from "zustand";
 
 const useStore = create((set) => ({
-  functionalRequirements: [
-    {
-      requirements: [
-        {
-          id: 5,
-          requirement: "Age",
-          operator: ">",
-          value: 19,
-        },
-      ],
-      id: 5,
-    },
-    {
-      requirements: [
-        {
-          id: 6,
-          requirement: "Name",
-          operator: "=",
-          value: "Leyla",
-        },
-        {
-          id: 7,
-          requirement: "Age",
-          operator: "=",
-          value: "32",
-        },
-      ],
-      id: 6,
-    },
-  ],
-  setFunctionalRequirements: (req) =>
-    set((state) => ({ functionalRequirements: req })),
+  functionalRequirements: [],
+  setFunctionalRequirements: (req) => 
+    set((state) => ( state.functionalRequirements = [...state.functionalRequirements, req] )),
   usersData: [],
   setUsersData: (data) => set((state) => ({ usersData: data })),
   usersDataFields: [],
@@ -41,10 +12,9 @@ const useStore = create((set) => ({
   filterFields: [
     {
       default: false,
-      requirement: "Requirement",
+      requirement_name: "Requirement",
       operator: "Operator",
       value: [],
-      logical: "and",
     },
   ],
   resetFilterFields: () =>
@@ -53,10 +23,9 @@ const useStore = create((set) => ({
         (state.filterFields = [
           {
             default: false,
-            requirement: "Requirement",
+            requirement_name: "Requirement",
             operator: "Operator",
             value: [],
-            logical: "and",
           },
         ])
     ),
