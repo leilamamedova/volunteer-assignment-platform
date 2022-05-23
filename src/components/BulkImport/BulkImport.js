@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, message, Row, Upload } from 'antd';
+import { Button, message, Upload } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 import './BulkImport.scss';
 import { RoleOffersFetch, UsersFetch } from '../../services/fetch';
@@ -30,7 +30,7 @@ const BulkImport = ({title, url}) => {
             RoleOffersFetch(setRoleOffers);           
             break; 
           case 'Requirements':
-            console.log('Requirements');          
+            RoleOffersFetch(setRoleOffers);      
             break;        
           default:
             break;
