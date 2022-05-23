@@ -10,10 +10,10 @@ const EditRequirementsModal = ({isEditModalVisible, setIsEditModalVisible, selec
 
     const handleOk = () => {
         setIsEditModalVisible(false);
-        functionalRequirements.map((el) => {
-            if (el.id === selectedRow ) {
-              console.log('EditRequirements', el);
-        }})
+        // functionalRequirements.map((el) => {
+        //     if (el.id === selectedRow ) {
+        //       console.log('EditRequirements', el);
+        // }})
     };
 
     const handleCancel = () => {
@@ -32,7 +32,9 @@ const EditRequirementsModal = ({isEditModalVisible, setIsEditModalVisible, selec
                         <h3>Headcount</h3>
                     </Col>
                     <Col>
-                        <InputNumber value={headcount} onChange={handleHeadcount}/>
+                        {
+                            headcount && <InputNumber defaultValue={headcount} onChange={handleHeadcount}/>
+                        }                        
                     </Col>
                 </Row>
                <FilterWrapper noReset={true} seeResultBtn={false}/>

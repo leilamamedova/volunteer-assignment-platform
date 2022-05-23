@@ -13,10 +13,11 @@ const FunctionAndRequirementsTable = () => {
   const [isReqModalVisible, setIsReqEditModalVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
   const [data, setData] = useState([]);
-  const [headcount, setHeadcount] = useState(null);
+  const [headcount, setHeadcount] = useState(null);  
 
   const roleOffers = useStore(({roleOffers})=>roleOffers);
   const functionalRequirements = useStore(({functionalRequirements})=>functionalRequirements);
+  const setFunctionalRequirements = useStore(({setFunctionalRequirements})=>setFunctionalRequirements);
   const setFilterFields = useStore(({setFilterFields})=>setFilterFields);
   const filterFields = useStore((state) => state.filterFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
@@ -27,7 +28,7 @@ const FunctionAndRequirementsTable = () => {
     roleOffers.map((offer) => {
       offer.functionalAreas.map(fa => {
         fa.jobTitles.map(job => {
-          job.venues.map(venue => {             
+          job.locations.map(venue => {             
               setData(prev => [...prev,
                 { 
                   key: venue.roleOffer.id,
@@ -41,7 +42,13 @@ const FunctionAndRequirementsTable = () => {
                   location: venue.name,
                   totalDemand: venue.roleOffer.totalDemand
                 }
-              ])            
+              ])     
+              setFunctionalRequirements(
+                {
+                  id: venue.roleOffer.id,
+                  requirements: venue.roleOffer.functionalRequirement.requirements
+                }
+              )       
             }
           )
         })
@@ -52,16 +59,16 @@ const FunctionAndRequirementsTable = () => {
   }, [roleOffers]) 
 
   const handleEditModal = (key, headcount) => {
-    // const el = functionalRequirements.find(el => el.id === key).requirements;
-    setFilterFields(functionalRequirements[0].requirements) //dummy
+    const el = functionalRequirements.find(el => el.id === key).requirements;
+    setFilterFields(el)
     setHeadcount(headcount);
     setSelectedRow(key);
     setIsEditModalVisible(true)
   }
 
   const handleReqModal = (key) => {
-    // const el = functionalRequirements.find(el => el.id === key).requirements;
-    setFilterFields(functionalRequirements[0].requirements) //dummy
+    const el = functionalRequirements.find(el => el.id === key).requirements;
+    setFilterFields(el);
     setIsReqEditModalVisible(true)
   }
 
