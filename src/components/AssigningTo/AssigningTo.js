@@ -85,7 +85,7 @@ const AssigningTo = () => {
 
   return (
     <div style={{ width: "100%" }}>
-      <Space direction="horizontal" className="assignin-to-component card">
+      <Space className="assignin-to-component card">
         <Space direction="vertical">
           <form
             style={{ display: "flex", gap: "10px", flexDirection: "column" }}
@@ -167,7 +167,7 @@ const AssigningTo = () => {
           </form>
         </Space>
 
-        <Space direction="vertical">
+        <Space className="fulfillment-wrapper">
           <FulfillmentCard title="Role" value="90" percent="90" />
           <FulfillmentCard title="Waitlist" value="80" percent="80" />
         </Space>
