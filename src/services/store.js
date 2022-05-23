@@ -43,7 +43,7 @@ const useStore = create((set) => ({
       default: false,
       requirement: "Requirement",
       operator: "Operator",
-      value: [""],
+      value: [],
       logical: "and",
     },
   ],
@@ -55,7 +55,7 @@ const useStore = create((set) => ({
             default: false,
             requirement: "Requirement",
             operator: "Operator",
-            value: [""],
+            value: [],
             logical: "and",
           },
         ])

@@ -26,10 +26,10 @@ const AssigningTo = () => {
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
   useEffect(() => {
-    roleOffers.length >0 ? setDataLoading(false) : setDataLoading(true);
+    roleOffers.length > 0 ? setDataLoading(false) : setDataLoading(true);
     const entityData = roleOffers.map((el) => el.name);
     setEntities(entityData);
-  }, [roleOffers])
+  }, [roleOffers]);
 
   //Submit Handler Logic
   const handleSubmit = (e) => {
@@ -167,8 +167,10 @@ const AssigningTo = () => {
           </form>
         </Space>
 
-        <FulfillmentCard title="Role" value="90" percent="90" />
-        <FulfillmentCard title="Waitlist" value="80" percent="80" />
+        <Space direction="vertical">
+          <FulfillmentCard title="Role" value="90" percent="90" />
+          <FulfillmentCard title="Waitlist" value="80" percent="80" />
+        </Space>
       </Space>
     </div>
   );
