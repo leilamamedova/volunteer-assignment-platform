@@ -151,7 +151,7 @@ const AssigningTo = () => {
               <Option default disabled>
                 Venue
               </Option>
-              {venues.map((el, index) => (
+              {locations.map((el, index) => (
                 <Option key={index} value={el.roleOffer.id}>
                   {el.name}
                 </Option>
