@@ -7,3 +7,30 @@
     width: 100%;
   }
 }
+
+@media screen and (min-width: 1200px) {
+  .search-and-assign {
+    .sa-left {
+      min-width: 100%;
+      max-width: 1200px;
+      margin-bottom: 20px;
+    }
+    .sa-right {
+      min-width: 70%;
+      max-width: 900px;
+    }
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .search-and-assign {
+    .sa-left {
+      min-width: 60%;
+      max-width: 60;
+    }
+    .sa-right {
+      min-width: 40%;
+      max-width: 40%;
+    }
+  }
+}

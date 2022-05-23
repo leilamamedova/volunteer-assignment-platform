@@ -1,8 +1,26 @@
 .assignin-to-component {
   width: 100%;
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
   gap: 20px !important;
   .ant-select {
     width: 275px;
+  }
+  .fulfillment-wrapper {
+    display: flex;
+    flex-direction: column;
+    .ant-card {
+      min-width: 137px !important;
+    }
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .assignin-to-component {
+    flex-direction: row;
+    .fulfillment-wrapper {
+      flex-direction: column;
+    }
   }
 }
