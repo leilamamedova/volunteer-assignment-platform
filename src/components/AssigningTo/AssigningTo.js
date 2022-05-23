@@ -15,7 +15,7 @@ const AssigningTo = () => {
   const [entities, setEntities] = useState([]);
   const [functionalAreas, setFunctionalAreas] = useState([]);
   const [jobTitles, setJobTitles] = useState([]);
-  const [venues, setVenues] = useState([]);
+  const [locations, setLocations] = useState([]);
   const [roleOfferId, setRoleOfferId] = useState(0);
   const [isFADisabled, setIsFADisabled] = useState(true);
   const [isJobTitleDisabled, setIsJobTitleDisabled] = useState(true);
@@ -68,7 +68,7 @@ const AssigningTo = () => {
   const handleJobTitleChange = (value) => {
     let venueData = [];
     jobTitles.map((el) =>
-      el.name === value ? (venueData = [...el.venues]) : ""
+      el.name === value ? (venueData = [...el.locations]) : ""
     );
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
@@ -76,7 +76,7 @@ const AssigningTo = () => {
     setIsVenueDisabled(false);
     console.log("NEW VENUES");
     console.log(venueData);
-    setVenues(venueData);
+    setLocations(venueData);
   };
   const handleVenueChange = (value) => {
     setRoleOfferId(value);
