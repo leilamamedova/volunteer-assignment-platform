@@ -57,8 +57,13 @@ $retro-yellow: #fcfc02;
   background: #fff;
   border-radius: 15px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 25px;
-  min-height: 320px;
+  min-height: 190px;
   max-height: 500px;
+}
+@media screen and (min-width: 1500px) {
+  .card {
+    min-height: 320px;
+  }
 }
 //Components -- End
 //-----------------------------
