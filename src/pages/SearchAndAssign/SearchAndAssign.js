@@ -22,11 +22,11 @@ const SearchAndAssign = () => {
         </Col>
       </Row>
       <Row gutter={15} wrap={true} justify="space-between">
-        <Col xs={24} md={12} lg={11}>
+        <Col xs={24} md={12} lg={14}>
           <FilterWrapper seeResultBtn={true} />
         </Col>
 
-        <Col xs={24} md={12} lg={13}>
+        <Col xs={24} md={12} lg={10}>
           <AssigningTo />
         </Col>
       </Row>
