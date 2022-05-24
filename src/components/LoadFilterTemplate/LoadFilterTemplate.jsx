@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Select } from "antd";
 import useStore from "../../services/store";
+import { SavedFiltersGet } from "../../services/fetch";
 
 const { Option } = Select;
 function LoadFilterTemplate() {
@@ -9,6 +10,7 @@ function LoadFilterTemplate() {
   const setFilterFields = useStore((state) => state.setFilterFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const addFavoriteFilter = useStore((state) => state.addFavoriteFilter);
 
   const handleSelect = (e) => {
     console.log(e);
@@ -17,8 +19,8 @@ function LoadFilterTemplate() {
   };
 
   useEffect(() => {
-    favoriteFilters.length>0 ? setDataLoading(false) : setDataLoading(true);
-  }, [favoriteFilters])
+    SavedFiltersGet(addFavoriteFilter, setDataLoading);
+  }, [])
 
   return (
     <Select
