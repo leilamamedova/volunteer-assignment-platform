@@ -80,7 +80,7 @@ export const SavedFiltersGet = (addFavoriteFilter, setDataLoading) => {
 };
 
 export const RoleOffersFetch = (setRoleOffers, setDataLoading) => {
-  setDataLoading(true)
+  setDataLoading(true)  
   fetch(`${process.env.REACT_APP_VAP_API_BASE}/FunctionalAreaTypes/nested`)
     .then((response) => {
       if (!response.ok) {
@@ -89,7 +89,7 @@ export const RoleOffersFetch = (setRoleOffers, setDataLoading) => {
         );
       }
       return response.json();
-    })
+    })  
     .then((data) => {
       console.log("RoleOffers data", data.value);
       setRoleOffers(data.value);
