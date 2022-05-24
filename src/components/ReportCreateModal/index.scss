@@ -1,0 +1,33 @@
+.create-report-modal {
+  width: 80vw !important;
+}
+.form-tab {
+  .ant-tabs-nav-wrap {
+    justify-content: center;
+  }
+  .ant-tabs-content {
+    justify-content: center;
+  }
+
+  .ant-tabs-tab.ant-tabs-tab-active {
+    background: #1890ff;
+    padding: 10px 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    & > div {
+      color: #fff !important;
+    }
+  }
+  .ant-tabs-tabpane {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+  }
+  .ant-form {
+    width: 40%;
+    .ant-form-item-label {
+      width: 30%;
+    }
+  }
+}
