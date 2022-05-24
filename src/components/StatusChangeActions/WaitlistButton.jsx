@@ -7,6 +7,7 @@ function WaitlistButton(props) {
   const activeRoleOfferId = useStore(
     ({ activeRoleOfferId }) => activeRoleOfferId
   );
+  const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const [isDisabled, setIsDisabled] = useState(true);
 
   const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}`;
@@ -32,7 +33,7 @@ function WaitlistButton(props) {
     })
       .then((response) => {
         console.log(response);
-        UsersFetch(setUsersData);
+        UsersFetch(setUsersData, setDataLoading);
       })
       .catch((err) => console.log(err));
   };

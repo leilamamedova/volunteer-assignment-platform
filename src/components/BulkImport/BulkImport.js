@@ -22,19 +22,19 @@ const BulkImport = ({title, url}) => {
       }
       if (info.file.status === 'done') {
         message.success(`${info.file.name} file uploaded successfully`);
-        switch (title) {
-          case 'Users':
-            UsersFetch(setUsersData);         
-            break;
-          case 'Roles':
-            RoleOffersFetch(setRoleOffers);           
-            break; 
-          case 'Requirements':
-            RoleOffersFetch(setRoleOffers);      
-            break;        
-          default:
-            break;
-        }    
+        // switch (title) {
+        //   case 'Users':
+        //     UsersFetch(setUsersData);         
+        //     break;
+        //   case 'Roles':
+        //     RoleOffersFetch(setRoleOffers);           
+        //     break; 
+        //   case 'Requirements':
+        //     RoleOffersFetch(setRoleOffers);      
+        //     break;        
+        //   default:
+        //     break;
+        // }    
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
       }

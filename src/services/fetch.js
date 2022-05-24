@@ -1,4 +1,5 @@
-export const UsersFetch = (setUsersData) => {
+export const UsersFetch = (setUsersData, setDataLoading) => {
+  setDataLoading(true)
   fetch(`${process.env.REACT_APP_API_BASE}/volunteers`)
     .then((response) => {
       if (!response.ok) {
@@ -12,6 +13,7 @@ export const UsersFetch = (setUsersData) => {
       console.log("Users data", data);
       const mutateData = data.map((el) => Object.assign(el, { key: el.candidate_id }));
       setUsersData(mutateData);
+      setDataLoading(false)
     })
     .catch((err) => {
       console.log(err.message);
@@ -54,7 +56,8 @@ export const FilterUserFetch = (filterFields, setUsersData) => {
     .catch((err) => setUsersData([]));
 };
 
-export const SavedFiltersGet = (addFavoriteFilter) => {
+export const SavedFiltersGet = (addFavoriteFilter, setDataLoading) => {
+  setDataLoading(true)
   fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates`)
     .then((response) => {
       if (!response.ok) {
@@ -69,13 +72,15 @@ export const SavedFiltersGet = (addFavoriteFilter) => {
         Object.assign(el, { key: el.id })
       );
       addFavoriteFilter(mutateData);
+      setDataLoading(false)
     })
     .catch((err) => {
       console.log(err.message);
     });
 };
 
-export const RoleOffersFetch = (setRoleOffers) => {
+export const RoleOffersFetch = (setRoleOffers, setDataLoading) => {
+  setDataLoading(true)
   fetch(`${process.env.REACT_APP_VAP_API_BASE}/FunctionalAreaTypes/nested`)
     .then((response) => {
       if (!response.ok) {
@@ -88,6 +93,7 @@ export const RoleOffersFetch = (setRoleOffers) => {
     .then((data) => {
       console.log("RoleOffers data", data.value);
       setRoleOffers(data.value);
+      setDataLoading(false)
     })
     .catch((err) => {
       console.log(err.message);
