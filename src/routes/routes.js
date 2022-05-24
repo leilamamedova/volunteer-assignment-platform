@@ -11,6 +11,7 @@ import FunctionAndRequirements from "../pages/FunctionAndRequirements/FunctionAn
 import AssignmentManagement from "../pages/AssignmentManagement/AssignmentManagement";
 import Users from "../pages/Users/Users";
 import SavedFilters from "../pages/SavedFilters/SavedFilters";
+import Reports from "../pages/Reports";
 
 const AppRoutes = () => {
   return (
@@ -25,6 +26,7 @@ const AppRoutes = () => {
             path="/function-and-requirements"
             element={<FunctionAndRequirements />}
           />
+          <Route path="/reports" element={<Reports />} />
           {/* <Route
             path="/assignment-management"
             element={<AssignmentManagement />}

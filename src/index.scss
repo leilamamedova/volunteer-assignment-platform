@@ -85,6 +85,36 @@ $retro-yellow: #fcfc02;
 .hide {
   display: none;
 }
+.w-100 {
+  width: 100%;
+}
+.w-60 {
+  width: 60% !important;
+}
+.my-20 {
+  margin: 20px 0;
+}
+
+.reportStatus {
+  color: #fff;
+  min-width: 70px;
+  max-width: 90px;
+  text-align: center;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.pending {
+  background-color: #d4d406;
+}
+.ready {
+  color: #fff;
+  background-color: #00c800;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
 //-----------------------------
 
 // Utility Selector -- End

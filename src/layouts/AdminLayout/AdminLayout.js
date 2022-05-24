@@ -66,6 +66,7 @@ const MainLayout = () => {
       key: "3",
       icon: <FileTextOutlined />,
       label: "Report",
+      onClick: () => navigate("/reports"),
     },
   ];
 
