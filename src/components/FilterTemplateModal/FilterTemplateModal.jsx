@@ -46,6 +46,7 @@ function FilterTemplateModal(props) {
       onOk={handleOk}
       onCancel={handleCancel}
       footer={[]}
+      className="templates-page-modal"
     >
       <FilterWrapper noReset={true} isFav={true} seeResultBtn={false} />
       <Button className="mt-20" type="primary" onClick={handleSave}>

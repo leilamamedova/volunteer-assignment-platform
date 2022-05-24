@@ -1,4 +1,4 @@
-import { Modal, Button, Form, Input } from "antd";
+import { Modal, Button, Form, Input, message } from "antd";
 import FilterWrapper from "../FilterWrapper/FilterWrapper";
 import useStore from "../../services/store";
 
@@ -27,13 +27,26 @@ function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
         filters: filterFields,
       }),
     })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.log()); 
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      if(data.statusCode === 200) {
+        message.success('Success!');
+      }else {
+        message.error('Something went wrong!');
+      }
+    })
+    .catch((err) => console.log()); 
 
     resetFilterFields();
     setIsModalVisible(false);
   };
+
+  const handleEnter = (event) => {
+    if (event.which == '13') {
+      event.preventDefault();
+    }
+  }
 
   return (
     <Modal
@@ -43,18 +56,20 @@ function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
       onOk={handleOk}
       onCancel={handleCancel}
       footer={[]}
+      className="templates-page-modal"
     >
       <Form
-        initialValues={{ remember: true }}
+        initialValues={{ remember: false }}
         autoComplete="off"
         onFinish={handleSubmit}
+        onKeyDown={handleEnter}
       >
         <Form.Item
           label="Tempalte Filter Name"
           name="template-filter-name"
           rules={[{ required: true, message: "Name your filter" }]}
         >
-          <Input />
+          <Input/>
         </Form.Item>
         <FilterWrapper seeResultBtn={false} />
         <Button className="mt-20" type="primary" htmlType="submit">

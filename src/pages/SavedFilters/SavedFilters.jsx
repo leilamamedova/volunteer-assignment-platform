@@ -7,6 +7,7 @@ import FilterTemplateModal from "../../components/FilterTemplateModal/FilterTemp
 import ListModal from "../../components/ListModal/ListModal";
 import { SavedFiltersGet } from "../../services/fetch";
 import { getColumnSearchProps } from "../../components/UsersTable/ColumnSearch/ColumnSearch";
+import './SavedFilters.scss';
 
 function SavedFilters() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -19,11 +20,12 @@ function SavedFilters() {
   const filterFields = useStore((state) => state.filterFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const resetFilterFields = useStore((state) => state.resetFilterFields);
 
-  // useEffect(() => {
-  //   addFavoriteFilter(favoriteFilters)
-  //   SavedFiltersGet(addFavoriteFilter, setDataLoading)
-  // },[favoriteFilters])
+  useEffect(() => {
+    addFavoriteFilter(favoriteFilters)
+    SavedFiltersGet(addFavoriteFilter)
+  },[favoriteFilters])
 
   useEffect(() => {
     SavedFiltersGet(addFavoriteFilter, setDataLoading);
@@ -67,7 +69,7 @@ function SavedFilters() {
       key: "name",
       ...getColumnSearchProps('name')
     },
-    {
+    { 
       title: "Filters List",
       dataIndex: "filters",
       key: "filters",
