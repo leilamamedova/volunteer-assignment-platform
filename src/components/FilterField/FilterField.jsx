@@ -33,7 +33,6 @@ const operator = [
 ];
 
 function FilterField(props) {
-  const usersData = useStore(({ usersData }) => usersData);
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
@@ -43,7 +42,10 @@ function FilterField(props) {
   const [tagsArray, setTagsArray] = useState(props.value);  
 
   useEffect(() => {
-    usersData.length > 0 &&
+    setTagsArray(props.value)
+  }, [props])
+
+  useEffect(() => {
       usersDataFields.map((item, index) => {
         setRequirements((prev) => [
           ...prev,
@@ -53,7 +55,7 @@ function FilterField(props) {
           },
         ]);
       });
-  }, [usersData]);
+  }, [usersDataFields]);
 
   useEffect(() => {
     requirements.length > 0 ? setDataLoading(false) : setDataLoading(true);
@@ -78,6 +80,7 @@ function FilterField(props) {
   useEffect(() => {
     props.handleChange(props.id, tagsArray);
   }, [tagsArray]);
+
   return (
     <div className="flex">
       <Select
@@ -85,11 +88,12 @@ function FilterField(props) {
         optionFilterProp="children"
         className="selectWidth"
         defaultValue={props.requirement}
+        value={props.requirement}
         loading={dataLoading}
         onSelect={(e) => props.handleSelect(e, props.id, "requirement_name")}
       >
         <Option value={props.requirement}>{props.requirement}</Option>
-        {requirements.length>0 && requirements.map((el) => (
+        {requirements.map((el) => (
           <Option key={el.id} value={el.value}>
             {el.value}
           </Option>
@@ -98,6 +102,7 @@ function FilterField(props) {
       <Select
         className="selectWidthOperator"
         defaultValue={props.operator}
+        value={props.operator}
         onSelect={(e) => props.handleSelect(e, props.id, "operator")}
       >
         <Option value={props.operator}>{props.operator}</Option>
@@ -108,7 +113,7 @@ function FilterField(props) {
         ))}
       </Select>
       <div className="tag-box">
-        {tagsArray.map((el, index) => (
+        {tagsArray.length>0 && tagsArray.map((el, index) => (
           <Tag
             key={index}
             closable

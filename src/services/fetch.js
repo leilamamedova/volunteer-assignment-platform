@@ -57,7 +57,7 @@ export const FilterUserFetch = (filterFields, setUsersData) => {
 };
 
 export const SavedFiltersGet = (addFavoriteFilter, setDataLoading) => {
-  setDataLoading(true)
+  setDataLoading && setDataLoading(true)
   fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates`)
     .then((response) => {
       if (!response.ok) {
@@ -72,7 +72,7 @@ export const SavedFiltersGet = (addFavoriteFilter, setDataLoading) => {
         Object.assign(el, { key: el.id })
       );
       addFavoriteFilter(mutateData);
-      setDataLoading(false)
+      setDataLoading && setDataLoading(false)
     })
     .catch((err) => {
       console.log(err.message);

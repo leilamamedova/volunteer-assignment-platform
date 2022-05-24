@@ -12,10 +12,9 @@ import "./Dashboard.scss";
 
 const Dashboard = () => {
   const setUsersDataFields = useStore(({ setUsersDataFields }) => setUsersDataFields);
-  const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
   useEffect(() => {
-    UsersFieldsFetch(setUsersDataFields, setDataLoading);    
+    UsersFieldsFetch(setUsersDataFields);    
   }, []);
 
   return (
