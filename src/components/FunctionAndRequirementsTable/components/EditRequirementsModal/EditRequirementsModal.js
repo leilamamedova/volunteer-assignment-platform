@@ -28,19 +28,31 @@ const EditRequirementsModal = (
 
     const handleOk = () => {
         setIsEditModalVisible(false);
-        // functionalRequirements.map((el) => {
-        //     if (el.id === selectedRow ) {
-        //       console.log('EditRequirements', el);
-        // }})
+        functionalRequirements.map((el) => {
+            if (el.key === selectedRow ) {
+              el['requirements'] = filterFields;
+              el['level_of_confidence'] = confidence;
+              el['waitlist_count'] = waitlist;
+              el['total_demand'] = count;
+              el['role_offer_id'] = el.key;
+              
+              fetch(`${process.env.REACT_APP_VAP_API_BASE}/FunctionalRequirements/update`, {
+                method: "POST",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(el),
+              })
+                .then((response) => response.json())
+                .then((data) => console.log('Update Requirements', data))
+                .catch((err) => console.log(err));    
+        }})
     };
 
     const handleCancel = () => {
         setIsEditModalVisible(false);
     };    
-
-    const handleHeadcount = (value) => {
-        console.log(value);
-    }
 
     return (
         <>

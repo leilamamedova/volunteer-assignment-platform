@@ -51,7 +51,8 @@ const FunctionAndRequirementsTable = () => {
               ])     
               setFunctionalRequirements(
                 {
-                  id: venue.roleOffer.id,
+                  id: venue.roleOffer.functionalRequirement.id,
+                  key: venue.roleOffer.id,
                   requirements: venue.roleOffer.functionalRequirement.requirements
                 }
               )       
@@ -65,7 +66,7 @@ const FunctionAndRequirementsTable = () => {
   }, [roleOffers]) 
 
   const handleEditModal = (record) => {
-    const el = functionalRequirements.find(el => el.id === record.key).requirements;
+    const el = functionalRequirements.find(el => el.key === record.key).requirements;
     setFilterFields(el)
     setHeadcount(record.totalDemand);
     setLevelOfConfidence(record.levelOfConfidence)
@@ -75,7 +76,7 @@ const FunctionAndRequirementsTable = () => {
   }
 
   const handleReqModal = (key) => {
-    const el = functionalRequirements.find(el => el.id === key).requirements;
+    const el = functionalRequirements.find(el => el.key === key).requirements;
     setFilterFields(el);
     setIsReqEditModalVisible(true)
   }
