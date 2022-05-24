@@ -20,13 +20,14 @@ function SavedFilters() {
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
+  // useEffect(() => {
+  //   addFavoriteFilter(favoriteFilters)
+  //   SavedFiltersGet(addFavoriteFilter, setDataLoading)
+  // },[favoriteFilters])
+
   useEffect(() => {
-    addFavoriteFilter(favoriteFilters)
-    SavedFiltersGet(addFavoriteFilter)
-
-    favoriteFilters.length > 0 ? setDataLoading(false) : setDataLoading(true);
-  },[favoriteFilters])
-
+    SavedFiltersGet(addFavoriteFilter, setDataLoading);
+  }, [])
 
   const handleDelete = (id) => {    
     fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates/delete/${id}`, { method: 'DELETE' })

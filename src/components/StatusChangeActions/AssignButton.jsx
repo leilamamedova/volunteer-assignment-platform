@@ -8,6 +8,7 @@ function AssignButton(props) {
   const activeRoleOfferId = useStore(
     ({ activeRoleOfferId }) => activeRoleOfferId
   );
+  const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
@@ -31,7 +32,7 @@ function AssignButton(props) {
     })
       .then((response) => {
         console.log(response);
-        UsersFetch(setUsersData);
+        UsersFetch(setUsersData, setDataLoading);
       })
       .catch((err) => console.log(err));
   };

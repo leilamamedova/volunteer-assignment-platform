@@ -1,4 +1,5 @@
-import { Row, Col, Space } from "antd";
+import { useEffect } from "react";
+import { Row, Col } from "antd";
 import FilterWrapper from "../../components/FilterWrapper/FilterWrapper";
 import AssigningTo from "../../components/AssigningTo/AssigningTo";
 import AssignSearchResult from "../../components/AssignSearchResult/AssignSearchResult";
@@ -6,9 +7,18 @@ import VolunteerProfile from "../../components/VolunteerProfile/VolunteerProfile
 import "./SearchAndAssign.scss";
 import LoadFilterTemplate from "../../components/LoadFilterTemplate/LoadFilterTemplate";
 import BulkImport from "../../components/BulkImport/BulkImport";
+import useStore from "../../services/store";
+import { UsersFetch } from "../../services/fetch";
 
 const SearchAndAssign = () => {
   const url = `${process.env.REACT_APP_API_BASE}/import-users-data`;
+
+  const setUsersData = useStore(({ setUsersData }) => setUsersData);
+  const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+
+  useEffect(() => {
+    UsersFetch(setUsersData, setDataLoading);
+  }, [])
 
   return (
     <div className="search-and-assign">

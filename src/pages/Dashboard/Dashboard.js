@@ -6,28 +6,16 @@ import FaRoleVenueStatistics from "../../components/FaRoleVenueStatistics/FaRole
 import { Col, Row } from "antd";
 import useStore from "../../services/store";
 import {
-  UsersFetch,
   UsersFieldsFetch,
-  SavedFiltersGet,
-  RoleOffersFetch,
 } from "../../services/fetch";
 import "./Dashboard.scss";
 
 const Dashboard = () => {
-  const setUsersData = useStore(({ setUsersData }) => setUsersData);
-  const setUsersDataFields = useStore(
-    ({ setUsersDataFields }) => setUsersDataFields
-  );
-  const addFavoriteFilter = useStore(
-    ({ addFavoriteFilter }) => addFavoriteFilter
-  );
-  const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
+  const setUsersDataFields = useStore(({ setUsersDataFields }) => setUsersDataFields);
+  const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
   useEffect(() => {
-    UsersFetch(setUsersData);
-    UsersFieldsFetch(setUsersDataFields);
-    SavedFiltersGet(addFavoriteFilter);
-    RoleOffersFetch(setRoleOffers);
+    UsersFieldsFetch(setUsersDataFields, setDataLoading);    
   }, []);
 
   return (

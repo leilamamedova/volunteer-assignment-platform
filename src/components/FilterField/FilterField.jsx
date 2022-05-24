@@ -37,9 +37,11 @@ function FilterField(props) {
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+
   const [requirements, setRequirements] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [tagsArray, setTagsArray] = useState(props.value);
+  const [tagsArray, setTagsArray] = useState(props.value);  
+
   useEffect(() => {
     usersData.length > 0 &&
       usersDataFields.map((item, index) => {
@@ -87,7 +89,7 @@ function FilterField(props) {
         onSelect={(e) => props.handleSelect(e, props.id, "requirement_name")}
       >
         <Option value={props.requirement}>{props.requirement}</Option>
-        {requirements.map((el) => (
+        {requirements.length>0 && requirements.map((el) => (
           <Option key={el.id} value={el.value}>
             {el.value}
           </Option>

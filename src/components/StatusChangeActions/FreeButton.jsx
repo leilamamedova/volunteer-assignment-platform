@@ -4,6 +4,7 @@ import { UsersFetch } from "../../services/fetch";
 
 function FreeButton(props) {
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
+  const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
   const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}`;
 
@@ -22,7 +23,7 @@ function FreeButton(props) {
     })
       .then((response) => {
         console.log(response);
-        UsersFetch(setUsersData);
+        UsersFetch(setUsersData, setDataLoading);
       })
       .catch((err) => console.log(err));
   };
