@@ -20,7 +20,6 @@ function SavedFilters() {
   const filterFields = useStore((state) => state.filterFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
-  const resetFilterFields = useStore((state) => state.resetFilterFields);
 
   useEffect(() => {
     addFavoriteFilter(favoriteFilters)

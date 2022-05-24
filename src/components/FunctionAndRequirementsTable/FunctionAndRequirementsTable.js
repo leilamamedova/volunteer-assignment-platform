@@ -14,6 +14,9 @@ const FunctionAndRequirementsTable = () => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [data, setData] = useState([]);
   const [headcount, setHeadcount] = useState(null);  
+  const [levelOfConfidence, setLevelOfConfidence] = useState(null); 
+  const [waitlistFulfillment, setWaitlistFulfillment] = useState(null); 
+   
 
   const roleOffers = useStore(({roleOffers})=>roleOffers);
   const functionalRequirements = useStore(({functionalRequirements})=>functionalRequirements);
@@ -40,7 +43,10 @@ const FunctionAndRequirementsTable = () => {
                   jobTitle: job.name,
                   locationCode: venue.code,
                   location: venue.name,
-                  totalDemand: venue.roleOffer.totalDemand
+                  totalDemand: venue.roleOffer.totalDemand,
+                  levelOfConfidence: venue.roleOffer.level_of_confidence,
+                  waitlistDemand: venue.roleOffer.waitlist_count,
+                  assigneeDemand: venue.roleOffer.role_offer_fulfillment
                 }
               ])     
               setFunctionalRequirements(
@@ -58,11 +64,13 @@ const FunctionAndRequirementsTable = () => {
     roleOffers.length > 0 ? setDataLoading(false) : setDataLoading(true);
   }, [roleOffers]) 
 
-  const handleEditModal = (key, headcount) => {
-    const el = functionalRequirements.find(el => el.id === key).requirements;
+  const handleEditModal = (record) => {
+    const el = functionalRequirements.find(el => el.id === record.key).requirements;
     setFilterFields(el)
-    setHeadcount(headcount);
-    setSelectedRow(key);
+    setHeadcount(record.totalDemand);
+    setLevelOfConfidence(record.levelOfConfidence)
+    setWaitlistFulfillment(record.waitlistDemand)
+    setSelectedRow(record.key);
     setIsEditModalVisible(true)
   }
 
@@ -119,6 +127,18 @@ const FunctionAndRequirementsTable = () => {
       ...getColumnSearchProps('totalDemand')
     },
     {
+      title: "Level of Confidence",
+      dataIndex: "levelOfConfidence",
+    },
+    {
+      title: "Waitlist Demand",
+      dataIndex: "waitlistDemand",
+    },
+    {
+      title: "Assignee Demand",
+      dataIndex: "assigneeDemand",
+    },
+    {
       title: "Functional Requirements",
       dataIndex: "functional_requirements",
       fixed: 'right',
@@ -130,7 +150,7 @@ const FunctionAndRequirementsTable = () => {
       fixed: 'right',
       render: (_, record) => (
           <Space className="action-icons">
-              <Button icon={<EditOutlined />} onClick={() =>  handleEditModal(record.key, record.totalDemand)} />
+              <Button icon={<EditOutlined />} onClick={() =>  handleEditModal(record)} />
           </Space>
       ),
     },
@@ -140,7 +160,7 @@ const FunctionAndRequirementsTable = () => {
     <>
       <div className="function-and-requirements-table">
         <Table
-          scroll={{x: 100}}
+          scroll={{x: 1500}}
           columns={columns}
           dataSource={data}
           loading={dataLoading}
@@ -156,6 +176,8 @@ const FunctionAndRequirementsTable = () => {
         setIsEditModalVisible={setIsEditModalVisible}
         selectedRow = {selectedRow}
         headcount = {headcount}
+        levelOfConfidence = {levelOfConfidence}
+        waitlistFulfillment = {waitlistFulfillment}   
       />
     </>
   );
