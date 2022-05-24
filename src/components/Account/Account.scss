@@ -2,12 +2,6 @@
     div *{
         gap: 3px !important;
     }
-    .ant-avatar {
-        font-size: 20px;
-        margin-right: 13px;
-        background: #001529;
-        border: 1px solid #001529;
-    }
     h5{
         font-size: 15px !important;
     }
@@ -28,21 +22,12 @@
 }
 .ant-dropdown-menu.account-dropdown{
     padding: 0 !important;
-    li:first-child{
-        background: #EBEDEF;
-        padding: 14px 22px;
-        margin-bottom: 20px;
-    }
-    li:not(:first-child) {
+    li {
         padding: 15px 33px ;
         .anticon svg{
             color: #1890FF;
             font-size: 18px;
             margin-right: 21px;
         }
-    }
-    li:last-child{
-        margin-top: 20px;
-        border-top: 1px solid #C7C7C7;;
-    }    
+    } 
 }
