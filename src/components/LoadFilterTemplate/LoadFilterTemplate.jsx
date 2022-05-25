@@ -11,9 +11,10 @@ function LoadFilterTemplate() {
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const addFavoriteFilter = useStore((state) => state.addFavoriteFilter);
+  const setSelectedFavoriteFilters = useStore((state) => state.setSelectedFavoriteFilters);
 
   const handleSelect = (e) => {
-    console.log(e);
+    setSelectedFavoriteFilters(e);
     const el = favoriteFilters.find((el) => el.key === e);
     setFilterFields([...filterFields, ...el.filters]);
   };

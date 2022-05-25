@@ -16,9 +16,13 @@ const EditRequirementsModal = (
     }) => {
     const filterFields = useStore(({filterFields})=>filterFields);
     const functionalRequirements = useStore(({functionalRequirements})=>functionalRequirements);
+    const favoriteFilters = useStore(({favoriteFilters})=>favoriteFilters);
+    const selectedFavoriteFilters = useStore(({selectedFavoriteFilters})=>selectedFavoriteFilters);
+
     const [count, setCount] = useState();
     const [confidence, setConfidence] = useState();
     const [waitlist, setWaitlist] = useState();
+    const [requirement, setRequirement] = useState({});
 
     useEffect(() => {
         setCount(headcount)
@@ -28,27 +32,37 @@ const EditRequirementsModal = (
 
     const handleOk = () => {
         setIsEditModalVisible(false);
+
+        const selectedTemplate = favoriteFilters.find(fav => fav.id === selectedFavoriteFilters)
+        selectedTemplate.filters.map(temp => temp['id'] = null)
+
         functionalRequirements.map((el) => {
             if (el.key === selectedRow ) {
-              el['requirements'] = filterFields;
-              el['level_of_confidence'] = confidence;
-              el['waitlist_count'] = waitlist;
-              el['total_demand'] = count;
-              el['role_offer_id'] = el.key;
-              
-              fetch(`${process.env.REACT_APP_VAP_API_BASE}/FunctionalRequirements/update`, {
-                method: "POST",
-                headers: {
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(el),
-              })
-                .then((response) => response.json())
-                .then((data) => console.log('Update Requirements', data))
-                .catch((err) => console.log(err));    
+                el['requirements'] = filterFields;
+                el['level_of_confidence'] = confidence;
+                el['waitlist_count'] = waitlist;
+                el['total_demand'] = count;
+                el['role_offer_id'] = el.key;
+
+                console.log('el', el);
+                setRequirement(el);      
         }})
     };
+
+    useEffect(() => {        
+        Object.keys(requirement).length !== 0 &&  fetch(`${process.env.REACT_APP_VAP_API_BASE}/FunctionalRequirements/update`, {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requirement),
+          })
+            .then((response) => response.json())
+            .then((data) => console.log('Update Requirements', data))
+            .catch((err) => console.log(err)) 
+            .finally(() =>  setRequirement({}))       
+    }, [requirement])
 
     const handleCancel = () => {
         setIsEditModalVisible(false);

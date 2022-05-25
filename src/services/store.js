@@ -43,13 +43,8 @@ const useStore = create((set) => ({
   favoriteFilters: [],
   addFavoriteFilter: (templateFilter) =>
     set((state) => ({ favoriteFilters: templateFilter })),
-  removeFavoriteFilter: (template_id) =>
-    set(
-      (state) =>
-        (state.favoriteFilters = [
-          ...state.favoriteFilters.filter((el) => el.key !== template_id),
-        ])
-    ),
+  selectedFavoriteFilters: 0,
+  setSelectedFavoriteFilters: (id) => set((state) => ({ selectedFavoriteFilters: id })),
   selectedUsers: [],
   setSelectedUsers: (data) => set((state) => (state.selectedUsers = [...data])),
   roleOffers: [],
