@@ -51,6 +51,8 @@ const useStore = create((set) => ({
   setSelectedUsers: (data) => set((state) => (state.selectedUsers = [...data])),
   roleOffers: [],
   setRoleOffers: (data) => set((state) => (state.roleOffers = [...data])),
+  selectedRoleOffer: {},
+  setSelectedRoleOffer: (offer) => set((state) => ({ selectedRoleOffer: offer })),
   dataLoading: false,
   setDataLoading: (status) => set((state) => ({ dataLoading: status })),
   activeRoleOfferId: 0,

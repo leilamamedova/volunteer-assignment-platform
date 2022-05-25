@@ -4,6 +4,7 @@ import useStore from "../../services/store";
 import FulfillmentCard from "../FulfillmentCard/FulfillmentCard";
 
 import "./AssigningTo.scss";
+import { RoleOffersFetch } from "../../services/fetch";
 
 const { Option } = Select;
 
@@ -31,9 +32,14 @@ const AssigningTo = () => {
 
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
+  const setSelectedRoleOffer = useStore(({ setSelectedRoleOffer }) => setSelectedRoleOffer);
 
   useEffect(() => {
-    roleOffers.length > 0 ? setDataLoading(false) : setDataLoading(true);
+      RoleOffersFetch(setRoleOffers, setDataLoading);
+  }, [])
+
+  useEffect(() => {
     const entityData = roleOffers.map((el) => el.name);
     setEntities(entityData);
   }, [roleOffers]);
@@ -46,7 +52,8 @@ const AssigningTo = () => {
                   .functionalAreas.find(el => el.name===functionalArea)
                   .jobTitles.find(el => el.name===jobTitle)
                   .locations.find(el => el.name===location)
-                  .roleOffer   
+                  .roleOffer  
+    setSelectedRoleOffer(offer);
     setRoleOfferFulfillment(offer.role_offer_fulfillment);
     setWaitlistFulfillment(offer.waitlist_fulfillment);
   };
@@ -119,7 +126,7 @@ const AssigningTo = () => {
               <Option default disabled>
                 Entity
               </Option>
-              {entities.map((el, index) => (
+              {entities.length>0 && entities.map((el, index) => (
                 <Option key={index} value={el}>
                   {el}
                 </Option>
