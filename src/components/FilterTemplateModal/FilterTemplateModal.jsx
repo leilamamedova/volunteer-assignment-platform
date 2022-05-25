@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button } from "antd";
+import { Modal, Button, message } from "antd";
 import FilterWrapper from "../FilterWrapper/FilterWrapper";
 import useStore from "../../services/store";
 
@@ -29,7 +29,13 @@ function FilterTemplateModal(props) {
           body: JSON.stringify(el),
         })
           .then((response) => response.json())
-          .then((data) => console.log('Update', data))
+          .then((data) => {
+            if(data.statusCode === 200) {
+              message.success('Success!');
+            }else {
+              message.error(data.value);
+            }
+          })
           .catch((err) => console.log(err));
 
         props.setIsModalVisible(false);

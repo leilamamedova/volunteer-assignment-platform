@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Table, Space } from "antd";
+import { Button, Table, Space, message } from "antd";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import useStore from "../../services/store";
 import NewFilterTemplateModal from "../../components/NewFilterTemplateModal/NewFilterTemplateModal";
@@ -32,15 +32,14 @@ function SavedFilters() {
 
   const handleDelete = (id) => {    
     fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates/delete/${id}`, { method: 'DELETE' })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(
-          `This is an HTTP error: The status is ${response.status}`
-        );
+    .then(response => response.json())
+    .then(data => {
+      if(data.statusCode === 200) {
+        message.success('Success!');
+      }else {
+        message.error(data.value);
       }
-      return response.json();
     })
-    .catch((err) => console.log(err));  
   };
 
   const handleModal = () => {

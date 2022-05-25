@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, InputNumber, Modal, Row } from 'antd';
+import { Col, InputNumber, Modal, Row, message } from 'antd';
 import FilterWrapper from '../../../FilterWrapper/FilterWrapper.jsx';
 import './EditRequirementsModal.scss';
 import useStore from '../../../../services/store.js';
@@ -59,7 +59,13 @@ const EditRequirementsModal = (
             body: JSON.stringify(requirement),
           })
             .then((response) => response.json())
-            .then((data) => console.log('Update Requirements', data))
+            .then((data) => {
+                if(data.statusCode === 200) {
+                  message.success('Success!');
+                }else {
+                  message.error(data.value);
+                }
+            })
             .catch((err) => console.log(err)) 
             .finally(() =>  setRequirement({}))       
     }, [requirement])
