@@ -1,10 +1,12 @@
 import { Button } from "antd";
 import useStore from "../../services/store";
-import { UsersFetch } from "../../services/fetch";
+import { FilterUserFetch } from "../../services/fetch";
 
 function FreeButton(props) {
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const filterFields = useStore(({ filterFields }) => filterFields);
+  const setPagination = useStore(({ setPagination }) => setPagination);
 
   const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}`;
 
@@ -23,7 +25,7 @@ function FreeButton(props) {
     })
       .then((response) => {
         console.log(response);
-        UsersFetch(setUsersData, setDataLoading);
+        FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);
       })
       .catch((err) => console.log(err));
   };

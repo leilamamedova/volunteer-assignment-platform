@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { Button } from "antd";
 import useStore from "../../services/store";
-import { UsersFetch } from "../../services/fetch";
+import { FilterUserFetch } from "../../services/fetch";
+
 function WaitlistButton(props) {
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
-  const activeRoleOfferId = useStore(
-    ({ activeRoleOfferId }) => activeRoleOfferId
-  );
+  const activeRoleOfferId = useStore(({ activeRoleOfferId }) => activeRoleOfferId);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const filterFields = useStore(({ filterFields }) => filterFields);
+  const setPagination = useStore(({ setPagination }) => setPagination);
+  
   const [isDisabled, setIsDisabled] = useState(true);
 
   const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}`;
@@ -33,7 +35,7 @@ function WaitlistButton(props) {
     })
       .then((response) => {
         console.log(response);
-        UsersFetch(setUsersData, setDataLoading);
+        FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);
       })
       .catch((err) => console.log(err));
   };

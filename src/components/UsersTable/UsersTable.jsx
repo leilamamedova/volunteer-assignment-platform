@@ -9,6 +9,7 @@ import AssignButton from "../StatusChangeActions/AssignButton";
 import WaitlistButton from "../StatusChangeActions/WaitlistButton";
 import FreeButton from "../StatusChangeActions/FreeButton";
 import "./UsersTable.scss";
+import { FilterUserFetch } from "../../services/fetch";
 
 const { Link } = Typography;
 
@@ -25,6 +26,10 @@ const UsersTable = (props) => {
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const pagination = useStore(({ pagination }) => pagination);  
+  const setUsersData = useStore(({ setUsersData }) => setUsersData);
+  const setPagination = useStore(({ setPagination }) => setPagination);
+  const filterFields = useStore(({ filterFields }) => filterFields);
 
   const route = props.isAnyStatus ? "ChangeToAnyStatus" : "AssignOrWaitlist";
 
@@ -112,6 +117,10 @@ const UsersTable = (props) => {
     }
   };
 
+  const handlePagination = (pageNumber, pageSize) => {
+    FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, pageNumber, pageSize)
+  }
+
   return (
     <>
       <div className="assign-search-result">
@@ -163,6 +172,12 @@ const UsersTable = (props) => {
           columns={tableColumns}
           dataSource={usersData}
           loading={dataLoading}
+          pagination={
+            {
+              onChange: (pageNumber, pageSize) => handlePagination(pageNumber, pageSize),
+              total: pagination
+            }
+          }
         />
       </div>
       <VolunteerProfile

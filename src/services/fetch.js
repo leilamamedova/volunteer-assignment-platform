@@ -39,19 +39,23 @@ export const UsersFieldsFetch = (setUsersDataFields) => {
     });
 };
 
-export const FilterUserFetch = (filterFields, setUsersData) => {
-  fetch(`${process.env.REACT_APP_API_BASE}/filter-volunteers`, {
+export const FilterUserFetch = (filterFields, setUsersData, setPagination, setDataLoading, page_number, page_size) => {
+  setDataLoading(true);
+  fetch(`${process.env.REACT_APP_API_BASE}/filter-volunteers?page_number=${page_number}&page_size=${page_size}`, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ users: filterFields }),
+    body: JSON.stringify(filterFields),
   })
     .then((response) => response.json())
     .then((data) => {
-      const mutateData = data.map((el) => Object.assign(el, { key: el.id }));
+      console.log('Filtered Users', data);
+      const mutateData = data.data.map((el) => Object.assign(el, { key: el.candidate_id }));
       setUsersData(mutateData);
+      setPagination(data.total_pages)
+      setDataLoading(false)
     })
     .catch((err) => setUsersData([]));
 };

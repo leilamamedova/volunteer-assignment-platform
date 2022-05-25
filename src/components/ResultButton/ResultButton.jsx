@@ -2,17 +2,15 @@ import React from "react";
 import { Button } from "antd";
 import useStore from "../../services/store";
 
-function ResultButton({ fetchDefault, fetchFiltered }) {
+function ResultButton({ fetchFiltered }) {
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
+  const setPagination = useStore(({ setPagination }) => setPagination);
+  const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
   const getResults = (e) => {
     e.preventDefault();
-    if (filterFields.length) {
-      fetchFiltered(filterFields);
-    } else {
-      fetchDefault(setUsersData);
-    }
+    filterFields.length && fetchFiltered(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);
   };
 
   return (
