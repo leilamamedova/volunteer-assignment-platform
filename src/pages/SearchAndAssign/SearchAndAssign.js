@@ -8,16 +8,18 @@ import "./SearchAndAssign.scss";
 import LoadFilterTemplate from "../../components/LoadFilterTemplate/LoadFilterTemplate";
 import BulkImport from "../../components/BulkImport/BulkImport";
 import useStore from "../../services/store";
-import { UsersFetch } from "../../services/fetch";
+import { FilterUserFetch } from "../../services/fetch";
 
 const SearchAndAssign = () => {
   const url = `${process.env.REACT_APP_API_BASE}/import-users-data`;
 
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
+  const setPagination = useStore(({ setPagination }) => setPagination);
+  const filterFields = useStore(({ filterFields }) => filterFields);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
   useEffect(() => {
-    UsersFetch(setUsersData, setDataLoading);
+    FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10)
   }, [])
 
   return (

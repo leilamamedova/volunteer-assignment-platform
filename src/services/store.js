@@ -9,6 +9,8 @@ const useStore = create((set) => ({
     ),
   usersData: [],
   setUsersData: (data) => set((state) => ({ usersData: data })),
+  pagination: 0,
+  setPagination: (num) => set((state) => ({ pagination: num })),
   usersDataFields: [],
   setUsersDataFields: (field) => set((state) => ({ usersDataFields: field })),
   //Filters

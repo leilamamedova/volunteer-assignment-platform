@@ -3,7 +3,7 @@ import { Button, Space } from "antd";
 import useStore from "../../services/store";
 import FilterField from "../FilterField/FilterField";
 import ResultButton from "../ResultButton/ResultButton";
-import { UsersFetch, FilterUserFetch } from "../../services/fetch";
+import { FilterUserFetch } from "../../services/fetch";
 import "./FilterWrapper.scss";
 
 function FilterWrapper(props) {
@@ -12,6 +12,7 @@ function FilterWrapper(props) {
   const addFilterField = useStore(({ addFilterField }) => addFilterField);
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const setPagination = useStore(({ setPagination }) => setPagination);
 
   const removeFilterField = useStore(
     ({ removeFilterField }) => removeFilterField
@@ -64,8 +65,8 @@ function FilterWrapper(props) {
   //Handle Reset
   //Set default FilterFields , Fetch Users without Filter
   const resetHandler = () => {
-    UsersFetch(setUsersData, setDataLoading);
     resetFilterFields();
+    FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);
   };
   return (
     <>
@@ -78,7 +79,6 @@ function FilterWrapper(props) {
             {props.seeResultBtn ? (
               <ResultButton
                 fetchFiltered={FilterUserFetch}
-                fetchDefault={UsersFetch}
               />
             ) : null}
             <Button onClick={resetHandler} type="primary">
