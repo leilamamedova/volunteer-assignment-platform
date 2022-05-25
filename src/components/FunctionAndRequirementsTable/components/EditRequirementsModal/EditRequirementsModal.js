@@ -34,7 +34,7 @@ const EditRequirementsModal = (
         setIsEditModalVisible(false);
 
         const selectedTemplate = favoriteFilters.find(fav => fav.id === selectedFavoriteFilters)
-        selectedTemplate.filters.map(temp => temp['id'] = null)
+        typeof selectedTemplate !== 'undefined' && selectedTemplate.filters.map(temp => temp['id'] = null)
 
         functionalRequirements.map((el) => {
             if (el.key === selectedRow ) {

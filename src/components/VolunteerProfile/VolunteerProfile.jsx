@@ -27,7 +27,7 @@ function VolunteerProfile({isModalVisible, setIsVolunteerModalVisible, userID}) 
           <VolunteerData userID={userID}/>
         </TabPane>
         <TabPane tab="Matching" key="2">
-          <MatchingData/>
+          <MatchingData userID={userID}/>
         </TabPane>
       </Tabs>  
 
