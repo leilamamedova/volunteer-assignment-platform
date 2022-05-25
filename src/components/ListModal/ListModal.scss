@@ -2,6 +2,10 @@
   .ant-row {
     margin-bottom: 30px;
   }
+  .ant-modal-body {
+    overflow: scroll;
+    max-height: 450px;
+  }
 }
 
 .filter-list-text {

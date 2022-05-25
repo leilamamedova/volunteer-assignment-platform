@@ -29,11 +29,10 @@ function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       if(data.statusCode === 200) {
         message.success('Success!');
       }else {
-        message.error('Something went wrong!');
+        message.error(data.value);
       }
     })
     .catch((err) => console.log()); 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import useStore from "../../services/store";
 import { FilterUserFetch } from "../../services/fetch";
 
@@ -33,8 +33,13 @@ function WaitlistButton(props) {
       },
       body: JSON.stringify(postData),
     })
-      .then((response) => {
-        console.log(response);
+    .then(response => response.json())
+    .then((data) => {
+      if(data.statusCode === 200) {
+        message.success('Success!');
+      }else {
+        message.error(data.value);
+      }
         FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);
       })
       .catch((err) => console.log(err));
