@@ -30,14 +30,7 @@ const SearchAndAssign = () => {
         </Col>
 
         <Col>
-          <Row gutter={16}>
-            <Col>
-              <BulkImport title={"Users"} url={url} />
-            </Col>
-            <Col>
-              <BulkImport action={"Export"} title={"Users"} />
-            </Col>
-          </Row>
+          <BulkImport title={"Users"} url={url} />
         </Col>
       </Row>
       <Row gutter={15} wrap={true} justify="space-between">
