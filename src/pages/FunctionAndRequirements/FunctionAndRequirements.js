@@ -6,10 +6,12 @@ import { RoleOffersFetch } from '../../services/fetch';
 import useStore from '../../services/store';
 
 const FunctionAndRequirements = () => {
-    const roleOffersUrl = `${process.env.REACT_APP_VAP_API_BASE}/RoleOffers/import`;
-    const functionalRequirementsUrl = `${process.env.REACT_APP_VAP_API_BASE}/FunctionalRequirements/import`;
     const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
     const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+
+    const roleOffersUrl = `${process.env.REACT_APP_VAP_API_BASE}/RoleOffers/import`;
+    const functionalRequirementsUrl = `${process.env.REACT_APP_VAP_API_BASE}/FunctionalRequirements/import`;
+    const statisticsUrl = `${process.env.REACT_APP_VAP_API_BASE}/RoleOffers/importDetails`;
 
     useEffect(() => {
         RoleOffersFetch(setRoleOffers, setDataLoading);
@@ -21,6 +23,7 @@ const FunctionAndRequirements = () => {
                 <Space direction='horizontal' align='middle'>
                     <BulkImport title={'Roles'} url={roleOffersUrl}/>
                     <BulkImport title={'Requirements'} url={functionalRequirementsUrl}/>
+                    <BulkImport title={'Statistics'} url={statisticsUrl}/>
                 </Space>
             </Row>
             <FunctionAndRequirementsTable/>            
