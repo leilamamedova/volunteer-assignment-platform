@@ -2,8 +2,11 @@ import create from "zustand";
 
 const useStore = create((set) => ({
   functionalRequirements: [],
-  setFunctionalRequirements: (req) => 
-    set((state) => ( state.functionalRequirements = [...state.functionalRequirements, req] )),
+  setFunctionalRequirements: (req) =>
+    set(
+      (state) =>
+        (state.functionalRequirements = [...state.functionalRequirements, req])
+    ),
   usersData: [],
   setUsersData: (data) => set((state) => ({ usersData: data })),
   usersDataFields: [],
@@ -56,6 +59,8 @@ const useStore = create((set) => ({
   activeRoleOfferId: 0,
   setActiveRoleOfferId: (data) =>
     set((state) => (state.activeRoleOfferId = data)),
+  reportColumns: [],
+  setReportColumns: (data) => set((state) => (state.reportColumns = data)),
 }));
 
 export default useStore;

@@ -59,6 +59,7 @@ $retro-yellow: #fcfc02;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 25px;
   min-height: 190px;
   max-height: 500px;
+  min-width: 500px;
 }
 @media screen and (min-width: 1500px) {
   .card {
@@ -94,7 +95,9 @@ $retro-yellow: #fcfc02;
 .my-20 {
   margin: 20px 0;
 }
-
+.text-center {
+  text-align: center;
+}
 .reportStatus {
   color: #fff;
   min-width: 70px;
