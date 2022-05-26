@@ -1,5 +1,5 @@
 import React from 'react';
-import { VerticalBarChart } from '../../Charts';
+import { Chart } from '../../Charts';
 
 const options = {
     responsive: true,
@@ -9,7 +9,7 @@ const options = {
       },
       title: {
         display: true,
-        text: 'Nationality Chart',
+        text: 'Top 10 Nationalities',
       },
     },
 };
@@ -29,8 +29,8 @@ const data = {
 
 const NationalityChart = () => {
     return (
-        <div className='card'>
-            <VerticalBarChart data={data} options={options}/>            
+        <div>
+            <Chart data={data} options={options}/>            
         </div>
     );
 };
