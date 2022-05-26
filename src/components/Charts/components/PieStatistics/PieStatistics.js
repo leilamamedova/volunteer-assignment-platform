@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {PieChart} from "../../Charts";
-import './GenderChart.scss';
+import './PieStatistics.scss';
 
 const UserData = [
     {
@@ -15,7 +15,7 @@ const UserData = [
     },
   ];
 
-const GenderChart = () => {
+const PieStatistics = ({title, data}) => {
     const [userData, setUserData] = useState({
         labels: UserData.map((data) => data.year),
         datasets: [
@@ -32,11 +32,21 @@ const GenderChart = () => {
         ],
       });
 
+      const options = {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: title,
+          },
+        },
+    };
+
     return (
-        <div className='gender-chart card'>
-            <PieChart chartData={userData} />
+        <div className='gender-chart'>
+            <PieChart chartData={userData} options={options} />
         </div>        
     );
 };
 
-export default GenderChart;
+export default PieStatistics;

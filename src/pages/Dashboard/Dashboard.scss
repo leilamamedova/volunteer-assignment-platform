@@ -1,5 +1,26 @@
 .dashboard{
     .ant-row {
+        margin-bottom: 20px;
+    }
+    .card{
+        max-height: fit-content !important;
+    }
+    .filters{
+        width: auto;
         margin-bottom: 40px;
+        .ant-select{
+            width: auto;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+    }
+    h3{
+        padding-left: 5px;
+    }
+    .statistics{
+        margin-bottom: 40px;
+    }
+    .assignments-chart{
+        padding-bottom: 40px;
     }
 }
