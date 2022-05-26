@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Layout, Menu, Row, Col } from "antd";
 import {
@@ -16,7 +16,7 @@ const { Header, Content, Sider } = Layout;
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
-
+  const layoutRef = useRef();
   useEffect(() => {
     if (performance.getEntriesByType("navigation")) {
       navigate("/");
@@ -71,12 +71,30 @@ const MainLayout = () => {
   ];
 
   const toggle = () => {
+    if (collapsed) {
+      layoutRef.current.style.marginLeft = "180px";
+    } else {
+      layoutRef.current.style.marginLeft = "80px";
+    }
     setCollapsed(!collapsed);
   };
 
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed} width="230">
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        // width="230"
+        style={{
+          overflow: "auto",
+          height: "100vh",
+          position: "fixed",
+          left: 0,
+          top: 0,
+          bottom: 0,
+        }}
+      >
         <div className="logo" />
         <Menu
           theme="dark"
@@ -85,7 +103,7 @@ const MainLayout = () => {
           items={sideMenu}
         />
       </Sider>
-      <Layout className="admin-layout">
+      <Layout className="admin-layout" ref={layoutRef}>
         <Header className="admin-layout-background">
           <Row align="middle" justify="center">
             <Col md={12} className="header-collapse">
