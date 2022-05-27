@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, message, Upload } from 'antd';
-import { DownloadOutlined } from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons';
 import { FilterUserFetch, RoleOffersFetch } from '../../services/fetch';
 import useStore from '../../services/store';
 import './BulkImport.scss';
@@ -39,7 +39,7 @@ const BulkImport = ({title, url}) => {
   return (
       <div className='bulk-import'>            
           <Upload {...props}  maxCount={1}>
-              <Button icon={<DownloadOutlined />}>Import {title}</Button>
+              <Button icon={<UploadOutlined />}>Import {title}</Button>
           </Upload>
       </div>
   );
