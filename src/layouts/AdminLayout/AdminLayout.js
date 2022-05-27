@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { Layout, Menu, Row, Col } from "antd";
 import {
   ControlOutlined,
@@ -15,13 +15,33 @@ const { Header, Content, Sider } = Layout;
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [activeMenu, setActiveMenu] = useState([]);
+  const [activeSubMenu, setActiveSubMenu] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation()
   const layoutRef = useRef();
+ 
   useEffect(() => {
-    if (performance.getEntriesByType("navigation")) {
-      navigate("/");
-    }
-  }, []);
+    switch (location.pathname) {
+      case '/':
+        setActiveMenu(['1'])        
+        break;
+      case '/function-and-requirements':
+        setActiveMenu(['2', 'a'])        
+        break
+      case '/savedfilters':
+        setActiveMenu(['2', 'b'])        
+        break;
+      case '/search-and-assign':
+        setActiveMenu(['2', 'c'])        
+        break;
+      case '/reports':
+        setActiveMenu(['3'])        
+        break;    
+      default:
+        break;
+    }    
+  }, [location.pathname]);
 
   const sideMenu = [
     {
@@ -85,7 +105,6 @@ const MainLayout = () => {
         trigger={null}
         collapsible
         collapsed={collapsed}
-        // width="230"
         style={{
           overflow: "auto",
           height: "100vh",
@@ -96,12 +115,39 @@ const MainLayout = () => {
         }}
       >
         <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={["1"]}
-          items={sideMenu}
-        />
+        {
+          location.pathname === '/savedfilters' ?
+          <Menu
+            theme="dark"
+            mode="inline"
+            selectedKeys={activeMenu}
+            items={sideMenu}
+            defaultOpenKeys={['2']}
+          /> 
+          : location.pathname === '/search-and-assign' ?
+          <Menu
+            theme="dark"
+            mode="inline"
+            selectedKeys={activeMenu}
+            items={sideMenu}
+            defaultOpenKeys={['2']}
+          />
+          : location.pathname === '/function-and-requirements' ?
+          <Menu
+            theme="dark"
+            mode="inline"
+            selectedKeys={activeMenu}
+            items={sideMenu}
+            defaultOpenKeys={['2']}
+          />
+          :
+          <Menu
+            theme="dark"
+            mode="inline"
+            selectedKeys={activeMenu}
+            items={sideMenu}
+          />
+        }
       </Sider>
       <Layout className="admin-layout" ref={layoutRef}>
         <Header className="admin-layout-background">

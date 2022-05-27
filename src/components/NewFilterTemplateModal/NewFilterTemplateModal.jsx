@@ -1,10 +1,12 @@
 import { Modal, Button, Form, Input, message } from "antd";
 import FilterWrapper from "../FilterWrapper/FilterWrapper";
 import useStore from "../../services/store";
+import { useState } from "react";
 
 function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
   const filterFields = useStore((state) => state.filterFields);
   const resetFilterFields = useStore((state) => state.resetFilterFields);
+  const [templateName, setTemplateName] = useState(false)
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -13,6 +15,7 @@ function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
   const handleCancel = () => {
     setIsModalVisible(false);
     resetFilterFields();
+    setTemplateName(true);
   };
 
   const handleSubmit = (values) => {
@@ -38,6 +41,7 @@ function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
     .catch((err) => console.log()); 
 
     resetFilterFields();
+    setTemplateName(true);
     setIsModalVisible(false);
   };
 
@@ -64,11 +68,11 @@ function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
         onKeyDown={handleEnter}
       >
         <Form.Item
-          label="Tempalte Filter Name"
+          label="Template Filter Name"
           name="template-filter-name"
           rules={[{ required: true, message: "Name your filter" }]}
         >
-          <Input/>
+          {templateName ? <Input value=''/> : <Input/> }          
         </Form.Item>
         <FilterWrapper seeResultBtn={false} />
         <Button className="mt-20" type="primary" htmlType="submit">
