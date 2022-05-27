@@ -88,7 +88,7 @@ const Dashboard = () => {
         <Col span={8}>
           <AssignmentsChart data={assignedData}/>
         </Col>
-        <Col span={6}>
+        <Col span={4}>
           <Cards title='Total Assigned' value='60%'/>
         </Col>
         <Col span={6}>
@@ -98,7 +98,7 @@ const Dashboard = () => {
         <Col span={8}>
           <AssignmentsChart data={waitlistData}/>
         </Col>
-        <Col span={6}>
+        <Col span={4}>
           <Cards title='Total Waitlisted' value='55%'/>
         </Col>
         <Col span={6}>

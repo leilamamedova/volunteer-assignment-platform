@@ -1,5 +1,11 @@
 .matching-modal{
+    width: auto !important;
+    max-width: 800px !important;
     min-width: 450px;
+    .ant-row{
+        overflow: scroll;
+        max-height: 300px;
+    }
     .matching-modal-select{
         margin-bottom: 30px;
     }

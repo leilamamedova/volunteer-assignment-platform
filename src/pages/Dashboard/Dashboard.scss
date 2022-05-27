@@ -4,6 +4,7 @@
     }
     .card{
         max-height: fit-content !important;
+        min-height: auto !important;
     }
     .filters{
         width: auto;
@@ -22,5 +23,8 @@
     }
     .assignments-chart{
         padding-bottom: 40px;
+    }
+    .ant-card{
+        max-width: 200px;
     }
 }

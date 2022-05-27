@@ -29,6 +29,7 @@ function ReportCreateModal({ isModalVisible, setIsModalVisible }) {
       onOk={handleOk}
       onCancel={handleCancel}
       footer={[""]}
+      centered
     >
       <Tabs className="form-tab">
         <TabPane tab="Template" key={1}>
