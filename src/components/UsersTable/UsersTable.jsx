@@ -51,6 +51,8 @@ const UsersTable = (props) => {
             title: item.replaceAll("_", " "),
             dataIndex: item,
             ...getColumnSearchProps(item),
+            width: 200,
+            ellipsis: true,
           },
         ]);
       });
@@ -62,23 +64,27 @@ const UsersTable = (props) => {
 
   useEffect(() => {
     dataKeys.length>0 && dataKeys.splice(0, 0, {
-      title: "#",
-      key: "index",
-      render: (_, field, index) => <p key={index}>{index + 1}</p>,
-    });
-    dataKeys.length>0 && dataKeys.splice(1, 0, {
       title: "Details",
       key: "id",
+      width: 200,
+      fixed: 'left',
       render: (_, field) => (
         <Link key={field.id} onClick={() => showVolunteerModal(field.id)}>
           <EyeOutlined />
         </Link>
       ),
     });
+    dataKeys.length>0 && dataKeys.splice(1, 0, {
+      title: "#",
+      key: "index",
+      width: 200,
+      render: (_, field, index) => <p key={index}>{index + 1}</p>,
+    });
     if (props.isStatusColumn) {
       dataKeys.length>0 && dataKeys.splice(2, 0, {
         title: "Status",
         key: "status",
+        width: 200,
         ...getColumnSearchProps("status"),
         render: (_, field) => (
           <Space
