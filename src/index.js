@@ -10,6 +10,7 @@ import {
 } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
 import './index.scss';
+import { message } from 'antd';
 
 const httpLink = createHttpLink({
   uri: process.env.REACT_APP_HASURA_URL,
@@ -28,6 +29,10 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 });
+
+message.config({
+  maxCount: 3,
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
