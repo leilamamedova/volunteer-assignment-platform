@@ -22,18 +22,7 @@ const useStore = create((set) => ({
       value: [],
     },
   ],
-  resetFilterFields: () =>
-    set(
-      (state) =>
-        (state.filterFields = [
-          {
-            default: false,
-            requirement_name: "Requirement",
-            operator: "Operator",
-            value: [],
-          },
-        ])
-    ),
+  resetFilterFields: () => set((state) => (state.filterFields = [])),
   setFilterFields: (filters) =>
     set((state) => (state.filterFields = [...filters])),
   addFilterField: (filter) =>
@@ -46,13 +35,15 @@ const useStore = create((set) => ({
   addFavoriteFilter: (templateFilter) =>
     set((state) => ({ favoriteFilters: templateFilter })),
   selectedFavoriteFilters: 0,
-  setSelectedFavoriteFilters: (id) => set((state) => ({ selectedFavoriteFilters: id })),
+  setSelectedFavoriteFilters: (id) =>
+    set((state) => ({ selectedFavoriteFilters: id })),
   selectedUsers: [],
   setSelectedUsers: (data) => set((state) => (state.selectedUsers = [...data])),
   roleOffers: [],
   setRoleOffers: (data) => set((state) => (state.roleOffers = [...data])),
   selectedRoleOffer: {},
-  setSelectedRoleOffer: (offer) => set((state) => ({ selectedRoleOffer: offer })),
+  setSelectedRoleOffer: (offer) =>
+    set((state) => ({ selectedRoleOffer: offer })),
   dataLoading: false,
   setDataLoading: (status) => set((state) => ({ dataLoading: status })),
   activeRoleOfferId: 0,
@@ -60,6 +51,8 @@ const useStore = create((set) => ({
     set((state) => (state.activeRoleOfferId = data)),
   reportColumns: [],
   setReportColumns: (data) => set((state) => (state.reportColumns = data)),
+  reportROColumns: [],
+  setReportROColumns: (data) => set((state) => (state.reportROColumns = data)),
 }));
 
 export default useStore;

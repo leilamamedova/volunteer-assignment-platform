@@ -34,7 +34,7 @@ function ReportCreateModal({ isModalVisible, setIsModalVisible }) {
         <TabPane tab="Template" key={1}>
           <TemplateForm />
         </TabPane>
-        <TabPane className="w-60" tab="Columns" key={2}>
+        <TabPane className="w-100" tab="Columns" key={2}>
           <Columns />
         </TabPane>
         <TabPane tab="Filters" key={3}>
