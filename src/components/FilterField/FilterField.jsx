@@ -32,6 +32,8 @@ const operator = [
   },
 ];
 
+const ROLE_OFFER_DATA = ["Entity", "Functional_Area", "Job_Title", "Location"];
+
 function FilterField(props) {
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
@@ -39,13 +41,24 @@ function FilterField(props) {
 
   const [requirements, setRequirements] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [tagsArray, setTagsArray] = useState(props.value);  
+  const [tagsArray, setTagsArray] = useState(props.value);
 
   useEffect(() => {
-    setTagsArray(props.value)
-  }, [props])
+    setTagsArray(props.value);
+  }, [props]);
 
   useEffect(() => {
+    if (props.isRoleOffer) {
+      ROLE_OFFER_DATA.map((item, index) => {
+        setRequirements((prev) => [
+          ...prev,
+          {
+            id: index,
+            value: item,
+          },
+        ]);
+      });
+    } else {
       usersDataFields.map((item, index) => {
         setRequirements((prev) => [
           ...prev,
@@ -55,6 +68,7 @@ function FilterField(props) {
           },
         ]);
       });
+    }
   }, [usersDataFields]);
 
   useEffect(() => {
@@ -74,7 +88,6 @@ function FilterField(props) {
   const handleClose = (index) => {
     tagsArray.splice(index, 1);
     setTagsArray(tagsArray);
-    // setTagsArray(list);
   };
 
   useEffect(() => {
@@ -113,16 +126,17 @@ function FilterField(props) {
         ))}
       </Select>
       <div className="tag-box">
-        {tagsArray.length>0 && tagsArray.map((el, index) => (
-          <Tag
-            key={index}
-            closable
-            color="#2db7f5"
-            onClose={() => handleClose(index)}
-          >
-            {el}
-          </Tag>
-        ))}
+        {tagsArray.length > 0 &&
+          tagsArray.map((el, index) => (
+            <Tag
+              key={index}
+              closable
+              color="#2db7f5"
+              onClose={() => handleClose(index)}
+            >
+              {el}
+            </Tag>
+          ))}
       </div>
       <Input
         className="inputWidth"

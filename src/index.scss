@@ -9,10 +9,6 @@ $retro-yellow: #fcfc02;
 //-----------------------------
 //******************************************************
 
-//Layout -- Start
-.ant-layout-sider-children {
-}
-
 //Layout -- End
 
 // Utility Selector -- Start
@@ -39,15 +35,15 @@ $retro-yellow: #fcfc02;
 //-----------------------------
 //Font Size Management -- Start
 .fs-2xl {
-  font-size: 2rem;
+  font-size: 2rem !important;
 }
 
 .fs-xl {
-  font-size: 1.5rem;
+  font-size: 1.5rem !important;
 }
 
 .fs-lg {
-  font-size: 1.2rem;
+  font-size: 1.2rem !important;
 }
 
 .bold {
@@ -98,8 +94,20 @@ $retro-yellow: #fcfc02;
 .w-60 {
   width: 60% !important;
 }
+.w-50 {
+  width: 50% !important;
+}
 .my-20 {
   margin: 20px 0;
+}
+.flex-wrap {
+  flex-wrap: wrap !important;
+  & > .ant-space-item:nth-child(1) {
+    width: 50% !important;
+  }
+  & > .ant-space-item:nth-child(2) {
+    width: 40% !important;
+  }
 }
 .text-center {
   text-align: center;
@@ -123,6 +131,9 @@ $retro-yellow: #fcfc02;
 
 .justify-content-between {
   justify-content: space-between;
+}
+.flex-column {
+  flex-direction: column;
 }
 //-----------------------------
 

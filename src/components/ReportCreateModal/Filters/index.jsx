@@ -1,3 +1,4 @@
+import { Row, Col } from "antd";
 import FilterWrapper from "../../../components/FilterWrapper/FilterWrapper";
 import LoadFilterTemplate from "../../LoadFilterTemplate/LoadFilterTemplate";
 

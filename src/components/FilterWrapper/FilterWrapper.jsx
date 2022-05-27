@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { Button, Space } from "antd";
+import { Button, Space, Typography } from "antd";
 import useStore from "../../services/store";
 import FilterField from "../FilterField/FilterField";
 import ResultButton from "../ResultButton/ResultButton";
 import { FilterUserFetch } from "../../services/fetch";
 import "./FilterWrapper.scss";
 
+const { Text } = Typography;
 function FilterWrapper(props) {
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setFilterFields = useStore(({ setFilterFields }) => setFilterFields);
@@ -66,7 +67,14 @@ function FilterWrapper(props) {
   //Set default FilterFields , Fetch Users without Filter
   const resetHandler = () => {
     resetFilterFields();
-    FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);
+    FilterUserFetch(
+      filterFields,
+      setUsersData,
+      setPagination,
+      setDataLoading,
+      1,
+      10
+    );
   };
   return (
     <>
@@ -77,24 +85,23 @@ function FilterWrapper(props) {
               Add
             </Button>
             {props.seeResultBtn ? (
-              <ResultButton
-                fetchFiltered={FilterUserFetch}
-              />
+              <ResultButton fetchFiltered={FilterUserFetch} />
             ) : null}
             <Button onClick={resetHandler} type="primary">
               Reset
             </Button>
           </Space>
 
-          {filterFields.map((el, index) => (
-            <Space
-              direction="vertical"
-              size="middle"
-              key={index}
-              style={{ margin: "15px 0" }}
-            >
-              {/* Logical Statement  */}
-              {/* {index !== 0 ? (
+          {filterFields.length > 0 ? (
+            filterFields.map((el, index) => (
+              <Space
+                direction="vertical"
+                size="middle"
+                key={index}
+                style={{ margin: "15px 0" }}
+              >
+                {/* Logical Statement  */}
+                {/* {index !== 0 ? (
                 <Radio.Group
                   name="logical"
                   onChange={(e) => handleChange(e, index)}
@@ -106,19 +113,23 @@ function FilterWrapper(props) {
               ) : (
                 ""
               )} */}
-              <FilterField
-                key={el.id}
-                id={index}
-                default={el.default}
-                operator={el.operator}
-                requirement={el.requirement_name}
-                value={el.value}
-                handleSelect={handleSelect}
-                handleChange={handleChange}
-                handleDelete={removeField}
-              />
-            </Space>
-          ))}
+                <FilterField
+                  key={el.id}
+                  id={index}
+                  default={el.default}
+                  operator={el.operator}
+                  requirement={el.requirement_name}
+                  value={el.value}
+                  handleSelect={handleSelect}
+                  handleChange={handleChange}
+                  handleDelete={removeField}
+                  isRoleOffer={props.isRoleOffer}
+                />
+              </Space>
+            ))
+          ) : (
+            <Text>Click on Add..</Text>
+          )}
         </div>
       </div>
     </>
