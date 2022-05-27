@@ -122,6 +122,9 @@ const AssigningTo = () => {
             style={{ display: "flex", gap: "10px", flexDirection: "column" }}
             onSubmit={handleSubmit}
           >
+            {
+              roleOfferId !== 0 && <p style={{marginBottom: '0'}}>Role Offer ID: {roleOfferId}</p>
+            }
             <Select
               defaultValue="Entity"
               showSearch

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Button } from "antd";
 import FilterWrapper from "../../components/FilterWrapper/FilterWrapper";
 import AssigningTo from "../../components/AssigningTo/AssigningTo";
 import AssignSearchResult from "../../components/AssignSearchResult/AssignSearchResult";
@@ -8,18 +8,22 @@ import "./SearchAndAssign.scss";
 import LoadFilterTemplate from "../../components/LoadFilterTemplate/LoadFilterTemplate";
 import BulkImport from "../../components/BulkImport/BulkImport";
 import useStore from "../../services/store";
-import { FilterUserFetch } from "../../services/fetch";
+import { FilterUserFetch, UsersFieldsFetch } from "../../services/fetch";
+import { DownloadOutlined } from "@ant-design/icons";
 
 const SearchAndAssign = () => {
-  const url = `${process.env.REACT_APP_API_BASE}/import-users-data`;
+  const importUrl = `${process.env.REACT_APP_API_BASE}/import-users-data`;
+  const exportUrl = `${process.env.REACT_APP_API_BASE}/export-volunteers`;
 
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
   const setPagination = useStore(({ setPagination }) => setPagination);
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const setUsersDataFields = useStore(({ setUsersDataFields }) => setUsersDataFields);
 
   useEffect(() => {
-    FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10)
+    FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);
+    UsersFieldsFetch(setUsersDataFields);   
   }, [])
 
   return (
@@ -30,7 +34,16 @@ const SearchAndAssign = () => {
         </Col>
 
         <Col>
-          <BulkImport title={"Users"} url={url} />
+          <Row gutter={16}>
+            <Col>
+              <BulkImport title={"Users"} url={importUrl} />
+            </Col>
+            <Col>
+              <a href={exportUrl} download>
+                <Button icon={<DownloadOutlined />}>Export Users</Button>
+              </a>
+            </Col>
+          </Row>
         </Col>
       </Row>
       <Row gutter={15} wrap={true} justify="space-between">
