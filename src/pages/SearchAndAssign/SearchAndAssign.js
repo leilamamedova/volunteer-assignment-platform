@@ -14,15 +14,10 @@ import { DownloadOutlined } from "@ant-design/icons";
 const SearchAndAssign = () => {
   const importUrl = `${process.env.REACT_APP_API_BASE}/import-users-data`;
   const exportUrl = `${process.env.REACT_APP_API_BASE}/export-volunteers`;
-
-  const setUsersData = useStore(({ setUsersData }) => setUsersData);
-  const setPagination = useStore(({ setPagination }) => setPagination);
-  const filterFields = useStore(({ filterFields }) => filterFields);
-  const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  
   const setUsersDataFields = useStore(({ setUsersDataFields }) => setUsersDataFields);
 
   useEffect(() => {
-    FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);
     UsersFieldsFetch(setUsersDataFields);   
   }, [])
 

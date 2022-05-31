@@ -15,7 +15,6 @@ const { Link } = Typography;
 
 const UsersTable = (props) => {
   const [isVolunteerModalVisible, setIsVolunteerModalVisible] = useState(false);
-  const [isStatusModalVisible, setIsStatusModalVisible] = useState(false);
   const [dataKeys, setDataKeys] = useState([]);
   const [columns, setColumns] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -33,13 +32,14 @@ const UsersTable = (props) => {
 
   const route = props.isAnyStatus ? "ChangeToAnyStatus" : "AssignOrWaitlist";
 
+  useEffect(() => {
+    FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);  
+  }, [])
+
   //Fetch the active modal data.
   const showVolunteerModal = (id) => {
     setUserID(id);
     setIsVolunteerModalVisible(true);
-  };
-  const showStatusModal = (id, status) => {
-    setIsStatusModalVisible(true);
   };
   // Set data to table
   useEffect(() => {
@@ -58,9 +58,7 @@ const UsersTable = (props) => {
       });
   }, [usersDataFields]);
 
-  useEffect(() => {
-    usersData.length>0 ? setDataLoading(false) : setDataLoading(true);
-  }, [usersData])
+
 
   useEffect(() => {
     dataKeys.length>0 && dataKeys.splice(0, 0, {
