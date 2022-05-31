@@ -74,18 +74,14 @@ export const SavedFiltersGet = (addFavoriteFilter, setDataLoading) => {
       return response.json();
     })
     .then((data) => {
-      if(data.statusCode === 200) {
-        const mutateData = data.value.map((el) =>
-          Object.assign(el, { key: el.id })
-        );
-        addFavoriteFilter(mutateData);
-      }else {
-        message.error(data.value);
-      }
+      const mutateData = data.value.map((el) =>
+        Object.assign(el, { key: el.id })
+      );
+      addFavoriteFilter(mutateData);
       setDataLoading && setDataLoading(false)
     })
     .catch((err) => {
-      console.log(err.message);
+      message.error(err.message);
     });
 };
 
@@ -101,15 +97,11 @@ export const RoleOffersFetch = (setRoleOffers, setDataLoading) => {
       return response.json();
     })  
     .then((data) => {
-      if(data.statusCode === 200) {
         console.log("RoleOffers data", data.value);
         setRoleOffers(data.value);
         setDataLoading(false)
-      }else {
-        message.error(data.value);
-      }
     })
     .catch((err) => {
-      console.log(err.message);
+      message.error(err.message);
     });
 };

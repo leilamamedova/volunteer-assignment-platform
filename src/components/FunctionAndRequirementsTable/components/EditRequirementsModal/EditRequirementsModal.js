@@ -58,15 +58,18 @@ const EditRequirementsModal = (
             },
             body: JSON.stringify(requirement),
           })
-            .then((response) => response.json())
-            .then((data) => {
-                if(data.statusCode === 200) {
-                  message.success('Success!');
-                }else {
-                  message.error(data.value);
+            .then((response) => {
+                if (!response.ok) {
+                  throw new Error(
+                    `This is an HTTP error: The status is ${response.status}`
+                  );
                 }
-            })
-            .catch((err) => console.log(err)) 
+                return response.json();
+              })
+            .then((data) => {
+                message.success('Success!');
+              })
+            .catch((err) => message.error(err.message))
             .finally(() =>  setRequirement({}))       
     }, [requirement])
 

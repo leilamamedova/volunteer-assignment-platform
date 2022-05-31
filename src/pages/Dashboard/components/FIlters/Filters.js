@@ -3,8 +3,29 @@ import { Space, Select, Button, Checkbox, Divider } from "antd";
 import useStore from "../../../../services/store";
 import { RoleOffersFetch } from "../../../../services/fetch";
 
-
 const { Option } = Select;
+
+const statusList = [
+  'Assigned',
+  'Pending',
+  'Accepted',
+  'Confirmed',
+  'Complete',
+  'Declined',
+  'Removed',
+  'Expired',
+  'Waitlist Offered',
+  'Waitlist Accepted',
+  'Waitlist Declined',
+  'Pre-assigned',
+  'Not Approved',
+  'Waitlist Assigned',
+];
+
+const locationList = [
+  'Locals',
+  'Internationals',
+]
 
 const Filters = ({showUserData=false}) => {
   const roleOffers = useStore(({ roleOffers }) => roleOffers);
@@ -20,11 +41,15 @@ const Filters = ({showUserData=false}) => {
   const [isJobTitleDisabled, setIsJobTitleDisabled] = useState(true);
   const [isVenueDisabled, setIsVenueDisabled] = useState(true);
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
+  const [isStatusDisabled, setStatusDisabled] = useState(true);
+  const [isLocationDisabled, setLocatiobDisabled] = useState(true);
 
   const [entity, setEntity] = useState([]);
   const [functionalArea, setFunctionalArea] = useState([]);
   const [jobTitle, setJobTitle] = useState([]);
   const [venue, setVenue] = useState([]);
+  const [status, setStatus] = useState([]);
+  const [location, setLocation] = useState([]);
 
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
@@ -44,12 +69,6 @@ const Filters = ({showUserData=false}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setActiveRoleOfferId(roleOfferId);
-    const offer = roleOffers.find(el => el.name===entity)
-                  .functionalAreas.find(el => el.name===functionalArea)
-                  .jobTitles.find(el => el.name===jobTitle)
-                  .venues.find(el => el.name===venue)
-                  .roleOffer  
-    setSelectedRoleOffer(offer);
   };
 
   const handleEntityChange = (value) => {
@@ -93,6 +112,16 @@ const Filters = ({showUserData=false}) => {
   const handleVenueChange = (value) => {
     setVenue(value)
     setRoleOfferId(1);
+    setStatusDisabled(false);
+  };
+
+  const handleStatusChange = (value) => {
+    setStatus(value);
+    setLocatiobDisabled(false);
+  };
+
+  const handleLocationChange = (value) => {
+    setLocation(value);
     setSubmitDisabled(false);
   };
 
@@ -110,6 +139,14 @@ const Filters = ({showUserData=false}) => {
 
   const selectAllVenues = (e) => {
     e.target.checked === true ? handleVenueChange(venues.map(venue => venue.name)) : setVenue([])
+  };
+
+  const selectAllStatus = (e) => {
+    e.target.checked === true ? handleStatusChange(statusList.map(status => status)) : setStatus([])
+  };
+
+  const selectAllLocations = (e) => {
+    e.target.checked === true ? handleLocationChange(locationList.map(location => location)) : setLocation([])
   };
 
   return (
@@ -265,7 +302,86 @@ const Filters = ({showUserData=false}) => {
                 </Option>
               ))}
             </Select>
+
+            {
+              showUserData &&
+              <>
+                <Select
+                mode='multiple'
+                disabled={isStatusDisabled}
+                placeholder='Status'
+                defaultValue="Status"
+                showSearch
+                optionFilterProp="children"
+                value={status}
+                onChange={handleStatusChange}         
+                dropdownRender={(menu) => (
+                  <>
+                {menu}   
+                <Divider
+                    style={{
+                    margin: '8px 0',
+                    }}
+                />             
+                <Checkbox
+                  style={{
+                    margin: '4px 8px',
+                  }}
+                  onChange={selectAllStatus}
+                  checked={statusList.length === status.length}
+                >All</Checkbox>
+                </>
+              )}
+              >
+                <Option default disabled>
+                  Venue
+                </Option>
+                {statusList.map((el, index) => (
+                  <Option key={index} value={el}>
+                    {el}
+                  </Option>
+                ))}
+              </Select>
             
+              <Select
+                mode='multiple'
+                disabled={isLocationDisabled}
+                placeholder='Location'
+                defaultValue="Location"
+                showSearch
+                optionFilterProp="children"
+                value={location}
+                onChange={handleLocationChange}         
+                dropdownRender={(menu) => (
+                  <>
+                  {menu}   
+                  <Divider
+                      style={{
+                      margin: '8px 0',
+                      }}
+                  />             
+                  <Checkbox
+                    style={{
+                      margin: '4px 8px',
+                    }}
+                    onChange={selectAllLocations}
+                    checked={locationList.length === location.length}
+                  >All</Checkbox>
+                  </>
+                )}
+              >
+                <Option default disabled>
+                  Venue
+                </Option>
+                {locationList.map((el, index) => (
+                  <Option key={index} value={el}>
+                    {el}
+                  </Option>
+                ))}
+              </Select> 
+              </>
+            }        
+
             <Button
               type="primary"
               htmlType="submit"
