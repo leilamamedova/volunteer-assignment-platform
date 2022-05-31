@@ -1,58 +1,7 @@
+import { useState, useEffect } from "react";
 import { Table, Space } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import { getColumnSearchProps } from "./ColumnSearch/index";
-
-const dataSource = [
-  {
-    key: 1,
-    id: 111333,
-    name: "Temp1",
-    columns: ["ID", "Age", "Location", "Language"],
-    downloadLink: "google.com",
-  },
-  {
-    key: 2,
-    id: 131323,
-    name: "Temp2",
-    columns: ["ID", "Age", "Location", "Language"],
-    downloadLink: "google.com",
-  },
-  {
-    key: 3,
-    id: 111343,
-    name: "Temp3",
-    columns: ["ID", "Age", "Location", "Language"],
-    downloadLink: "google.com",
-  },
-  {
-    key: 4,
-    id: 431333,
-    name: "Temp4",
-    columns: ["ID", "Age", "Location", "Language"],
-    downloadLink: "google.com",
-  },
-  {
-    key: 5,
-    id: 393033,
-    name: "Temp5",
-    columns: ["ID", "Age", "Location", "Language"],
-    downloadLink: "google.com",
-  },
-  {
-    key: 6,
-    id: 895673,
-    name: "Temp6",
-    columns: ["ID", "Age", "Location", "Language"],
-    downloadLink: "google.com",
-  },
-  {
-    key: 7,
-    id: 200938,
-    name: "Temp7",
-    columns: ["ID", "Age", "Location", "Language"],
-    downloadLink: "google.com",
-  },
-];
 
 const columns = [
   {
@@ -68,11 +17,18 @@ const columns = [
     ...getColumnSearchProps("name"),
   },
   {
-    title: "Columns",
-    dataIndex: "columns",
-    key: "columns",
-    ...getColumnSearchProps("columns"),
-    render: (el) => el.map((col) => <span>{col} </span>),
+    title: "User Columns",
+    dataIndex: "volunteer_columns",
+    key: "volunteer_columns",
+    ...getColumnSearchProps("role_offer_columns"),
+    render: (el) => el.map((col) => <span>{col}, </span>),
+  },
+  {
+    title: "Role Offer Columns",
+    dataIndex: "role_offer_columns",
+    key: "role_offer_columns",
+    ...getColumnSearchProps("role_offer_columns"),
+    render: (el) => el.map((col) => <span>{col}, </span>),
   },
   {
     title: "Document",
@@ -90,7 +46,16 @@ const columns = [
 ];
 
 function ReportsTable() {
-  return <Table columns={columns} dataSource={dataSource} />;
+  const [data, setData] = useState([]);
+  console.log(data);
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_VAP_API_BASE}/Reports`)
+      .then((response) => response.json())
+      .then((data) => setData(data.value))
+      .catch((err) => console.log(err));
+  }, []);
+
+  return <Table columns={columns} dataSource={data} />;
 }
 
 export default ReportsTable;
