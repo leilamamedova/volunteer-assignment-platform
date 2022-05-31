@@ -1,12 +1,17 @@
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Checkbox, Button } from "antd";
 import "./ColumnFilter.scss";
+
 function ColumnFilter({ columns, handleColumns }) {
+  const [plainOptions, setPlainOptions] = useState([]);
   const [toggle, setToggle] = useState(false);
-  const plainOptions = columns.map((el) => el.title);
   const [checkedList, setCheckedList] = useState([]);
   const [indeterminate, setIndeterminate] = useState(true);
   const [checkAll, setCheckAll] = useState(false);
+
+  useEffect(() => {
+    columns.map((el) => !plainOptions.includes(el.title) && setPlainOptions(prev => [...prev, el.title]));
+  }, [columns])
 
   //Listens for Checbox.Group component changes
   const onChange = (list) => {

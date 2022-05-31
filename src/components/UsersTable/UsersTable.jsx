@@ -43,8 +43,8 @@ const UsersTable = (props) => {
   };
   // Set data to table
   useEffect(() => {
-    usersDataFields.length > 0 &&
-      usersDataFields.map((item) => {
+    if(usersDataFields.length > 0 ) {
+        usersDataFields.map((item) => {
         setDataKeys((prev) => [
           ...prev,
           {
@@ -56,31 +56,34 @@ const UsersTable = (props) => {
           },
         ]);
       });
+    }   
   }, [usersDataFields]);
 
   useEffect(() => {
-    dataKeys.length>0 && dataKeys.splice(0, 0, {
-      title: "Details",
-      key: "id",
-      width: 200,
-      fixed: 'left',
-      render: (_, field) => (
-        <Link key={field.id} onClick={() => showVolunteerModal(field.id)}>
-          <EyeOutlined />
-        </Link>
-      ),
-    });
-    dataKeys.length>0 && dataKeys.splice(1, 0, {
-      title: "#",
-      key: "index",
-      width: 200,
-      render: (_, field, index) => <p key={index}>{index + 1}</p>,
-    });
-    if (props.isStatusColumn) {
-      dataKeys.length>0 && dataKeys.splice(2, 0, dataKeys.splice(dataKeys.findIndex(el => el.title === 'status'), 1)[0]);
+    if( dataKeys.length>0) {
+      dataKeys.splice(0, 0, {
+        title: "Details",
+        key: "id",
+        width: 200,
+        fixed: 'left',
+        render: (_, field) => (
+          <Link key={field.id} onClick={() => showVolunteerModal(field.id)}>
+            <EyeOutlined />
+          </Link>
+        ),
+      });
+      dataKeys.splice(1, 0, {
+        title: "#",
+        key: "index",
+        width: 200,
+        render: (_, field, index) => <p key={index}>{index + 1}</p>,
+      });
+      if (props.isStatusColumn) {
+       dataKeys.splice(2, 0, dataKeys.splice(dataKeys.findIndex(el => el.title === 'status'), 1)[0]);
+      }
+      setColumns(dataKeys);
+      setTableColumns(dataKeys);
     }
-    setColumns(dataKeys);
-    setTableColumns(dataKeys);
   }, [dataKeys]);
 
   const rowSelection = {
