@@ -1,18 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Typography, Space, Row, Col, Button } from "antd";
 import ReportsTable from "../../components/ReportsTable/index";
 import ReportCreateModal from "../../components/ReportCreateModal/index";
+import { UsersFieldsFetch } from "../../services/fetch";
+
 import "./index.scss";
+import useStore from "../../services/store";
 
 const { Title, Text } = Typography;
 
 function Reports() {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const setUsersDataFields = useStore(
+    ({ setUsersDataFields }) => setUsersDataFields
+  );
 
   const handleCreateModal = () => {
     setIsModalVisible(true);
   };
 
+  useEffect(() => {
+    UsersFieldsFetch(setUsersDataFields);
+  }, []);
   return (
     <>
       <Space className="w-100" direction="vertical">

@@ -28,7 +28,7 @@ function ReportCreateModal({ isModalVisible, setIsModalVisible }) {
       visible={isModalVisible}
       onOk={handleOk}
       onCancel={handleCancel}
-      footer={[""]}
+      footer={[<Submission />]}
       centered
     >
       <Tabs className="form-tab">
@@ -40,9 +40,6 @@ function ReportCreateModal({ isModalVisible, setIsModalVisible }) {
         </TabPane>
         <TabPane tab="Filters" key={3}>
           <Filters />
-        </TabPane>
-        <TabPane tab="Submission" key={4}>
-          <Submission />
         </TabPane>
       </Tabs>
     </Modal>
