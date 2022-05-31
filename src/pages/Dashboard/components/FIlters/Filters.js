@@ -112,7 +112,7 @@ const Filters = ({showUserData=false}) => {
   const handleVenueChange = (value) => {
     setVenue(value)
     setRoleOfferId(1);
-    setStatusDisabled(false);
+    showUserData ? setStatusDisabled(false) : setSubmitDisabled(false);
   };
 
   const handleStatusChange = (value) => {
