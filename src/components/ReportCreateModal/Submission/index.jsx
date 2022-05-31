@@ -26,7 +26,15 @@ function Submit() {
       volunteer_filters: filterFields,
       role_offer_filters: ROfilterFields,
     };
-    console.log(postData);
+    fetch(`${process.env.REACT_APP_VAP_API_BASE}/Reports`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
   return (
     <Button disabled={disabled} type="primary" onClick={handleSubmit}>
