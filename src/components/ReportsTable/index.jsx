@@ -8,7 +8,6 @@ const dataSource = [
     id: 111333,
     name: "Temp1",
     columns: ["ID", "Age", "Location", "Language"],
-    status: "pending",
     downloadLink: "google.com",
   },
   {
@@ -16,7 +15,6 @@ const dataSource = [
     id: 131323,
     name: "Temp2",
     columns: ["ID", "Age", "Location", "Language"],
-    status: "ready",
     downloadLink: "google.com",
   },
   {
@@ -24,7 +22,6 @@ const dataSource = [
     id: 111343,
     name: "Temp3",
     columns: ["ID", "Age", "Location", "Language"],
-    status: "pending",
     downloadLink: "google.com",
   },
   {
@@ -32,7 +29,6 @@ const dataSource = [
     id: 431333,
     name: "Temp4",
     columns: ["ID", "Age", "Location", "Language"],
-    status: "pending",
     downloadLink: "google.com",
   },
   {
@@ -40,7 +36,6 @@ const dataSource = [
     id: 393033,
     name: "Temp5",
     columns: ["ID", "Age", "Location", "Language"],
-    status: "pending",
     downloadLink: "google.com",
   },
   {
@@ -48,7 +43,6 @@ const dataSource = [
     id: 895673,
     name: "Temp6",
     columns: ["ID", "Age", "Location", "Language"],
-    status: "pending",
     downloadLink: "google.com",
   },
   {
@@ -56,7 +50,6 @@ const dataSource = [
     id: 200938,
     name: "Temp7",
     columns: ["ID", "Age", "Location", "Language"],
-    status: "pending",
     downloadLink: "google.com",
   },
 ];
@@ -80,13 +73,6 @@ const columns = [
     key: "columns",
     ...getColumnSearchProps("columns"),
     render: (el) => el.map((col) => <span>{col} </span>),
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-    ...getColumnSearchProps("status"),
-    render: (el) => <p className={el + " reportStatus"}>{el}</p>,
   },
   {
     title: "Document",
