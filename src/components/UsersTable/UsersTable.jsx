@@ -58,8 +58,6 @@ const UsersTable = (props) => {
       });
   }, [usersDataFields]);
 
-
-
   useEffect(() => {
     dataKeys.length>0 && dataKeys.splice(0, 0, {
       title: "Details",
@@ -79,21 +77,7 @@ const UsersTable = (props) => {
       render: (_, field, index) => <p key={index}>{index + 1}</p>,
     });
     if (props.isStatusColumn) {
-      dataKeys.length>0 && dataKeys.splice(2, 0, {
-        title: "Status",
-        key: "status",
-        width: 200,
-        ...getColumnSearchProps("status"),
-        render: (_, field) => (
-          <Space
-            key={Math.ceil(Math.random() * 100)}
-            className="action-icons"
-            align="baseline"
-          >
-            <p>{field.status}</p>
-          </Space>
-        ),
-      });
+      dataKeys.length>0 && dataKeys.splice(2, 0, dataKeys.splice(dataKeys.findIndex(el => el.title === 'status'), 1)[0]);
     }
     setColumns(dataKeys);
     setTableColumns(dataKeys);
@@ -156,7 +140,6 @@ const UsersTable = (props) => {
               )}
               {props.isFreeAction ? (
                 <FreeButton
-                  route={route}
                   data={selectedUsers}
                   users={selectedUsers}
                 />

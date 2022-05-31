@@ -33,13 +33,10 @@ function SavedFilters() {
   const handleDelete = (id) => {    
     fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates/delete/${id}`, { method: 'DELETE' })
     .then(response => response.json())
-    .then(data => {
-      if(data.statusCode === 200) {
-        message.success('Success!');
-      }else {
-        message.error(data.value);
-      }
+    .then((data) => {
+      message.success('Success!');
     })
+    .catch((err) => message.error(err.message))
   };
 
   const handleModal = () => {

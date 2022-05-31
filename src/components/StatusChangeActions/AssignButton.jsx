@@ -21,8 +21,9 @@ function AssignButton(props) {
 
   const handleAssign = () => {
     const postData = props.data.map((el) =>
-      Object.assign({ id: el, role_offer_id: activeRoleOfferId, status: 0 })
+      Object.assign({ id: el, role_offer_id: activeRoleOfferId, status: 'Assigned'})
     );
+    console.log('postData', postData);
     fetch(endpoint, {
       method: "POST",
       headers: {
@@ -31,16 +32,19 @@ function AssignButton(props) {
       },
       body: JSON.stringify(postData),
     })
-      .then(response => response.json())
-      .then((data) => {
-        if(data.statusCode === 200) {
-          message.success('Success!');
-        }else {
-          message.error(data.value);
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(
+            `This is an HTTP error: The status is ${response.status}`
+          );
         }
+        return response.json();
+      })
+      .then((data) => {
+        message.success('Success!');
         FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);
       })
-      .catch((err) => console.log(err));
+     .catch((err) => message.error(err.message));
   };
 
   return (

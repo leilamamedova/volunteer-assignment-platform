@@ -106,8 +106,8 @@ function FilterField(props) {
         onSelect={(e) => props.handleSelect(e, props.id, "requirement_name")}
       >
         <Option value={props.requirement}>{props.requirement}</Option>
-        {requirements.map((el) => (
-          <Option key={el.id} value={el.value}>
+        {requirements.map((el, index) => (
+          <Option key={index} value={el.value}>
             {el.value}
           </Option>
         ))}
