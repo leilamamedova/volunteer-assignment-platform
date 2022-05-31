@@ -31,6 +31,25 @@ const useStore = create((set) => ({
     set((state) => {
       state.filterFields = [...state.filterFields.filter((el) => el.id === id)];
     }),
+  ROfilterFields: [
+    {
+      default: false,
+      requirement_name: "Requirement",
+      operator: "Operator",
+      value: [],
+    },
+  ],
+  resetROFilterFields: () => set((state) => (state.ROfilterFields = [])),
+  setROFilterFields: (filters) =>
+    set((state) => (state.ROfilterFields = [...filters])),
+  addROFilterField: (filter) =>
+    set((state) => (state.ROfilterFields = [...state.ROfilterFields, filter])),
+  removeROFilterField: (id) =>
+    set((state) => {
+      state.ROfilterFields = [
+        ...state.ROfilterFields.filter((el) => el.id === id),
+      ];
+    }),
   favoriteFilters: [],
   addFavoriteFilter: (templateFilter) =>
     set((state) => ({ favoriteFilters: templateFilter })),
@@ -49,6 +68,9 @@ const useStore = create((set) => ({
   activeRoleOfferId: 0,
   setActiveRoleOfferId: (data) =>
     set((state) => (state.activeRoleOfferId = data)),
+  templateReportName: "",
+  setTemplateReportName: (data) =>
+    set((state) => (state.templateReportName = data)),
   reportColumns: [],
   setReportColumns: (data) => set((state) => (state.reportColumns = data)),
   reportROColumns: [],

@@ -1,10 +1,35 @@
 import { Button } from "antd";
+import { useEffect, useState } from "react";
+import useStore from "../../../services/store";
 function Submit() {
+  const [disabled, setDisabled] = useState(true);
+  const templateReportName = useStore((state) => state.templateReportName);
+  const reportColumns = useStore((state) => state.reportColumns);
+  const reportROColumns = useStore((state) => state.reportROColumns);
+  const filterFields = useStore((state) => state.filterFields);
+  const ROfilterFields = useStore((state) => state.ROfilterFields);
+
+  useEffect(() => {
+    if (templateReportName.trim() === "") {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [templateReportName]);
+
   const handleSubmit = () => {
     console.log("Handling...");
+    const postData = {
+      name: templateReportName,
+      volunteer_columns: reportColumns,
+      role_offer_columns: reportROColumns,
+      volunteer_filters: filterFields,
+      role_offer_filters: ROfilterFields,
+    };
+    console.log(postData);
   };
   return (
-    <Button type="primary" onClick={handleSubmit}>
+    <Button disabled={disabled} type="primary" onClick={handleSubmit}>
       Submit
     </Button>
   );

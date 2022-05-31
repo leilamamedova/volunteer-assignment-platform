@@ -1,8 +1,18 @@
-import React from "react";
-import { Form, Select, Input } from "antd";
-const { Option } = Select;
+import React, { useState } from "react";
+import { Form, Input } from "antd";
+import useStore from "../../../services/store";
 
 function TemplateForm() {
+  const setTemplateReportName = useStore(
+    (state) => state.setTemplateReportName
+  );
+  const [name, setName] = useState("");
+
+  const handleChange = (e) => {
+    setName(e.target.value);
+    setTemplateReportName(e.target.value);
+  };
+
   return (
     <Form>
       <Form.Item
@@ -14,7 +24,11 @@ function TemplateForm() {
           },
         ]}
       >
-        <Input placeholder="Enter template name" />
+        <Input
+          value={name}
+          onChange={handleChange}
+          placeholder="Enter template name"
+        />
       </Form.Item>
       <Form.Item
         label="File Type"
