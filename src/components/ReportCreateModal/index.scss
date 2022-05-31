@@ -1,5 +1,14 @@
 .create-report-modal {
   width: 80vw !important;
+
+  .flex-wrap > .ant-space-item {
+    min-height: 500px;
+  }
+
+  .ant-select-selector {
+    max-height: 100px;
+    overflow-y: auto;
+  }
 }
 .form-tab {
   .ant-tabs-nav-wrap {
