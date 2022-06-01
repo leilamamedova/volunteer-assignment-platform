@@ -105,3 +105,24 @@ export const RoleOffersFetch = (setRoleOffers, setDataLoading) => {
       message.error(err.message);
     });
 };
+
+export const HistoryFetch = (setHistory, setDataLoading, userId) => {
+  setDataLoading(true)  
+  fetch(`${process.env.REACT_APP_API_BASE}/user-history/${userId}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        );
+      }
+      return response.json();
+    })  
+    .then((data) => {
+        console.log("History", data);
+        setHistory(data);
+        setDataLoading(false)
+    })
+    .catch((err) => {
+      message.error(err.message);
+    });
+};

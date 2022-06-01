@@ -75,6 +75,8 @@ const useStore = create((set) => ({
   setReportColumns: (data) => set((state) => (state.reportColumns = data)),
   reportROColumns: [],
   setReportROColumns: (data) => set((state) => (state.reportROColumns = data)),
+  history: [],
+  setHistory: (data) => set((state) => ({ history: data })),
 }));
 
 export default useStore;

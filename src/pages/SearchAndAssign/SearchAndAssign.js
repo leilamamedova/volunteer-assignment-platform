@@ -3,13 +3,12 @@ import { Row, Col, Button } from "antd";
 import FilterWrapper from "../../components/FilterWrapper/FilterWrapper";
 import AssigningTo from "../../components/AssigningTo/AssigningTo";
 import AssignSearchResult from "../../components/AssignSearchResult/AssignSearchResult";
-import VolunteerProfile from "../../components/VolunteerProfile/VolunteerProfile";
-import "./SearchAndAssign.scss";
 import LoadFilterTemplate from "../../components/LoadFilterTemplate/LoadFilterTemplate";
 import BulkImport from "../../components/BulkImport/BulkImport";
 import useStore from "../../services/store";
 import { UsersFieldsFetch } from "../../services/fetch";
 import { DownloadOutlined } from "@ant-design/icons";
+import "./SearchAndAssign.scss";
 
 const SearchAndAssign = () => {
   const importUrl = `${process.env.REACT_APP_API_BASE}/import-users-data`;
@@ -51,8 +50,7 @@ const SearchAndAssign = () => {
         </Col>
       </Row>
 
-      <AssignSearchResult />
-      <VolunteerProfile />
+      <AssignSearchResult />    
     </div>
   );
 };

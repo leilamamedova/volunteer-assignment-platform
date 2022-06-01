@@ -8,26 +8,30 @@ const { Option } = Select;
 const operator = [
   {
     id: 1,
-    value: "=",
-  },
-  {
-    id: 2,
     value: "contains",
   },
   {
+    id: 2,
+    value: "not",
+  },
+  {
     id: 3,
-    value: ">",
+    value: "=",
   },
   {
     id: 4,
-    value: "<",
+    value: ">",
   },
   {
     id: 5,
-    value: ">=",
+    value: "<",
   },
   {
     id: 6,
+    value: ">=",
+  },
+  {
+    id: 7,
     value: "<=",
   },
 ];

@@ -19,7 +19,7 @@ const UsersTable = (props) => {
   const [columns, setColumns] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [tableColumns, setTableColumns] = useState(columns);
-  const [userID, setUserID] = useState([]);
+  const [userID, setUserID] = useState(0);
 
   const usersData = useStore(({ usersData }) => usersData);
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
@@ -58,14 +58,14 @@ const UsersTable = (props) => {
   }, [usersDataFields]);
 
   useEffect(() => {
-    if( dataKeys.length>0) {
+    if( dataKeys.length>0 ) {
       dataKeys.splice(0, 0, {
         title: "Details",
         key: "id",
         width: 200,
         fixed: 'left',
         render: (_, field) => (
-          <Link key={field.id} onClick={() => showVolunteerModal(field.id)}>
+          <Link key={field.candidate_id} onClick={() => showVolunteerModal(field.candidate_id)}>
             <EyeOutlined />
           </Link>
         ),
