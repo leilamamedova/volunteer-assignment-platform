@@ -57,9 +57,6 @@ const UsersTable = (props) => {
     }   
   }, [usersDataFields]);
 
-  console.log('columns', columns);
-  console.log('usersData', usersData);
-
   useEffect(() => {
     if( dataKeys.length>0) {
       dataKeys.splice(0, 0, {
