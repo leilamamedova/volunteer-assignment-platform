@@ -2,10 +2,12 @@ import { Modal, Button, Form, Input, message } from "antd";
 import FilterWrapper from "../FilterWrapper/FilterWrapper";
 import useStore from "../../services/store";
 import { useState } from "react";
+import { SavedFiltersGet } from "../../services/fetch";
 
 function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
   const filterFields = useStore((state) => state.filterFields);
   const resetFilterFields = useStore((state) => state.resetFilterFields);
+  const addFavoriteFilter = useStore((state) => state.addFavoriteFilter);
   const [templateName, setTemplateName] = useState(false)
 
   const handleOk = () => {
@@ -40,6 +42,7 @@ function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
     })
     .then((data) => {
       message.success('Success!');
+      SavedFiltersGet(addFavoriteFilter);
     })
    .catch((err) => message.error(err.message))
 

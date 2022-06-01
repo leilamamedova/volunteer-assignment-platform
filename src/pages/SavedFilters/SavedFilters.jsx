@@ -5,7 +5,7 @@ import useStore from "../../services/store";
 import NewFilterTemplateModal from "../../components/NewFilterTemplateModal/NewFilterTemplateModal";
 import FilterTemplateModal from "../../components/FilterTemplateModal/FilterTemplateModal";
 import ListModal from "../../components/ListModal/ListModal";
-import { SavedFiltersGet } from "../../services/fetch";
+import { SavedFiltersGet, UsersFieldsFetch } from "../../services/fetch";
 import { getColumnSearchProps } from "../../components/UsersTable/ColumnSearch/ColumnSearch";
 import './SavedFilters.scss';
 
@@ -20,14 +20,15 @@ function SavedFilters() {
   const filterFields = useStore((state) => state.filterFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const setUsersDataFields = useStore(({ setUsersDataFields }) => setUsersDataFields);
 
   useEffect(() => {
     addFavoriteFilter(favoriteFilters)
-    SavedFiltersGet(addFavoriteFilter)
   },[favoriteFilters])
 
   useEffect(() => {
     SavedFiltersGet(addFavoriteFilter, setDataLoading);
+    UsersFieldsFetch(setUsersDataFields);    
   }, [])
 
   const handleDelete = (id) => {    
