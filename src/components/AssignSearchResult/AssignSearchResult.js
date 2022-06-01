@@ -1,11 +1,7 @@
-import { useState } from "react";
-import VolunteerProfile from "../VolunteerProfile/VolunteerProfile";
 import "./AssignSearchResult.scss";
 import UsersTable from "../UsersTable/UsersTable";
 
 const AssignSearchResult = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
   return (
     <>
       <div className="assign-search-result">
@@ -16,10 +12,6 @@ const AssignSearchResult = () => {
           isStatusColumn={true}
         />
       </div>
-      <VolunteerProfile
-        isModalVisible={isModalVisible}
-        setIsVolunteerModalVisible={setIsModalVisible}
-      />
     </>
   );
 };

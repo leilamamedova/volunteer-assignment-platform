@@ -1,6 +1,7 @@
 import { Modal, Tabs } from "antd";
 import VolunteerData from "./components/VolunteerData/VolunteerData";
 import MatchingData from "./components/MatchingData/MatchingData";
+import History from "./components/History/History";
 import "./VolunteerProfile.scss";
 
 const { TabPane } = Tabs;
@@ -28,6 +29,9 @@ function VolunteerProfile({isModalVisible, setIsVolunteerModalVisible, userID}) 
         </TabPane>
         <TabPane tab="Matching" key="2">
           <MatchingData userID={userID}/>
+        </TabPane>
+        <TabPane tab="History" key="3">
+          <History userID={userID}/>
         </TabPane>
       </Tabs>  
 

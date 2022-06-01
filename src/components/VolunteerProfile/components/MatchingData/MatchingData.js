@@ -81,7 +81,7 @@ const MatchingData = ({userID}) => {
 
         const requirementsKeys = data.map(el => el.requirement_name);
         const coincidencesValue = requirementsKeys.map(item => {
-            return usersData.find(data => data.id === userID)[item]
+            return usersData.find(data => data.candidate_id === userID)[item]
         })
 
         requirementsKeys.map((keys, index) => {            
