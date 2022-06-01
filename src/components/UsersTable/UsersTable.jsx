@@ -33,7 +33,7 @@ const UsersTable = (props) => {
   const route = props.isAnyStatus ? "ChangeToAnyStatus" : "AssignOrWaitlist";
 
   useEffect(() => {
-    FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);  
+    FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);
   }, [])
 
   //Fetch the active modal data.
@@ -44,20 +44,21 @@ const UsersTable = (props) => {
   // Set data to table
   useEffect(() => {
     if(usersDataFields.length > 0 ) {
-        usersDataFields.map((item) => {
-        setDataKeys((prev) => [
-          ...prev,
-          {
+       const keys =  usersDataFields.map((item) => {      
+         return {
             title: item.replaceAll("_", " "),
             dataIndex: item,
             ...getColumnSearchProps(item),
             width: 200,
             ellipsis: true,
-          },
-        ]);
+          }
       });
+      setDataKeys(keys)
     }   
   }, [usersDataFields]);
+
+  console.log('columns', columns);
+  console.log('usersData', usersData);
 
   useEffect(() => {
     if( dataKeys.length>0) {
