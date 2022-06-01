@@ -12,11 +12,11 @@ const operator = [
   },
   {
     id: 2,
-    value: "not",
+    value: "not equal",
   },
   {
     id: 3,
-    value: "=",
+    value: "equal",
   },
   {
     id: 4,

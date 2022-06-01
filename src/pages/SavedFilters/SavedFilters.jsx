@@ -36,6 +36,7 @@ function SavedFilters() {
     .then(response => response.json())
     .then((data) => {
       message.success('Success!');
+      SavedFiltersGet(addFavoriteFilter);
     })
     .catch((err) => message.error(err.message))
   };
