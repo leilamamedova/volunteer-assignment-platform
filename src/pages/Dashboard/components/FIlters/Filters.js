@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Space, Select, Button, Checkbox, Divider } from "antd";
 import useStore from "../../../../services/store";
-import { RoleOffersFetch } from "../../../../services/fetch";
+import { OverallAssignmentsPost, RoleOffersFetch, VolunteerDemographicsPost } from "../../../../services/fetch";
 
 const { Option } = Select;
 
@@ -29,14 +29,11 @@ const locationList = [
 
 const Filters = ({showUserData=false}) => {
   const roleOffers = useStore(({ roleOffers }) => roleOffers);
-  const setActiveRoleOfferId = useStore(
-    ({ setActiveRoleOfferId }) => setActiveRoleOfferId
-  );
   const [entities, setEntities] = useState([]);
   const [functionalAreas, setFunctionalAreas] = useState([]);
   const [jobTitles, setJobTitles] = useState([]);
   const [venues, setVenues] = useState([]);
-  const [roleOfferId, setRoleOfferId] = useState(0);
+  const [roleOfferId, setRoleOfferId] = useState([]);
   const [isFADisabled, setIsFADisabled] = useState(true);
   const [isJobTitleDisabled, setIsJobTitleDisabled] = useState(true);
   const [isVenueDisabled, setIsVenueDisabled] = useState(true);
@@ -54,7 +51,13 @@ const Filters = ({showUserData=false}) => {
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
-  const setSelectedRoleOffer = useStore(({ setSelectedRoleOffer }) => setSelectedRoleOffer);
+  const setOverallAssignments = useStore(({ setOverallAssignments }) => setOverallAssignments);
+  const setVolunteerDemographics = useStore(({ setVolunteerDemographics }) => setVolunteerDemographics);
+
+  function removeDuplicateObjectFromArray(array) {
+    var check = new Set();
+    return array.filter(obj => !check.has(obj['name']) && check.add(obj['name']));
+  }
 
   useEffect(() => {
       RoleOffersFetch(setRoleOffers, setDataLoading);
@@ -65,15 +68,39 @@ const Filters = ({showUserData=false}) => {
     setEntities(entityData);
   }, [roleOffers]);
 
-  function removeDuplicateObjectFromArray(array) {
-    var check = new Set();
-    return array.filter(obj => !check.has(obj['name']) && check.add(obj['name']));
-  }
-
   //Submit Handler Logic
   const handleSubmit = (e) => {
+    const data = {
+      "role_offer_ids": roleOfferId,
+      "statuses": status,
+      "locations": location,
+      "countryCount": 10,
+      "ageRanges": [
+        {
+          "fromAge": 18,
+          "toAge": 24
+        },
+        {
+          "fromAge": 25,
+          "toAge": 34
+        },
+        {
+          "fromAge": 35,
+          "toAge": 44
+        },
+        {
+          "fromAge": 45,
+          "toAge": 54
+        },
+        {
+          "fromAge": 55,
+          "toAge": 64
+        },
+      ],
+      "startingAges": [65],
+    }
     e.preventDefault();
-    setActiveRoleOfferId(roleOfferId);
+    showUserData ?  VolunteerDemographicsPost(data,setVolunteerDemographics,setDataLoading) : OverallAssignmentsPost(roleOfferId, setOverallAssignments, setDataLoading);
   };
 
   const handleEntityChange = (value) => {
@@ -82,8 +109,6 @@ const Filters = ({showUserData=false}) => {
     value.forEach(value => { functionalAreaData.push(roleOffers.find(c => c.name === value)) })
     let functionalAreaMerged = removeDuplicateObjectFromArray([].concat.apply([],  functionalAreaData.map(item => item.functionalAreas)))
 
-    setRoleOfferId(0);
-    setActiveRoleOfferId(0);
     setSubmitDisabled(true);
     setIsFADisabled(false);
     setFunctionalAreas(functionalAreaMerged);
@@ -96,8 +121,6 @@ const Filters = ({showUserData=false}) => {
     value.forEach(value => { jobTitleData.push(functionalAreas.find(c => c.name === value)) })
     let jobTitleMerged = removeDuplicateObjectFromArray([].concat.apply([],  jobTitleData.map(item => item.jobTitles)))
 
-    setRoleOfferId(0);
-    setActiveRoleOfferId(0);
     setSubmitDisabled(true);
     setIsJobTitleDisabled(false);
     setIsVenueDisabled(true);
@@ -109,15 +132,17 @@ const Filters = ({showUserData=false}) => {
     value.forEach(value => { venueData.push(jobTitles.find(c => c.name === value)) })
     let venueMerged = removeDuplicateObjectFromArray([].concat.apply([],  venueData.map(item => item.locations)))
 
-    setRoleOfferId(0);
-    setActiveRoleOfferId(0);
     setSubmitDisabled(true);
     setIsVenueDisabled(false);
     setVenues(venueMerged);
   };
   const handleVenueChange = (value) => {
-    setVenue(value)
-    setRoleOfferId(1);
+    setVenue(value);
+    let roleId = [];
+    value.forEach(value => { roleId.push(venues.find(c => c.name === value)) });
+    const idList = roleId.map(el => el.roleOffer.id)
+
+    setRoleOfferId(idList);
     showUserData ? setStatusDisabled(false) : setSubmitDisabled(false);
   };
 

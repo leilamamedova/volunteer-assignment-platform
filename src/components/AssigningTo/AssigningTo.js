@@ -9,10 +9,6 @@ import { RoleOffersFetch } from "../../services/fetch";
 const { Option } = Select;
 
 const AssigningTo = () => {
-  const roleOffers = useStore(({ roleOffers }) => roleOffers);
-  const setActiveRoleOfferId = useStore(
-    ({ setActiveRoleOfferId }) => setActiveRoleOfferId
-  );
   const [entities, setEntities] = useState([]);
   const [functionalAreas, setFunctionalAreas] = useState([]);
   const [jobTitles, setJobTitles] = useState([]);
@@ -22,9 +18,6 @@ const AssigningTo = () => {
   const [isJobTitleDisabled, setIsJobTitleDisabled] = useState(true);
   const [isVenueDisabled, setIsVenueDisabled] = useState(true);
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
-  const [roleOfferFulfillment, setRoleOfferFulfillment] = useState(0);
-  const [waitlistFulfillment, setWaitlistFulfillment] = useState(0);
-
   const [entity, setEntity] = useState("");
   const [functionalArea, setFunctionalArea] = useState("");
   const [jobTitle, setJobTitle] = useState("");
@@ -33,8 +26,13 @@ const AssigningTo = () => {
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
+  const selectedRoleOffer = useStore(({ selectedRoleOffer }) => selectedRoleOffer);
   const setSelectedRoleOffer = useStore(
     ({ setSelectedRoleOffer }) => setSelectedRoleOffer
+  );
+  const roleOffers = useStore(({ roleOffers }) => roleOffers);
+  const setActiveRoleOfferId = useStore(
+    ({ setActiveRoleOfferId }) => setActiveRoleOfferId
   );
   const filterFields = useStore((state) => state.filterFields);
   const setFilterFields = useStore((state) => state.setFilterFields);
@@ -59,9 +57,7 @@ const AssigningTo = () => {
       .locations.find((el) => el.name === location).roleOffer;
     const offerRequirements = offer.functionalRequirement.requirements;
     setFilterFields([...filterFields, ...offerRequirements]);
-    setSelectedRoleOffer(offer);
-    setRoleOfferFulfillment(offer.role_offer_fulfillment);
-    setWaitlistFulfillment(offer.waitlist_fulfillment);
+    setSelectedRoleOffer(offer);   
   };
 
   //Select Boxes will be Enabled by order (top->bottom)
@@ -205,13 +201,15 @@ const AssigningTo = () => {
         <Space className="fulfillment-wrapper">
           <FulfillmentCard
             title="Assignee"
-            value={roleOfferFulfillment}
-            percent={roleOfferFulfillment}
+            value1={selectedRoleOffer.overallAssigned}
+            value2={selectedRoleOffer.assigneeDemand}
+            percent={selectedRoleOffer.role_offer_fulfillment}
           />
           <FulfillmentCard
             title="Waitlist"
-            value={waitlistFulfillment}
-            percent={waitlistFulfillment}
+            value1={selectedRoleOffer.overallWaitlisted}
+            value2={selectedRoleOffer.waitlistDemand}
+            percent={selectedRoleOffer.waitlist_fulfillment}
           />
         </Space>
       </Space>
