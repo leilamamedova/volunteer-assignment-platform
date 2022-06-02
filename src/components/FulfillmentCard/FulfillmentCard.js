@@ -5,7 +5,7 @@ import './FulfillmentCard.scss';
 const FulfillmentCard = ({title, value, percent}) => {
     return (
         <Card size="small">
-            <p>{title} Fulfillment</p>
+            <p>{title} Demand</p>
             <p>{value} out of 100</p>
             <p className='perfect bold'>{percent}%</p>
         </Card>

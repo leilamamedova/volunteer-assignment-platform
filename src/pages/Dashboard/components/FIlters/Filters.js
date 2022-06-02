@@ -65,6 +65,11 @@ const Filters = ({showUserData=false}) => {
     setEntities(entityData);
   }, [roleOffers]);
 
+  function removeDuplicateObjectFromArray(array) {
+    var check = new Set();
+    return array.filter(obj => !check.has(obj['name']) && check.add(obj['name']));
+  }
+
   //Submit Handler Logic
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -75,7 +80,7 @@ const Filters = ({showUserData=false}) => {
     setEntity(value);
     let functionalAreaData = [];
     value.forEach(value => { functionalAreaData.push(roleOffers.find(c => c.name === value)) })
-    let functionalAreaMerged = [].concat.apply([],  functionalAreaData.map(item => item.functionalAreas))
+    let functionalAreaMerged = removeDuplicateObjectFromArray([].concat.apply([],  functionalAreaData.map(item => item.functionalAreas)))
 
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
@@ -84,11 +89,12 @@ const Filters = ({showUserData=false}) => {
     setFunctionalAreas(functionalAreaMerged);
   };
 
+
   const handleFAChange = (value) => { 
     setFunctionalArea(value)
     let jobTitleData = [];
     value.forEach(value => { jobTitleData.push(functionalAreas.find(c => c.name === value)) })
-    let jobTitleMerged = [].concat.apply([],  jobTitleData.map(item => item.jobTitles))
+    let jobTitleMerged = removeDuplicateObjectFromArray([].concat.apply([],  jobTitleData.map(item => item.jobTitles)))
 
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
@@ -101,7 +107,7 @@ const Filters = ({showUserData=false}) => {
     setJobTitle(value)
     let venueData = [];
     value.forEach(value => { venueData.push(jobTitles.find(c => c.name === value)) })
-    let venueMerged = [].concat.apply([],  venueData.map(item => item.locations))
+    let venueMerged = removeDuplicateObjectFromArray([].concat.apply([],  venueData.map(item => item.locations)))
 
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
@@ -150,8 +156,8 @@ const Filters = ({showUserData=false}) => {
   };
 
   return (
-    <div style={{ width: "100%" }}>      
-        <Space direction="vertical" className="filters assignin-to-component card">
+    <div>      
+        <Space direction="vertical" className="filters assignin-to-component card" style={{ width: "100%" }}>
           <form
             style={{ display: "flex", gap: "10px", flexDirection: "column" }}
             onSubmit={handleSubmit}
