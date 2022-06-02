@@ -19,9 +19,9 @@ const FaRoleVenueStatistics = () => {
             key: 'venue',
         },
         {
-            title: 'Fullfilment ',
-            dataIndex: 'fullfilment ',
-            key: 'fullfilment ',
+            title: 'Fulfilment ',
+            dataIndex: 'fulfilment ',
+            key: 'fulfilment ',
             render: () => (
                 <>
                  <Progress percent={30} status="active" />            
@@ -54,9 +54,9 @@ const FaRoleVenueStatistics = () => {
             key: 'accepted',
         },
         {
-            title: 'Waitlist Fullfilment',
-            dataIndex: 'waitlistfullfilment',
-            key: 'waitlistfullfilment',
+            title: 'Waitlist Fulfilment',
+            dataIndex: 'waitlistfulfilment',
+            key: 'waitlistfulfilment',
             render: () => (
                 <>
                  <Progress percent={50} status="active" />            

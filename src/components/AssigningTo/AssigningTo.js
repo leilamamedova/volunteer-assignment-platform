@@ -204,7 +204,7 @@ const AssigningTo = () => {
 
         <Space className="fulfillment-wrapper">
           <FulfillmentCard
-            title="Role"
+            title="Assignee"
             value={roleOfferFulfillment}
             percent={roleOfferFulfillment}
           />

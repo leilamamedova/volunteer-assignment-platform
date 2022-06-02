@@ -1,16 +1,22 @@
 import { useState, useEffect } from "react";
-import { Checkbox, Button } from "antd";
+import { Checkbox, Button, Input } from "antd";
 import "./ColumnFilter.scss";
 
 function ColumnFilter({ columns, handleColumns }) {
   const [plainOptions, setPlainOptions] = useState([]);
+  const [searchOptions, setSearchOptions] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [checkedList, setCheckedList] = useState([]);
   const [indeterminate, setIndeterminate] = useState(true);
   const [checkAll, setCheckAll] = useState(false);
 
   useEffect(() => {
-    columns.map((el) => !plainOptions.includes(el.title) && setPlainOptions(prev => [...prev, el.title]));
+    columns.slice(1).map((el) => {
+      if(!plainOptions.includes(el.title)){
+        setPlainOptions(prev => [...prev, el.title]);
+        setSearchOptions(prev => [...prev, el.title]);
+      }
+    });
   }, [columns])
 
   //Listens for Checbox.Group component changes
@@ -29,6 +35,8 @@ function ColumnFilter({ columns, handleColumns }) {
   };
 
   const handleChange = (value) => {
+    value.unshift('Details');
+    console.log('test', value);
     handleColumns(value);
   };
 
@@ -41,6 +49,10 @@ function ColumnFilter({ columns, handleColumns }) {
     setCheckAll(false);
     handleChange([]);
   };
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearchOptions(plainOptions.filter(el => el.includes(value)));    
+  }
   return (
     <div className="column--list-wrapper">
       <Button className="mb-20" type="primary" onClick={handleClick}>
@@ -64,12 +76,15 @@ function ColumnFilter({ columns, handleColumns }) {
         ""
       )}
 
-      <Checkbox.Group
-        className={toggle ? "column--list" : "hide"}
-        options={plainOptions}
+      <div className={toggle ? "column--list" : "hide"}>
+      <Input placeholder="Search" onChange={handleSearch} />
+      <Checkbox.Group        
+        options={searchOptions}
         value={checkedList}
         onChange={onChange}
       />
+      </div>
+
     </div>
   );
 }

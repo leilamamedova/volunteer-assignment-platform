@@ -1,4 +1,4 @@
-.ant-checkbox-group.column--list {
+.column--list  {
   position: absolute;
   top: 40px;
   z-index: 999;
@@ -13,6 +13,9 @@
   margin-bottom: 20px;
   padding: 25px;
   border-radius: 8px;
+  .ant-checkbox-group {
+    display: contents;
+  }
   .ant-checkbox-inner {
     width: 20px;
     height: 20px;

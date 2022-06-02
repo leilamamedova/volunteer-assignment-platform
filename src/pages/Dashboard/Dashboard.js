@@ -78,33 +78,43 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <Row justify="center">OVERALL ASSIGNMENTS</Row>
-      <h3>Filters</h3>
-      <Filters/>  
+      <Row justify='space-between' align='top' gutter={20}>
+        <Col span={12}>
+          <h3>Filters</h3>
+          <Filters />  
+        </Col>
+        
+        <Col span={12}>        
+          <Space className="card" direction="vertical" style={{ width: "100%" }}> 
+            <Row gutter={10} justify='space-between' align="middle">
+              <Col>
+                <AssignmentsChart data={assignedData}/>
+              </Col>
+              <Col>
+                <Space direction="vertical">
+                  <Cards title='Total Assigned' value='60%'/>
+                  <Cards title='Overal Number' value='12500 OUT OF 21000'/>
+                </Space>             
+              </Col>
+            </Row>     
+
+            <Row gutter={10} justify='space-between' align="middle">
+              <Col>
+                <AssignmentsChart data={waitlistData}/>
+              </Col>
+              <Col>
+                <Space direction="vertical">
+                  <Cards title='Total Waitlisted' value='55%'/>
+                  <Cards title='Overal Number' value='2000 OUT OF 5000'/>
+                </Space>                            
+              </Col>
+            </Row>  
+          </Space>
+        </Col>
+      </Row>
       
       <Row justify="center">OVERALL ASSIGNMENTS DETAILS</Row>    
       <FaRoleVenueStatistics />
-
-      <Row className="card" justify='space-between' align='middle'>        
-        <Col span={8}>
-          <AssignmentsChart data={assignedData}/>
-        </Col>
-        <Col span={4}>
-          <Cards title='Total Assigned' value='60%'/>
-        </Col>
-        <Col span={6}>
-          <Cards title='Overal Number' value='12500 OUT OF 21000'/>
-        </Col>
-         
-        <Col span={8}>
-          <AssignmentsChart data={waitlistData}/>
-        </Col>
-        <Col span={4}>
-          <Cards title='Total Waitlisted' value='55%'/>
-        </Col>
-        <Col span={6}>
-          <Cards title='Overal Number' value='2000 OUT OF 5000'/>
-        </Col>   
-      </Row>
 
       <Row justify="center">VOLUNTEER DEMOGRAPHICS</Row>
       <h3>Filters</h3>
