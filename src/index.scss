@@ -97,8 +97,14 @@ $retro-yellow: #fcfc02;
 .w-50 {
   width: 50% !important;
 }
+.min-w-50vw {
+  min-width: 50vw;
+}
 .my-20 {
   margin: 20px 0;
+}
+.mt-20 {
+  margin-top: 20px;
 }
 .flex-wrap {
   flex-wrap: wrap !important;
