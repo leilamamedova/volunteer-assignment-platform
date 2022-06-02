@@ -1,38 +1,38 @@
 import React from 'react';
+import useStore from '../../../../services/store';
 import { Chart } from '../../Charts';
+import { countries } from '../../../../data/countries';
 
 const options = {
     responsive: true,
     plugins: {
       legend: {
-        position: 'bottom',
-      },
-      title: {
-        display: true,
-        text: 'Top 10 Nationalities',
+        position: 'top',
       },
     },
 };
 
-const labels = ['Indian', 'American', 'European', 'Japanese', 'Others'];
+const NationalityChart = () => {
+  const volunteerDemographics = useStore(({ volunteerDemographics }) => volunteerDemographics);
 
-const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Dataset',
-        data: labels.map(() => Math.floor(Math.random() * 100)),
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      },
-    ],
+  const data = {
+      labels: volunteerDemographics.countryNameDtos.map(el => countries[el.name]),
+      datasets: [
+        {
+          label: 'Top 10 Nationalities',
+          data: volunteerDemographics.countryNameDtos.map(el => el.count),
+          borderColor: 'black',
+          backgroundColor: '#2EB4E6',
+          borderWidth: 1,
+        },
+      ],
   };
 
-const NationalityChart = () => {
-    return (
-        <div>
-            <Chart data={data} options={options}/>            
-        </div>
-    );
+  return (
+      <div>
+          <Chart data={data} options={options}/>            
+      </div>
+  );
 };
 
 export default NationalityChart;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Space, Select, Button, Checkbox, Divider } from "antd";
 import useStore from "../../../../services/store";
-import { OverallAssignmentsPost, RoleOffersFetch } from "../../../../services/fetch";
+import { OverallAssignmentsPost, RoleOffersFetch, VolunteerDemographicsPost } from "../../../../services/fetch";
 
 const { Option } = Select;
 
@@ -52,6 +52,7 @@ const Filters = ({showUserData=false}) => {
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
   const setOverallAssignments = useStore(({ setOverallAssignments }) => setOverallAssignments);
+  const setVolunteerDemographics = useStore(({ setVolunteerDemographics }) => setVolunteerDemographics);
 
   function removeDuplicateObjectFromArray(array) {
     var check = new Set();
@@ -69,8 +70,37 @@ const Filters = ({showUserData=false}) => {
 
   //Submit Handler Logic
   const handleSubmit = (e) => {
+    const data = {
+      "role_offer_ids": roleOfferId,
+      "statuses": status,
+      "locations": location,
+      "countryCount": 10,
+      "ageRanges": [
+        {
+          "fromAge": 18,
+          "toAge": 24
+        },
+        {
+          "fromAge": 25,
+          "toAge": 34
+        },
+        {
+          "fromAge": 35,
+          "toAge": 44
+        },
+        {
+          "fromAge": 45,
+          "toAge": 54
+        },
+        {
+          "fromAge": 55,
+          "toAge": 64
+        },
+      ],
+      "startingAges": [65],
+    }
     e.preventDefault();
-    showUserData ?  console.log('nothing yet') : OverallAssignmentsPost(roleOfferId, setOverallAssignments, setDataLoading);
+    showUserData ?  VolunteerDemographicsPost(data,setVolunteerDemographics,setDataLoading) : OverallAssignmentsPost(roleOfferId, setOverallAssignments, setDataLoading);
   };
 
   const handleEntityChange = (value) => {

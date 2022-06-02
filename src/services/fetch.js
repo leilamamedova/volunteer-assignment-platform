@@ -127,8 +127,6 @@ export const HistoryFetch = (setHistory, setDataLoading, userId) => {
     });
 };
 
-
-
 export const DashboardGet = (setDashboardData, setDataLoading) => {
   setDataLoading(true)  
   fetch(`${process.env.REACT_APP_VAP_API_BASE}/Dashboards`)
@@ -167,5 +165,24 @@ export const OverallAssignmentsPost = (roleOfferId, setOverallAssignments, setDa
       setOverallAssignments(mutateData)
       setDataLoading(false)
     })
-    // .catch((err) => setUsersData([]));
+    .catch((err) => setOverallAssignments([]));
+};
+
+export const VolunteerDemographicsPost = (data, setVolunteerDemographics, setDataLoading) => {
+  setDataLoading(true);
+  fetch(`${process.env.REACT_APP_VAP_API_BASE}/Dashboards/getvolunteersinfo`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Volunteer Demographics Data', data.value);
+      setVolunteerDemographics(data.value)
+      setDataLoading(false)
+    })
+    .catch((err) => setVolunteerDemographics({}));
 };

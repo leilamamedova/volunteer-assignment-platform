@@ -23,7 +23,7 @@ const FaRoleVenueStatistics = () => {
                     pending: el.pending,
                     accepted: el.accepted,
                     waitlistfulfilment: el.waitlistFulfillment,
-                    waitlistdemand: null,
+                    waitlistdemand: el.waitlistCount,
                     waitlistassigned: el.waitlistAssigned,
                     waitlistoffered: el.waitlistOffered,
                     waitlistaccepted: el.waitlistAccepted,
