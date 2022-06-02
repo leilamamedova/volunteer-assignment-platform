@@ -71,6 +71,8 @@ const useStore = create((set) => ({
   templateReportName: "",
   setTemplateReportName: (data) =>
     set((state) => (state.templateReportName = data)),
+  reportTemplate: {},
+  setReportTemplate: (data) => set((state) => (state.reportTemplate = data)),
   reportColumns: [],
   setReportColumns: (data) => set((state) => (state.reportColumns = data)),
   reportROColumns: [],
