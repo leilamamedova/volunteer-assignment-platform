@@ -5,6 +5,9 @@
     .card{
         max-height: fit-content !important;
         min-height: auto !important;
+       .ant-card{
+            min-width: 160px !important;
+       }
     }
     .filters{
         width: 30%;
@@ -20,9 +23,6 @@
     }
     .statistics{
         margin-bottom: 40px;
-    }
-    .assignments-chart{
-        padding-bottom: 40px;
     }
     .ant-card{
         max-width: 200px;

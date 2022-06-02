@@ -6,40 +6,48 @@ import AssignmentsChart from "../../components/Charts/components/AssignmentsChar
 import AgeChart from "../../components/Charts/components/AgeChart/AgeChart";
 import { Col, Row, Space } from "antd";
 import useStore from "../../services/store";
-import { UsersFieldsFetch } from "../../services/fetch";
+import { DashboardGet, UsersFieldsFetch } from "../../services/fetch";
 import Filters from "./components/FIlters/Filters";
 import Cards from "./components/Card/Card";
 import "./Dashboard.scss";
 
 const Dashboard = () => {
   const setUsersDataFields = useStore(({ setUsersDataFields }) => setUsersDataFields);
+  const setDashboardData = useStore(({ setDashboardData }) => setDashboardData);
+  const dashboardData = useStore(({ dashboardData }) => dashboardData);
+  const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+
+  useEffect(() => {
+    UsersFieldsFetch(setUsersDataFields);    
+    DashboardGet(setDashboardData, setDataLoading)
+  }, []);
 
   const assignedData = {
     labels: ['Assigned'],
     datasets: [
       {
         label: 'Pre Assigned',
-        data: [25],
+        data: [dashboardData.preAssigned],
         backgroundColor: 'orange',
       },
       {
         label: 'Assigned',
-        data: [20],
+        data: [dashboardData.assigned],
         backgroundColor: 'green',
       },
       {
         label: 'Pending',
-        data: [10],
+        data: [dashboardData.pending],
         backgroundColor: 'Blue',
       },
       {
         label: 'Accepted',
-        data: [5],
+        data: [dashboardData.accepted],
         backgroundColor: 'Purple',
       },
       {
         label: 'To go',
-        data: [40],
+        data: [dashboardData.assignedRest],
         backgroundColor: 'Gray',
       },
     ],
@@ -50,30 +58,26 @@ const Dashboard = () => {
     datasets: [
       {
         label: 'Waitlist assigned',
-        data: [25],
+        data: [dashboardData.waitlistAssigned],
         backgroundColor: 'orange',
       },
       {
         label: 'Wailist  Offered',
-        data: [20],
+        data: [dashboardData.waitlistOffered],
         backgroundColor: 'green',
       },
       {
         label: 'Wailist Accepted',
-        data: [10],
+        data: [dashboardData.waitlistAccepted],
         backgroundColor: 'Blue',
       },
       {
         label: 'To go',
-        data: [45],
+        data: [dashboardData.waitlistRest],
         backgroundColor: 'Gray',
       },
     ],
   };
-
-  useEffect(() => {
-    UsersFieldsFetch(setUsersDataFields);    
-  }, []);
 
   return (
     <div className="dashboard">
@@ -86,26 +90,26 @@ const Dashboard = () => {
         
         <Col span={12}>        
           <Space className="card" direction="vertical" style={{ width: "100%" }}> 
-            <Row gutter={10} justify='space-between' align="middle">
+            <Row justify='space-between' align="middle">
               <Col>
                 <AssignmentsChart data={assignedData}/>
               </Col>
               <Col>
                 <Space direction="vertical">
-                  <Cards title='Total Assigned' value='60%'/>
-                  <Cards title='Overal Number' value='12500 OUT OF 21000'/>
+                  <Cards title='Total Assigned' value={dashboardData.totalAssigned}/>
+                  <Cards title='Overal Number' value1={dashboardData.overallNoneAssigned} value2={dashboardData.overallAssigneeDemand}/>
                 </Space>             
               </Col>
             </Row>     
 
-            <Row gutter={10} justify='space-between' align="middle">
+            <Row justify='space-between' align="middle">
               <Col>
                 <AssignmentsChart data={waitlistData}/>
               </Col>
               <Col>
                 <Space direction="vertical">
-                  <Cards title='Total Waitlisted' value='55%'/>
-                  <Cards title='Overal Number' value='2000 OUT OF 5000'/>
+                  <Cards title='Total Waitlisted' value={dashboardData.totalWaitlisted}/>
+                  <Cards title='Overal Number' value1={dashboardData.overallNoneWaitlisted} value2={dashboardData.overallWaitlistDemand}/>
                 </Space>                            
               </Col>
             </Row>  

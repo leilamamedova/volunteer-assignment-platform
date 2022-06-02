@@ -126,3 +126,46 @@ export const HistoryFetch = (setHistory, setDataLoading, userId) => {
       message.error(err.message);
     });
 };
+
+
+
+export const DashboardGet = (setDashboardData, setDataLoading) => {
+  setDataLoading(true)  
+  fetch(`${process.env.REACT_APP_VAP_API_BASE}/Dashboards`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        );
+      }
+      return response.json();
+    })  
+    .then((data) => {
+        console.log("Dashboard Data", data.value);
+        setDashboardData(data.value)
+        setDataLoading(false)
+    })
+    .catch((err) => {
+      message.error(err.message);
+    });
+};
+
+export const OverallAssignmentsPost = (roleOfferId, setOverallAssignments, setDataLoading) => {
+  setDataLoading(true);
+  fetch(`${process.env.REACT_APP_VAP_API_BASE}/Dashboards/getroleoffers`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(roleOfferId),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Overall Assignments Data', data.value);
+      const mutateData = data.value.map((el, index) => Object.assign(el, { key: index }));
+      setOverallAssignments(mutateData)
+      setDataLoading(false)
+    })
+    // .catch((err) => setUsersData([]));
+};
