@@ -1,8 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Progress } from 'antd';
+import useStore from '../../services/store';
 
 const FaRoleVenueStatistics = () => {
+    const overallAssignments = useStore(({ overallAssignments }) => overallAssignments);
+    const dataLoading = useStore(({ dataLoading }) => dataLoading);
+    const [dataSource, setDataSource] = useState([])
+
+    useEffect(() => {
+        if(overallAssignments.length > 0) {
+            const data = overallAssignments.map(el => {
+                return {
+                    key: el.key,
+                    entity: el.functionalAreaType.name,
+                    fa: el.functionalArea.name,
+                    role: el.jobTitle.name,
+                    venue: el.location.name,
+                    fulfilment: el.roleOfferFulfillment,
+                    demand: el.totalDemand,
+                    preassigned: el.preAssigned,
+                    assigned: el.assigned,
+                    pending: el.pending,
+                    accepted: el.accepted,
+                    waitlistfulfilment: el.waitlistFulfillment,
+                    waitlistdemand: null,
+                    waitlistassigned: el.waitlistAssigned,
+                    waitlistoffered: el.waitlistOffered,
+                    waitlistaccepted: el.waitlistAccepted,
+                }
+            });
+            setDataSource(data);
+        }
+    }, [overallAssignments])
+
     const columns = [
+        {
+            title: 'Entity',
+            dataIndex: 'entity',
+            key: 'entity',
+        },
         {
           title: 'FA',
           dataIndex: 'fa',
@@ -19,12 +55,13 @@ const FaRoleVenueStatistics = () => {
             key: 'venue',
         },
         {
-            title: 'Fulfilment ',
-            dataIndex: 'fulfilment ',
-            key: 'fulfilment ',
-            render: () => (
+            title: 'Fulfilment',
+            dataIndex: 'fulfilment',
+            key: 'fulfilment',
+            width: 200,
+            render: (data) => (
                 <>
-                 <Progress percent={30} status="active" />            
+                 <Progress percent={data} status="active" />            
                 </>
             )
         },    
@@ -57,9 +94,10 @@ const FaRoleVenueStatistics = () => {
             title: 'Waitlist Fulfilment',
             dataIndex: 'waitlistfulfilment',
             key: 'waitlistfulfilment',
-            render: () => (
+            width: 200,
+            render: (data) => (
                 <>
-                 <Progress percent={50} status="active" />            
+                 <Progress percent={data} status="active" />            
                 </>
             )
         },    
@@ -85,20 +123,16 @@ const FaRoleVenueStatistics = () => {
         },    
     ];
 
-    const data = [
-        {key: 1},
-        {key: 2},
-        {key: 3}
-    ]
-
     return (
         <>
+            {overallAssignments.length>0 ? null: <p style={{color: 'red'}}>*Select filters</p> }
             <div className='card statistics'>
                 <Table 
                     pagination={false} 
                     columns={columns} 
-                    dataSource={data} 
+                    dataSource={dataSource} 
                     scroll={{x: 2000}}
+                    loading={dataLoading}
                 />  
             </div>
         </>
