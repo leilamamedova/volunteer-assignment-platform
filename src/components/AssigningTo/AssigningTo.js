@@ -202,14 +202,14 @@ const AssigningTo = () => {
           <FulfillmentCard
             title="Assignee"
             value1={selectedRoleOffer.overallAssigned}
-            value2={selectedRoleOffer.assigneeDemand}
-            percent={selectedRoleOffer.role_offer_fulfillment}
+            value2={selectedRoleOffer.assignee_demand}
+            percent={selectedRoleOffer.assigneeDemandPercentage}
           />
           <FulfillmentCard
             title="Waitlist"
             value1={selectedRoleOffer.overallWaitlisted}
-            value2={selectedRoleOffer.waitlistDemand}
-            percent={selectedRoleOffer.waitlist_fulfillment}
+            value2={selectedRoleOffer.waitlist_demand}
+            percent={selectedRoleOffer.waitlistDemandPercentage}
           />
         </Space>
       </Space>

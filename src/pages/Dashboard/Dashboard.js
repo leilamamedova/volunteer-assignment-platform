@@ -98,7 +98,7 @@ const Dashboard = () => {
               <Col>
                 <Space direction="vertical">
                   <Cards title='Total Assigned' value={dashboardData.totalAssigned}/>
-                  <Cards title='Overal Number' value1={dashboardData.overallNoneAssigned} value2={dashboardData.overallAssigneeDemand}/>
+                  <Cards title='Overal Number' value1={dashboardData.overallAssigned} value2={dashboardData.overallAssigneeDemand}/>
                 </Space>             
               </Col>
             </Row>     
@@ -110,7 +110,7 @@ const Dashboard = () => {
               <Col>
                 <Space direction="vertical">
                   <Cards title='Total Waitlisted' value={dashboardData.totalWaitlisted}/>
-                  <Cards title='Overal Number' value1={dashboardData.overallNoneWaitlisted} value2={dashboardData.overallWaitlistDemand}/>
+                  <Cards title='Overal Number' value1={dashboardData.overallWaitlisted} value2={dashboardData.overallWaitlistDemand}/>
                 </Space>                            
               </Col>
             </Row>  
