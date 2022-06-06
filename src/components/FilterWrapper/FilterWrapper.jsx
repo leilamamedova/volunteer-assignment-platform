@@ -3,7 +3,7 @@ import { Button, Space, Typography } from "antd";
 import useStore from "../../services/store";
 import FilterField from "../FilterField/FilterField";
 import ResultButton from "../ResultButton/ResultButton";
-import { FilterUserFetch } from "../../services/fetch";
+import { FilterUserFetch, NewUsersFieldsFetch } from "../../services/fetch";
 import "./FilterWrapper.scss";
 
 const { Text } = Typography;

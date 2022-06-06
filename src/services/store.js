@@ -13,6 +13,9 @@ const useStore = create((set) => ({
   setPagination: (num) => set((state) => ({ pagination: num })),
   usersDataFields: [],
   setUsersDataFields: (field) => set((state) => ({ usersDataFields: field })),
+  NewUsersDataFields: {},
+  setNewUsersDataFields: (data) =>
+    set((state) => (state.NewUsersDataFields = data)),
   //Filters
   filterFields: [
     {
@@ -82,9 +85,11 @@ const useStore = create((set) => ({
   dashboardData: [],
   setDashboardData: (data) => set((state) => ({ dashboardData: data })),
   overallAssignments: [],
-  setOverallAssignments: (data) => set((state) => ({ overallAssignments: data })),
+  setOverallAssignments: (data) =>
+    set((state) => ({ overallAssignments: data })),
   volunteerDemographics: {},
-  setVolunteerDemographics: (data) => set((state) => ({ volunteerDemographics: data })),
+  setVolunteerDemographics: (data) =>
+    set((state) => ({ volunteerDemographics: data })),
 }));
 
 export default useStore;
