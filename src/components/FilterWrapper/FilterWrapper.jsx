@@ -3,7 +3,7 @@ import { Button, Space, Typography } from "antd";
 import useStore from "../../services/store";
 import FilterField from "../FilterField/FilterField";
 import ResultButton from "../ResultButton/ResultButton";
-import { FilterUserFetch, NewUsersFieldsFetch } from "../../services/fetch";
+import { FilterUserFetch, UsersFetch } from "../../services/fetch";
 import "./FilterWrapper.scss";
 
 const { Text } = Typography;
@@ -52,9 +52,9 @@ function FilterWrapper(props) {
   };
 
   // Handling Change events
-  const handleChange = (index, tagsArray) => {
+  const handleChange = (index, valueArr) => {
     const list = [...filterFields];
-    list[index]["value"] = tagsArray;
+    list[index]["value"] = valueArr;
     setFilterFields(list);
   };
   // Handling Select events
@@ -67,14 +67,8 @@ function FilterWrapper(props) {
   //Set default FilterFields , Fetch Users without Filter
   const resetHandler = () => {
     resetFilterFields();
-    FilterUserFetch(
-      filterFields,
-      setUsersData,
-      setPagination,
-      setDataLoading,
-      1,
-      10
-    );
+
+    UsersFetch(setUsersData, setPagination, setDataLoading, 1, 10);
   };
   return (
     <>
