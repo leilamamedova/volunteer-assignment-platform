@@ -45,8 +45,8 @@ const FunctionAndRequirementsTable = () => {
                   location: venue.name,
                   totalDemand: venue.roleOffer.totalDemand,
                   levelOfConfidence: venue.roleOffer.level_of_confidence,
-                  waitlistDemand: venue.roleOffer.waitlist_count,
-                  assigneeDemand: venue.roleOffer.role_offer_fulfillment
+                  waitlistDemand: venue.roleOffer.waitlist_demand,
+                  assigneeDemand: venue.roleOffer.rassignee_demand
                 }
               ])     
               setFunctionalRequirements(
