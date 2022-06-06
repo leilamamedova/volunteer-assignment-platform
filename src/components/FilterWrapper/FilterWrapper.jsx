@@ -23,11 +23,11 @@ function FilterWrapper(props) {
   );
 
   //Everytime componenet loads, we are resetting the store
-  useEffect(() => {
-    if (!props.noReset) {
-      resetFilterFields();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!props.noReset) {
+  //     resetFilterFields();
+  //   }
+  // }, []);
 
   // Creating a new field
   const handleNewField = () => {

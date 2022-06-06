@@ -51,7 +51,7 @@ const SearchAndAssign = () => {
           <AssigningTo />
         </Col>
         <Col className="sa-left" xs={24} md={12} lg={14}>
-          <FilterWrapper seeResultBtn={true} noReset={true} blankStart={true} />
+          <FilterWrapper seeResultBtn={true} blankStart={true} />
         </Col>
       </Row>
 

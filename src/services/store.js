@@ -17,14 +17,7 @@ const useStore = create((set) => ({
   setNewUsersDataFields: (data) =>
     set((state) => (state.NewUsersDataFields = data)),
   //Filters
-  filterFields: [
-    {
-      default: true,
-      requirement_name: "Requirement",
-      operator: "Operator",
-      value: [],
-    },
-  ],
+  filterFields: [],
   resetFilterFields: () => set((state) => (state.filterFields = [])),
   setFilterFields: (filters) =>
     set((state) => (state.filterFields = [...filters])),
