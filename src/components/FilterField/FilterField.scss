@@ -8,7 +8,7 @@
   & .ant-select-selector {
     height: 40px !important;
   }
-  & .ant-select-selection-item{
+  & .ant-select-selection-item {
     margin: auto;
   }
 }
@@ -19,7 +19,7 @@
   & .ant-select-selector {
     height: 40px !important;
   }
-  & .ant-select-selection-item{
+  & .ant-select-selection-item {
     margin: auto;
   }
 }
@@ -52,4 +52,7 @@
     padding: 2px 5px;
     margin: auto 0;
   }
+}
+.ant-select-selector {
+  height: 40px;
 }
