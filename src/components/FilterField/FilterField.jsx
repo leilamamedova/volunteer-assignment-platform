@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Select, Input, Space, Tag } from "antd";
+import { Select, Input, Space, Tag, DatePicker } from "antd";
 import { DeleteFilled } from "@ant-design/icons";
 import useStore from "../../services/store";
 import "./FilterField.scss";
@@ -35,18 +35,26 @@ const operator = [
     value: "<=",
   },
 ];
-
+const dateFormat = "YYYY/MM/DD";
 const ROLE_OFFER_DATA = ["Entity", "Functional_Area", "Job_Title", "Location"];
 
 function FilterField(props) {
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const NewUsersDataFields = useStore(
+    ({ NewUsersDataFields }) => NewUsersDataFields
+  );
 
   const [requirements, setRequirements] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [tagsArray, setTagsArray] = useState(props.value);
 
+  const [newUserFieldsArray, setNewUserFieldsArray] = useState([]);
+  const [enumOptions, setEnumOptions] = useState([]);
+  const [isDateTime, setDateTime] = useState(false);
+  const [isSelectEnum, setSelectEnum] = useState(false);
+  const [isInput, setIsInput] = useState(true);
   useEffect(() => {
     setTagsArray(props.value);
   }, [props]);
@@ -78,7 +86,14 @@ function FilterField(props) {
   useEffect(() => {
     requirements.length > 0 ? setDataLoading(false) : setDataLoading(true);
   }, [requirements]);
-
+  useEffect(() => {
+    console.log("------------------");
+    console.log(NewUsersDataFields);
+    console.log("------------------");
+    console.log("CONVERTED");
+    const arr = Object.entries(NewUsersDataFields);
+    setNewUserFieldsArray(arr);
+  }, [NewUsersDataFields]);
   const handleChange = (value) => {
     setInputValue(value.target.value);
   };
@@ -92,6 +107,34 @@ function FilterField(props) {
   const handleClose = (index) => {
     tagsArray.splice(index, 1);
     setTagsArray(tagsArray);
+  };
+  const handleFieldSelect = (e) => {
+    let selectedObject;
+    newUserFieldsArray.forEach((el) =>
+      el[0] === e ? (selectedObject = el) : ""
+    );
+    console.log(selectedObject);
+    if (selectedObject[1].type === "input") {
+      setIsInput(true);
+      setSelectEnum(false);
+      setDateTime(false);
+    }
+    if (selectedObject[1].type === "select") {
+      setSelectEnum(true);
+      setIsInput(false);
+      setDateTime(false);
+      setEnumOptions(selectedObject[1].value_options);
+    }
+    if (selectedObject[1].value_type === "date") {
+      setDateTime(true);
+      setIsInput(false);
+      setSelectEnum(false);
+    }
+    props.handleSelect(e, props.id, "requirement_name");
+  };
+
+  const handleDateTime = (e) => {
+    console.log(e);
   };
 
   useEffect(() => {
@@ -107,7 +150,7 @@ function FilterField(props) {
         defaultValue={props.requirement}
         value={props.requirement}
         loading={dataLoading}
-        onSelect={(e) => props.handleSelect(e, props.id, "requirement_name")}
+        onSelect={handleFieldSelect}
       >
         <Option value={props.requirement}>{props.requirement}</Option>
         {requirements.map((el, index) => (
@@ -142,14 +185,24 @@ function FilterField(props) {
             </Tag>
           ))}
       </div>
-      <Input
-        className="inputWidth"
-        placeholder="value"
-        value={inputValue}
-        name="value"
-        onKeyUp={handleEnter}
-        onChange={handleChange}
-      />
+      {isInput ? (
+        <Input
+          className="inputWidth"
+          placeholder="value"
+          value={inputValue}
+          name="value"
+          onKeyUp={handleEnter}
+          onChange={handleChange}
+        />
+      ) : isDateTime ? (
+        <DatePicker onChange={handleDateTime} format={dateFormat} />
+      ) : (
+        <Select placeholder="Select">
+          {enumOptions.map((el, index) => (
+            <Option key={index}>{el}</Option>
+          ))}
+        </Select>
+      )}
 
       <Space>
         <DeleteFilled
