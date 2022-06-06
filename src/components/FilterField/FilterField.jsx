@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Select, Input, Space, Tag, DatePicker } from "antd";
+import moment from "moment";
 import { DeleteFilled } from "@ant-design/icons";
 import useStore from "../../services/store";
 import "./FilterField.scss";
@@ -35,7 +36,7 @@ const operator = [
     value: "<=",
   },
 ];
-const dateFormat = "YYYY/MM/DD";
+const dateFormat = "YYYY-MM-DD";
 const ROLE_OFFER_DATA = ["Entity", "Functional_Area", "Job_Title", "Location"];
 
 function FilterField(props) {
@@ -54,6 +55,7 @@ function FilterField(props) {
   const [isDateTime, setDateTime] = useState(false);
   const [isSelectEnum, setSelectEnum] = useState(false);
   const [isInput, setIsInput] = useState(true);
+
   useEffect(() => {
     setTagsArray(props.value);
   }, [props]);
@@ -102,17 +104,16 @@ function FilterField(props) {
     newUserFieldsArray.forEach((el) =>
       el[0] === e ? (selectedObject = el) : ""
     );
-    console.log(selectedObject);
     if (selectedObject[1].type === "input") {
       setIsInput(true);
       setSelectEnum(false);
       setDateTime(false);
     }
     if (selectedObject[1].type === "select") {
+      setEnumOptions(selectedObject[1].value_options);
       setSelectEnum(true);
       setIsInput(false);
       setDateTime(false);
-      setEnumOptions(selectedObject[1].value_options);
     }
     if (selectedObject[1].value_type === "date") {
       setDateTime(true);
@@ -121,9 +122,12 @@ function FilterField(props) {
     }
     props.handleSelect(e, props.id, "requirement_name");
   };
-
+  const handleEnumChange = (value) => {
+    props.handleChange(props.id, value);
+  };
   const handleDateTime = (e) => {
-    console.log(e);
+    const formatted_value = moment(e).format(dateFormat);
+    props.handleChange(props.id, [formatted_value]);
   };
 
   useEffect(() => {
@@ -177,11 +181,12 @@ function FilterField(props) {
       {isInput ? (
         <Select
           mode="tags"
+          allowClear
           style={{
             width: "140px",
             height: "52px",
           }}
-          placeholder="TagsMode"
+          placeholder="Type Values"
           onChange={handleChange}
         >
           {/* {children} */}
@@ -195,11 +200,23 @@ function FilterField(props) {
       //   onChange={handleChange}
       // />
       isDateTime ? (
-        <DatePicker onChange={handleDateTime} format={dateFormat} />
+        <DatePicker
+          placeholder="yyyy-mm-dd"
+          onChange={handleDateTime}
+          format={dateFormat}
+        />
       ) : (
-        <Select placeholder="Select">
+        <Select
+          mode="tags"
+          placeholder="Select Values"
+          onChange={handleEnumChange}
+          defaultValue={[]}
+          allowClear
+        >
           {enumOptions.map((el, index) => (
-            <Option key={index}>{el}</Option>
+            <Option key={index} value={el}>
+              {el}
+            </Option>
           ))}
         </Select>
       )}

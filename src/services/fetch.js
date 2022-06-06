@@ -1,8 +1,16 @@
 import { message } from "antd";
 
-export const UsersFetch = (setUsersData, setDataLoading) => {
+export const UsersFetch = (
+  setUsersData,
+  setDataLoading,
+  setPagination,
+  page_number,
+  page_size
+) => {
   setDataLoading(true);
-  fetch(`${process.env.REACT_APP_API_BASE}/volunteers`)
+  fetch(
+    `${process.env.REACT_APP_API_BASE}/volunteers?page_number=${page_number}&page_size=${page_size}`
+  )
     .then((response) => {
       if (!response.ok) {
         throw new Error(
@@ -17,6 +25,8 @@ export const UsersFetch = (setUsersData, setDataLoading) => {
         Object.assign(el, { key: el.candidate_id })
       );
       setUsersData(mutateData);
+      setPagination(data.total_pages);
+
       setDataLoading(false);
     })
     .catch((err) => {
