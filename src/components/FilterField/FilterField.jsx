@@ -47,7 +47,6 @@ function FilterField(props) {
   );
 
   const [requirements, setRequirements] = useState([]);
-  const [inputValue, setInputValue] = useState("");
   const [tagsArray, setTagsArray] = useState(props.value);
 
   const [newUserFieldsArray, setNewUserFieldsArray] = useState([]);
@@ -95,19 +94,9 @@ function FilterField(props) {
     setNewUserFieldsArray(arr);
   }, [NewUsersDataFields]);
   const handleChange = (value) => {
-    setInputValue(value.target.value);
+    setTagsArray(value);
   };
 
-  const handleEnter = (e) => {
-    if (e.key === "Enter" && inputValue.trim() !== "") {
-      setTagsArray((prev) => [...prev, inputValue]);
-      setInputValue("");
-    }
-  };
-  const handleClose = (index) => {
-    tagsArray.splice(index, 1);
-    setTagsArray(tagsArray);
-  };
   const handleFieldSelect = (e) => {
     let selectedObject;
     newUserFieldsArray.forEach((el) =>
@@ -172,7 +161,7 @@ function FilterField(props) {
           </Option>
         ))}
       </Select>
-      <div className="tag-box">
+      {/* <div className="tag-box">
         {tagsArray.length > 0 &&
           tagsArray.map((el, index) => (
             <Tag
@@ -184,17 +173,28 @@ function FilterField(props) {
               {el}
             </Tag>
           ))}
-      </div>
+      </div> */}
       {isInput ? (
-        <Input
-          className="inputWidth"
-          placeholder="value"
-          value={inputValue}
-          name="value"
-          onKeyUp={handleEnter}
+        <Select
+          mode="tags"
+          style={{
+            width: "140px",
+            height: "52px",
+          }}
+          placeholder="TagsMode"
           onChange={handleChange}
-        />
-      ) : isDateTime ? (
+        >
+          {/* {children} */}
+        </Select>
+      ) : // <Input
+      //   className="inputWidth"
+      //   placeholder="value"
+      //   value={inputValue}
+      //   name="value"
+      //   onKeyUp={handleEnter}
+      //   onChange={handleChange}
+      // />
+      isDateTime ? (
         <DatePicker onChange={handleDateTime} format={dateFormat} />
       ) : (
         <Select placeholder="Select">
