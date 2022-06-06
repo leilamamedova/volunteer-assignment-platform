@@ -26,11 +26,17 @@ const AssigningTo = () => {
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
-  const selectedRoleOffer = useStore(({ selectedRoleOffer }) => selectedRoleOffer);
+  const selectedRoleOffer = useStore(
+    ({ selectedRoleOffer }) => selectedRoleOffer
+  );
   const setSelectedRoleOffer = useStore(
     ({ setSelectedRoleOffer }) => setSelectedRoleOffer
   );
   const roleOffers = useStore(({ roleOffers }) => roleOffers);
+
+  const activeRoleOfferId = useStore(
+    ({ activeRoleOfferId }) => activeRoleOfferId
+  );
   const setActiveRoleOfferId = useStore(
     ({ setActiveRoleOfferId }) => setActiveRoleOfferId
   );
@@ -49,15 +55,17 @@ const AssigningTo = () => {
   //Submit Handler Logic
   const handleSubmit = (e) => {
     e.preventDefault();
-    setActiveRoleOfferId(roleOfferId);
-    const offer = roleOffers
-      .find((el) => el.name === entity)
-      .functionalAreas.find((el) => el.name === functionalArea)
-      .jobTitles.find((el) => el.name === jobTitle)
-      .locations.find((el) => el.name === location).roleOffer;
-    const offerRequirements = offer.functionalRequirement.requirements;
-    setFilterFields([...filterFields, ...offerRequirements]);
-    setSelectedRoleOffer(offer);   
+    if (activeRoleOfferId != roleOfferId) {
+      setActiveRoleOfferId(roleOfferId);
+      const offer = roleOffers
+        .find((el) => el.name === entity)
+        .functionalAreas.find((el) => el.name === functionalArea)
+        .jobTitles.find((el) => el.name === jobTitle)
+        .locations.find((el) => el.name === location).roleOffer;
+      const offerRequirements = offer.functionalRequirement.requirements;
+      setFilterFields([...filterFields, ...offerRequirements]);
+      setSelectedRoleOffer(offer);
+    }
   };
 
   //Select Boxes will be Enabled by order (top->bottom)
@@ -118,9 +126,9 @@ const AssigningTo = () => {
             style={{ display: "flex", gap: "10px", flexDirection: "column" }}
             onSubmit={handleSubmit}
           >
-            {
-              roleOfferId !== 0 && <p style={{marginBottom: '0'}}>Role Offer ID: {roleOfferId}</p>
-            }
+            {roleOfferId !== 0 && (
+              <p style={{ marginBottom: "0" }}>Role Offer ID: {roleOfferId}</p>
+            )}
             <Select
               defaultValue="Entity"
               showSearch
