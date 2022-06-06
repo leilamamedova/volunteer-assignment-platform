@@ -161,7 +161,7 @@ const FunctionAndRequirementsTable = () => {
     <>
       <div className="function-and-requirements-table">
         <Table
-          scroll={{x: 1500}}
+          scroll={{x: 1500, y: 500}}
           columns={columns}
           dataSource={data}
           loading={dataLoading}

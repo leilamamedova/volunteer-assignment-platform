@@ -1,93 +1,64 @@
 import { useState, useEffect } from "react";
-import { Checkbox, Button, Input } from "antd";
+import { Button, Select, Divider } from "antd";
 import "./ColumnFilter.scss";
+
+const { Option } = Select;
 
 function ColumnFilter({ columns, handleColumns }) {
   const [plainOptions, setPlainOptions] = useState([]);
-  const [searchOptions, setSearchOptions] = useState([]);
-  const [toggle, setToggle] = useState(false);
-  const [checkedList, setCheckedList] = useState([]);
-  const [indeterminate, setIndeterminate] = useState(false);
-  const [checkAll, setCheckAll] = useState(true);
-  const [selectedOptions, setselectedOptions] = useState([]);
+  const [checkedOptions, setCheckedOptions] = useState([]);
 
   useEffect(() => {
     columns.slice(4).map((el) => {
-      if(!plainOptions.includes(el.title)){
-        setPlainOptions(prev => [...prev, el.title]);
-        setSearchOptions(prev => [...prev, el.title]);
-        setCheckedList(prev => [...prev, el.title])
-      }
+      !plainOptions.includes(el.title) && setPlainOptions(prev => [...prev, el.title]);
     });
   }, [columns])
 
-  //Listens for Checbox.Group component changes
   const onChange = (list) => {
-    setCheckedList(list);
+    setCheckedOptions(list);
     handleChange(list);
-    setIndeterminate(!!list.length && list.length < plainOptions.length);
-    setCheckAll(list.length === plainOptions.length);
   };
-
-  //Listens for the Check/Uncheck
-  const onCheckAllChange = (e) => {
-    setCheckedList(e.target.checked ? plainOptions : []);
-    setIndeterminate(false);
-    setCheckAll(e.target.checked);
-    handleChange(e.target.checked ? plainOptions : []);
+  const resetAll = () => {
+    setCheckedOptions([]);
+    handleChange(plainOptions);
   };
-
   const handleChange = (value) => {
-    value.unshift('Details', '#', 'candidate id', 'status');
-    handleColumns([...new Set(value)]);
+    handleColumns([...new Set(['Details', '#', 'candidate id', 'status', ...value])]);
   };
 
-  const handleClick = () => {
-    setToggle((prev) => !prev);
-  };
-  const reset = () => {
-    setCheckedList([]);
-    setIndeterminate(false);
-    setCheckAll(false);
-    handleChange([]);
-  };
-  const handleSearch = (e) => {
-    const value = e.target.value;
-    let options = plainOptions.filter(el => el.includes(value));
-    value === '' ? setSearchOptions(plainOptions) : setSearchOptions(options);    
-  }
   return (
     <div className="column--list-wrapper">
-      <Button className="mb-20" type="primary" onClick={handleClick}>
-        {toggle ? "Hide" : "Filter Columns"}
-      </Button>
-      {toggle ? (
-        <>
-          <Checkbox
-            className="ml-20"
-            indeterminate={indeterminate}
-            onChange={onCheckAllChange}
-            checked={checkAll}
-          >
-            Check All
-          </Checkbox>
-          <Button className="ml-20" type="primary" onClick={reset}>
-            Reset
-          </Button>
-        </>
-      ) : (
-        ""
-      )}
-
-      <div className={toggle ? "column--list" : "hide"}>
-      <Input placeholder="Search" onChange={handleSearch} />
-      <Checkbox.Group        
-        options={searchOptions}
-        value={checkedList}
+      <Select
+        mode="multiple"
+        placeholder='Find columns'
+        showSearch
+        optionFilterProp="children"
         onChange={onChange}
-      />
-      </div>
-
+        value={checkedOptions}
+        dropdownRender={(menu) => (
+          <>
+          {menu}   
+          <Divider
+              style={{
+              margin: '8px 0',
+              }}
+          />  
+          <Button 
+            style={{
+              margin: '0 0 6px 8px',
+            }}
+            type='primary'
+            onClick={resetAll}
+          >Reset</Button>           
+          </>
+        )}
+      >
+        {plainOptions.length>0 && plainOptions.map((el, index) => (
+          <Option key={index} value={el}>
+            {el}
+          </Option>
+        ))}
+      </Select>
     </div>
   );
 }

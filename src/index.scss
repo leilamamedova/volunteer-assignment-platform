@@ -173,3 +173,15 @@ $retro-yellow: #fcfc02;
     min-width: 200px;
   }
 }
+
+// Input
+.ant-select-selector {
+  min-height: 40px;
+  min-width: 120px;
+  & .ant-select-selection-item {
+    margin: auto;
+  }    
+  & .ant-select-selection-placeholder{
+    margin: auto;
+  }    
+}

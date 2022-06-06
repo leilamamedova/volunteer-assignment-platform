@@ -135,7 +135,7 @@ function FilterField(props) {
   }, [tagsArray]);
 
   return (
-    <div className="flex">
+    <div className="filter-field">
       <Select
         showSearch
         optionFilterProp="children"

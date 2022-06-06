@@ -91,7 +91,7 @@ function FilterWrapper(props) {
                 direction="vertical"
                 size="middle"
                 key={index}
-                style={{ margin: "15px 0" }}
+                style={{ margin: "10px 0 0" }}
               >
                 {/* Logical Statement  */}
                 {/* {index !== 0 ? (
