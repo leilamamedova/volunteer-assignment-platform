@@ -6,6 +6,7 @@ import { OverallAssignmentsPost, RoleOffersFetch, VolunteerDemographicsPost } fr
 const { Option } = Select;
 
 const statusList = [
+  'Free',
   'Assigned',
   'Pending',
   'Accepted',

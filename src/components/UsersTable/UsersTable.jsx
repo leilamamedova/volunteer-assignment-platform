@@ -60,7 +60,6 @@ const UsersTable = (props) => {
         return {
           title: item.replaceAll("_", " "),
           dataIndex: item,
-          ...getColumnSearchProps(item),
           width: 200,
           ellipsis: true,
         };
@@ -192,7 +191,7 @@ const UsersTable = (props) => {
           rowSelection={{
             ...rowSelection,
           }}
-          scroll={{ x: 240 }}
+          scroll={{ x: 240, y:500 }}
           columns={tableColumns}
           dataSource={usersData}
           loading={dataLoading}
