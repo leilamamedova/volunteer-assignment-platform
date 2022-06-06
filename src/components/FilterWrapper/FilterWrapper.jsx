@@ -85,7 +85,6 @@ function FilterWrapper(props) {
               Reset
             </Button>
           </Space>
-
           {filterFields.length > 0 ? (
             filterFields.map((el, index) => (
               <Space

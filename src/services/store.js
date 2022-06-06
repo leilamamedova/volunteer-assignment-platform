@@ -19,7 +19,7 @@ const useStore = create((set) => ({
   //Filters
   filterFields: [
     {
-      default: false,
+      default: true,
       requirement_name: "Requirement",
       operator: "Operator",
       value: [],

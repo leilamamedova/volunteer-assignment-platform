@@ -5,7 +5,9 @@ import { FilterUserFetch } from "../../services/fetch";
 
 function AssignButton(props) {
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
-  const activeRoleOfferId = useStore(({ activeRoleOfferId }) => activeRoleOfferId);
+  const activeRoleOfferId = useStore(
+    ({ activeRoleOfferId }) => activeRoleOfferId
+  );
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setPagination = useStore(({ setPagination }) => setPagination);
@@ -21,9 +23,13 @@ function AssignButton(props) {
 
   const handleAssign = () => {
     const postData = props.data.map((el) =>
-      Object.assign({ id: el, role_offer_id: activeRoleOfferId, status: 'Assigned'})
+      Object.assign({
+        id: el,
+        role_offer_id: activeRoleOfferId,
+        status: "Pre-assigned",
+      })
     );
-    console.log('postData', postData);
+    console.log("postData", postData);
     fetch(endpoint, {
       method: "POST",
       headers: {
@@ -32,7 +38,7 @@ function AssignButton(props) {
       },
       body: JSON.stringify(postData),
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error(
             `This is an HTTP error: The status is ${response.status}`
@@ -41,10 +47,17 @@ function AssignButton(props) {
         return response.json();
       })
       .then((data) => {
-        message.success('Success!');
-        FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);
+        message.success("Success!");
+        FilterUserFetch(
+          filterFields,
+          setUsersData,
+          setPagination,
+          setDataLoading,
+          1,
+          10
+        );
       })
-     .catch((err) => message.error(err.message));
+      .catch((err) => message.error(err.message));
   };
 
   return (

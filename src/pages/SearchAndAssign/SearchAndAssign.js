@@ -47,12 +47,11 @@ const SearchAndAssign = () => {
         </Col>
       </Row>
       <Row gutter={15} wrap={true} justify="space-between">
-        <Col className="sa-left" xs={24} md={12} lg={14}>
-          <FilterWrapper seeResultBtn={true} noReset={true} />
-        </Col>
-
         <Col className="sa-right" xs={24} md={12} lg={10}>
           <AssigningTo />
+        </Col>
+        <Col className="sa-left" xs={24} md={12} lg={14}>
+          <FilterWrapper seeResultBtn={true} noReset={true} blankStart={true} />
         </Col>
       </Row>
 
