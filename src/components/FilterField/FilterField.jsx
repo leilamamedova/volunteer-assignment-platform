@@ -55,6 +55,7 @@ function FilterField(props) {
   const [isDateTime, setDateTime] = useState(false);
   const [isSelectEnum, setSelectEnum] = useState(false);
   const [isInput, setIsInput] = useState(true);
+
   useEffect(() => {
     setTagsArray(props.value);
   }, [props]);
@@ -109,10 +110,10 @@ function FilterField(props) {
       setDateTime(false);
     }
     if (selectedObject[1].type === "select") {
+      setEnumOptions(selectedObject[1].value_options);
       setSelectEnum(true);
       setIsInput(false);
       setDateTime(false);
-      setEnumOptions(selectedObject[1].value_options);
     }
     if (selectedObject[1].value_type === "date") {
       setDateTime(true);
@@ -207,8 +208,9 @@ function FilterField(props) {
       ) : (
         <Select
           mode="tags"
-          placeholder="Select"
+          placeholder="Select Values"
           onChange={handleEnumChange}
+          defaultValue={[]}
           allowClear
         >
           {enumOptions.map((el, index) => (
