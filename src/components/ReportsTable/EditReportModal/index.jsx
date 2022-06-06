@@ -16,6 +16,7 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
   const reportROColumns = useStore((state) => state.reportROColumns);
   const filterFields = useStore((state) => state.filterFields);
   const ROFilterFields = useStore((state) => state.ROFilterFields);
+
   useEffect(() => {
     setTimeout(() => {
       setReportColumns(reportTemplate.volunteer_columns);
@@ -34,6 +35,7 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
   const handleUpdate = () => {
     const postData = {
       id: templateId,
+      name: reportTemplate.name,
       volunteer_columns: reportColumns || [],
       role_offer_columns: reportROColumns || [],
       volunteer_filters: filterFields || [],
