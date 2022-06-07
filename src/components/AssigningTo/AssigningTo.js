@@ -52,6 +52,13 @@ const AssigningTo = () => {
     setEntities(entityData);
   }, [roleOffers]);
 
+  useEffect(() => {
+    entity.length > 0 && setIsFADisabled(false);
+    entity.length > 0  && functionalArea.length > 0 && setIsJobTitleDisabled(false);
+    entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 &&  setIsVenueDisabled(false);
+    entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && location.length > 0 && setSubmitDisabled(false);
+  }, [entity, functionalArea, location, jobTitle]);
+
   //Submit Handler Logic
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -79,8 +86,6 @@ const AssigningTo = () => {
     );
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
-    setSubmitDisabled(true);
-    setIsFADisabled(false);
     setFunctionalAreas([...functionalAreaData]);
   };
   const handleFAChange = (value) => {
@@ -91,9 +96,6 @@ const AssigningTo = () => {
     );
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
-    setSubmitDisabled(true);
-    setIsJobTitleDisabled(false);
-    setIsVenueDisabled(true);
     console.log("NEW JOBS");
     console.log(jobTitleData);
     setJobTitles(jobTitleData);
@@ -106,8 +108,6 @@ const AssigningTo = () => {
     );
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
-    setSubmitDisabled(true);
-    setIsVenueDisabled(false);
     console.log("NEW VENUES");
     console.log(venueData);
     setLocations(venueData);
@@ -115,7 +115,6 @@ const AssigningTo = () => {
   const handleVenueChange = (value, location) => {
     setLocation(location.children);
     setRoleOfferId(value);
-    setSubmitDisabled(false);
   };
 
   return (
