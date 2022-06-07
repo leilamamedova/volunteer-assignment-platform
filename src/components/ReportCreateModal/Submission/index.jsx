@@ -1,10 +1,12 @@
 import { Button } from "antd";
 import { useEffect, useState } from "react";
 import useStore from "../../../services/store";
+import { ReportTemplateFetch } from "../../../services/fetch";
 function Submit() {
   const [disabled, setDisabled] = useState(true);
   const templateReportName = useStore((state) => state.templateReportName);
   const reportColumns = useStore((state) => state.reportColumns);
+  const setReportTemplates = useStore((state) => state.setReportTemplates);
   const reportROColumns = useStore((state) => state.reportROColumns);
   const filterFields = useStore((state) => state.filterFields);
   const ROfilterFields = useStore((state) => state.ROfilterFields);
@@ -33,7 +35,10 @@ function Submit() {
       },
       body: JSON.stringify(postData),
     })
-      .then((res) => console.log(res))
+      .then((res) => {
+        ReportTemplateFetch(setReportTemplates);
+        console.log(res);
+      })
       .catch((err) => console.log(err));
   };
   return (

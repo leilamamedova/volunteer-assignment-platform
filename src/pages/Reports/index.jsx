@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Typography, Space, Row, Col, Button } from "antd";
 import ReportsTable from "../../components/ReportsTable/index";
 import ReportCreateModal from "../../components/ReportCreateModal/index";
-import { UsersFieldsFetch } from "../../services/fetch";
+import { UsersFieldsFetch, NewUsersFieldsFetch } from "../../services/fetch";
 
 import "./index.scss";
 import useStore from "../../services/store";
@@ -14,13 +14,16 @@ function Reports() {
   const setUsersDataFields = useStore(
     ({ setUsersDataFields }) => setUsersDataFields
   );
-
+  const setNewUsersDataFields = useStore(
+    ({ setNewUsersDataFields }) => setNewUsersDataFields
+  );
   const handleCreateModal = () => {
     setIsModalVisible(true);
   };
 
   useEffect(() => {
     UsersFieldsFetch(setUsersDataFields);
+    NewUsersFieldsFetch(setNewUsersDataFields);
   }, []);
   return (
     <>
