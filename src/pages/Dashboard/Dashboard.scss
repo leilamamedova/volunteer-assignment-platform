@@ -16,6 +16,9 @@
             width: auto;
             max-height: 150px;
             overflow-y: auto;
+            .ant-select-selection-item{
+                margin-right: 5px;
+            }
         }
     }
     h3{

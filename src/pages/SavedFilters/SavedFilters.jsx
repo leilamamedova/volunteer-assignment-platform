@@ -108,6 +108,7 @@ function SavedFilters() {
         columns={columns} 
         dataSource={favoriteFilters}
         loading={dataLoading}
+        scroll={{y: 500}}
        />
       <NewFilterTemplateModal
         isModalVisible={isModalVisible}

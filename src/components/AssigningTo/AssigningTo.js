@@ -9,10 +9,6 @@ import { RoleOffersFetch } from "../../services/fetch";
 const { Option } = Select;
 
 const AssigningTo = () => {
-  const roleOffers = useStore(({ roleOffers }) => roleOffers);
-  const setActiveRoleOfferId = useStore(
-    ({ setActiveRoleOfferId }) => setActiveRoleOfferId
-  );
   const [entities, setEntities] = useState([]);
   const [functionalAreas, setFunctionalAreas] = useState([]);
   const [jobTitles, setJobTitles] = useState([]);
@@ -22,9 +18,6 @@ const AssigningTo = () => {
   const [isJobTitleDisabled, setIsJobTitleDisabled] = useState(true);
   const [isVenueDisabled, setIsVenueDisabled] = useState(true);
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
-  const [roleOfferFulfillment, setRoleOfferFulfillment] = useState(0);
-  const [waitlistFulfillment, setWaitlistFulfillment] = useState(0);
-
   const [entity, setEntity] = useState("");
   const [functionalArea, setFunctionalArea] = useState("");
   const [jobTitle, setJobTitle] = useState("");
@@ -33,8 +26,19 @@ const AssigningTo = () => {
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
+  const selectedRoleOffer = useStore(
+    ({ selectedRoleOffer }) => selectedRoleOffer
+  );
   const setSelectedRoleOffer = useStore(
     ({ setSelectedRoleOffer }) => setSelectedRoleOffer
+  );
+  const roleOffers = useStore(({ roleOffers }) => roleOffers);
+
+  const activeRoleOfferId = useStore(
+    ({ activeRoleOfferId }) => activeRoleOfferId
+  );
+  const setActiveRoleOfferId = useStore(
+    ({ setActiveRoleOfferId }) => setActiveRoleOfferId
   );
   const filterFields = useStore((state) => state.filterFields);
   const setFilterFields = useStore((state) => state.setFilterFields);
@@ -48,20 +52,27 @@ const AssigningTo = () => {
     setEntities(entityData);
   }, [roleOffers]);
 
+  useEffect(() => {
+    entity.length > 0 && setIsFADisabled(false);
+    entity.length > 0  && functionalArea.length > 0 && setIsJobTitleDisabled(false);
+    entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 &&  setIsVenueDisabled(false);
+    entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && location.length > 0 && setSubmitDisabled(false);
+  }, [entity, functionalArea, location, jobTitle]);
+
   //Submit Handler Logic
   const handleSubmit = (e) => {
     e.preventDefault();
-    setActiveRoleOfferId(roleOfferId);
-    const offer = roleOffers
-      .find((el) => el.name === entity)
-      .functionalAreas.find((el) => el.name === functionalArea)
-      .jobTitles.find((el) => el.name === jobTitle)
-      .locations.find((el) => el.name === location).roleOffer;
-    const offerRequirements = offer.functionalRequirement.requirements;
-    setFilterFields([...filterFields, ...offerRequirements]);
-    setSelectedRoleOffer(offer);
-    setRoleOfferFulfillment(offer.role_offer_fulfillment);
-    setWaitlistFulfillment(offer.waitlist_fulfillment);
+    if (activeRoleOfferId != roleOfferId) {
+      setActiveRoleOfferId(roleOfferId);
+      const offer = roleOffers
+        .find((el) => el.name === entity)
+        .functionalAreas.find((el) => el.name === functionalArea)
+        .jobTitles.find((el) => el.name === jobTitle)
+        .locations.find((el) => el.name === location).roleOffer;
+      const offerRequirements = offer.functionalRequirement.requirements;
+      setFilterFields([...filterFields, ...offerRequirements]);
+      setSelectedRoleOffer(offer);
+    }
   };
 
   //Select Boxes will be Enabled by order (top->bottom)
@@ -75,8 +86,6 @@ const AssigningTo = () => {
     );
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
-    setSubmitDisabled(true);
-    setIsFADisabled(false);
     setFunctionalAreas([...functionalAreaData]);
   };
   const handleFAChange = (value) => {
@@ -87,9 +96,6 @@ const AssigningTo = () => {
     );
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
-    setSubmitDisabled(true);
-    setIsJobTitleDisabled(false);
-    setIsVenueDisabled(true);
     console.log("NEW JOBS");
     console.log(jobTitleData);
     setJobTitles(jobTitleData);
@@ -102,8 +108,6 @@ const AssigningTo = () => {
     );
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
-    setSubmitDisabled(true);
-    setIsVenueDisabled(false);
     console.log("NEW VENUES");
     console.log(venueData);
     setLocations(venueData);
@@ -111,7 +115,6 @@ const AssigningTo = () => {
   const handleVenueChange = (value, location) => {
     setLocation(location.children);
     setRoleOfferId(value);
-    setSubmitDisabled(false);
   };
 
   return (
@@ -122,9 +125,9 @@ const AssigningTo = () => {
             style={{ display: "flex", gap: "10px", flexDirection: "column" }}
             onSubmit={handleSubmit}
           >
-            {
-              roleOfferId !== 0 && <p style={{marginBottom: '0'}}>Role Offer ID: {roleOfferId}</p>
-            }
+            {roleOfferId !== 0 && (
+              <p style={{ marginBottom: "0" }}>Role Offer ID: {roleOfferId}</p>
+            )}
             <Select
               defaultValue="Entity"
               showSearch
@@ -205,13 +208,15 @@ const AssigningTo = () => {
         <Space className="fulfillment-wrapper">
           <FulfillmentCard
             title="Assignee"
-            value={roleOfferFulfillment}
-            percent={roleOfferFulfillment}
+            value1={selectedRoleOffer.overallAssigned}
+            value2={selectedRoleOffer.assignee_demand}
+            percent={selectedRoleOffer.assigneeDemandPercentage}
           />
           <FulfillmentCard
             title="Waitlist"
-            value={waitlistFulfillment}
-            percent={waitlistFulfillment}
+            value1={selectedRoleOffer.overallWaitlisted}
+            value2={selectedRoleOffer.waitlist_demand}
+            percent={selectedRoleOffer.waitlistDemandPercentage}
           />
         </Space>
       </Space>

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import useStore from '../../../../services/store';
 import { Chart } from '../../Charts';
 
 export const options = {
@@ -11,35 +12,44 @@ export const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'bottom',
-    },
-    title: {
-      display: true,
-      text: 'Age range',
+      position: 'top',
     },
   },
 };
 
-const labels = ['18-24', '25-35', '35-44'];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => Math.floor(Math.random() * 100)),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-  ],
-};
-
 const AgeChart = () => {
-    return (
-        <div>
-            <Chart data={data} options={options}/>            
-        </div>
-    );
+  const volunteerDemographics = useStore(({ volunteerDemographics }) => volunteerDemographics);
+  const [labels, setLabels] = useState([]);
+  const [dataSet, setDataSet] = useState([]);
+
+  useEffect(() => {
+    const labels = volunteerDemographics.ageRanges.reverse().map(el => `${el.fromAge}-${el.toAge}`);
+    labels.unshift(`${volunteerDemographics.startingAges.map(el => el.age)}+`);
+    setLabels(labels);
+
+    const data = volunteerDemographics.ageRanges.map(el => el.count);
+    data.unshift(volunteerDemographics.startingAges.map(el => el.count)[0]);
+    setDataSet(data);
+  }, [volunteerDemographics])
+
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Age range',
+        data: dataSet,
+        borderColor: 'black',
+        backgroundColor: '#2EB4E6',
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  return (
+      <div>
+          <Chart data={data} options={options}/>            
+      </div>
+  );
 };
 
 export default AgeChart;

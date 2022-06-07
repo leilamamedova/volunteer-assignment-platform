@@ -6,19 +6,25 @@ import AssignSearchResult from "../../components/AssignSearchResult/AssignSearch
 import LoadFilterTemplate from "../../components/LoadFilterTemplate/LoadFilterTemplate";
 import BulkImport from "../../components/BulkImport/BulkImport";
 import useStore from "../../services/store";
-import { UsersFieldsFetch } from "../../services/fetch";
+import { UsersFieldsFetch, NewUsersFieldsFetch } from "../../services/fetch";
 import { DownloadOutlined } from "@ant-design/icons";
 import "./SearchAndAssign.scss";
 
 const SearchAndAssign = () => {
   const importUrl = `${process.env.REACT_APP_API_BASE}/import-users-data`;
   const exportUrl = `${process.env.REACT_APP_API_BASE}/export-volunteers`;
-  
-  const setUsersDataFields = useStore(({ setUsersDataFields }) => setUsersDataFields);
+
+  const setUsersDataFields = useStore(
+    ({ setUsersDataFields }) => setUsersDataFields
+  );
+  const setNewUsersDataFields = useStore(
+    ({ setNewUsersDataFields }) => setNewUsersDataFields
+  );
 
   useEffect(() => {
-    UsersFieldsFetch(setUsersDataFields);   
-  }, [])
+    UsersFieldsFetch(setUsersDataFields);
+    NewUsersFieldsFetch(setNewUsersDataFields);
+  }, []);
 
   return (
     <div className="search-and-assign">
@@ -41,16 +47,15 @@ const SearchAndAssign = () => {
         </Col>
       </Row>
       <Row gutter={15} wrap={true} justify="space-between">
-        <Col className="sa-left" xs={24} md={12} lg={14}>
-          <FilterWrapper seeResultBtn={true} noReset={true} />
-        </Col>
-
         <Col className="sa-right" xs={24} md={12} lg={10}>
           <AssigningTo />
         </Col>
+        <Col className="sa-left" xs={24} md={12} lg={14}>
+          <FilterWrapper seeResultBtn={true} blankStart={true} />
+        </Col>
       </Row>
 
-      <AssignSearchResult />    
+      <AssignSearchResult />
     </div>
   );
 };

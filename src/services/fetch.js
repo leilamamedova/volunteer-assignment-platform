@@ -1,8 +1,16 @@
 import { message } from "antd";
 
-export const UsersFetch = (setUsersData, setDataLoading) => {
-  setDataLoading(true)
-  fetch(`${process.env.REACT_APP_API_BASE}/volunteers`)
+export const UsersFetch = (
+  setUsersData,
+  setDataLoading,
+  setPagination,
+  page_number,
+  page_size
+) => {
+  setDataLoading(true);
+  fetch(
+    `${process.env.REACT_APP_API_BASE}/volunteers?page_number=${page_number}&page_size=${page_size}`
+  )
     .then((response) => {
       if (!response.ok) {
         throw new Error(
@@ -13,9 +21,13 @@ export const UsersFetch = (setUsersData, setDataLoading) => {
     })
     .then((data) => {
       console.log("Users data", data);
-      const mutateData = data.map((el) => Object.assign(el, { key: el.candidate_id }));
+      const mutateData = data.map((el) =>
+        Object.assign(el, { key: el.candidate_id })
+      );
       setUsersData(mutateData);
-      setDataLoading(false)
+      setPagination(data.total_pages);
+
+      setDataLoading(false);
     })
     .catch((err) => {
       console.log(err.message);
@@ -41,29 +53,79 @@ export const UsersFieldsFetch = (setUsersDataFields) => {
     });
 };
 
-export const FilterUserFetch = (filterFields, setUsersData, setPagination, setDataLoading, page_number, page_size) => {
+export const ReportTemplateFetch = (setReportTemplates) => {
+  fetch(`${process.env.REACT_APP_VAP_API_BASE}/Reports`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        );
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("NEW USER data fields", data);
+      setReportTemplates(data.value);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+export const FilterUserFetch = (
+  filterFields,
+  setUsersData,
+  setPagination,
+  setDataLoading,
+  page_number,
+  page_size
+) => {
   setDataLoading(true);
-  fetch(`${process.env.REACT_APP_API_BASE}/filter-volunteers?page_number=${page_number}&page_size=${page_size}`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(filterFields),
-  })
+  fetch(
+    `${process.env.REACT_APP_API_BASE}/filter-volunteers?page_number=${page_number}&page_size=${page_size}`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(filterFields),
+    }
+  )
     .then((response) => response.json())
     .then((data) => {
-      console.log('Filtered Users', data);
-      const mutateData = data.data.map((el) => Object.assign(el, { key: el.candidate_id }));
+      console.log("Filtered Users", data);
+      const mutateData = data.data.map((el) =>
+        Object.assign(el, { key: el.candidate_id })
+      );
       setUsersData(mutateData);
-      setPagination(data.total_pages)
-      setDataLoading(false)
+      setPagination(data.total_pages);
+      setDataLoading(false);
     })
     .catch((err) => setUsersData([]));
 };
 
+export const NewUsersFieldsFetch = (setNewUsersDataFields) => {
+  fetch(`${process.env.REACT_APP_API_BASE}/volunteer-fields-new`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        );
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("NEW USER data fields", data);
+      setNewUsersDataFields(data);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
 export const SavedFiltersGet = (addFavoriteFilter, setDataLoading) => {
-  setDataLoading && setDataLoading(true)
+  setDataLoading && setDataLoading(true);
   fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates`)
     .then((response) => {
       if (!response.ok) {
@@ -78,7 +140,7 @@ export const SavedFiltersGet = (addFavoriteFilter, setDataLoading) => {
         Object.assign(el, { key: el.id })
       );
       addFavoriteFilter(mutateData);
-      setDataLoading && setDataLoading(false)
+      setDataLoading && setDataLoading(false);
     })
     .catch((err) => {
       message.error(err.message);
@@ -86,7 +148,7 @@ export const SavedFiltersGet = (addFavoriteFilter, setDataLoading) => {
 };
 
 export const RoleOffersFetch = (setRoleOffers, setDataLoading) => {
-  setDataLoading(true)  
+  setDataLoading(true);
   fetch(`${process.env.REACT_APP_VAP_API_BASE}/FunctionalAreaTypes/nested`)
     .then((response) => {
       if (!response.ok) {
@@ -95,11 +157,11 @@ export const RoleOffersFetch = (setRoleOffers, setDataLoading) => {
         );
       }
       return response.json();
-    })  
+    })
     .then((data) => {
-        console.log("RoleOffers data", data.value);
-        setRoleOffers(data.value);
-        setDataLoading(false)
+      console.log("RoleOffers data", data.value);
+      setRoleOffers(data.value);
+      setDataLoading(false);
     })
     .catch((err) => {
       message.error(err.message);
@@ -107,7 +169,7 @@ export const RoleOffersFetch = (setRoleOffers, setDataLoading) => {
 };
 
 export const HistoryFetch = (setHistory, setDataLoading, userId) => {
-  setDataLoading(true)  
+  setDataLoading(true);
   fetch(`${process.env.REACT_APP_API_BASE}/user-history/${userId}`)
     .then((response) => {
       if (!response.ok) {
@@ -116,21 +178,19 @@ export const HistoryFetch = (setHistory, setDataLoading, userId) => {
         );
       }
       return response.json();
-    })  
+    })
     .then((data) => {
-        console.log("History", data);
-        setHistory(data);
-        setDataLoading(false)
+      console.log("History", data);
+      setHistory(data);
+      setDataLoading(false);
     })
     .catch((err) => {
       message.error(err.message);
     });
 };
 
-
-
 export const DashboardGet = (setDashboardData, setDataLoading) => {
-  setDataLoading(true)  
+  setDataLoading(true);
   fetch(`${process.env.REACT_APP_VAP_API_BASE}/Dashboards`)
     .then((response) => {
       if (!response.ok) {
@@ -139,18 +199,22 @@ export const DashboardGet = (setDashboardData, setDataLoading) => {
         );
       }
       return response.json();
-    })  
+    })
     .then((data) => {
-        console.log("Dashboard Data", data.value);
-        setDashboardData(data.value)
-        setDataLoading(false)
+      console.log("Dashboard Data", data.value);
+      setDashboardData(data.value);
+      setDataLoading(false);
     })
     .catch((err) => {
       message.error(err.message);
     });
 };
 
-export const OverallAssignmentsPost = (roleOfferId, setOverallAssignments, setDataLoading) => {
+export const OverallAssignmentsPost = (
+  roleOfferId,
+  setOverallAssignments,
+  setDataLoading
+) => {
   setDataLoading(true);
   fetch(`${process.env.REACT_APP_VAP_API_BASE}/Dashboards/getroleoffers`, {
     method: "POST",
@@ -162,10 +226,35 @@ export const OverallAssignmentsPost = (roleOfferId, setOverallAssignments, setDa
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log('Overall Assignments Data', data.value);
-      const mutateData = data.value.map((el, index) => Object.assign(el, { key: index }));
-      setOverallAssignments(mutateData)
-      setDataLoading(false)
+      console.log("Overall Assignments Data", data.value);
+      const mutateData = data.value.map((el, index) =>
+        Object.assign(el, { key: index })
+      );
+      setOverallAssignments(mutateData);
+      setDataLoading(false);
     })
-    // .catch((err) => setUsersData([]));
+    .catch((err) => setOverallAssignments([]));
+};
+
+export const VolunteerDemographicsPost = (
+  data,
+  setVolunteerDemographics,
+  setDataLoading
+) => {
+  setDataLoading(true);
+  fetch(`${process.env.REACT_APP_VAP_API_BASE}/Dashboards/getvolunteersinfo`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Volunteer Demographics Data", data.value);
+      setVolunteerDemographics(data.value);
+      setDataLoading(false);
+    })
+    .catch((err) => setVolunteerDemographics({}));
 };

@@ -3,7 +3,7 @@ import { Button, Space, Typography } from "antd";
 import useStore from "../../services/store";
 import FilterField from "../FilterField/FilterField";
 import ResultButton from "../ResultButton/ResultButton";
-import { FilterUserFetch } from "../../services/fetch";
+import { FilterUserFetch, UsersFetch } from "../../services/fetch";
 import "./FilterWrapper.scss";
 
 const { Text } = Typography;
@@ -23,11 +23,11 @@ function FilterWrapper(props) {
   );
 
   //Everytime componenet loads, we are resetting the store
-  useEffect(() => {
-    if (!props.noReset) {
-      resetFilterFields();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!props.noReset) {
+  //     resetFilterFields();
+  //   }
+  // }, []);
 
   // Creating a new field
   const handleNewField = () => {
@@ -52,9 +52,9 @@ function FilterWrapper(props) {
   };
 
   // Handling Change events
-  const handleChange = (index, tagsArray) => {
+  const handleChange = (index, valueArr) => {
     const list = [...filterFields];
-    list[index]["value"] = tagsArray;
+    list[index]["value"] = valueArr;
     setFilterFields(list);
   };
   // Handling Select events
@@ -67,14 +67,8 @@ function FilterWrapper(props) {
   //Set default FilterFields , Fetch Users without Filter
   const resetHandler = () => {
     resetFilterFields();
-    FilterUserFetch(
-      filterFields,
-      setUsersData,
-      setPagination,
-      setDataLoading,
-      1,
-      10
-    );
+
+    UsersFetch(setUsersData, setPagination, setDataLoading, 1, 10);
   };
   return (
     <>
@@ -91,14 +85,13 @@ function FilterWrapper(props) {
               Reset
             </Button>
           </Space>
-
           {filterFields.length > 0 ? (
             filterFields.map((el, index) => (
               <Space
                 direction="vertical"
                 size="middle"
                 key={index}
-                style={{ margin: "15px 0" }}
+                style={{ margin: "10px 0 0" }}
               >
                 {/* Logical Statement  */}
                 {/* {index !== 0 ? (

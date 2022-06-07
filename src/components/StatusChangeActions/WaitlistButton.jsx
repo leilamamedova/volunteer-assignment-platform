@@ -5,11 +5,13 @@ import { FilterUserFetch } from "../../services/fetch";
 
 function WaitlistButton(props) {
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
-  const activeRoleOfferId = useStore(({ activeRoleOfferId }) => activeRoleOfferId);
+  const activeRoleOfferId = useStore(
+    ({ activeRoleOfferId }) => activeRoleOfferId
+  );
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setPagination = useStore(({ setPagination }) => setPagination);
-  
+
   const [isDisabled, setIsDisabled] = useState(true);
 
   const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}`;
@@ -22,7 +24,11 @@ function WaitlistButton(props) {
 
   const handleWaitlist = () => {
     const postData = props.data.map((el) =>
-      Object.assign({ id: el, role_offer_id: activeRoleOfferId, status: 'Waitlist Offered' })
+      Object.assign({
+        id: el,
+        role_offer_id: activeRoleOfferId,
+        status: "WaitlistOffered",
+      })
     );
     console.log(postData);
     fetch(endpoint, {
@@ -33,19 +39,26 @@ function WaitlistButton(props) {
       },
       body: JSON.stringify(postData),
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(
-          `This is an HTTP error: The status is ${response.status}`
-        );
-      }
-      return response.json();
-    })
-    .then((data) => {
-        message.success('Success!');
-        FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `This is an HTTP error: The status is ${response.status}`
+          );
+        }
+        return response.json();
       })
-    .catch((err) => message.error(err.message));
+      .then((data) => {
+        message.success("Success!");
+        FilterUserFetch(
+          filterFields,
+          setUsersData,
+          setPagination,
+          setDataLoading,
+          1,
+          10
+        );
+      })
+      .catch((err) => message.error(err.message));
   };
 
   return (

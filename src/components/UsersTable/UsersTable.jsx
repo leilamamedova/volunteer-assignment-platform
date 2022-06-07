@@ -9,7 +9,7 @@ import AssignButton from "../StatusChangeActions/AssignButton";
 import WaitlistButton from "../StatusChangeActions/WaitlistButton";
 import FreeButton from "../StatusChangeActions/FreeButton";
 import "./UsersTable.scss";
-import { FilterUserFetch } from "../../services/fetch";
+import { FilterUserFetch, UsersFetch } from "../../services/fetch";
 
 const { Link } = Typography;
 
@@ -25,7 +25,7 @@ const UsersTable = (props) => {
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
-  const pagination = useStore(({ pagination }) => pagination);  
+  const pagination = useStore(({ pagination }) => pagination);
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
   const setPagination = useStore(({ setPagination }) => setPagination);
   const filterFields = useStore(({ filterFields }) => filterFields);
@@ -33,8 +33,20 @@ const UsersTable = (props) => {
   const route = props.isAnyStatus ? "ChangeToAnyStatus" : "AssignOrWaitlist";
 
   useEffect(() => {
-    FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);
-  }, [])
+    console.log(filterFields);
+    if (filterFields.length == 0) {
+      UsersFetch(setUsersData, setDataLoading, setPagination, 1, 10);
+    } else {
+      FilterUserFetch(
+        filterFields,
+        setUsersData,
+        setPagination,
+        setDataLoading,
+        1,
+        10
+      );
+    }
+  }, []);
 
   //Fetch the active modal data.
   const showVolunteerModal = (id) => {
@@ -43,29 +55,31 @@ const UsersTable = (props) => {
   };
   // Set data to table
   useEffect(() => {
-    if(usersDataFields.length > 0 ) {
-       const keys =  usersDataFields.map((item) => {      
-         return {
-            title: item.replaceAll("_", " "),
-            dataIndex: item,
-            ...getColumnSearchProps(item),
-            width: 200,
-            ellipsis: true,
-          }
+    if (usersDataFields.length > 0) {
+      const keys = usersDataFields.map((item) => {
+        return {
+          title: item.replaceAll("_", " "),
+          dataIndex: item,
+          width: 200,
+          ellipsis: true,
+        };
       });
-      setDataKeys(keys)
-    }   
+      setDataKeys(keys);
+    }
   }, [usersDataFields]);
 
   useEffect(() => {
-    if( dataKeys.length>0 ) {
+    if (dataKeys.length > 0) {
       dataKeys.splice(0, 0, {
         title: "Details",
         key: "id",
         width: 200,
-        fixed: 'left',
+        fixed: "left",
         render: (_, field) => (
-          <Link key={field.candidate_id} onClick={() => showVolunteerModal(field.candidate_id)}>
+          <Link
+            key={field.candidate_id}
+            onClick={() => showVolunteerModal(field.candidate_id)}
+          >
             <EyeOutlined />
           </Link>
         ),
@@ -77,7 +91,14 @@ const UsersTable = (props) => {
         render: (_, field, index) => <p key={index}>{index + 1}</p>,
       });
       if (props.isStatusColumn) {
-       dataKeys.splice(2, 0, dataKeys.splice(dataKeys.findIndex(el => el.title === 'status'), 1)[0]);
+        dataKeys.splice(
+          2,
+          0,
+          dataKeys.splice(
+            dataKeys.findIndex((el) => el.title === "status"),
+            1
+          )[0]
+        );
       }
       setColumns(dataKeys);
       setTableColumns(dataKeys);
@@ -107,8 +128,25 @@ const UsersTable = (props) => {
   };
 
   const handlePagination = (pageNumber, pageSize) => {
-    FilterUserFetch(filterFields, setUsersData, setPagination, setDataLoading, pageNumber, pageSize)
-  }
+    if (filterFields.length == 0) {
+      UsersFetch(
+        setUsersData,
+        setDataLoading,
+        setPagination,
+        pageNumber,
+        pageSize
+      );
+    } else {
+      FilterUserFetch(
+        filterFields,
+        setUsersData,
+        setPagination,
+        setDataLoading,
+        pageNumber,
+        pageSize
+      );
+    }
+  };
 
   return (
     <>
@@ -140,10 +178,7 @@ const UsersTable = (props) => {
                 ""
               )}
               {props.isFreeAction ? (
-                <FreeButton
-                  data={selectedUsers}
-                  users={selectedUsers}
-                />
+                <FreeButton data={selectedUsers} users={selectedUsers} />
               ) : (
                 ""
               )}
@@ -156,16 +191,15 @@ const UsersTable = (props) => {
           rowSelection={{
             ...rowSelection,
           }}
-          scroll={{ x: 240 }}
+          scroll={{ x: 240, y:500 }}
           columns={tableColumns}
           dataSource={usersData}
           loading={dataLoading}
-          pagination={
-            {
-              onChange: (pageNumber, pageSize) => handlePagination(pageNumber, pageSize),
-              total: pagination
-            }
-          }
+          pagination={{
+            onChange: (pageNumber, pageSize) =>
+              handlePagination(pageNumber, pageSize),
+            total: pagination,
+          }}
         />
       </div>
       <VolunteerProfile

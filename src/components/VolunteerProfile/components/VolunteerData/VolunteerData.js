@@ -11,14 +11,6 @@ const VolunteerData = ({userID}) => {
             size="large"
             className="overflow-y--auto volunteer--card"
         >
-            <Space size="middle">
-            <span className="fs-xl">Role Match: </span>
-            <span className="perfect fs-xl bold">98%</span>
-            </Space>
-            <Image
-                width={200}
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-            />
             {
                 typeof usersData.find(data => data.candidate_id === userID) !== 'undefined' && Object.entries(usersData.find(data => data.candidate_id === userID)).map((item, index) => (
                     <div key={index} className='fs-lg'>

@@ -4,7 +4,7 @@ import NationalityChart from "../../components/Charts/components/NationalityChar
 import FaRoleVenueStatistics from "../../components/FaRoleVenueStatistics/FaRoleVenueStatistics";
 import AssignmentsChart from "../../components/Charts/components/AssignmentsChart/AssignmentsChart";
 import AgeChart from "../../components/Charts/components/AgeChart/AgeChart";
-import { Col, Row, Space } from "antd";
+import { Col, Row, Space, Empty } from "antd";
 import useStore from "../../services/store";
 import { DashboardGet, UsersFieldsFetch } from "../../services/fetch";
 import Filters from "./components/FIlters/Filters";
@@ -16,6 +16,7 @@ const Dashboard = () => {
   const setDashboardData = useStore(({ setDashboardData }) => setDashboardData);
   const dashboardData = useStore(({ dashboardData }) => dashboardData);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const volunteerDemographics = useStore(({ volunteerDemographics }) => volunteerDemographics);
 
   useEffect(() => {
     UsersFieldsFetch(setUsersDataFields);    
@@ -97,7 +98,7 @@ const Dashboard = () => {
               <Col>
                 <Space direction="vertical">
                   <Cards title='Total Assigned' value={dashboardData.totalAssigned}/>
-                  <Cards title='Overal Number' value1={dashboardData.overallNoneAssigned} value2={dashboardData.overallAssigneeDemand}/>
+                  <Cards title='Overal Number' value1={dashboardData.overallAssigned} value2={dashboardData.overallAssigneeDemand}/>
                 </Space>             
               </Col>
             </Row>     
@@ -109,7 +110,7 @@ const Dashboard = () => {
               <Col>
                 <Space direction="vertical">
                   <Cards title='Total Waitlisted' value={dashboardData.totalWaitlisted}/>
-                  <Cards title='Overal Number' value1={dashboardData.overallNoneWaitlisted} value2={dashboardData.overallWaitlistDemand}/>
+                  <Cards title='Overal Number' value1={dashboardData.overallWaitlisted} value2={dashboardData.overallWaitlistDemand}/>
                 </Space>                            
               </Col>
             </Row>  
@@ -122,25 +123,52 @@ const Dashboard = () => {
 
       <Row justify="center">VOLUNTEER DEMOGRAPHICS</Row>
       <h3>Filters</h3>
-      <Filters showUserData={true}/>        
+      <Filters showUserData={true}/>   
+
+      {Object.keys(volunteerDemographics).length>0 ? null: <p style={{color: 'red'}}>*Select filters</p> }   
 
       <Row justify="center" align="middle" gutter={30} className='card'>
-        <Col span={8}>
-          <PieStatistics title='Gender Breakdown' />          
-        </Col>
-        <Col span={16}>
-          <NationalityChart />          
-        </Col>
+        {
+          Object.keys(volunteerDemographics).length > 0 
+          ?
+          <>
+            <Col span={8}>
+            <PieStatistics 
+              title='Gender Breakdown' 
+              label={['Male', 'Female']}
+              data={[volunteerDemographics.overallMales, volunteerDemographics.overallFemales]}
+            />          
+            </Col>
+            <Col span={16}>
+              <NationalityChart />          
+            </Col>
+          </>
+          :
+          <Empty />
+        }
+        
       </Row>
 
-      <Row justify="center" align="middle" gutter={30} className='card'>
-        <Col span={8}>
-          <PieStatistics title='Locals x Internationals'/>          
-        </Col>
-        <Col span={16}>
-          <AgeChart />          
-        </Col>
-      </Row>
+        {
+          Object.keys(volunteerDemographics).length > 0 
+          ?
+           <>
+            <Row justify="center" align="middle" gutter={30} className='card'>
+            <Col span={8}>
+              <PieStatistics 
+                title='Locals x Internationals'
+                label={['Locals', 'Internationals']}
+                data={[volunteerDemographics.overallLocals, volunteerDemographics.overallInternationals]}
+              />          
+              </Col>
+              <Col span={16}>
+                <AgeChart />          
+              </Col>
+            </Row>
+           </>
+           :
+           null
+        }
     </div>
   );
 };

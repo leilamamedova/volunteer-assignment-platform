@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Select, Input, Space, Tag } from "antd";
+import { Select, Input, Space, Tag, DatePicker } from "antd";
+import moment from "moment";
 import { DeleteFilled } from "@ant-design/icons";
 import useStore from "../../services/store";
 import "./FilterField.scss";
@@ -35,17 +36,25 @@ const operator = [
     value: "<=",
   },
 ];
-
+const dateFormat = "YYYY-MM-DD";
 const ROLE_OFFER_DATA = ["Entity", "Functional_Area", "Job_Title", "Location"];
 
 function FilterField(props) {
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const NewUsersDataFields = useStore(
+    ({ NewUsersDataFields }) => NewUsersDataFields
+  );
 
   const [requirements, setRequirements] = useState([]);
-  const [inputValue, setInputValue] = useState("");
   const [tagsArray, setTagsArray] = useState(props.value);
+
+  const [newUserFieldsArray, setNewUserFieldsArray] = useState([]);
+  const [enumOptions, setEnumOptions] = useState([]);
+  const [isDateTime, setDateTime] = useState(false);
+  const [isSelectEnum, setSelectEnum] = useState(false);
+  const [isInput, setIsInput] = useState(true);
 
   useEffect(() => {
     setTagsArray(props.value);
@@ -78,20 +87,45 @@ function FilterField(props) {
   useEffect(() => {
     requirements.length > 0 ? setDataLoading(false) : setDataLoading(true);
   }, [requirements]);
-
+  useEffect(() => {
+    const arr = Object.entries(NewUsersDataFields);
+    setNewUserFieldsArray(arr);
+  }, [NewUsersDataFields]);
   const handleChange = (value) => {
-    setInputValue(value.target.value);
+    setTagsArray(value);
   };
 
-  const handleEnter = (e) => {
-    if (e.key === "Enter" && inputValue.trim() !== "") {
-      setTagsArray((prev) => [...prev, inputValue]);
-      setInputValue("");
+  const handleFieldSelect = (e) => {
+    let selectedObject;
+    newUserFieldsArray.forEach((el) =>
+      el[0] === e ? (selectedObject = el) : ""
+    );
+    if (selectedObject) {
+      if (selectedObject[1].type === "input") {
+        setIsInput(true);
+        setSelectEnum(false);
+        setDateTime(false);
+      }
+      if (selectedObject[1].type === "select") {
+        setEnumOptions(selectedObject[1].value_options);
+        setSelectEnum(true);
+        setIsInput(false);
+        setDateTime(false);
+      }
+      if (selectedObject[1].value_type === "date") {
+        setDateTime(true);
+        setIsInput(false);
+        setSelectEnum(false);
+      }
     }
+    props.handleSelect(e, props.id, "requirement_name");
   };
-  const handleClose = (index) => {
-    tagsArray.splice(index, 1);
-    setTagsArray(tagsArray);
+  const handleEnumChange = (value) => {
+    props.handleChange(props.id, value);
+  };
+  const handleDateTime = (e) => {
+    const formatted_value = moment(e).format(dateFormat);
+    props.handleChange(props.id, [formatted_value]);
   };
 
   useEffect(() => {
@@ -99,7 +133,7 @@ function FilterField(props) {
   }, [tagsArray]);
 
   return (
-    <div className="flex">
+    <div className="filter-field">
       <Select
         showSearch
         optionFilterProp="children"
@@ -107,7 +141,7 @@ function FilterField(props) {
         defaultValue={props.requirement}
         value={props.requirement}
         loading={dataLoading}
-        onSelect={(e) => props.handleSelect(e, props.id, "requirement_name")}
+        onSelect={handleFieldSelect}
       >
         <Option value={props.requirement}>{props.requirement}</Option>
         {requirements.map((el, index) => (
@@ -129,7 +163,7 @@ function FilterField(props) {
           </Option>
         ))}
       </Select>
-      <div className="tag-box">
+      {/* <div className="tag-box">
         {tagsArray.length > 0 &&
           tagsArray.map((el, index) => (
             <Tag
@@ -141,15 +175,50 @@ function FilterField(props) {
               {el}
             </Tag>
           ))}
-      </div>
-      <Input
-        className="inputWidth"
-        placeholder="value"
-        value={inputValue}
-        name="value"
-        onKeyUp={handleEnter}
-        onChange={handleChange}
-      />
+      </div> */}
+      {isInput ? (
+        <Select
+          mode="tags"
+          allowClear
+          style={{
+            width: "140px",
+            height: "52px",
+          }}
+          placeholder="Type Values"
+          defaultValue={tagsArray}
+          onChange={handleChange}
+        >
+          {/* {children} */}
+        </Select>
+      ) : // <Input
+      //   className="inputWidth"
+      //   placeholder="value"
+      //   value={inputValue}
+      //   name="value"
+      //   onKeyUp={handleEnter}
+      //   onChange={handleChange}
+      // />
+      isDateTime ? (
+        <DatePicker
+          placeholder="yyyy-mm-dd"
+          onChange={handleDateTime}
+          format={dateFormat}
+        />
+      ) : (
+        <Select
+          mode="tags"
+          placeholder="Select Values"
+          onChange={handleEnumChange}
+          defaultValue={[]}
+          allowClear
+        >
+          {enumOptions.map((el, index) => (
+            <Option key={index} value={el}>
+              {el}
+            </Option>
+          ))}
+        </Select>
+      )}
 
       <Space>
         <DeleteFilled
