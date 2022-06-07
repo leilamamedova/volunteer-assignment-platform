@@ -88,10 +88,6 @@ function FilterField(props) {
     requirements.length > 0 ? setDataLoading(false) : setDataLoading(true);
   }, [requirements]);
   useEffect(() => {
-    console.log("------------------");
-    console.log(NewUsersDataFields);
-    console.log("------------------");
-    console.log("CONVERTED");
     const arr = Object.entries(NewUsersDataFields);
     setNewUserFieldsArray(arr);
   }, [NewUsersDataFields]);
