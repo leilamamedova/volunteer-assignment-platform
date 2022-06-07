@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import useStore from "../../services/store";
 
 function ResultButton({ fetchFiltered }) {
@@ -8,9 +8,26 @@ function ResultButton({ fetchFiltered }) {
   const setPagination = useStore(({ setPagination }) => setPagination);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
+  const warning = () => {
+    message.warning("Please select valid Requirement or Operator name !");
+    return;
+  };
+
   const getResults = (e) => {
     e.preventDefault();
-    filterFields.length && fetchFiltered(filterFields, setUsersData, setPagination, setDataLoading, 1, 10);
+    filterFields.forEach((el) =>
+      el.operator === "Operator" || el.requirement_name === "Requirement"
+        ? warning()
+        : filterFields.length &&
+          fetchFiltered(
+            filterFields,
+            setUsersData,
+            setPagination,
+            setDataLoading,
+            1,
+            10
+          )
+    );
   };
 
   return (
