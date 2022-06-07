@@ -100,21 +100,23 @@ function FilterField(props) {
     newUserFieldsArray.forEach((el) =>
       el[0] === e ? (selectedObject = el) : ""
     );
-    if (selectedObject[1].type === "input") {
-      setIsInput(true);
-      setSelectEnum(false);
-      setDateTime(false);
-    }
-    if (selectedObject[1].type === "select") {
-      setEnumOptions(selectedObject[1].value_options);
-      setSelectEnum(true);
-      setIsInput(false);
-      setDateTime(false);
-    }
-    if (selectedObject[1].value_type === "date") {
-      setDateTime(true);
-      setIsInput(false);
-      setSelectEnum(false);
+    if (selectedObject) {
+      if (selectedObject[1].type === "input") {
+        setIsInput(true);
+        setSelectEnum(false);
+        setDateTime(false);
+      }
+      if (selectedObject[1].type === "select") {
+        setEnumOptions(selectedObject[1].value_options);
+        setSelectEnum(true);
+        setIsInput(false);
+        setDateTime(false);
+      }
+      if (selectedObject[1].value_type === "date") {
+        setDateTime(true);
+        setIsInput(false);
+        setSelectEnum(false);
+      }
     }
     props.handleSelect(e, props.id, "requirement_name");
   };
@@ -183,6 +185,7 @@ function FilterField(props) {
             height: "52px",
           }}
           placeholder="Type Values"
+          defaultValue={tagsArray}
           onChange={handleChange}
         >
           {/* {children} */}

@@ -20,13 +20,6 @@ function ROFilterWrapper(props) {
     ({ resetROFilterFields }) => resetROFilterFields
   );
 
-  //Everytime componenet loads, we are resetting the store
-  useEffect(() => {
-    if (!props.noReset) {
-      resetROFilterFields();
-    }
-  }, []);
-
   // Creating a new field
   const handleNewField = () => {
     addROFilterField({

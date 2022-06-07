@@ -53,6 +53,25 @@ export const UsersFieldsFetch = (setUsersDataFields) => {
     });
 };
 
+export const ReportTemplateFetch = (setReportTemplates) => {
+  fetch(`${process.env.REACT_APP_VAP_API_BASE}/Reports`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        );
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("NEW USER data fields", data);
+      setReportTemplates(data.value);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
 export const FilterUserFetch = (
   filterFields,
   setUsersData,

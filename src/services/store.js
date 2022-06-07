@@ -27,14 +27,7 @@ const useStore = create((set) => ({
     set((state) => {
       state.filterFields = [...state.filterFields.filter((el) => el.id === id)];
     }),
-  ROfilterFields: [
-    {
-      default: false,
-      requirement_name: "Requirement",
-      operator: "Operator",
-      value: [],
-    },
-  ],
+  ROfilterFields: [],
   resetROFilterFields: () => set((state) => (state.ROfilterFields = [])),
   setROFilterFields: (filters) =>
     set((state) => (state.ROfilterFields = [...filters])),
@@ -67,6 +60,8 @@ const useStore = create((set) => ({
   templateReportName: "",
   setTemplateReportName: (data) =>
     set((state) => (state.templateReportName = data)),
+  reportTemplates: [],
+  setReportTemplates: (data) => set((state) => (state.reportTemplates = data)),
   reportTemplate: {},
   setReportTemplate: (data) => set((state) => (state.reportTemplate = data)),
   reportColumns: [],
