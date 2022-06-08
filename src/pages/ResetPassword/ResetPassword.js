@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 
 const {Title} = Typography;
 
-const ChangePassword = () => {
+const ResetPassword = () => {
+    const queryParams = new URLSearchParams(window.location.search)
+    const token = queryParams.get("token");
+    const email = queryParams.get("email");
+
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState('');
     const [helpText, setHelpText] = useState('');
-
-    const email = JSON.parse(localStorage.getItem('email'));
     const navigate = useNavigate();
 
     const onSubmit = (values) => {
@@ -18,13 +20,13 @@ const ChangePassword = () => {
             setStatus('');
             setHelpText('');
             setLoading(true);
-            fetch(`${process.env.REACT_APP_VAP_AUTH_BASE}/changePassword`, {
+            fetch(`${process.env.REACT_APP_VAP_AUTH_BASE}/resetPassword`, {
                 method: "POST",
                 headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
                 },
-                body: JSON.stringify({oldPassword: values.oldPassword, newPassword: values.newPassword, email: email}),
+                body: JSON.stringify({email: email, newPassword: values.newPassword, token: token}),
             })
             .then((response) => {
                 if (!response.ok) {
@@ -58,22 +60,6 @@ const ChangePassword = () => {
       }}
       onFinish = {onSubmit}
     >
-
-        <Form.Item
-            name="oldPassword"
-            rules={[
-            {
-                required: true,
-                message: 'Please input your previous password!',
-            },
-            ]}
-        >
-        <Input
-          type="password"
-          placeholder="Old password"
-          autoComplete="on"
-        />
-        </Form.Item>
 
         <Form.Item
             name="newPassword"
@@ -126,4 +112,4 @@ const ChangePassword = () => {
     )
 }
  
-export default ChangePassword;
+export default ResetPassword;
