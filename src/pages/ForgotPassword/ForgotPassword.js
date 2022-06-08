@@ -8,8 +8,6 @@ const {Title} = Typography;
 const ForgotPassword = () => {
     const [loading, setLoading] = useState(false);
     const [showText, setShowText] = useState(false);
-
-    const email = JSON.parse(localStorage.getItem('email'));
     const navigate = useNavigate();
 
     const onSubmit = (values) => {

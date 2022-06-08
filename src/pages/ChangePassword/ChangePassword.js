@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {Typography, Form, Input, Button, message, Spin} from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
+import useStore from "../../services/store";
 
 const {Title} = Typography;
 
@@ -10,7 +11,7 @@ const ChangePassword = () => {
     const [status, setStatus] = useState('');
     const [helpText, setHelpText] = useState('');
 
-    const email = JSON.parse(localStorage.getItem('email'));
+    const userEmail = useStore(({ userEmail }) => userEmail);  
     const navigate = useNavigate();
 
     const onSubmit = (values) => {
@@ -24,7 +25,7 @@ const ChangePassword = () => {
                 Accept: "application/json",
                 "Content-Type": "application/json",
                 },
-                body: JSON.stringify({oldPassword: values.oldPassword, newPassword: values.newPassword, email: email}),
+                body: JSON.stringify({oldPassword: values.oldPassword, newPassword: values.newPassword, email: userEmail}),
             })
             .then((response) => {
                 if (!response.ok) {

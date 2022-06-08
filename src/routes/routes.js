@@ -15,6 +15,8 @@ import Users from "../pages/Users/Users";
 import SavedFilters from "../pages/SavedFilters/SavedFilters";
 import Reports from "../pages/Reports";
 import { AuthProvider } from '../provider/AuthProvider';
+import { ResetPasswordProvider } from '../provider/ResetPasswordProvider';
+import { LoginProvider } from '../provider/LoginProvider';
 
 const AppRoutes = () => {
   return (
@@ -43,9 +45,13 @@ const AppRoutes = () => {
           <Route element={<AuthProvider />}>
             <Route path="/change-password" element={<ChangePassword />} />            
           </Route>
-          <Route path="/login" element={<Login />} />          
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path={`/auth/Users/resetPassword`} element={<ResetPassword />} />
+          <Route element={<LoginProvider/>}>
+            <Route path="/login" element={<Login />} />          
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+          </Route>
+          <Route element={<ResetPasswordProvider/>}>
+            <Route path={`/auth/Users/resetPassword`} element={<ResetPassword />} />
+          </Route>
         </Route>
       </Routes>
     </Router>
