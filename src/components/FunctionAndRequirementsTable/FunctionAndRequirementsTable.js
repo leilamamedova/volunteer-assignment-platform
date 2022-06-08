@@ -16,6 +16,7 @@ const FunctionAndRequirementsTable = () => {
   const [headcount, setHeadcount] = useState(null);  
   const [levelOfConfidence, setLevelOfConfidence] = useState(null); 
   const [waitlistFulfillment, setWaitlistFulfillment] = useState(null); 
+  const [disableAction, setDisableAction] = useState(true);
    
 
   const roleOffers = useStore(({roleOffers})=>roleOffers);
@@ -25,6 +26,7 @@ const FunctionAndRequirementsTable = () => {
   const filterFields = useStore((state) => state.filterFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const systemRole = useStore(({ systemRole }) => systemRole);  
 
   useEffect(() => { 
     setData([])
@@ -64,6 +66,10 @@ const FunctionAndRequirementsTable = () => {
 
     roleOffers.length > 0 ? setDataLoading(false) : setDataLoading(true);
   }, [roleOffers]) 
+
+  useEffect(() => {
+    systemRole.some(el => el === 'Admin') ? setDisableAction(false) : setDisableAction(true);
+  }, [systemRole])
 
   const handleEditModal = (record) => {
     const el = functionalRequirements.find(el => el.key === record.key).requirements;
@@ -151,7 +157,7 @@ const FunctionAndRequirementsTable = () => {
       fixed: 'right',
       render: (_, record) => (
           <Space className="action-icons">
-              <Button icon={<EditOutlined />} onClick={() =>  handleEditModal(record)} />
+              <Button icon={<EditOutlined />} disabled={disableAction} onClick={() =>  handleEditModal(record)} type='link' />
           </Space>
       ),
     },

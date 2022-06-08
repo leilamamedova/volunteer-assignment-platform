@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import {Typography, Form, Input, Button, message, Spin} from 'antd';
 import {Link, useNavigate } from "react-router-dom";
-import useStore from "../../services/store";
 
 const {Title, Text} = Typography;
 
 const Login = () => {
     const navigate = useNavigate();
-    const setToken = useStore(({ setToken }) => setToken);
     const [loading, setLoading] = useState(false);
 
     const onSubmit = (values) => {
@@ -31,8 +29,6 @@ const Login = () => {
         .then((data) => {
             console.log('Login Data', data.value);
             localStorage.setItem('token', JSON.stringify(data.value.token));
-            localStorage.setItem('email', JSON.stringify(data.value.email))
-            localStorage.setItem('role', JSON.stringify(data.value.roles))
             navigate('/');
             setLoading(false);
         })

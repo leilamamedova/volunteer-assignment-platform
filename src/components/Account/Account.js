@@ -7,11 +7,14 @@ import useStore from "../../services/store";
 
 const Account = () => {
   const navigate = useNavigate();
+  const setSystemRole = useStore(({ setSystemRole }) => setSystemRole);
+  const setUserEmail = useStore(({ setUserEmail }) => setUserEmail);
+  const systemRole = useStore(({ systemRole }) => systemRole);  
 
   const signOut = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("email");
-    localStorage.removeItem("role");
+    setSystemRole('');
+    setUserEmail('');
     navigate('/login');
   }
 
@@ -24,7 +27,7 @@ const Account = () => {
       <Space direction="horizontal" align="baseline" className="account-info">
           <Dropdown overlay={<Menu className="account-dropdown" items={items}/>} trigger={['click']} placement="bottomRight">
               <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-              Admin <DownOutlined />
+              {systemRole.join(',')} <DownOutlined />
               </a>
           </Dropdown>
       </Space>

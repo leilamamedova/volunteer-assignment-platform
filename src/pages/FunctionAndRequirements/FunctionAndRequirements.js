@@ -8,6 +8,7 @@ import useStore from '../../services/store';
 const FunctionAndRequirements = () => {
     const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
     const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+    const systemRole = useStore(({ systemRole }) => systemRole);  
 
     const roleOffersUrl = `${process.env.REACT_APP_VAP_API_BASE}/RoleOffers/import`;
     const functionalRequirementsUrl = `${process.env.REACT_APP_VAP_API_BASE}/FunctionalRequirements/import`;
@@ -19,6 +20,7 @@ const FunctionAndRequirements = () => {
 
     return (
         <div>
+            {systemRole.some(el => el === 'Admin') ?
             <Row justify='end'>
                 <Space direction='horizontal' align='middle'>
                     <BulkImport title={'Roles'} url={roleOffersUrl}/>
@@ -26,6 +28,9 @@ const FunctionAndRequirements = () => {
                     <BulkImport title={'Statistics'} url={statisticsUrl}/>
                 </Space>
             </Row>
+            :
+            null            
+            }
             <FunctionAndRequirementsTable/>            
         </div>
     );

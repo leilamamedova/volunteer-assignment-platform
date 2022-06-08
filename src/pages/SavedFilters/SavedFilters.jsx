@@ -14,6 +14,8 @@ function SavedFilters() {
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [isFilterListModalVisible, setIsFilterListModalVisible] = useState(false);
   const [id, setId] = useState("");
+  const [disableAction, setDisableAction] = useState(true);
+
   const favoriteFilters = useStore((state) => state.favoriteFilters);
   const addFavoriteFilter = useStore((state) => state.addFavoriteFilter);
   const setFilterFields = useStore((state) => state.setFilterFields);
@@ -21,6 +23,11 @@ function SavedFilters() {
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const setUsersDataFields = useStore(({ setUsersDataFields }) => setUsersDataFields);
+  const systemRole = useStore(({ systemRole }) => systemRole);  
+
+  useEffect(() => {
+    systemRole.some(el => el === 'Admin') ? setDisableAction(false) : setDisableAction(true);
+  }, [systemRole])
 
   useEffect(() => {
     addFavoriteFilter(favoriteFilters)
@@ -86,6 +93,7 @@ function SavedFilters() {
             shape="circle"
             ghost
             onClick={() => handleEditModal(field.key)}
+            disabled={disableAction}
           />
           <Button
             type="primary"
@@ -93,6 +101,7 @@ function SavedFilters() {
             shape="circle"
             danger
             onClick={() => handleDelete(field.key)}
+            disabled={disableAction}
           />
         </Space>
       ),
@@ -101,7 +110,7 @@ function SavedFilters() {
 
   return (
     <div>
-      <Button type="primary" className="mb-20" onClick={handleModal}>
+      <Button type="primary" className="mb-20" onClick={handleModal} disabled={disableAction}>
         Create
       </Button>
       <Table  

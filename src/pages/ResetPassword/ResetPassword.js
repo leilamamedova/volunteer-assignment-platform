@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const {Title} = Typography;
 
 const ResetPassword = () => {
-    const queryParams = new URLSearchParams(window.location.search)
+    const queryParams = new URLSearchParams(window.location.search);
     const token = queryParams.get("token");
     const email = queryParams.get("email");
 
