@@ -77,7 +77,7 @@ const useStore = create((set) => ({
     set((state) => ({ overallAssignments: data })),
   volunteerDemographics: {},
   setVolunteerDemographics: (data) =>
-    set((state) => ({ volunteerDemographics: data })),
+    set((state) => ({ volunteerDemographics: data })), 
 }));
 
 export default useStore;
