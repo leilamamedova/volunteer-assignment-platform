@@ -5,6 +5,7 @@ import AdminLayout from "../layouts/AdminLayout/AdminLayout";
 import AuthLayout from "../layouts/AuthLayout/AuthLayout.js";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Login from "../pages/Login/Login";
+import NotFound from "../pages/NotFound/NotFound";
 import ChangePassword from "../pages/ChangePassword/ChangePassword";
 import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword/ResetPassword";
@@ -52,6 +53,7 @@ const AppRoutes = () => {
           <Route element={<ResetPasswordProvider/>}>
             <Route path={`/auth/Users/resetPassword`} element={<ResetPassword />} />
           </Route>
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
     </Router>
