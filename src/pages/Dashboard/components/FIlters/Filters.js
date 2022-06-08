@@ -48,6 +48,7 @@ const Filters = ({showUserData=false}) => {
   const [venue, setVenue] = useState([]);
   const [status, setStatus] = useState([]);
   const [location, setLocation] = useState([]);
+  const [role, setRole] = useState([]);
 
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
@@ -70,13 +71,58 @@ const Filters = ({showUserData=false}) => {
   }, [roleOffers]);
 
   useEffect(() => {
-    entity.length > 0 && setIsFADisabled(false);
-    entity.length > 0  && functionalArea.length > 0 && setIsJobTitleDisabled(false);
-    entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && setIsVenueDisabled(false);
-    !showUserData && entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && venue.length > 0 && setSubmitDisabled(false);
-    showUserData && entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && venue.length > 0 && setStatusDisabled(false);
-    entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && venue.length > 0 && status.length > 0 && setLocatiobDisabled(false);
-    entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && venue.length > 0 && status.length > 0 && location.length > 0 && setSubmitDisabled(false)
+    if(entity.length > 0){
+      setIsFADisabled(false);
+    }else{
+      setIsFADisabled(true);
+      setIsJobTitleDisabled(true);
+      setIsVenueDisabled(true);
+      if(showUserData) {
+        setStatusDisabled(true);
+        setLocatiobDisabled(true);
+      } 
+    }
+    if(entity.length > 0  && functionalArea.length > 0) {
+      setIsJobTitleDisabled(false);
+    }else{
+      setIsJobTitleDisabled(true);
+      setIsVenueDisabled(true);
+      if(showUserData) {
+        setStatusDisabled(true);
+        setLocatiobDisabled(true);
+      } 
+    }
+    if( entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0){
+      setIsVenueDisabled(false)
+    }else{
+      setIsVenueDisabled(true);
+      if(showUserData) {
+        setStatusDisabled(true);
+        setLocatiobDisabled(true);
+      } 
+    }
+    if(entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && venue.length > 0){
+      if(showUserData) {
+        setStatusDisabled(false);
+      } else{
+        setSubmitDisabled(false);
+      }
+    }else{
+      if(showUserData) {
+        setStatusDisabled(true);
+        setLocatiobDisabled(true);
+      } else{
+        setSubmitDisabled(true);
+      }
+    }
+    if(entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && venue.length > 0 && status.length > 0){
+      setLocatiobDisabled(false);
+    }else{
+      setLocatiobDisabled(true);
+    }
+    if(entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && venue.length > 0 && status.length > 0 && location.length > 0){
+      setSubmitDisabled(false);
+    }
   }, [entity, functionalArea, jobTitle, location, venue, status, showUserData])
 
   //Submit Handler Logic
@@ -115,6 +161,13 @@ const Filters = ({showUserData=false}) => {
   };
 
   const handleEntityChange = (value) => {
+    setFunctionalArea([]);
+    setJobTitle([]);
+    setVenue([]);
+    if(showUserData){
+      setStatus([]);
+      setLocation([]);
+    }
     setEntity(value);
     let functionalAreaData = [];
     value.forEach(value => { functionalAreaData.push(roleOffers.find(c => c.name === value)) })
@@ -123,6 +176,12 @@ const Filters = ({showUserData=false}) => {
   };
 
   const handleFAChange = (value) => { 
+    setJobTitle([]);
+    setVenue([]);
+    if(showUserData){
+      setStatus([]);
+      setLocation([]);
+    }
     setFunctionalArea(value)
     let jobTitleData = [];
     value.forEach(value => { jobTitleData.push(functionalAreas.find(c => c.name === value)) })
@@ -130,21 +189,33 @@ const Filters = ({showUserData=false}) => {
     setJobTitles(jobTitleMerged);
   };
   const handleJobTitleChange = (value) => {
-    setJobTitle(value)
+    setVenue([]);
+    if(showUserData){
+      setStatus([]);
+      setLocation([]);
+    }
+    setJobTitle(value);
     let venueData = [];
     value.forEach(value => { venueData.push(jobTitles.find(c => c.name === value)) })
-    let venueMerged = removeDuplicateObjectFromArray([].concat.apply([],  venueData.map(item => item.locations)))
+    const locations = [].concat.apply([],  venueData.map(item => item.locations));
+    setRole(locations.map(el => {return {'venue': el.name, 'roleId': el.roleOffer.id}}));
+    let venueMerged = removeDuplicateObjectFromArray(locations);
     setVenues(venueMerged);
   };
   const handleVenueChange = (value) => {
+    const roles = role.filter(el => value.includes(el.venue));
+    if(showUserData){
+      setStatus([]);
+      setLocation([]);
+    }
     setVenue(value);
-    let roleId = [];
-    value.forEach(value => { roleId.push(venues.find(c => c.name === value)) });
-    const idList = roleId.map(el => el.roleOffer.id)
+    let idList = [];
+    roles.map(el => idList.push(el.roleId));
     setRoleOfferId(idList);
   };
 
   const handleStatusChange = (value) => {
+    setLocation([]);
     setStatus(value);
   };
 
