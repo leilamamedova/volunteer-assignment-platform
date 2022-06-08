@@ -49,6 +49,7 @@ const Filters = ({showUserData=false}) => {
   const [status, setStatus] = useState([]);
   const [location, setLocation] = useState([]);
   const [role, setRole] = useState([]);
+  const [roleId, setRoleId] = useState([]);
 
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
@@ -157,7 +158,7 @@ const Filters = ({showUserData=false}) => {
       "startingAges": [65],
     }
     e.preventDefault();
-    showUserData ?  VolunteerDemographicsPost(data,setVolunteerDemographics,setDataLoading) : OverallAssignmentsPost(roleOfferId, setOverallAssignments, setDataLoading);
+    showUserData ?  VolunteerDemographicsPost(data,setVolunteerDemographics,setDataLoading) : OverallAssignmentsPost(roleId, setOverallAssignments, setDataLoading);
   };
 
   const handleEntityChange = (value) => {
@@ -198,7 +199,7 @@ const Filters = ({showUserData=false}) => {
     let venueData = [];
     value.forEach(value => { venueData.push(jobTitles.find(c => c.name === value)) })
     const locations = [].concat.apply([],  venueData.map(item => item.locations));
-    setRole(locations.map(el => {return {'venue': el.name, 'roleId': el.roleOffer.id}}));
+    setRole(locations.map(el => {return {'venue': el.name, 'roleId': el.roleOffer.id, 'roleOfferId': el.roleOffer.role_offer_id}}));
     let venueMerged = removeDuplicateObjectFromArray(locations);
     setVenues(venueMerged);
   };
@@ -207,11 +208,14 @@ const Filters = ({showUserData=false}) => {
     if(showUserData){
       setStatus([]);
       setLocation([]);
+      let idList = [];
+      roles.map(el => idList.push(el.roleOfferId));
+      setRoleOfferId(idList);
     }
     setVenue(value);
     let idList = [];
     roles.map(el => idList.push(el.roleId));
-    setRoleOfferId(idList);
+    setRoleId(idList);
   };
 
   const handleStatusChange = (value) => {
