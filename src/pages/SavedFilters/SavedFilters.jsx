@@ -5,14 +5,19 @@ import useStore from "../../services/store";
 import NewFilterTemplateModal from "../../components/NewFilterTemplateModal/NewFilterTemplateModal";
 import FilterTemplateModal from "../../components/FilterTemplateModal/FilterTemplateModal";
 import ListModal from "../../components/ListModal/ListModal";
-import { SavedFiltersGet, UsersFieldsFetch } from "../../services/fetch";
+import {
+  SavedFiltersGet,
+  UsersFieldsFetch,
+  NewUsersFieldsFetch,
+} from "../../services/fetch";
 import { getColumnSearchProps } from "../../components/UsersTable/ColumnSearch/ColumnSearch";
-import './SavedFilters.scss';
+import "./SavedFilters.scss";
 
 function SavedFilters() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-  const [isFilterListModalVisible, setIsFilterListModalVisible] = useState(false);
+  const [isFilterListModalVisible, setIsFilterListModalVisible] =
+    useState(false);
   const [id, setId] = useState("");
   const [disableAction, setDisableAction] = useState(true);
 
@@ -22,30 +27,41 @@ function SavedFilters() {
   const filterFields = useStore((state) => state.filterFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
-  const setUsersDataFields = useStore(({ setUsersDataFields }) => setUsersDataFields);
-  const systemRole = useStore(({ systemRole }) => systemRole);  
+  const setUsersDataFields = useStore(
+    ({ setUsersDataFields }) => setUsersDataFields
+  );
+  const setNewUsersDataFields = useStore(
+    ({ setNewUsersDataFields }) => setNewUsersDataFields
+  );
+
+  const systemRole = useStore(({ systemRole }) => systemRole);
 
   useEffect(() => {
-    systemRole.some(el => el === 'Admin') ? setDisableAction(false) : setDisableAction(true);
-  }, [systemRole])
+    systemRole.some((el) => el === "Admin")
+      ? setDisableAction(false)
+      : setDisableAction(true);
+  }, [systemRole]);
 
   useEffect(() => {
-    addFavoriteFilter(favoriteFilters)
-  },[favoriteFilters])
+    addFavoriteFilter(favoriteFilters);
+  }, [favoriteFilters]);
 
   useEffect(() => {
     SavedFiltersGet(addFavoriteFilter, setDataLoading);
-    UsersFieldsFetch(setUsersDataFields);    
-  }, [])
+    UsersFieldsFetch(setUsersDataFields);
+    NewUsersFieldsFetch(setNewUsersDataFields);
+  }, []);
 
-  const handleDelete = (id) => {    
-    fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates/delete/${id}`, { method: 'DELETE' })
-    .then(response => response.json())
-    .then((data) => {
-      message.success('Success!');
-      SavedFiltersGet(addFavoriteFilter);
+  const handleDelete = (id) => {
+    fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates/delete/${id}`, {
+      method: "DELETE",
     })
-    .catch((err) => message.error(err.message))
+      .then((response) => response.json())
+      .then((data) => {
+        message.success("Success!");
+        SavedFiltersGet(addFavoriteFilter);
+      })
+      .catch((err) => message.error(err.message));
   };
 
   const handleModal = () => {
@@ -71,9 +87,9 @@ function SavedFilters() {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      ...getColumnSearchProps('name')
+      ...getColumnSearchProps("name"),
     },
-    { 
+    {
       title: "Filters List",
       dataIndex: "filters",
       key: "filters",
@@ -110,15 +126,20 @@ function SavedFilters() {
 
   return (
     <div>
-      <Button type="primary" className="mb-20" onClick={handleModal} disabled={disableAction}>
+      <Button
+        type="primary"
+        className="mb-20"
+        onClick={handleModal}
+        disabled={disableAction}
+      >
         Create
       </Button>
-      <Table  
-        columns={columns} 
+      <Table
+        columns={columns}
         dataSource={favoriteFilters}
         loading={dataLoading}
-        scroll={{y: 500}}
-       />
+        scroll={{ y: 500 }}
+      />
       <NewFilterTemplateModal
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
@@ -131,7 +152,7 @@ function SavedFilters() {
       <ListModal
         isModalVisible={isFilterListModalVisible}
         setIsModalVisible={setIsFilterListModalVisible}
-        list = {filterFields}
+        list={filterFields}
       />
     </div>
   );

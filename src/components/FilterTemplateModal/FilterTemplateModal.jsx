@@ -13,8 +13,8 @@ function FilterTemplateModal(props) {
 
     for (let i = 0; i < filterFields.length; i++) {
       if (
-        filterFields[i].requirement_name == "" ||
-        filterFields[i].operator == ""
+        filterFields[i].requirement_name === "Requirement" ||
+        filterFields[i].operator === "Operator"
       ) {
         isFound = true;
       }
