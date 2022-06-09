@@ -11,6 +11,7 @@ function AssignButton(props) {
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setPagination = useStore(({ setPagination }) => setPagination);
+  const userEmail = useStore(({ userEmail }) => userEmail);
 
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -27,6 +28,7 @@ function AssignButton(props) {
         id: el,
         role_offer_id: activeRoleOfferId,
         status: "Pre-assigned",
+        email: userEmail,
       })
     );
     console.log("postData", postData);
