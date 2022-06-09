@@ -11,6 +11,7 @@ function WaitlistButton(props) {
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setPagination = useStore(({ setPagination }) => setPagination);
+  const userEmail = useStore(({ userEmail }) => userEmail);
 
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -28,6 +29,7 @@ function WaitlistButton(props) {
         id: el,
         role_offer_id: activeRoleOfferId,
         status: "WaitlistOffered",
+        email: userEmail,
       })
     );
     console.log(postData);
