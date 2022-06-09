@@ -85,7 +85,7 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
       volunteer_filters: filterFields || [],
       role_offer_filters: ROfilterFields || [],
     };
-    fetch("https://vap-microservices.herokuapp.com/api/Reports", {
+    fetch("https://vap-microservices.herokuapp.com/api/Reports/update", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
