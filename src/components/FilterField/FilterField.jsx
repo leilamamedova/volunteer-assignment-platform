@@ -73,7 +73,7 @@ function FilterField(props) {
         ]);
       });
     } else {
-      usersDataFields.map((item, index) => {
+      newUserFieldsArray.map((item, index) => {
         setRequirements((prev) => [
           ...prev,
           {
@@ -83,7 +83,7 @@ function FilterField(props) {
         ]);
       });
     }
-  }, [usersDataFields]);
+  }, [usersDataFields, newUserFieldsArray]);
 
   useEffect(() => {
     requirements.length > 0 ? setDataLoading(false) : setDataLoading(true);
@@ -154,8 +154,8 @@ function FilterField(props) {
       >
         <Option value={props.requirement}>{props.requirement}</Option>
         {requirements.map((el, index) => (
-          <Option key={index} value={el.value}>
-            {el.value}
+          <Option key={index} value={el.value[0]}>
+            {el.value[0]}
           </Option>
         ))}
       </Select>
