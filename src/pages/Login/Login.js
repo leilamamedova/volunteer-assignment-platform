@@ -20,9 +20,11 @@ const Login = () => {
         })
         .then((response) => {
             if (!response.ok) {
-            throw new Error(
-                `This is an HTTP error: The status is ${response.status}`
-            );
+                setLoading(false);
+                message.error('Incorrect username or password');
+                throw new Error(
+                    `This is an HTTP error: The status is ${response.status}`
+                );
             }
             return response.json();
         })
@@ -32,7 +34,6 @@ const Login = () => {
             navigate('/');
             setLoading(false);
         })
-        .catch((err) => message.error(err.message));
     }
 
     return (
