@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Select, Input, Space, Tag, DatePicker } from "antd";
+import { Select, Space, DatePicker } from "antd";
 import moment from "moment";
 import { DeleteFilled } from "@ant-design/icons";
 import useStore from "../../services/store";
+import { countries } from "../../data/countries";
 import "./FilterField.scss";
 const { Option } = Select;
 
@@ -107,10 +108,18 @@ function FilterField(props) {
         setDateTime(false);
       }
       if (selectedObject[1].type === "select") {
-        setEnumOptions(selectedObject[1].value_options);
-        setSelectEnum(true);
-        setIsInput(false);
-        setDateTime(false);
+        if (e === "residence_country" || e === "nationality") {
+          const transformCountries = selectedObject[1].value_options.map(
+            (el) => countries[el]
+          );
+          setEnumOptions(transformCountries);
+        } else {
+          setEnumOptions(selectedObject[1].value_options);
+
+          setSelectEnum(true);
+          setIsInput(false);
+          setDateTime(false);
+        }
       }
       if (selectedObject[1].value_type === "date") {
         setDateTime(true);
