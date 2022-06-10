@@ -43,7 +43,7 @@ const EditRequirementsModal = (
             if (el.key === selectedRow ) {
                 el['requirements'] = filterFields;
                 el['level_of_confidence'] = confidence;
-                el['waitlist_count'] = waitlist;
+                el['waitlist_demand'] = waitlist;
                 el['total_demand'] = count;
                 el['role_offer_id'] = el.key;
 
