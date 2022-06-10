@@ -25,7 +25,7 @@ const FunctionAndRequirements = () => {
                 <Space direction='horizontal' align='middle'>
                     <BulkImport title={'Roles'} url={roleOffersUrl}/>
                     <BulkImport title={'Requirements'} url={functionalRequirementsUrl}/>
-                    <BulkImport title={'Statistics'} url={statisticsUrl}/>
+                    <BulkImport title={'Requirement Details'} url={statisticsUrl}/>
                 </Space>
             </Row>
             :

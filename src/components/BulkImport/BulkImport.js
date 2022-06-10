@@ -27,7 +27,7 @@ const BulkImport = ({ title, url }) => {
       }
       if (info.file.status === "done") {
         message.success(`${info.file.name} file uploaded successfully`);
-        if (title === "Roles" || "Requirements" || "Statistics") {
+        if (title === "Roles" || "Requirements" || "Requirement Details") {
           RoleOffersFetch(setRoleOffers, setDataLoading);
         } else if (title === "Users") {
           FilterUserFetch(
