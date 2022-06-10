@@ -37,7 +37,7 @@ const FunctionAndRequirementsTable = () => {
               setData(prev => [...prev,
                 { 
                   key: venue.roleOffer.id,
-                  id: venue.roleOffer.id,
+                  id: venue.roleOffer.role_offer_id,
                   functionalAreaType: offer.name,
                   functionalAreaCode: fa.code,
                   functionalArea: fa.name,
@@ -138,12 +138,12 @@ const FunctionAndRequirementsTable = () => {
       dataIndex: "levelOfConfidence",
     },
     {
-      title: "Waitlist Demand",
-      dataIndex: "waitlistDemand",
-    },
-    {
       title: "Assignee Demand",
       dataIndex: "assigneeDemand",
+    },
+    {
+      title: "Waitlist Demand",
+      dataIndex: "waitlistDemand",
     },
     {
       title: "Functional Requirements",
