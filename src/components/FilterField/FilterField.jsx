@@ -63,15 +63,14 @@ function FilterField(props) {
 
   useEffect(() => {
     if (props.isRoleOffer) {
+      const arr = [];
       ROLE_OFFER_DATA.map((item, index) => {
-        setRequirements((prev) => [
-          ...prev,
-          {
-            id: index,
-            value: item,
-          },
-        ]);
+        arr.push({
+          id: index,
+          value: item,
+        });
       });
+      setRequirements(arr);
     } else {
       newUserFieldsArray.map((item, index) => {
         setRequirements((prev) => [
@@ -101,6 +100,7 @@ function FilterField(props) {
     newUserFieldsArray.forEach((el) =>
       el[0] === e ? (selectedObject = el) : ""
     );
+    console.log(selectedObject);
     if (selectedObject) {
       if (selectedObject[1].type === "input") {
         setIsInput(true);
@@ -115,11 +115,10 @@ function FilterField(props) {
           setEnumOptions(transformCountries);
         } else {
           setEnumOptions(selectedObject[1].value_options);
-
-          setSelectEnum(true);
-          setIsInput(false);
-          setDateTime(false);
         }
+        setSelectEnum(true);
+        setIsInput(false);
+        setDateTime(false);
       }
       if (selectedObject[1].value_type === "date") {
         setDateTime(true);
