@@ -102,7 +102,7 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
 
   return (
     <Modal
-      className="min-w-50vw"
+      className="min-w-50vw report-edit"
       visible={isEditModal}
       onOk={handleOk}
       onCancel={handleCancel}

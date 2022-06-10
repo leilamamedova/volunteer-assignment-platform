@@ -4,6 +4,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import { FilterUserFetch, RoleOffersFetch } from "../../services/fetch";
 import useStore from "../../services/store";
 import "./BulkImport.scss";
+import { useState } from "react";
 
 const BulkImport = ({ title, url }) => {
   const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
@@ -12,6 +13,7 @@ const BulkImport = ({ title, url }) => {
   const setPagination = useStore(({ setPagination }) => setPagination);
   const filterFields = useStore(({ filterFields }) => filterFields);
   const userEmail = useStore(({ userEmail }) => userEmail);
+  const [showUploadList, setShowUploadList] = useState(true);
 
   const props = {
     name: "file",
@@ -22,12 +24,14 @@ const BulkImport = ({ title, url }) => {
     accept:
       ".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel",
     onChange(info) {
+      setShowUploadList(true);
       if (info.file.status !== "uploading") {
         console.log(info);
       }
       if (info.file.status === "done") {
+        setShowUploadList(false);
         message.success(`${info.file.name} file uploaded successfully`);
-        if (title === "Roles" || "Requirements" || "Requirement Details") {
+        if (title === "Roles" || "Role Requirements" || "Role Details") {
           RoleOffersFetch(setRoleOffers, setDataLoading);
         } else if (title === "Users") {
           FilterUserFetch(
@@ -40,6 +44,7 @@ const BulkImport = ({ title, url }) => {
           );
         }
       } else if (info.file.status === "error") {
+        setShowUploadList(false);
         message.error(`${info.file.name} file upload failed.`);
       }
     },
@@ -47,7 +52,7 @@ const BulkImport = ({ title, url }) => {
 
   return (
     <div className="bulk-import">
-      <Upload {...props} maxCount={1}>
+      <Upload {...props} maxCount={1} showUploadList={showUploadList}>
         <Button icon={<UploadOutlined />}>Import {title}</Button>
       </Upload>
     </div>

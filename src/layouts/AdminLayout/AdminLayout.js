@@ -146,6 +146,7 @@ const MainLayout = () => {
             mode="inline"
             selectedKeys={activeMenu}
             items={sideMenu}
+            defaultOpenKeys={['2']}
           />
         }
       </Sider>
