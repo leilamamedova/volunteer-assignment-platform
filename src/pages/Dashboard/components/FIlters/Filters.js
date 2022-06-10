@@ -158,7 +158,7 @@ const Filters = ({showUserData=false}) => {
       "startingAges": [65],
     }
     e.preventDefault();
-    showUserData ?  VolunteerDemographicsPost(data,setVolunteerDemographics,setDataLoading) : OverallAssignmentsPost(roleId, setOverallAssignments, setDataLoading);
+    showUserData ?  VolunteerDemographicsPost(data,setVolunteerDemographics,setDataLoading) : OverallAssignmentsPost(roleOfferId, setOverallAssignments, setDataLoading);
   };
 
   const handleEntityChange = (value) => {
@@ -205,17 +205,17 @@ const Filters = ({showUserData=false}) => {
   };
   const handleVenueChange = (value) => {
     const roles = role.filter(el => value.includes(el.venue));
+    let idList = [];
+    roles.map(el => idList.push(el.roleOfferId));
+    setRoleOfferId(idList);
     if(showUserData){
       setStatus([]);
       setLocation([]);
-      let idList = [];
-      roles.map(el => idList.push(el.roleOfferId));
-      setRoleOfferId(idList);
     }
     setVenue(value);
-    let idList = [];
-    roles.map(el => idList.push(el.roleId));
-    setRoleId(idList);
+    // let idList = [];
+    // roles.map(el => idList.push(el.roleId));
+    // setRoleId(idList);
   };
 
   const handleStatusChange = (value) => {
