@@ -54,9 +54,18 @@ const AssigningTo = () => {
 
   useEffect(() => {
     entity.length > 0 && setIsFADisabled(false);
-    entity.length > 0  && functionalArea.length > 0 && setIsJobTitleDisabled(false);
-    entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 &&  setIsVenueDisabled(false);
-    entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && location.length > 0 && setSubmitDisabled(false);
+    entity.length > 0 &&
+      functionalArea.length > 0 &&
+      setIsJobTitleDisabled(false);
+    entity.length > 0 &&
+      functionalArea.length > 0 &&
+      jobTitle.length > 0 &&
+      setIsVenueDisabled(false);
+    entity.length > 0 &&
+      functionalArea.length > 0 &&
+      jobTitle.length > 0 &&
+      location.length > 0 &&
+      setSubmitDisabled(false);
   }, [entity, functionalArea, location, jobTitle]);
 
   //Submit Handler Logic
@@ -74,7 +83,7 @@ const AssigningTo = () => {
       setSelectedRoleOffer(offer);
     }
   };
-
+  console.log(locations);
   //Select Boxes will be Enabled by order (top->bottom)
   //On every change options for the next select box will change
   //according to the selected value;
@@ -108,8 +117,6 @@ const AssigningTo = () => {
     );
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
-    console.log("NEW VENUES");
-    console.log(venueData);
     setLocations(venueData);
   };
   const handleVenueChange = (value, location) => {
@@ -190,7 +197,7 @@ const AssigningTo = () => {
                 Venue
               </Option>
               {locations.map((el, index) => (
-                <Option key={index} value={el.roleOffer.id}>
+                <Option key={index} value={el.roleOffer.role_offer_id}>
                   {el.name}
                 </Option>
               ))}

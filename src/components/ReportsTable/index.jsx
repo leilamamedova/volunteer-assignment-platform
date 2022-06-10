@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
-import { Table, Space, Typography } from "antd";
-import { DownloadOutlined } from "@ant-design/icons";
+import { Table, Space, Typography, Button } from "antd";
+import {
+  DownloadOutlined,
+  DeleteTwoTone,
+  EditTwoTone,
+} from "@ant-design/icons";
 import { getColumnSearchProps } from "./ColumnSearch/index";
 import EditReportModal from "./EditReportModal/index";
 import useStore from "../../services/store";
@@ -16,6 +20,35 @@ function ReportsTable() {
   const [data, setData] = useState([]);
   const [id, setId] = useState();
   const [editModal, setEditModal] = useState(false);
+
+  const handleDocumentDownload = (id) => {
+    const template = reportTemplates.find((el) => el.id === id);
+
+    if (template) {
+      fetch(`${process.env.REACT_APP_API_BASE}/report`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          template_name: template.name,
+          role_columns: template.role_offer_columns,
+          vol_columns: template.volunteer_columns,
+          role_filters: template.role_offer_filters,
+          vol_filters: template.volunteer_filters,
+        }),
+      })
+        .then((res) => res.blob())
+        .then((blob) => window.URL.createObjectURL(blob))
+        .then((uril) => {
+          let a = document.createElement("a");
+          a.href = uril;
+          a.download = `${template.name}.xlsx`;
+          a.click();
+        })
+        .catch((err) => console.log(err));
+    }
+  };
 
   const handleDelete = (id) => {
     fetch(`${process.env.REACT_APP_VAP_API_BASE}/Reports/${id}`, {
@@ -64,28 +97,36 @@ function ReportsTable() {
     },
     {
       title: "Document",
-      dataIndex: "downloadLink",
+      dataIndex: "id",
       key: "document",
       render: (el) => (
-        <a className="download-document" href={el} download>
-          <Space>
-            Download
-            <DownloadOutlined />
-          </Space>
-        </a>
+        <Button
+          onClick={() => handleDocumentDownload(el)}
+          icon={<DownloadOutlined />}
+        >
+          Download
+        </Button>
       ),
     },
     {
       title: "Edit",
       dataIndex: "id",
       key: "edit",
-      render: (el) => <Link onClick={() => handleEdit(el)}>Edit</Link>,
+      render: (el) => (
+        <Link onClick={() => handleEdit(el)}>
+          <EditTwoTone />
+        </Link>
+      ),
     },
     {
       title: "Delete",
       dataIndex: "id",
       key: "delete",
-      render: (el) => <Link onClick={() => handleDelete(el)}>Delete</Link>,
+      render: (el) => (
+        <Link onClick={() => handleDelete(el)}>
+          <DeleteTwoTone />
+        </Link>
+      ),
     },
   ];
 
