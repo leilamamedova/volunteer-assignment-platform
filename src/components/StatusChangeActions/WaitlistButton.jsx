@@ -15,7 +15,7 @@ function WaitlistButton(props) {
 
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}`;
+  const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}/?email=${userEmail}`;
 
   useEffect(() => {
     activeRoleOfferId === 0 ? setIsDisabled(true) : setIsDisabled(false);

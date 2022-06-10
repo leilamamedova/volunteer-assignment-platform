@@ -85,7 +85,7 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
       volunteer_filters: filterFields || [],
       role_offer_filters: ROfilterFields || [],
     };
-    fetch("https://vap-microservices.herokuapp.com/api/Reports/update", {
+    fetch(`${process.env.REACT_APP_VAP_API_BASE}/Reports/update`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -95,6 +95,7 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
       .then((res) => {
         console.log(res);
         ReportTemplateFetch(setReportTemplates);
+        window.location.reload();
       })
       .catch((err) => message.error(err));
   };
@@ -162,7 +163,7 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
       <h1>Volunteer Filters</h1>
       <FilterWrapper />
       <h1 className="mt-20">Role Offer Filters</h1>
-      <ROFilterWrapper />
+      <ROFilterWrapper isRoleOffer={true} />
     </Modal>
   );
 }

@@ -9,7 +9,7 @@ function FreeButton(props) {
   const setPagination = useStore(({ setPagination }) => setPagination);
   const userEmail = useStore(({ userEmail }) => userEmail);
 
-  const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/ChangeToAnyStatus`;
+  const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/ChangeToAnyStatus/?email=${userEmail}`;
 
   const handleFree = () => {
     const postData = props.data.map((el) =>

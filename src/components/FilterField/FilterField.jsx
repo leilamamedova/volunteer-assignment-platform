@@ -153,11 +153,17 @@ function FilterField(props) {
         onSelect={handleFieldSelect}
       >
         <Option value={props.requirement}>{props.requirement}</Option>
-        {requirements.map((el, index) => (
-          <Option key={index} value={el.value[0]}>
-            {el.value[0]}
-          </Option>
-        ))}
+        {requirements.map((el, index) =>
+          props.isRoleOffer ? (
+            <Option key={index} value={el.value}>
+              {el.value}
+            </Option>
+          ) : (
+            <Option key={index} value={el.value[0]}>
+              {el.value[0]}
+            </Option>
+          )
+        )}
       </Select>
       <Select
         className="selectWidthOperator"

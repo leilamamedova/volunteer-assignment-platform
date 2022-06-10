@@ -12,12 +12,19 @@ function Submit() {
   const ROfilterFields = useStore((state) => state.ROfilterFields);
 
   useEffect(() => {
-    if (templateReportName.trim() === "") {
+    console.log(reportColumns);
+    if (
+      templateReportName.trim() === "" ||
+      typeof reportColumns === "undefined" ||
+      reportColumns == [] ||
+      typeof reportROColumns === "undefined" ||
+      reportROColumns == []
+    ) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [templateReportName]);
+  }, [templateReportName, reportColumns, reportROColumns]);
 
   const handleSubmit = () => {
     console.log("Handling...");
@@ -37,7 +44,7 @@ function Submit() {
     })
       .then((res) => {
         ReportTemplateFetch(setReportTemplates);
-        console.log(res);
+        window.location.reload();
       })
       .catch((err) => console.log(err));
   };
