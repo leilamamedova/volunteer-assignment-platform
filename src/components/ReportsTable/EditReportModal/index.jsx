@@ -39,6 +39,10 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
   );
 
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
+  const NewUsersDataFields = useStore(
+    ({ NewUsersDataFields }) => NewUsersDataFields
+  );
+
   useEffect(() => {
     console.log(reportTemplate);
     setReportColumns(reportTemplate.volunteer_columns);
@@ -54,8 +58,11 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
     console.log(ROfilterFields);
   }, [ROfilterFields]);
   useEffect(() => {
-    setUserFields(usersDataFields);
-  }, []);
+    const arr = Object.entries(NewUsersDataFields);
+    console.log("--------");
+    console.log(arr);
+    setUserFields(arr);
+  }, [NewUsersDataFields]);
   useEffect(() => {
     setValues(selectedVolunteerColumns);
   }, [selectedVolunteerColumns]);
@@ -130,8 +137,8 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
         value={values}
       >
         {userFields.map((el, index) => (
-          <Option key={index} value={el}>
-            {el}
+          <Option key={index} value={el[0]}>
+            {el[0]}
           </Option>
         ))}
       </Select>

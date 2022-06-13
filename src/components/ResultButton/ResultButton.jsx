@@ -15,19 +15,24 @@ function ResultButton({ fetchFiltered }) {
 
   const getResults = (e) => {
     e.preventDefault();
-    filterFields.forEach((el) =>
-      el.operator === "Operator" || el.requirement_name === "Requirement"
-        ? warning()
-        : filterFields.length &&
-          fetchFiltered(
-            filterFields,
-            setUsersData,
-            setPagination,
-            setDataLoading,
-            1,
-            10
-          )
-    );
+    let isFound = false;
+    filterFields.forEach((el) => {
+      if (el.operator === "Operator" || el.requirement_name === "Requirement") {
+        isFound = true;
+        warning();
+      }
+    });
+    if (!isFound) {
+      filterFields.length &&
+        fetchFiltered(
+          filterFields,
+          setUsersData,
+          setPagination,
+          setDataLoading,
+          1,
+          10
+        );
+    }
   };
 
   return (
