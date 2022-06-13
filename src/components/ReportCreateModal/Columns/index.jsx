@@ -35,8 +35,8 @@ function Columns() {
     setUserFields(arr);
 
     return () => {
-      setValuesRO([]);
-      setValues([]);
+      setReportROColumns([]);
+      setSelectedVolunteerColumns([]);
     };
   }, []);
   useEffect(() => {

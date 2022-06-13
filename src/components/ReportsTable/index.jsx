@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Table, Space, Typography, Button } from "antd";
+import { Table, Typography, Button, message } from "antd";
 import {
   DownloadOutlined,
   DeleteTwoTone,
@@ -25,6 +25,7 @@ function ReportsTable() {
     const template = reportTemplates.find((el) => el.id === id);
 
     if (template) {
+      message.success("Attempting Download");
       fetch(`${process.env.REACT_APP_API_BASE}/report`, {
         method: "POST",
         headers: {
@@ -38,15 +39,23 @@ function ReportsTable() {
           vol_filters: template.volunteer_filters,
         }),
       })
-        .then((res) => res.blob())
-        .then((blob) => window.URL.createObjectURL(blob))
+        .then((res) => {
+          message.success("Document is ready to download !");
+          return res.blob();
+        })
+        .then((blob) => {
+          return window.URL.createObjectURL(blob);
+        })
         .then((uril) => {
           let a = document.createElement("a");
           a.href = uril;
           a.download = `${template.name}.xlsx`;
           a.click();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          message.error("Unknown Error Happened");
+          console.log(err);
+        });
     }
   };
 
