@@ -44,7 +44,8 @@ const History = ({userID}) => {
                 key: index,
                 status: item.status,
                 date: item.created_at.replaceAll('T', ' ').substring(0, 19),
-                role_offer: item.role_offer_id
+                role_offer: item.role_offer_id,
+                recorded_by: item.recorded_by
             }
         });
         setHistoryData(historyObject);
@@ -61,7 +62,7 @@ const History = ({userID}) => {
                 dataSource={historyData}
                 loading={dataLoading} 
                 pagination={false}
-                scroll={{y: 1200}}
+                scroll={{y: 300}}
             />
         </Space>    
     );

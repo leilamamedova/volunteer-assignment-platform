@@ -139,6 +139,9 @@ function SavedFilters() {
         dataSource={favoriteFilters}
         loading={dataLoading}
         scroll={{ y: 500 }}
+        pagination={{
+          defaultPageSize: 100
+        }}
       />
       <NewFilterTemplateModal
         isModalVisible={isModalVisible}

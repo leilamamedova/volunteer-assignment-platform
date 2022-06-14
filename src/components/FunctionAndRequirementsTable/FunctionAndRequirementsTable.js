@@ -171,6 +171,9 @@ const FunctionAndRequirementsTable = () => {
           columns={columns}
           dataSource={data}
           loading={dataLoading}
+          pagination={{
+            defaultPageSize: 100
+          }}
         />
       </div>
       <ListModal 

@@ -17,7 +17,6 @@ function ReportsTable() {
   const reportTemplates = useStore((state) => state.reportTemplates);
   const setReportTemplate = useStore((state) => state.setReportTemplate);
 
-  const [data, setData] = useState([]);
   const [id, setId] = useState();
   const [editModal, setEditModal] = useState(false);
 
@@ -150,6 +149,10 @@ function ReportsTable() {
         templateId={id}
         isEditModal={editModal}
         setIsEditModal={setEditModal}
+        scroll={{y: 500}}
+        pagination={{
+          defaultPageSize: 100
+        }}
       />
     </>
   );

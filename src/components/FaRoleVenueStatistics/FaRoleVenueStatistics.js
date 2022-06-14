@@ -30,6 +30,8 @@ const FaRoleVenueStatistics = () => {
                 }
             });
             setDataSource(data);
+        }else{
+            setDataSource([]);
         }
     }, [overallAssignments])
 
@@ -131,7 +133,7 @@ const FaRoleVenueStatistics = () => {
                     pagination={false} 
                     columns={columns} 
                     dataSource={dataSource} 
-                    scroll={{x: 2000}}
+                    scroll={{x: 2000, y: 500}}
                     loading={dataLoading}
                 />  
             </div>
