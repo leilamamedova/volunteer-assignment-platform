@@ -3,7 +3,7 @@ import { Button, Space, Typography } from "antd";
 import useStore from "../../services/store";
 import FilterField from "../FilterField/FilterField";
 import ResultButton from "../ResultButton/ResultButton";
-import { FilterUserFetch, UsersFetch } from "../../services/fetch";
+import { FilterUserFetch, NewUsersFieldsFetch, UsersFetch } from "../../services/fetch";
 import "./FilterWrapper.scss";
 
 const { Text } = Typography;
@@ -21,10 +21,12 @@ function FilterWrapper(props) {
   const resetFilterFields = useStore(
     ({ resetFilterFields }) => resetFilterFields
   );
+  const setNewUsersDataFields = useStore(({ setNewUsersDataFields }) => setNewUsersDataFields);
 
   //Everytime componenet loads, we are resetting the store
   useEffect(() => {
     resetFilterFields();
+    NewUsersFieldsFetch(setNewUsersDataFields);    
   }, []);
 
   // Creating a new field
@@ -68,6 +70,8 @@ function FilterWrapper(props) {
 
     UsersFetch(setUsersData, setPagination, setDataLoading, 1, 10);
   };
+
+  console.log("filterFields", filterFields);
   return (
     <>
       <div className={"card flexv overflow-y--auto"}>

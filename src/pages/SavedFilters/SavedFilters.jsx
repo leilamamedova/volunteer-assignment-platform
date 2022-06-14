@@ -20,13 +20,12 @@ function SavedFilters() {
     useState(false);
   const [id, setId] = useState("");
   const [disableAction, setDisableAction] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const favoriteFilters = useStore((state) => state.favoriteFilters);
   const addFavoriteFilter = useStore((state) => state.addFavoriteFilter);
   const setFilterFields = useStore((state) => state.setFilterFields);
   const filterFields = useStore((state) => state.filterFields);
-  const dataLoading = useStore(({ dataLoading }) => dataLoading);
-  const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const setUsersDataFields = useStore(
     ({ setUsersDataFields }) => setUsersDataFields
   );
@@ -44,10 +43,11 @@ function SavedFilters() {
 
   useEffect(() => {
     addFavoriteFilter(favoriteFilters);
+    favoriteFilters.length>0 ? setLoading(false) : setLoading(true);
   }, [favoriteFilters]);
 
   useEffect(() => {
-    SavedFiltersGet(addFavoriteFilter, setDataLoading);
+    SavedFiltersGet(addFavoriteFilter);
     UsersFieldsFetch(setUsersDataFields);
     NewUsersFieldsFetch(setNewUsersDataFields);
   }, []);
@@ -137,7 +137,7 @@ function SavedFilters() {
       <Table
         columns={columns}
         dataSource={favoriteFilters}
-        loading={dataLoading}
+        loading={loading}
         scroll={{ y: 500 }}
         pagination={{
           defaultPageSize: 100

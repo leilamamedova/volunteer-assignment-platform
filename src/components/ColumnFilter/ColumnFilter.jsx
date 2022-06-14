@@ -39,6 +39,7 @@ function ColumnFilter({ columns, handleColumns }) {
         optionFilterProp="children"
         onChange={onChange}
         value={checkedOptions}
+        className="scrolling-tags"
         dropdownRender={(menu) => (
           <>
           {menu}   

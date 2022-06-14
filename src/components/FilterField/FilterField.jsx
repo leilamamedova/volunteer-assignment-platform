@@ -195,12 +195,12 @@ function FilterField(props) {
           mode="tags"
           allowClear
           style={{
-            width: "140px",
+            width: "200px",
             height: "52px",
           }}
           placeholder="Type Values"
-          defaultValue={tagsArray}
           onChange={handleChange}
+          className="scrolling-tags"
         >
           {/* {children} */}
         </Select>
@@ -225,6 +225,7 @@ function FilterField(props) {
           onChange={handleEnumChange}
           defaultValue={[]}
           allowClear
+          className="scrolling-tags"
         >
           {enumOptions.map((el, index) => (
             <Option key={index} value={el}>
@@ -234,7 +235,7 @@ function FilterField(props) {
         </Select>
       )}
 
-      <Space>
+      <Space className="delete-filter">
         <DeleteFilled
           style={{ color: "red", fontSize: "1.5rem" }}
           onClick={() => props.handleDelete(props.id)}

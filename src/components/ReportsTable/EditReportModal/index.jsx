@@ -135,6 +135,7 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
         }
         onChange={handleChange}
         value={values}
+        className="scrolling-tags"
       >
         {userFields.map((el, index) => (
           <Option key={index} value={el[0]}>
@@ -159,6 +160,7 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
         }
         onChange={handleChangeRO}
         value={valuesRO}
+        className="scrolling-tags"
       >
         {ROLE_OFFER_FIELDS.map((el, index) => (
           <Option key={index} value={el}>

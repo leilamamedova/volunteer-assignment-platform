@@ -143,6 +143,7 @@ export const SavedFiltersGet = (addFavoriteFilter, setDataLoading) => {
       const mutateData = data.value.map((el) =>
         Object.assign(el, { key: el.id })
       );
+      console.log("Saved Filters", mutateData);
       addFavoriteFilter(mutateData);
       setDataLoading && setDataLoading(false);
     })

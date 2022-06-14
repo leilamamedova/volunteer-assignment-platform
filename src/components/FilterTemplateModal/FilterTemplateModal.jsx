@@ -61,7 +61,6 @@ function FilterTemplateModal(props) {
           .catch((err) => message.error(err.message));
 
         props.setIsModalVisible(false);
-        console.log("el", el);
       }
     });
   };
