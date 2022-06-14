@@ -24,6 +24,7 @@ function ReportCreateModal({ isModalVisible, setIsModalVisible }) {
   };
   return (
     <Modal
+      destroyOnClose
       className="create-report-modal"
       visible={isModalVisible}
       onOk={handleOk}

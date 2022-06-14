@@ -11,6 +11,7 @@ function AssignButton(props) {
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setPagination = useStore(({ setPagination }) => setPagination);
+  const userEmail = useStore(({ userEmail }) => userEmail);
 
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -19,7 +20,7 @@ function AssignButton(props) {
 
     return () => setIsDisabled(true);
   }, [activeRoleOfferId]);
-  const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}`;
+  const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}/?email=${userEmail}`;
 
   const handleAssign = () => {
     const postData = props.data.map((el) =>

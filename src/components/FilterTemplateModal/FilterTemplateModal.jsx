@@ -1,11 +1,30 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Modal, Button, message } from "antd";
 import FilterWrapper from "../FilterWrapper/FilterWrapper";
 import useStore from "../../services/store";
 
 function FilterTemplateModal(props) {
+  const [isDisabled, setIsDisabled] = useState(false);
   const filterFields = useStore((state) => state.filterFields);
   const favoriteFilters = useStore((state) => state.favoriteFilters);
+
+  useEffect(() => {
+    let isFound = false;
+
+    for (let i = 0; i < filterFields.length; i++) {
+      if (
+        filterFields[i].requirement_name === "Requirement" ||
+        filterFields[i].operator === "Operator"
+      ) {
+        isFound = true;
+      }
+    }
+    if (isFound) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  }, [filterFields]);
 
   const handleOk = () => {
     props.setIsModalVisible(false);
@@ -13,11 +32,11 @@ function FilterTemplateModal(props) {
 
   const handleCancel = () => {
     props.setIsModalVisible(false);
-  };  
+  };
 
   const handleSave = () => {
     favoriteFilters.map((el) => {
-      if (el.key === props.templateId ) {
+      if (el.key === props.templateId) {
         el.filters = filterFields;
 
         fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates/update`, {
@@ -37,14 +56,14 @@ function FilterTemplateModal(props) {
             return response.json();
           })
           .then((data) => {
-            message.success('Success!');
+            message.success("Success!");
           })
           .catch((err) => message.error(err.message));
 
         props.setIsModalVisible(false);
-        console.log('el', el)
-      }         
-    });     
+        console.log("el", el);
+      }
+    });
   };
 
   return (
@@ -58,7 +77,12 @@ function FilterTemplateModal(props) {
       className="templates-page-modal"
     >
       <FilterWrapper noReset={true} isFav={true} seeResultBtn={false} />
-      <Button className="mt-20" type="primary" onClick={handleSave}>
+      <Button
+        className="mt-20"
+        type="primary"
+        onClick={handleSave}
+        disabled={isDisabled}
+      >
         Save Changes
       </Button>
     </Modal>

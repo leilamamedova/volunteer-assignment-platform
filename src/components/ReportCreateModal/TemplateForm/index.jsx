@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Form, Input } from "antd";
 import useStore from "../../../services/store";
+import { useEffect } from "react";
 
 function TemplateForm() {
   const setTemplateReportName = useStore(
     (state) => state.setTemplateReportName
   );
+
   const [name, setName] = useState("");
 
   const handleChange = (e) => {
@@ -14,7 +16,7 @@ function TemplateForm() {
   };
 
   return (
-    <Form>
+    <Form preserve={false}>
       <Form.Item
         label="Template Name"
         rules={[

@@ -11,10 +11,11 @@ function WaitlistButton(props) {
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setPagination = useStore(({ setPagination }) => setPagination);
+  const userEmail = useStore(({ userEmail }) => userEmail);
 
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}`;
+  const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}/?email=${userEmail}`;
 
   useEffect(() => {
     activeRoleOfferId === 0 ? setIsDisabled(true) : setIsDisabled(false);
@@ -28,6 +29,7 @@ function WaitlistButton(props) {
         id: el,
         role_offer_id: activeRoleOfferId,
         status: "WaitlistOffered",
+        email: userEmail,
       })
     );
     console.log(postData);

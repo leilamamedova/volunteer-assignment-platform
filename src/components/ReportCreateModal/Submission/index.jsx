@@ -10,14 +10,59 @@ function Submit() {
   const reportROColumns = useStore((state) => state.reportROColumns);
   const filterFields = useStore((state) => state.filterFields);
   const ROfilterFields = useStore((state) => state.ROfilterFields);
+  const [filtersValid, setFiltersValid] = useState(false);
+  const [ROfiltersValid, setROfiltersValid] = useState(false);
+  function ValidateFilters(filterArray, isUser) {
+    let isFound = false;
+    if (filterArray.length > 0) {
+      filterArray.forEach((el) => {
+        if (
+          el.requirement_name === "Requirement" ||
+          el.operator === "Operator"
+        ) {
+          isFound = true;
+          if (isUser) {
+            setFiltersValid(false);
+          } else {
+            setROfiltersValid(false);
+          }
+        }
+      });
+      if (!isFound) {
+        if (isUser) {
+          setFiltersValid(true);
+        } else {
+          setROfiltersValid(true);
+        }
+      }
+    }
+  }
 
   useEffect(() => {
-    if (templateReportName.trim() === "") {
+    ValidateFilters(filterFields, true);
+    ValidateFilters(ROfilterFields);
+    if (
+      templateReportName.trim() === "" ||
+      typeof reportColumns === "undefined" ||
+      reportColumns == [] ||
+      typeof reportROColumns === "undefined" ||
+      reportROColumns == [] ||
+      filterFields.length === 0 ||
+      ROfilterFields.length === 0 ||
+      filtersValid === false ||
+      ROfiltersValid === false
+    ) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [templateReportName]);
+  }, [
+    templateReportName,
+    reportColumns,
+    reportROColumns,
+    filterFields,
+    ROfilterFields,
+  ]);
 
   const handleSubmit = () => {
     console.log("Handling...");
@@ -37,7 +82,7 @@ function Submit() {
     })
       .then((res) => {
         ReportTemplateFetch(setReportTemplates);
-        console.log(res);
+        window.location.reload();
       })
       .catch((err) => console.log(err));
   };

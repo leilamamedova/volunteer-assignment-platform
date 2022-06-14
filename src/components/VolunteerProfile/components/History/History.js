@@ -19,6 +19,11 @@ const columns = [
       dataIndex: 'role_offer',
       key: 'role_offer',
     },
+    {
+    title: 'User',
+    dataIndex: 'recorded_by',
+    key: 'recorded_by',
+    },
   ];
 
 const History = ({userID}) => {

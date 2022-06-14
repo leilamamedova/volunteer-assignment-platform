@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import {Typography, Form, Input, Button, message, Spin} from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
-import useStore from "../../services/store";
 
 const {Title} = Typography;
 
-const ChangePassword = () => {
+const ResetPassword = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const token = queryParams.get("token");
+    const email = queryParams.get("email");
+
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState('');
     const [helpText, setHelpText] = useState('');
-
-    const userEmail = useStore(({ userEmail }) => userEmail);  
     const navigate = useNavigate();
 
     const onSubmit = (values) => {
@@ -19,13 +20,13 @@ const ChangePassword = () => {
             setStatus('');
             setHelpText('');
             setLoading(true);
-            fetch(`${process.env.REACT_APP_VAP_AUTH_BASE}/changePassword`, {
+            fetch(`${process.env.REACT_APP_VAP_AUTH_BASE}/resetPassword`, {
                 method: "POST",
                 headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
                 },
-                body: JSON.stringify({oldPassword: values.oldPassword, newPassword: values.newPassword, email: userEmail}),
+                body: JSON.stringify({email: email, newPassword: values.newPassword, token: token}),
             })
             .then((response) => {
                 if (!response.ok) {
@@ -59,22 +60,6 @@ const ChangePassword = () => {
       }}
       onFinish = {onSubmit}
     >
-
-        <Form.Item
-            name="oldPassword"
-            rules={[
-            {
-                required: true,
-                message: 'Please input your previous password!',
-            },
-            ]}
-        >
-        <Input
-          type="password"
-          placeholder="Old password"
-          autoComplete="on"
-        />
-        </Form.Item>
 
         <Form.Item
             name="newPassword"
@@ -127,4 +112,4 @@ const ChangePassword = () => {
     )
 }
  
-export default ChangePassword;
+export default ResetPassword;

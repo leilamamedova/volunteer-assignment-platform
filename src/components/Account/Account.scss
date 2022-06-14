@@ -30,4 +30,10 @@
             margin-right: 21px;
         }
     } 
+    .ant-btn-link{ 
+        padding: 0;
+        span {
+          color: rgba(0,0,0,.85);
+        }
+      }
 }

@@ -77,7 +77,11 @@ const useStore = create((set) => ({
     set((state) => ({ overallAssignments: data })),
   volunteerDemographics: {},
   setVolunteerDemographics: (data) =>
-    set((state) => ({ volunteerDemographics: data })),
+    set((state) => ({ volunteerDemographics: data })), 
+  systemRole: '',
+  setSystemRole: (role) => set((state) => ({ systemRole: role })),
+  userEmail: '',
+  setUserEmail: (email) => set((state) => ({ userEmail: email })),
 }));
 
 export default useStore;

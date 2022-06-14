@@ -4,6 +4,7 @@ import FilterWrapper from '../../../FilterWrapper/FilterWrapper.jsx';
 import './EditRequirementsModal.scss';
 import useStore from '../../../../services/store.js';
 import LoadFilterTemplate from '../../../LoadFilterTemplate/LoadFilterTemplate.jsx';
+import { RoleOffersFetch } from '../../../../services/fetch.js';
 
 const EditRequirementsModal = (
     {
@@ -18,6 +19,8 @@ const EditRequirementsModal = (
     const functionalRequirements = useStore(({functionalRequirements})=>functionalRequirements);
     const favoriteFilters = useStore(({favoriteFilters})=>favoriteFilters);
     const selectedFavoriteFilters = useStore(({selectedFavoriteFilters})=>selectedFavoriteFilters);
+    const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
+    const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
     const [count, setCount] = useState();
     const [confidence, setConfidence] = useState();
@@ -40,7 +43,7 @@ const EditRequirementsModal = (
             if (el.key === selectedRow ) {
                 el['requirements'] = filterFields;
                 el['level_of_confidence'] = confidence;
-                el['waitlist_count'] = waitlist;
+                el['waitlist_demand'] = waitlist;
                 el['total_demand'] = count;
                 el['role_offer_id'] = el.key;
 
@@ -70,7 +73,9 @@ const EditRequirementsModal = (
                 message.success('Success!');
               })
             .catch((err) => message.error(err.message))
-            .finally(() =>  setRequirement({}))       
+            .finally(() =>  setRequirement({}))   
+        
+        RoleOffersFetch(setRoleOffers, setDataLoading);    
     }, [requirement])
 
     const handleCancel = () => {

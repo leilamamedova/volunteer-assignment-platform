@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Select, Input, Space, Tag, DatePicker } from "antd";
+import { Select, Space, DatePicker } from "antd";
 import moment from "moment";
 import { DeleteFilled } from "@ant-design/icons";
 import useStore from "../../services/store";
+import { countries } from "../../data/countries";
 import "./FilterField.scss";
 const { Option } = Select;
 
@@ -62,17 +63,16 @@ function FilterField(props) {
 
   useEffect(() => {
     if (props.isRoleOffer) {
+      const arr = [];
       ROLE_OFFER_DATA.map((item, index) => {
-        setRequirements((prev) => [
-          ...prev,
-          {
-            id: index,
-            value: item,
-          },
-        ]);
+        arr.push({
+          id: index,
+          value: item,
+        });
       });
+      setRequirements(arr);
     } else {
-      usersDataFields.map((item, index) => {
+      newUserFieldsArray.map((item, index) => {
         setRequirements((prev) => [
           ...prev,
           {
@@ -82,7 +82,7 @@ function FilterField(props) {
         ]);
       });
     }
-  }, [usersDataFields]);
+  }, [usersDataFields, newUserFieldsArray]);
 
   useEffect(() => {
     requirements.length > 0 ? setDataLoading(false) : setDataLoading(true);
@@ -100,6 +100,7 @@ function FilterField(props) {
     newUserFieldsArray.forEach((el) =>
       el[0] === e ? (selectedObject = el) : ""
     );
+    console.log(selectedObject);
     if (selectedObject) {
       if (selectedObject[1].type === "input") {
         setIsInput(true);
@@ -107,7 +108,14 @@ function FilterField(props) {
         setDateTime(false);
       }
       if (selectedObject[1].type === "select") {
-        setEnumOptions(selectedObject[1].value_options);
+        if (e === "residence_country" || e === "nationality") {
+          const transformCountries = selectedObject[1].value_options.map(
+            (el) => countries[el]
+          );
+          setEnumOptions(transformCountries);
+        } else {
+          setEnumOptions(selectedObject[1].value_options);
+        }
         setSelectEnum(true);
         setIsInput(false);
         setDateTime(false);
@@ -144,11 +152,17 @@ function FilterField(props) {
         onSelect={handleFieldSelect}
       >
         <Option value={props.requirement}>{props.requirement}</Option>
-        {requirements.map((el, index) => (
-          <Option key={index} value={el.value}>
-            {el.value}
-          </Option>
-        ))}
+        {requirements.map((el, index) =>
+          props.isRoleOffer ? (
+            <Option key={index} value={el.value}>
+              {el.value}
+            </Option>
+          ) : (
+            <Option key={index} value={el.value[0]}>
+              {el.value[0]}
+            </Option>
+          )
+        )}
       </Select>
       <Select
         className="selectWidthOperator"

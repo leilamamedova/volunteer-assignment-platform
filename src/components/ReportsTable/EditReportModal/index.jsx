@@ -39,6 +39,10 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
   );
 
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
+  const NewUsersDataFields = useStore(
+    ({ NewUsersDataFields }) => NewUsersDataFields
+  );
+
   useEffect(() => {
     console.log(reportTemplate);
     setReportColumns(reportTemplate.volunteer_columns);
@@ -54,8 +58,11 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
     console.log(ROfilterFields);
   }, [ROfilterFields]);
   useEffect(() => {
-    setUserFields(usersDataFields);
-  }, []);
+    const arr = Object.entries(NewUsersDataFields);
+    console.log("--------");
+    console.log(arr);
+    setUserFields(arr);
+  }, [NewUsersDataFields]);
   useEffect(() => {
     setValues(selectedVolunteerColumns);
   }, [selectedVolunteerColumns]);
@@ -85,7 +92,7 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
       volunteer_filters: filterFields || [],
       role_offer_filters: ROfilterFields || [],
     };
-    fetch("https://vap-microservices.herokuapp.com/api/Reports", {
+    fetch(`${process.env.REACT_APP_VAP_API_BASE}/Reports/update`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -95,13 +102,14 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
       .then((res) => {
         console.log(res);
         ReportTemplateFetch(setReportTemplates);
+        window.location.reload();
       })
       .catch((err) => message.error(err));
   };
 
   return (
     <Modal
-      className="min-w-50vw"
+      className="min-w-50vw report-edit"
       visible={isEditModal}
       onOk={handleOk}
       onCancel={handleCancel}
@@ -129,8 +137,8 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
         value={values}
       >
         {userFields.map((el, index) => (
-          <Option key={index} value={el}>
-            {el}
+          <Option key={index} value={el[0]}>
+            {el[0]}
           </Option>
         ))}
       </Select>
@@ -162,7 +170,7 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
       <h1>Volunteer Filters</h1>
       <FilterWrapper />
       <h1 className="mt-20">Role Offer Filters</h1>
-      <ROFilterWrapper />
+      <ROFilterWrapper isRoleOffer={true} />
     </Modal>
   );
 }

@@ -14,6 +14,11 @@
     left: 50%;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
+    .ant-btn-link{
+        position: absolute;
+        top: 10px;
+        left: 15px;
+    }
     & form {
         width: 350px;
         .ant-input-group-addon{
@@ -63,6 +68,15 @@
         display: block;
         &:hover{
             text-decoration: underline;
+        }
+    }
+    .not-found-page{
+        h1{
+            font-size: 150px;
+            margin-bottom: 0.1em;
+        }
+        span{
+            font-size: 20px;
         }
     }
 }

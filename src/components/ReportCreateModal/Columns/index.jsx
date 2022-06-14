@@ -26,10 +26,18 @@ function Columns() {
   const setReportROColumns = useStore(
     ({ setReportROColumns }) => setReportROColumns
   );
-  const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
+  const NewUsersDataFields = useStore(
+    ({ NewUsersDataFields }) => NewUsersDataFields
+  );
 
   useEffect(() => {
-    setUserFields(usersDataFields);
+    const arr = Object.entries(NewUsersDataFields);
+    setUserFields(arr);
+
+    return () => {
+      setReportROColumns([]);
+      setSelectedVolunteerColumns([]);
+    };
   }, []);
   useEffect(() => {
     setValues(selectedVolunteerColumns);
@@ -54,19 +62,19 @@ function Columns() {
             allowClear
             showSearch
             placeholder="Search to Select"
-            optionFilterProp="children"
-            filterOption={(input, option) => option.children.includes(input)}
-            filterSort={(optionA, optionB) =>
-              optionA.children
-                .toLowerCase()
-                .localeCompare(optionB.children.toLowerCase())
-            }
+            // optionFilterProp="children"
+            // filterOption={(input, option) => option.children.includes(input)}
+            // filterSort={(optionA, optionB) =>
+            //   optionA.children
+            //     .toLowerCase()
+            //     .localeCompare(optionB.children.toLowerCase())
+            // }
             onChange={handleChange}
             value={values}
           >
             {userFields.map((el, index) => (
-              <Option key={index} value={el}>
-                {el}
+              <Option key={index} value={el[0]}>
+                {el[0]}
               </Option>
             ))}
           </Select>
