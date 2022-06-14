@@ -115,6 +115,7 @@ const MatchingData = ({userID}) => {
                         dataSource={data} 
                         showHeader={false}
                         pagination={false}
+                        scroll={{y: 300}}
                     />
                 </Col>
 
@@ -125,6 +126,7 @@ const MatchingData = ({userID}) => {
                         dataSource={coincidences} 
                         showHeader={false}
                         pagination={false}
+                        scroll={{y: 300}}
                     />              
                 </Col>
             </Row>

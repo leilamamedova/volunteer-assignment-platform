@@ -28,7 +28,7 @@ function WaitlistButton(props) {
       Object.assign({
         id: el,
         role_offer_id: activeRoleOfferId,
-        status: "WaitlistOffered",
+        status: "Waitlist Offered",
         email: userEmail,
       })
     );

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Space, Select, Button, Checkbox, Divider } from "antd";
+import { Space, Select, Button, Checkbox, Divider, Row, Col } from "antd";
 import useStore from "../../../../services/store";
 import { OverallAssignmentsPost, RoleOffersFetch, VolunteerDemographicsPost } from "../../../../services/fetch";
 
@@ -39,8 +39,6 @@ const Filters = ({showUserData=false}) => {
   const [isJobTitleDisabled, setIsJobTitleDisabled] = useState(true);
   const [isVenueDisabled, setIsVenueDisabled] = useState(true);
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
-  const [isStatusDisabled, setStatusDisabled] = useState(true);
-  const [isLocationDisabled, setLocatiobDisabled] = useState(true);
 
   const [entity, setEntity] = useState([]);
   const [functionalArea, setFunctionalArea] = useState([]);
@@ -49,7 +47,6 @@ const Filters = ({showUserData=false}) => {
   const [status, setStatus] = useState([]);
   const [location, setLocation] = useState([]);
   const [role, setRole] = useState([]);
-  const [roleId, setRoleId] = useState([]);
 
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
@@ -78,51 +75,35 @@ const Filters = ({showUserData=false}) => {
       setIsFADisabled(true);
       setIsJobTitleDisabled(true);
       setIsVenueDisabled(true);
-      if(showUserData) {
-        setStatusDisabled(true);
-        setLocatiobDisabled(true);
-      } 
     }
     if(entity.length > 0  && functionalArea.length > 0) {
       setIsJobTitleDisabled(false);
     }else{
       setIsJobTitleDisabled(true);
       setIsVenueDisabled(true);
-      if(showUserData) {
-        setStatusDisabled(true);
-        setLocatiobDisabled(true);
-      } 
     }
     if( entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0){
       setIsVenueDisabled(false)
     }else{
       setIsVenueDisabled(true);
-      if(showUserData) {
-        setStatusDisabled(true);
-        setLocatiobDisabled(true);
-      } 
     }
     if(entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && venue.length > 0){
-      if(showUserData) {
-        setStatusDisabled(false);
-      } else{
-        setSubmitDisabled(false);
-      }
+      setSubmitDisabled(false);
     }else{
-      if(showUserData) {
-        setStatusDisabled(true);
-        setLocatiobDisabled(true);
-      } else{
-        setSubmitDisabled(true);
-      }
-    }
-    if(entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && venue.length > 0 && status.length > 0){
-      setLocatiobDisabled(false);
-    }else{
-      setLocatiobDisabled(true);
+      setSubmitDisabled(true);
     }
     if(entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && venue.length > 0 && status.length > 0 && location.length > 0){
       setSubmitDisabled(false);
+    }
+
+    if(showUserData){
+      setSubmitDisabled(false); 
+      if(entity.length > 0){
+        setSubmitDisabled(true);
+      }  
+      if(entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && venue.length > 0 && status.length > 0 && location.length > 0){
+        setSubmitDisabled(false);
+      }   
     }
   }, [entity, functionalArea, jobTitle, location, venue, status, showUserData])
 
@@ -158,17 +139,20 @@ const Filters = ({showUserData=false}) => {
       "startingAges": [65],
     }
     e.preventDefault();
-    showUserData ?  VolunteerDemographicsPost(data,setVolunteerDemographics,setDataLoading) : OverallAssignmentsPost(roleOfferId, setOverallAssignments, setDataLoading);
+
+    if(showUserData){
+      if(roleOfferId.length>0 || status.length>0 || location.length>0){
+        VolunteerDemographicsPost(data,setVolunteerDemographics,setDataLoading)
+      }
+    }else{
+      OverallAssignmentsPost(roleOfferId, setOverallAssignments, setDataLoading);
+    }
   };
 
   const handleEntityChange = (value) => {
     setFunctionalArea([]);
     setJobTitle([]);
     setVenue([]);
-    if(showUserData){
-      setStatus([]);
-      setLocation([]);
-    }
     setEntity(value);
     let functionalAreaData = [];
     value.forEach(value => { functionalAreaData.push(roleOffers.find(c => c.name === value)) })
@@ -179,10 +163,6 @@ const Filters = ({showUserData=false}) => {
   const handleFAChange = (value) => { 
     setJobTitle([]);
     setVenue([]);
-    if(showUserData){
-      setStatus([]);
-      setLocation([]);
-    }
     setFunctionalArea(value)
     let jobTitleData = [];
     value.forEach(value => { jobTitleData.push(functionalAreas.find(c => c.name === value)) })
@@ -191,10 +171,6 @@ const Filters = ({showUserData=false}) => {
   };
   const handleJobTitleChange = (value) => {
     setVenue([]);
-    if(showUserData){
-      setStatus([]);
-      setLocation([]);
-    }
     setJobTitle(value);
     let venueData = [];
     value.forEach(value => { venueData.push(jobTitles.find(c => c.name === value)) })
@@ -208,18 +184,10 @@ const Filters = ({showUserData=false}) => {
     let idList = [];
     roles.map(el => idList.push(el.roleOfferId));
     setRoleOfferId(idList);
-    if(showUserData){
-      setStatus([]);
-      setLocation([]);
-    }
     setVenue(value);
-    // let idList = [];
-    // roles.map(el => idList.push(el.roleId));
-    // setRoleId(idList);
   };
 
   const handleStatusChange = (value) => {
-    setLocation([]);
     setStatus(value);
   };
 
@@ -250,6 +218,17 @@ const Filters = ({showUserData=false}) => {
   const selectAllLocations = (e) => {
     e.target.checked === true ? handleLocationChange(locationList.map(location => location)) : setLocation([])
   };
+
+  const resetAll = () => {
+    setEntity([]);
+    setFunctionalArea([]);
+    setJobTitle([]);
+    setVenue([]);
+    setStatus([]);
+    setLocation([]);
+    setOverallAssignments([]);
+    setVolunteerDemographics({});
+  }
 
   return (
     <div>      
@@ -410,7 +389,6 @@ const Filters = ({showUserData=false}) => {
               <>
                 <Select
                 mode='multiple'
-                disabled={isStatusDisabled}
                 placeholder='Status'
                 defaultValue="Status"
                 showSearch
@@ -447,9 +425,8 @@ const Filters = ({showUserData=false}) => {
             
               <Select
                 mode='multiple'
-                disabled={isLocationDisabled}
-                placeholder='Location'
-                defaultValue="Location"
+                placeholder='Locals/Internationals'
+                defaultValue="Locals/Internationals"
                 showSearch
                 optionFilterProp="children"
                 value={location}
@@ -484,13 +461,26 @@ const Filters = ({showUserData=false}) => {
               </>
             }        
 
-            <Button
-              type="primary"
-              htmlType="submit"
-              disabled={isSubmitDisabled}
-            >
-              Submit
-            </Button>
+            <Row gutter={8}>
+              <Col>
+              <Button
+                type="primary"
+                htmlType="submit"
+                disabled={isSubmitDisabled}
+              >
+                Submit
+              </Button>
+              </Col>
+
+              <Col>
+                <Button
+                  type="primary"
+                  onClick={resetAll}
+                >
+                  Reset
+                </Button>
+              </Col>
+            </Row>   
           </form>
         </Space>
     </div>

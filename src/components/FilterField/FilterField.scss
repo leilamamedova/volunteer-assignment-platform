@@ -1,6 +1,7 @@
 .filter-field {
   .selectWidth {
-    width: 130px;
+    min-width: 200px;
+    width: auto;
     & .ant-select-selector {
       height: 40px !important;
     }

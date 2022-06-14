@@ -14,6 +14,10 @@ function ColumnFilter({ columns, handleColumns }) {
     });
   }, [columns])
 
+  useEffect(() => {
+    checkedOptions.length === 0 && handleChange(plainOptions);
+  }, [checkedOptions])
+
   const onChange = (list) => {
     setCheckedOptions(list);
     handleChange(list);
@@ -23,7 +27,7 @@ function ColumnFilter({ columns, handleColumns }) {
     handleChange(plainOptions);
   };
   const handleChange = (value) => {
-    handleColumns([...new Set(['Details', '#', 'candidate id', 'status', ...value])]);
+    handleColumns([...new Set(['Details', 'candidate id', 'status', ...value])]);
   };
 
   return (

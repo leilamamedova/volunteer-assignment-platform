@@ -83,7 +83,6 @@ const AssigningTo = () => {
       setSelectedRoleOffer(offer);
     }
   };
-  console.log(locations);
   //Select Boxes will be Enabled by order (top->bottom)
   //On every change options for the next select box will change
   //according to the selected value;
