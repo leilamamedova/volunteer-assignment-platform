@@ -47,6 +47,12 @@ const Filters = ({showUserData=false}) => {
   const [status, setStatus] = useState([]);
   const [location, setLocation] = useState([]);
   const [role, setRole] = useState([]);
+  const [entitySelectOpened, setEntitySelectOpened] = useState(false);
+  const [faSelectOpened, setFaSelectOpened] = useState(false);
+  const [roleSelectOpened, setRoleSelectOpened] = useState(false);
+  const [venueSelectOpened, setVenueSelectOpened] = useState(false);
+  const [statusSelectOpened, setStatusSelectOpened] = useState(false);
+  const [locationSelectOpened, setLocationSelectOpened] = useState(false);
 
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
@@ -60,7 +66,7 @@ const Filters = ({showUserData=false}) => {
   }
 
   useEffect(() => {
-      RoleOffersFetch(setRoleOffers, setDataLoading);
+    RoleOffersFetch(setRoleOffers, setDataLoading);
   }, [])
 
   useEffect(() => {
@@ -75,17 +81,23 @@ const Filters = ({showUserData=false}) => {
       setIsFADisabled(true);
       setIsJobTitleDisabled(true);
       setIsVenueDisabled(true);
+      setFunctionalArea([]);
+      setJobTitle([]);
+      setVenue([]);
     }
     if(entity.length > 0  && functionalArea.length > 0) {
       setIsJobTitleDisabled(false);
     }else{
       setIsJobTitleDisabled(true);
       setIsVenueDisabled(true);
+      setJobTitle([]);
+      setVenue([]);
     }
     if( entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0){
       setIsVenueDisabled(false)
     }else{
       setIsVenueDisabled(true);
+      setVenue([]);
     }
     if(entity.length > 0  && functionalArea.length > 0 && jobTitle.length > 0 && venue.length > 0){
       setSubmitDisabled(false);
@@ -196,27 +208,33 @@ const Filters = ({showUserData=false}) => {
   };
 
   const selectAllEntity = (e) => {
-    e.target.checked === true ? handleEntityChange(entities) : setEntity([])
+    e.target.checked === true ? handleEntityChange(entities) : setEntity([]);
+    setEntitySelectOpened(false);
   };
 
   const selectAllFa = (e) => {
     e.target.checked === true ? handleFAChange(functionalAreas.map(fa => fa.name)) : setFunctionalArea([])
+    setFaSelectOpened(false);
   };
 
   const selectAllRoles = (e) => {
     e.target.checked === true ? handleJobTitleChange(jobTitles.map(job => job.name)) : setJobTitle([])
+    setRoleSelectOpened(false);
   };
 
   const selectAllVenues = (e) => {
     e.target.checked === true ? handleVenueChange(venues.map(venue => venue.name)) : setVenue([])
+    setVenueSelectOpened(false);
   };
 
   const selectAllStatus = (e) => {
     e.target.checked === true ? handleStatusChange(statusList.map(status => status)) : setStatus([])
+    setStatusSelectOpened(false);
   };
 
   const selectAllLocations = (e) => {
     e.target.checked === true ? handleLocationChange(locationList.map(location => location)) : setLocation([])
+    setLocationSelectOpened(false);
   };
 
   const resetAll = () => {
@@ -246,6 +264,9 @@ const Filters = ({showUserData=false}) => {
               loading={dataLoading}
               onChange={handleEntityChange}
               value={entity}
+              open={entitySelectOpened}
+              onFocus={() => setEntitySelectOpened(true)}
+              onBlur={() => setEntitySelectOpened(false)}
               dropdownRender={(menu) => (
                 <>
                 {menu}   
@@ -258,6 +279,7 @@ const Filters = ({showUserData=false}) => {
                   style={{
                     margin: '4px 8px',
                   }}
+                  onFocus={() => setEntitySelectOpened(true)}
                   onChange={selectAllEntity}
                   checked={entities.length === entity.length}
                 >All</Checkbox>
@@ -282,6 +304,9 @@ const Filters = ({showUserData=false}) => {
               optionFilterProp="children"
               onChange={handleFAChange}
               value={functionalArea}
+              open={faSelectOpened}
+              onFocus={() => setFaSelectOpened(true)}
+              onBlur={() => setFaSelectOpened(false)}
               dropdownRender={(menu) => (
                 <>
                 {menu}   
@@ -295,6 +320,7 @@ const Filters = ({showUserData=false}) => {
                     margin: '4px 8px',
                   }}
                   onChange={selectAllFa}
+                  onFocus={() => setFaSelectOpened(true)}
                   checked={functionalAreas.length === functionalArea.length}
                 >All</Checkbox>
                 </>
@@ -319,6 +345,9 @@ const Filters = ({showUserData=false}) => {
               optionFilterProp="children"
               onChange={handleJobTitleChange}
               value={jobTitle}
+              open={roleSelectOpened}
+              onFocus={() => setRoleSelectOpened(true)}
+              onBlur={() => setRoleSelectOpened(false)}
               dropdownRender={(menu) => (
                 <>
                 {menu}   
@@ -332,6 +361,7 @@ const Filters = ({showUserData=false}) => {
                     margin: '4px 8px',
                   }}
                   onChange={selectAllRoles}
+                  onFocus={() => setRoleSelectOpened(true)}
                   checked={jobTitles.length === jobTitle.length}
                 >All</Checkbox>
                 </>
@@ -356,6 +386,9 @@ const Filters = ({showUserData=false}) => {
               optionFilterProp="children"
               onChange={handleVenueChange}
               value={venue}
+              open={venueSelectOpened}
+              onFocus={() => setVenueSelectOpened(true)}
+              onBlur={() => setVenueSelectOpened(false)}
               dropdownRender={(menu) => (
                 <>
                 {menu}   
@@ -369,6 +402,7 @@ const Filters = ({showUserData=false}) => {
                     margin: '4px 8px',
                   }}
                   onChange={selectAllVenues}
+                  onFocus={() => setVenueSelectOpened(true)}
                   checked={venues.length === venue.length}
                 >All</Checkbox>
                 </>
@@ -394,7 +428,10 @@ const Filters = ({showUserData=false}) => {
                 showSearch
                 optionFilterProp="children"
                 value={status}
-                onChange={handleStatusChange}         
+                onChange={handleStatusChange}   
+                open={statusSelectOpened}
+                onFocus={() => setStatusSelectOpened(true)}
+                onBlur={() => setStatusSelectOpened(false)}      
                 dropdownRender={(menu) => (
                   <>
                 {menu}   
@@ -408,6 +445,7 @@ const Filters = ({showUserData=false}) => {
                     margin: '4px 8px',
                   }}
                   onChange={selectAllStatus}
+                  onFocus={() => setStatusSelectOpened(true)}
                   checked={statusList.length === status.length}
                 >All</Checkbox>
                 </>
@@ -430,7 +468,10 @@ const Filters = ({showUserData=false}) => {
                 showSearch
                 optionFilterProp="children"
                 value={location}
-                onChange={handleLocationChange}         
+                onChange={handleLocationChange}    
+                open={locationSelectOpened}
+                onFocus={() => setLocationSelectOpened(true)}
+                onBlur={() => setLocationSelectOpened(false)}        
                 dropdownRender={(menu) => (
                   <>
                   {menu}   
@@ -444,6 +485,7 @@ const Filters = ({showUserData=false}) => {
                       margin: '4px 8px',
                     }}
                     onChange={selectAllLocations}
+                    onFocus={() => setLocationSelectOpened(true)}
                     checked={locationList.length === location.length}
                   >All</Checkbox>
                   </>
