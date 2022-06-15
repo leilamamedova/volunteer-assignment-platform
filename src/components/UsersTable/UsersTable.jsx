@@ -225,10 +225,10 @@ const UsersTable = (props) => {
           dataSource={usersData}
           loading={dataLoading}
           pagination={{
+            pageSize: 100,
             onChange: (pageNumber, pageSize) =>
               handlePagination(pageNumber, pageSize),
             total: pagination,
-            defaultPageSize: 100
           }}
         />
       </div>

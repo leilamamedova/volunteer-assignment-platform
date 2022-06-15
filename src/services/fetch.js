@@ -102,6 +102,10 @@ export const FilterUserFetch = (
       const mutateData = data.data.map((el) =>
         Object.assign(el, { key: el.candidate_id })
       );
+      mutateData.map(data => {
+        data["nationality"] = countries[data.nationality];
+        data["residence_country"] = countries[data.residence_country];
+      });
       setUsersData(mutateData);
       setPagination(data.total_pages);
       setDataLoading(false);

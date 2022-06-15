@@ -30,7 +30,7 @@ function ResultButton({ fetchFiltered }) {
           setPagination,
           setDataLoading,
           1,
-          10
+          100
         );
     }
   };
