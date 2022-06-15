@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Progress } from 'antd';
+import { Table } from 'antd';
 import useStore from '../../services/store';
 
 const FaRoleVenueStatistics = () => {
     const overallAssignments = useStore(({ overallAssignments }) => overallAssignments);
-    const dataLoading = useStore(({ dataLoading }) => dataLoading);
-    const [dataSource, setDataSource] = useState([])
+    const [dataSource, setDataSource] = useState([]);
 
     useEffect(() => {
         if(overallAssignments.length > 0) {
@@ -60,12 +59,7 @@ const FaRoleVenueStatistics = () => {
             title: 'Fulfilment',
             dataIndex: 'fulfilment',
             key: 'fulfilment',
-            width: 200,
-            render: (data) => (
-                <>
-                 <Progress percent={data} status="active" />            
-                </>
-            )
+            render: (data) => (<span>{data}%</span>)
         },    
         {
             title: 'Demand',
@@ -96,12 +90,7 @@ const FaRoleVenueStatistics = () => {
             title: 'Waitlist Fulfilment',
             dataIndex: 'waitlistfulfilment',
             key: 'waitlistfulfilment',
-            width: 200,
-            render: (data) => (
-                <>
-                 <Progress percent={data} status="active" />            
-                </>
-            )
+            render: (data) => (<span>{data}%</span>)
         },    
         {
             title: 'Waitlist Demand',
@@ -134,7 +123,6 @@ const FaRoleVenueStatistics = () => {
                     columns={columns} 
                     dataSource={dataSource} 
                     scroll={{x: 2000, y: 500}}
-                    loading={dataLoading}
                 />  
             </div>
         </>

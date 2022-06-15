@@ -14,6 +14,7 @@ export const UsersFetch = (
   )
     .then((response) => {
       if (!response.ok) {
+        setDataLoading(false);
         throw new Error(
           `This is an HTTP error: The status is ${response.status}`
         );
@@ -137,6 +138,7 @@ export const SavedFiltersGet = (addFavoriteFilter, setDataLoading) => {
   fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates`)
     .then((response) => {
       if (!response.ok) {
+        setDataLoading(false);
         throw new Error(
           `This is an HTTP error: The status is ${response.status}`
         );
@@ -161,6 +163,7 @@ export const RoleOffersFetch = (setRoleOffers, setDataLoading) => {
   fetch(`${process.env.REACT_APP_VAP_API_BASE}/FunctionalAreaTypes/nested`)
     .then((response) => {
       if (!response.ok) {
+        setDataLoading(false);
         throw new Error(
           `This is an HTTP error: The status is ${response.status}`
         );
@@ -182,6 +185,7 @@ export const HistoryFetch = (setHistory, setDataLoading, userId) => {
   fetch(`${process.env.REACT_APP_API_BASE}/user-history/${userId}`)
     .then((response) => {
       if (!response.ok) {
+        setDataLoading(false);
         throw new Error(
           `This is an HTTP error: The status is ${response.status}`
         );
@@ -203,6 +207,7 @@ export const DashboardGet = (setDashboardData, setDataLoading) => {
   fetch(`${process.env.REACT_APP_VAP_API_BASE}/Dashboards`)
     .then((response) => {
       if (!response.ok) {
+        setDataLoading(false);
         throw new Error(
           `This is an HTTP error: The status is ${response.status}`
         );
@@ -233,7 +238,15 @@ export const OverallAssignmentsPost = (
     },
     body: JSON.stringify(roleOfferId),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        setDataLoading(false);
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        );
+      }
+      return response.json();
+    })
     .then((data) => {
       console.log("Overall Assignments Data", data.value);
       const mutateData = data.value.map((el, index) =>
@@ -259,7 +272,15 @@ export const VolunteerDemographicsPost = (
     },
     body: JSON.stringify(data),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        setDataLoading(false);
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        );
+      }
+      return response.json();
+    })
     .then((data) => {
       console.log("Volunteer Demographics Data", data.value);
       setVolunteerDemographics(data.value);
