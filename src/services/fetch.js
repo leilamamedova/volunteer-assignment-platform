@@ -26,7 +26,7 @@ export const UsersFetch = (
       const mutateData = data.map((el) =>
         Object.assign(el, { key: el.candidate_id })
       );
-      mutateData.map(data => {
+      mutateData.map((data) => {
         data["nationality"] = countries[data.nationality];
         data["residence_country"] = countries[data.residence_country];
       });
@@ -103,7 +103,7 @@ export const FilterUserFetch = (
       const mutateData = data.data.map((el) =>
         Object.assign(el, { key: el.candidate_id })
       );
-      mutateData.map(data => {
+      mutateData.map((data) => {
         data["nationality"] = countries[data.nationality];
         data["residence_country"] = countries[data.residence_country];
       });
@@ -132,7 +132,24 @@ export const NewUsersFieldsFetch = (setNewUsersDataFields) => {
       console.log(err.message);
     });
 };
-
+export const RoleOfferValuesFetch = (setMethod) => {
+  fetch(`${process.env.REACT_APP_VAP_API_BASE}/Reports/options`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        );
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Role Offer Values", Object.entries(data.value));
+      setMethod(Object.entries(data.value));
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
 export const SavedFiltersGet = (addFavoriteFilter, setDataLoading) => {
   setDataLoading && setDataLoading(true);
   fetch(`${process.env.REACT_APP_VAP_API_BASE}/Templates`)
