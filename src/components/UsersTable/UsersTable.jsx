@@ -1,17 +1,33 @@
 import { useEffect, useState } from "react";
-import { Table, Typography, Space, Row, Col, Button } from "antd";
+import { Table, Typography, Space, Row, Col, Tag } from "antd";
 import VolunteerProfile from "../VolunteerProfile/VolunteerProfile";
 import { EyeOutlined } from "@ant-design/icons";
-import { getColumnSearchProps } from "./ColumnSearch/ColumnSearch";
 import useStore from "../../services/store";
 import ColumnFilter from "../ColumnFilter/ColumnFilter";
 import AssignButton from "../StatusChangeActions/AssignButton";
 import WaitlistButton from "../StatusChangeActions/WaitlistButton";
 import FreeButton from "../StatusChangeActions/FreeButton";
-import "./UsersTable.scss";
 import { FilterUserFetch, UsersFetch } from "../../services/fetch";
+import "./UsersTable.scss";
 
 const { Link } = Typography;
+
+const colors = {
+  "Assigned": "#ffff00",
+  "Pending": "#ffc00a0",
+  "Accepted": "#007500",
+  "Confirmed": "#007500",
+  "Complete": "#007500",
+  "Declined": "#ff0000",
+  "Removed": "#7030a0",
+  "Expired": "#808080",
+  "Waitlist Offered": "#ffc00a0",
+  "Waitlist Accepted": "#00b0f0",
+  "Waitlist Declined": "#ff0000",
+  "Pre-assigned": "#c6e0b4",
+  "Not Approved": "#7030a0",
+  "Waitlist Assigned": "#ffff00",
+}
 
 const UsersTable = (props) => {
   const [isVolunteerModalVisible, setIsVolunteerModalVisible] = useState(false);
@@ -33,7 +49,6 @@ const UsersTable = (props) => {
   const route = props.isAnyStatus ? "ChangeToAnyStatus" : "AssignOrWaitlist";
 
   useEffect(() => {
-    console.log(filterFields);
     if (filterFields.length == 0) {
       UsersFetch(setUsersData, setDataLoading, setPagination, 1, 10);
     } else {
@@ -60,7 +75,7 @@ const UsersTable = (props) => {
         return {
           title: item.replaceAll("_", " "),
           dataIndex: item,
-          width: 200,
+          width: 180,
           ellipsis: true,
         };
       });
@@ -73,7 +88,7 @@ const UsersTable = (props) => {
       dataKeys.splice(0, 0, {
         title: "Details",
         key: "id",
-        width: 200,
+        width: 100,
         fixed: "left",
         render: (_, field) => (
           <Link
@@ -84,25 +99,39 @@ const UsersTable = (props) => {
           </Link>
         ),
       });
-      dataKeys.splice(1, 0, {
-        title: "#",
-        key: "index",
-        width: 200,
-        render: (_, field, index) => <p key={index}>{index + 1}</p>,
-      });
       if (props.isStatusColumn) {
-        dataKeys.splice(
-          2,
-          0,
-          dataKeys.splice(
-            dataKeys.findIndex((el) => el.title === "status"),
-            1
-          )[0]
+        dataKeys.splice(2, 0,
+          dataKeys.splice( 
+            dataKeys.findIndex((el) => el.title === "status"),1)[0]
         );
       }
       setColumns(dataKeys);
       setTableColumns(dataKeys);
-    }
+
+      dataKeys.find(el => el.title === "status")["render"] = (status) => (
+        status ?
+        <>
+          <Tag color={colors[status]} key={status}>
+            {status}
+          </Tag>
+          {/* {tags.map((tag) => {
+            let color = tag.length > 5 ? 'geekblue' : 'green';
+  
+            if (tag === 'loser') {
+              color = 'volcano';
+            }
+  
+            return (
+              <Tag color={color} key={tag}>
+                {tag.toUpperCase()}
+              </Tag>
+            );
+          })} */}
+        </>
+        :
+        null
+      )
+    }   
   }, [dataKeys]);
 
   const rowSelection = {
@@ -199,6 +228,7 @@ const UsersTable = (props) => {
             onChange: (pageNumber, pageSize) =>
               handlePagination(pageNumber, pageSize),
             total: pagination,
+            defaultPageSize: 100
           }}
         />
       </div>

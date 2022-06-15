@@ -53,7 +53,7 @@ function Columns() {
   };
   return (
     <Space className="w-100 flex-wrap" size={"large"}>
-      <Row className="w-100 flex-column">
+      <Row className="w-100 flex-column" style={{textAlign: "center"}}>
         <Title className="fs-2xl">Volunteers' Columns</Title>
         <Col span={24} className="text-center">
           <Select
@@ -62,6 +62,7 @@ function Columns() {
             allowClear
             showSearch
             placeholder="Search to Select"
+            className="scrolling-tags"
             // optionFilterProp="children"
             // filterOption={(input, option) => option.children.includes(input)}
             // filterSort={(optionA, optionB) =>
@@ -83,7 +84,7 @@ function Columns() {
           <SelectedColumns />
         </Col>
       </Row>
-      <Row className="w-100 flex-column">
+      <Row className="w-100 flex-column" style={{textAlign: "center"}}>
         <Title className="fs-2xl">Role Offers' Columns</Title>
         <Col span={24} className="text-center">
           <Select

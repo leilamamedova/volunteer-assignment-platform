@@ -26,7 +26,7 @@ function Reports() {
     NewUsersFieldsFetch(setNewUsersDataFields);
   }, []);
   return (
-    <>
+    <div className="report-page">
       <Space className="w-100" direction="vertical">
         <Title className="report-title">Reports</Title>
         <Button className="my-20" type="primary" onClick={handleCreateModal}>
@@ -42,7 +42,7 @@ function Reports() {
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
       />
-    </>
+    </div>
   );
 }
 

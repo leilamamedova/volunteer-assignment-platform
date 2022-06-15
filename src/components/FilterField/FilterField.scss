@@ -1,6 +1,7 @@
 .filter-field {
   .selectWidth {
-    width: 130px;
+    min-width: 200px;
+    width: auto;
     & .ant-select-selector {
       height: 40px !important;
     }
@@ -48,4 +49,12 @@
       margin: auto 0;
     }
   } 
+  .ant-select {
+    width: 200px;
+  }
+  .ant-picker{
+    height: 40px;
+    width: 200px;
+    margin-right: 10px;
+  }
 }

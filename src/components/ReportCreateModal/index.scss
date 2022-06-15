@@ -40,3 +40,11 @@
     }
   }
 }
+.filter-column{
+  .card{
+    overflow-x: auto;
+    .filter-field {
+      display: flex;
+    }
+  }
+}
