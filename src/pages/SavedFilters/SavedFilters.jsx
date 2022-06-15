@@ -43,7 +43,7 @@ function SavedFilters() {
 
   useEffect(() => {
     addFavoriteFilter(favoriteFilters);
-    favoriteFilters.length>0 ? setLoading(false) : setLoading(true);
+    favoriteFilters.length > 0 ? setLoading(false) : setLoading(true);
   }, [favoriteFilters]);
 
   useEffect(() => {
@@ -140,7 +140,7 @@ function SavedFilters() {
         loading={loading}
         scroll={{ y: 500 }}
         pagination={{
-          defaultPageSize: 100
+          defaultPageSize: 100,
         }}
       />
       <NewFilterTemplateModal
@@ -151,6 +151,7 @@ function SavedFilters() {
         isModalVisible={isEditModalVisible}
         setIsModalVisible={setIsEditModalVisible}
         templateId={id}
+        list={filterFields}
       />
       <ListModal
         isModalVisible={isFilterListModalVisible}

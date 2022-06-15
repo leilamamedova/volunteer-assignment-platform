@@ -41,6 +41,9 @@ const dateFormat = "YYYY-MM-DD";
 const ROLE_OFFER_DATA = ["Entity", "Functional_Area", "Job_Title", "Location"];
 
 function FilterField(props) {
+  console.log("ELEMENT");
+  console.log(props);
+  console.log("ELEMENT");
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
@@ -200,6 +203,7 @@ function FilterField(props) {
           }}
           placeholder="Type Values"
           onChange={handleChange}
+          defaultValue={tagsArray}
           className="scrolling-tags"
         >
           {/* {children} */}
@@ -223,7 +227,7 @@ function FilterField(props) {
           mode="tags"
           placeholder="Select Values"
           onChange={handleEnumChange}
-          defaultValue={[]}
+          defaultValue={tagsArray}
           allowClear
           className="scrolling-tags"
         >

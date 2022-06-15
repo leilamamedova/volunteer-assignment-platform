@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button, message } from "antd";
 import FilterWrapper from "../FilterWrapper/FilterWrapper";
 import useStore from "../../services/store";
@@ -11,10 +11,10 @@ function FilterTemplateModal(props) {
   useEffect(() => {
     let isFound = false;
 
-    for (let i = 0; i < filterFields.length; i++) {
+    for (let i = 0; i < props.list.length; i++) {
       if (
-        filterFields[i].requirement_name === "Requirement" ||
-        filterFields[i].operator === "Operator"
+        props.list[i].requirement_name === "Requirement" ||
+        props.list[i].operator === "Operator"
       ) {
         isFound = true;
       }
@@ -24,7 +24,7 @@ function FilterTemplateModal(props) {
     } else {
       setIsDisabled(false);
     }
-  }, [filterFields]);
+  }, [props.list]);
 
   const handleOk = () => {
     props.setIsModalVisible(false);
@@ -56,7 +56,7 @@ function FilterTemplateModal(props) {
             return response.json();
           })
           .then((data) => {
-            message.success("Success!");
+            message.success("Successfully Updated");
           })
           .catch((err) => message.error(err.message));
 
@@ -74,6 +74,7 @@ function FilterTemplateModal(props) {
       onCancel={handleCancel}
       footer={[]}
       className="templates-page-modal"
+      destroyOnClose
     >
       <FilterWrapper noReset={true} isFav={true} seeResultBtn={false} />
       <Button
