@@ -26,7 +26,7 @@ function FilterWrapper(props) {
   //Everytime componenet loads, we are resetting the store
   useEffect(() => {
     resetFilterFields();
-    NewUsersFieldsFetch(setNewUsersDataFields);    
+    NewUsersFieldsFetch(setNewUsersDataFields);     
   }, []);
 
   // Creating a new field
