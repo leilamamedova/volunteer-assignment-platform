@@ -30,6 +30,7 @@ const ResetPassword = () => {
             })
             .then((response) => {
                 if (!response.ok) {
+                setLoading(false);
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
                 );
