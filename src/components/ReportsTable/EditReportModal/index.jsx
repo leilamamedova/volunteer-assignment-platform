@@ -100,7 +100,6 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
       body: JSON.stringify(postData),
     })
       .then((res) => {
-        console.log(res);
         ReportTemplateFetch(setReportTemplates);
         window.location.reload();
       })
