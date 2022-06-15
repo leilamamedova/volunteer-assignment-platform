@@ -29,6 +29,8 @@ const ChangePassword = () => {
             })
             .then((response) => {
                 if (!response.ok) {
+                setLoading(false);
+                message.error("Something went wrong...");
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
                 );
