@@ -78,9 +78,6 @@ function FilterWrapper(props) {
 
     UsersFetch(setUsersData, setPagination, setDataLoading, 1, 10);
   };
-  console.log("*****************");
-  console.log("filterFields", filterFields);
-  console.log("*****************");
 
   return (
     <>

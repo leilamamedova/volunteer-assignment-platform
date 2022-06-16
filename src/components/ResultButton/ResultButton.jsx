@@ -9,7 +9,9 @@ function ResultButton({ fetchFiltered }) {
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
   const warning = () => {
-    message.warning("Please select valid Requirement or Operator name !");
+    message.warning(
+      "Please select valid Filter (Requirement, Operator and Value must exist) !"
+    );
     return;
   };
 
@@ -17,7 +19,11 @@ function ResultButton({ fetchFiltered }) {
     e.preventDefault();
     let isFound = false;
     filterFields.forEach((el) => {
-      if (el.operator === "Operator" || el.requirement_name === "Requirement") {
+      if (
+        el.operator === "Operator" ||
+        el.requirement_name === "Requirement" ||
+        el.value?.length === 0
+      ) {
         isFound = true;
         warning();
       }
