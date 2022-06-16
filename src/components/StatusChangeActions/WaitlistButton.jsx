@@ -8,6 +8,7 @@ function WaitlistButton(props) {
   const activeRoleOfferId = useStore(
     ({ activeRoleOfferId }) => activeRoleOfferId
   );
+
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setPagination = useStore(({ setPagination }) => setPagination);
@@ -20,7 +21,9 @@ function WaitlistButton(props) {
   useEffect(() => {
     activeRoleOfferId === 0 ? setIsDisabled(true) : setIsDisabled(false);
 
-    return () => setIsDisabled(true);
+    return () => {
+      setIsDisabled(true);
+    };
   }, [activeRoleOfferId]);
 
   const handleWaitlist = () => {

@@ -20,11 +20,16 @@ const SearchAndAssign = () => {
   const setNewUsersDataFields = useStore(
     ({ setNewUsersDataFields }) => setNewUsersDataFields
   );
+  const setActiveRoleOfferId = useStore(
+    ({ setActiveRoleOfferId }) => setActiveRoleOfferId
+  );
   const systemRole = useStore(({ systemRole }) => systemRole);
 
   useEffect(() => {
     UsersFieldsFetch(setUsersDataFields);
     NewUsersFieldsFetch(setNewUsersDataFields);
+
+    return () => setActiveRoleOfferId(0);
   }, []);
 
   return (
