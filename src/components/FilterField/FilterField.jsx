@@ -88,6 +88,7 @@ function FilterField(props) {
         ]);
       });
     }
+    handleFieldSelect(props.requirement);
   }, [usersDataFields, newUserFieldsArray]);
 
   useEffect(() => {
@@ -102,13 +103,15 @@ function FilterField(props) {
   };
 
   const handleFieldSelect = (e) => {
+    console.log("0000000000000000");
+    console.log(e);
+    console.log("000000000000000");
     let selectedObject;
     if (props.isRoleOffer) {
-      console.log("hei mate");
+      console.log("hei");
       roData.forEach((el) =>
         el[1].name === e ? (selectedObject = el[1]) : ""
       );
-      console.log(selectedObject.value_options);
       setSelectEnum(true);
       setIsInput(false);
       setDateTime(false);
@@ -118,6 +121,10 @@ function FilterField(props) {
         el[0] === e ? (selectedObject = el) : ""
       );
       if (selectedObject) {
+        console.log("--------------------------");
+        console.log(selectedObject);
+        console.log("--------------------------");
+
         if (selectedObject[1].type === "input") {
           setIsInput(true);
           setSelectEnum(false);

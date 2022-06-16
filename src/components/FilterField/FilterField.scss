@@ -1,40 +1,28 @@
 .filter-field {
   display: flex;
   width: 100%;
-  align-items: baseline;
-  div{
-    &:nth-of-type(1) {
-      flex-grow: 1;
-    }
-    &:nth-of-type(3) {
-      flex-grow: 2;
-    }
-  }
   .selectWidth {
     min-width: 200px;
-    width: auto;
-    & .ant-select-selector {
-      height: 40px !important;
-    }
   }
   .ant-select {
     margin-right: 10px;
+    &:nth-of-type(1) {
+      flex-grow: 1;
+    }
+    &:nth-child(3) {
+      flex-grow: 2;
+    }
+    .ant-select-selection-overflow{
+      scrollbar-width: thin;
+    }
   }
   .selectWidthOperator {
     min-width: 98px;
     max-width: 130px;
-    & .ant-select-selector {
-      height: 40px !important;
-    }
-    & .ant-select-selection-item {
-      margin: auto;
-    }
   }
-
   .inputWidth {
     width: 120px !important;
   }
-
   .tag-box {
     display: flex;
     align-items: start;
@@ -42,7 +30,6 @@
     width: 270px;
     max-width: 280px;
     overflow-x: scroll;
-    height: 40px;
     border: 1px solid #d9d9d9;
     padding: 4px 11px;
     border-radius: 2px;
@@ -51,27 +38,13 @@
       border-color: #40a9ff;
       border-right-width: 1px;
     }
-    &::-webkit-scrollbar {
-      display: none !important;
-    }
     & .ant-tag {
       font-size: 1rem;
       padding: 2px 5px;
       margin: auto 0;
     }
   }
-  .ant-select {
-    width: 200px;
-  }
   .ant-picker {
-    height: 40px;
-    width: 200px;
     margin-right: 10px;
-  }
-  // .ant-select-selection-overflow {
-  //   flex-wrap: wrap !important;
-  // }
-  .ant-select-selection-overflow-item {
-    margin: 5px 0;
   }
 }
