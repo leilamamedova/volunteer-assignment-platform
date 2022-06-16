@@ -22,7 +22,7 @@ function ResultButton({ fetchFiltered }) {
       if (
         el.operator === "Operator" ||
         el.requirement_name === "Requirement" ||
-        filterFields[i].value?.length === 0
+        el.value?.length === 0
       ) {
         isFound = true;
         warning();
