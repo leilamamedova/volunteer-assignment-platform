@@ -4,6 +4,7 @@ import moment from "moment";
 import { DeleteFilled } from "@ant-design/icons";
 import useStore from "../../services/store";
 import { countries } from "../../data/countries";
+import { RoleOfferValuesFetch } from "../../services/fetch";
 import "./FilterField.scss";
 const { Option } = Select;
 
@@ -41,9 +42,6 @@ const dateFormat = "YYYY-MM-DD";
 const ROLE_OFFER_DATA = ["Entity", "Functional_Area", "Job_Title", "Location"];
 
 function FilterField(props) {
-  console.log("ELEMENT");
-  console.log(props);
-  console.log("ELEMENT");
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
@@ -59,6 +57,11 @@ function FilterField(props) {
   const [isDateTime, setDateTime] = useState(false);
   const [isSelectEnum, setSelectEnum] = useState(false);
   const [isInput, setIsInput] = useState(true);
+  const [roData, setRoData] = useState([]);
+
+  useEffect(() => {
+    RoleOfferValuesFetch(setRoData);
+  }, []);
 
   useEffect(() => {
     setTagsArray(props.value);
@@ -100,35 +103,47 @@ function FilterField(props) {
 
   const handleFieldSelect = (e) => {
     let selectedObject;
-    newUserFieldsArray.forEach((el) =>
-      el[0] === e ? (selectedObject = el) : ""
-    );
-    console.log(selectedObject);
-    if (selectedObject) {
-      if (selectedObject[1].type === "input") {
-        setIsInput(true);
-        setSelectEnum(false);
-        setDateTime(false);
-      }
-      if (selectedObject[1].type === "select") {
-        if (e === "residence_country" || e === "nationality") {
-          const transformCountries = selectedObject[1].value_options.map(
-            (el) => countries[el]
-          );
-          setEnumOptions(transformCountries);
-        } else {
-          setEnumOptions(selectedObject[1].value_options);
+    if (props.isRoleOffer) {
+      console.log("hei mate");
+      roData.forEach((el) =>
+        el[1].name === e ? (selectedObject = el[1]) : ""
+      );
+      console.log(selectedObject.value_options);
+      setSelectEnum(true);
+      setIsInput(false);
+      setDateTime(false);
+      setEnumOptions(selectedObject.value_options);
+    } else {
+      newUserFieldsArray.forEach((el) =>
+        el[0] === e ? (selectedObject = el) : ""
+      );
+      if (selectedObject) {
+        if (selectedObject[1].type === "input") {
+          setIsInput(true);
+          setSelectEnum(false);
+          setDateTime(false);
         }
-        setSelectEnum(true);
-        setIsInput(false);
-        setDateTime(false);
-      }
-      if (selectedObject[1].value_type === "date") {
-        setDateTime(true);
-        setIsInput(false);
-        setSelectEnum(false);
+        if (selectedObject[1].type === "select") {
+          if (e === "residence_country" || e === "nationality") {
+            const transformCountries = selectedObject[1].value_options.map(
+              (el) => countries[el]
+            );
+            setEnumOptions(transformCountries);
+          } else {
+            setEnumOptions(selectedObject[1].value_options);
+          }
+          setSelectEnum(true);
+          setIsInput(false);
+          setDateTime(false);
+        }
+        if (selectedObject[1].value_type === "date") {
+          setDateTime(true);
+          setIsInput(false);
+          setSelectEnum(false);
+        }
       }
     }
+
     props.handleSelect(e, props.id, "requirement_name");
   };
   const handleEnumChange = (value) => {
