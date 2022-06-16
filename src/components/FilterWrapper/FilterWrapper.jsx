@@ -75,8 +75,7 @@ function FilterWrapper(props) {
   //Set default FilterFields , Fetch Users without Filter
   const resetHandler = () => {
     resetFilterFields();
-
-    UsersFetch(setUsersData, setPagination, setDataLoading, 1, 10);
+    UsersFetch(setUsersData, setPagination, setDataLoading, 1, 100);
   };
 
   return (

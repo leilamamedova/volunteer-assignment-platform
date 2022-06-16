@@ -108,7 +108,7 @@ const MatchingData = ({userID}) => {
                 </Select>                
             </div>
              <Row align='top' justify='space-around' gutter={50}>
-                <Col>
+                <Col span={12}>
                     <h3>Requirements:</h3>
                     <Table 
                         columns={columns} 
@@ -119,7 +119,7 @@ const MatchingData = ({userID}) => {
                     />
                 </Col>
 
-                <Col>
+                <Col span={12}>
                     <h3>Сoincidences:</h3>
                     <Table 
                         columns={coincidencesColumns} 
