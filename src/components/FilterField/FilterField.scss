@@ -6,7 +6,7 @@
       height: 40px !important;
     }
   }
-  .ant-select{
+  .ant-select {
     margin-right: 10px;
   }
   .selectWidthOperator {
@@ -19,11 +19,11 @@
       margin: auto;
     }
   }
-  
+
   .inputWidth {
     width: 120px !important;
   }
-  
+
   .tag-box {
     display: flex;
     align-items: start;
@@ -48,13 +48,19 @@
       padding: 2px 5px;
       margin: auto 0;
     }
-  } 
+  }
   .ant-select {
     width: 200px;
   }
-  .ant-picker{
+  .ant-picker {
     height: 40px;
     width: 200px;
     margin-right: 10px;
+  }
+  // .ant-select-selection-overflow {
+  //   flex-wrap: wrap !important;
+  // }
+  .ant-select-selection-overflow-item {
+    margin: 5px 0;
   }
 }

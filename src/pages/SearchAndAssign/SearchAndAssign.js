@@ -20,11 +20,16 @@ const SearchAndAssign = () => {
   const setNewUsersDataFields = useStore(
     ({ setNewUsersDataFields }) => setNewUsersDataFields
   );
-  const systemRole = useStore(({ systemRole }) => systemRole);  
+  const setActiveRoleOfferId = useStore(
+    ({ setActiveRoleOfferId }) => setActiveRoleOfferId
+  );
+  const systemRole = useStore(({ systemRole }) => systemRole);
 
   useEffect(() => {
     UsersFieldsFetch(setUsersDataFields);
     NewUsersFieldsFetch(setNewUsersDataFields);
+
+    return () => setActiveRoleOfferId(0);
   }, []);
 
   return (
@@ -36,13 +41,11 @@ const SearchAndAssign = () => {
 
         <Col>
           <Row gutter={16}>
-            {systemRole.some(el => el === 'Admin') ?
-            <Col>
-              <BulkImport title={"Users"} url={importUrl} />
-            </Col>
-            :
-            null
-            }
+            {systemRole.some((el) => el === "Admin") ? (
+              <Col>
+                <BulkImport title={"Users"} url={importUrl} />
+              </Col>
+            ) : null}
             <Col>
               <a href={exportUrl} download>
                 <Button icon={<DownloadOutlined />}>Export Users</Button>
@@ -56,7 +59,7 @@ const SearchAndAssign = () => {
           <AssigningTo />
         </Col>
         <Col className="sa-left" xs={24} md={12} lg={14}>
-          <FilterWrapper seeResultBtn={true} blankStart={true} />
+          <FilterWrapper seeResultBtn={true} blankStart={true} isReset={true} />
         </Col>
       </Row>
 
