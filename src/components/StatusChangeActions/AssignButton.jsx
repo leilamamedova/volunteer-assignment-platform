@@ -58,7 +58,7 @@ function AssignButton(props) {
           setPagination,
           setDataLoading,
           1,
-          10
+          100
         );
       })
       .catch((err) => message.error(err.message));

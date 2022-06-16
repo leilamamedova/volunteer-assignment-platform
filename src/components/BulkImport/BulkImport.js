@@ -40,7 +40,7 @@ const BulkImport = ({ title, url }) => {
             setPagination,
             setDataLoading,
             1,
-            10
+            100
           );
         }
       } else if (info.file.status === "error") {

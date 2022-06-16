@@ -6,7 +6,6 @@ import ResultButton from "../ResultButton/ResultButton";
 import {
   FilterUserFetch,
   NewUsersFieldsFetch,
-  UsersFetch,
 } from "../../services/fetch";
 import "./FilterWrapper.scss";
 
@@ -75,7 +74,14 @@ function FilterWrapper(props) {
   //Set default FilterFields , Fetch Users without Filter
   const resetHandler = () => {
     resetFilterFields();
-    UsersFetch(setUsersData, setPagination, setDataLoading, 1, 100);
+    FilterUserFetch(
+      filterFields,
+      setUsersData,
+      setPagination,
+      setDataLoading,
+      1,
+      100
+    );
   };
 
   return (
@@ -95,26 +101,7 @@ function FilterWrapper(props) {
           </Space>
           {filterFields.length > 0 ? (
             filterFields.map((el, index) => (
-              <Space
-                direction="vertical"
-                size="middle"
-                key={index}
-                style={{ margin: "10px 0 0" }}
-              >
-                {/* Logical Statement  */}
-                {/* {index !== 0 ? (
-                <Radio.Group
-                  name="logical"
-                  onChange={(e) => handleChange(e, index)}
-                  defaultValue={el.logical}
-                >
-                  <Radio value={"and"}>And</Radio>
-                  <Radio value={"or"}>Or</Radio>
-                </Radio.Group>
-              ) : (
-                ""
-              )} */}
-                <FilterField
+              <FilterField
                   key={el.id}
                   id={index}
                   default={el.default}
@@ -126,7 +113,6 @@ function FilterWrapper(props) {
                   handleDelete={removeField}
                   isRoleOffer={props.isRoleOffer}
                 />
-              </Space>
             ))
           ) : (
             <Text>Click on Add..</Text>

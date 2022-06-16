@@ -1,44 +1,6 @@
 import { message } from "antd";
 import { countries } from "../data/countries";
 
-export const UsersFetch = (
-  setUsersData,
-  setDataLoading,
-  setPagination,
-  page_number,
-  page_size
-) => {
-  setDataLoading(true);
-  fetch(
-    `${process.env.REACT_APP_API_BASE}/volunteers?page_number=${page_number}&page_size=${page_size}`
-  )
-    .then((response) => {
-      if (!response.ok) {
-        setDataLoading(false);
-        throw new Error(
-          `This is an HTTP error: The status is ${response.status}`
-        );
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log("Users data", data);
-      const mutateData = data.map((el) =>
-        Object.assign(el, { key: el.candidate_id })
-      );
-      mutateData.map((data) => {
-        data["nationality"] = countries[data.nationality];
-        data["residence_country"] = countries[data.residence_country];
-      });
-      setUsersData(mutateData);
-      setPagination(data.total_pages);
-      setDataLoading(false);
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-};
-
 export const UsersFieldsFetch = (setUsersDataFields) => {
   fetch(`${process.env.REACT_APP_API_BASE}/volunteer-fields`)
     .then((response) => {
