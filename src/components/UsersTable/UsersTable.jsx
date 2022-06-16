@@ -7,7 +7,7 @@ import ColumnFilter from "../ColumnFilter/ColumnFilter";
 import AssignButton from "../StatusChangeActions/AssignButton";
 import WaitlistButton from "../StatusChangeActions/WaitlistButton";
 import FreeButton from "../StatusChangeActions/FreeButton";
-import { FilterUserFetch, UsersFetch } from "../../services/fetch";
+import { FilterUserFetch } from "../../services/fetch";
 import "./UsersTable.scss";
 
 const { Link } = Typography;
@@ -36,6 +36,8 @@ const UsersTable = (props) => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [tableColumns, setTableColumns] = useState(columns);
   const [userID, setUserID] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
 
   const usersData = useStore(({ usersData }) => usersData);
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
@@ -49,18 +51,14 @@ const UsersTable = (props) => {
   const route = props.isAnyStatus ? "ChangeToAnyStatus" : "AssignOrWaitlist";
 
   useEffect(() => {
-    if (filterFields.length == 0) {
-      UsersFetch(setUsersData, setDataLoading, setPagination, 1, 10);
-    } else {
-      FilterUserFetch(
-        filterFields,
-        setUsersData,
-        setPagination,
-        setDataLoading,
-        1,
-        10
-      );
-    }
+    FilterUserFetch(
+      filterFields,
+      setUsersData,
+      setPagination,
+      setDataLoading,
+      1,
+      100
+    );
   }, []);
 
   //Fetch the active modal data.
@@ -114,19 +112,6 @@ const UsersTable = (props) => {
           <Tag color={colors[status]} key={status}>
             {status}
           </Tag>
-          {/* {tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-  
-            if (tag === 'loser') {
-              color = 'volcano';
-            }
-  
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })} */}
         </>
         :
         null
@@ -157,15 +142,8 @@ const UsersTable = (props) => {
   };
 
   const handlePagination = (pageNumber, pageSize) => {
-    if (filterFields.length == 0) {
-      UsersFetch(
-        setUsersData,
-        setDataLoading,
-        setPagination,
-        pageNumber,
-        pageSize
-      );
-    } else {
+    const currentPageSize = 100;
+    if(currentPageSize === pageSize) {
       FilterUserFetch(
         filterFields,
         setUsersData,
@@ -174,6 +152,17 @@ const UsersTable = (props) => {
         pageNumber,
         pageSize
       );
+      setCurrentPage(pageNumber);
+    }else{
+      FilterUserFetch(
+        filterFields,
+        setUsersData,
+        setPagination,
+        setDataLoading,
+        1,
+        pageSize
+      );
+      setCurrentPage(1);
     }
   };
 
@@ -229,6 +218,7 @@ const UsersTable = (props) => {
             onChange: (pageNumber, pageSize) =>
               handlePagination(pageNumber, pageSize),
             total: pagination,
+            current: currentPage
           }}
         />
       </div>

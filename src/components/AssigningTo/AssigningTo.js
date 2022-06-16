@@ -68,9 +68,6 @@ const AssigningTo = () => {
       setSubmitDisabled(false);
   }, [entity, functionalArea, location, jobTitle]);
 
-
-  console.log("selectedRoleOffer", selectedRoleOffer);
-
   //Submit Handler Logic
   const handleSubmit = (e) => {
     e.preventDefault();
