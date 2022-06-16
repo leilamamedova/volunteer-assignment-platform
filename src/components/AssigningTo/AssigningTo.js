@@ -53,7 +53,7 @@ const AssigningTo = () => {
   }, [roleOffers]);
 
   useEffect(() => {
-    entity.length > 0 && setIsFADisabled(false);
+    entity.length > 0 ? setIsFADisabled(false) : setSelectedRoleOffer({});
     entity.length > 0 &&
       functionalArea.length > 0 &&
       setIsJobTitleDisabled(false);
@@ -67,6 +67,9 @@ const AssigningTo = () => {
       location.length > 0 &&
       setSubmitDisabled(false);
   }, [entity, functionalArea, location, jobTitle]);
+
+
+  console.log("selectedRoleOffer", selectedRoleOffer);
 
   //Submit Handler Logic
   const handleSubmit = (e) => {
@@ -104,8 +107,6 @@ const AssigningTo = () => {
     );
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
-    console.log("NEW JOBS");
-    console.log(jobTitleData);
     setJobTitles(jobTitleData);
   };
   const handleJobTitleChange = (value) => {
