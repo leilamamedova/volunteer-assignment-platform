@@ -14,7 +14,8 @@ function FilterTemplateModal(props) {
     for (let i = 0; i < props.list.length; i++) {
       if (
         props.list[i].requirement_name === "Requirement" ||
-        props.list[i].operator === "Operator"
+        props.list[i].operator === "Operator" ||
+        filterFields[i].value?.length === 0
       ) {
         isFound = true;
       }
