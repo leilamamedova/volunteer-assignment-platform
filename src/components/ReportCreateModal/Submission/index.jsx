@@ -8,35 +8,10 @@ function Submit() {
   const reportColumns = useStore((state) => state.reportColumns);
   const setReportTemplates = useStore((state) => state.setReportTemplates);
   const reportROColumns = useStore((state) => state.reportROColumns);
-  function ValidateFilters(filterArray, isUser) {
-    let isFound = false;
-    if (filterArray.length > 0) {
-      filterArray.forEach((el) => {
-        if (
-          el.requirement_name === "Requirement" ||
-          el.operator === "Operator"
-        ) {
-          isFound = true;
-          if (isUser) {
-            setFiltersValid(false);
-          } else {
-            setROfiltersValid(false);
-          }
-        }
-      });
-      if (!isFound) {
-        if (isUser) {
-          setFiltersValid(true);
-        } else {
-          setROfiltersValid(true);
-        }
-      }
-    }
-  }
+  const filterFields = useStore((state) => state.filterFields);
+  const ROfilterFields = useStore((state) => state.ROfilterFields);
 
   useEffect(() => {
-    ValidateFilters(filterFields, true);
-    ValidateFilters(ROfilterFields);
     if (
       templateReportName.trim() === "" ||
       typeof reportColumns === "undefined" ||
@@ -48,13 +23,7 @@ function Submit() {
     } else {
       setDisabled(false);
     }
-  }, [
-    templateReportName,
-    reportColumns,
-    reportROColumns,
-    filterFields,
-    ROfilterFields,
-  ]);
+  }, [templateReportName, reportColumns, reportROColumns, filterFields]);
 
   const handleSubmit = () => {
     const postData = {
