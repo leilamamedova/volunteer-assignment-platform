@@ -33,7 +33,7 @@ function FilterWrapper(props) {
     }
     NewUsersFieldsFetch(setNewUsersDataFields);
 
-    return resetFilterFields();
+    // return resetFilterFields();
   }, []);
   // Creating a new field
   const handleNewField = () => {

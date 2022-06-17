@@ -79,9 +79,9 @@ const FunctionAndRequirementsTable = () => {
   const handleEditModal = (record) => {
     const el = functionalRequirements.find((el) => el.key === record.key);
     const originalEl = JSON.parse(JSON.stringify(el));
+    setFilterFields(originalEl.requirements);
     const dublicateEl = JSON.parse(JSON.stringify(el));
     setDefeaultFilters(dublicateEl.requirements);
-    setFilterFields(originalEl.requirements);
     setHeadcount(record.totalDemand);
     setLevelOfConfidence(record.levelOfConfidence);
     setWaitlistFulfillment(record.waitlistDemand);
