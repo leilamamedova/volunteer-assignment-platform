@@ -77,11 +77,13 @@ const useStore = create((set) => ({
     set((state) => ({ overallAssignments: data })),
   volunteerDemographics: {},
   setVolunteerDemographics: (data) =>
-    set((state) => ({ volunteerDemographics: data })), 
-  systemRole: '',
+    set((state) => ({ volunteerDemographics: data })),
+  systemRole: "",
   setSystemRole: (role) => set((state) => ({ systemRole: role })),
-  userEmail: '',
+  userEmail: "",
   setUserEmail: (email) => set((state) => ({ userEmail: email })),
+  FilterTotal: 0,
+  setFilterTotal: (data) => set((state) => (state.FilterTotal = data)),
 }));
 
 export default useStore;

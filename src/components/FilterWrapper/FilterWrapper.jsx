@@ -11,6 +11,8 @@ const { Text } = Typography;
 function FilterWrapper(props) {
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setFilterFields = useStore(({ setFilterFields }) => setFilterFields);
+  const setFilterTotal = useStore(({ setFilterTotal }) => setFilterTotal);
+
   const addFilterField = useStore(({ addFilterField }) => addFilterField);
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
@@ -32,8 +34,6 @@ function FilterWrapper(props) {
       resetFilterFields();
     }
     NewUsersFieldsFetch(setNewUsersDataFields);
-
-    // return resetFilterFields();
   }, []);
   // Creating a new field
   const handleNewField = () => {
@@ -73,6 +73,7 @@ function FilterWrapper(props) {
   //Set default FilterFields , Fetch Users without Filter
   const resetHandler = () => {
     resetFilterFields();
+    setFilterTotal(0);
     FilterUserFetch(
       filterFields,
       setUsersData,

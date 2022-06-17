@@ -43,7 +43,8 @@ export const FilterUserFetch = (
   setPagination,
   setDataLoading,
   page_number,
-  page_size
+  page_size,
+  setFilterTotal
 ) => {
   setDataLoading(true);
   fetch(
@@ -59,6 +60,9 @@ export const FilterUserFetch = (
   )
     .then((response) => response.json())
     .then((data) => {
+      if (setFilterTotal) {
+        setFilterTotal(data.total_pages);
+      }
       const mutateData = data.data.map((el) =>
         Object.assign(el, { key: el.candidate_id })
       );
