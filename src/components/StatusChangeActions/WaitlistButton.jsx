@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, message } from "antd";
 import useStore from "../../services/store";
-import { FilterUserFetch } from "../../services/fetch";
+import { FilterUserFetch, RoleOffersFetch } from "../../services/fetch";
 
 function WaitlistButton(props) {
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
@@ -13,6 +13,7 @@ function WaitlistButton(props) {
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setPagination = useStore(({ setPagination }) => setPagination);
   const userEmail = useStore(({ userEmail }) => userEmail);
+  const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
 
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -53,6 +54,8 @@ function WaitlistButton(props) {
       })
       .then((data) => {
         message.success("Success!");
+        RoleOffersFetch(setRoleOffers, setDataLoading);
+
         FilterUserFetch(
           filterFields,
           setUsersData,
