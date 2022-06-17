@@ -104,7 +104,7 @@ function FilterWrapper(props) {
               {filterFields.length > 0 ? (
                 filterFields.map((el, index) => (
                   <FilterField
-                    key={el.id}
+                    key={index}
                     id={index}
                     default={el.default}
                     operator={el.operator}

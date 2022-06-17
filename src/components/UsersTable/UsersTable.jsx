@@ -166,7 +166,7 @@ const UsersTable = (props) => {
       <div className="assign-search-result">
         <Row justify="space-between" gutter={16}>
           <Col>
-            <Space align="stretch">
+            <Space align="baseline">
               <ColumnFilter columns={columns} handleColumns={handleColumns} />
               {FilterTotal !== 0 ? (
                 <p className="count-indicator">

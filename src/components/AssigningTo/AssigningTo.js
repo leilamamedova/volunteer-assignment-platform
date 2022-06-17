@@ -114,7 +114,8 @@ const AssigningTo = () => {
     );
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
-    setLocations(venueData);
+    const venueListWithId = venueData.filter(venue => venue.roleOffer.role_offer_id !== null)
+    setLocations(venueListWithId);
   };
   const handleVenueChange = (value, location) => {
     setLocation(location.children);

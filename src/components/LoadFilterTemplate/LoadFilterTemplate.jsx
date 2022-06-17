@@ -40,6 +40,7 @@ function LoadFilterTemplate() {
           .localeCompare(optionB.children.toLowerCase())
       }
     >
+      <Option key="default" value="default"> Search to Select</Option>
       {favoriteFilters &&
         favoriteFilters.map((el) => (
           <Option key={el.key} value={el.key}>

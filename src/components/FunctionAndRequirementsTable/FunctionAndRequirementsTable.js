@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, Space, Table, InputNumber } from "antd";
+import { Button, Space, Table } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import EditRequirementsModal from "./components/EditRequirementsModal/EditRequirementsModal";
 import useStore from "../../services/store";
 import { getColumnSearchProps } from "../UsersTable/ColumnSearch/ColumnSearch";
 import ListModal from "../ListModal/ListModal";
-import { RoleOffersFetch } from "../../services/fetch";
 import "./FunctionAndRequirementsTable.scss";
 
 const FunctionAndRequirementsTable = () => {
@@ -25,7 +24,6 @@ const FunctionAndRequirementsTable = () => {
   const setFunctionalRequirements = useStore(
     ({ setFunctionalRequirements }) => setFunctionalRequirements
   );
-  const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
 
   const setFilterFields = useStore(({ setFilterFields }) => setFilterFields);
   const filterFields = useStore((state) => state.filterFields);
@@ -39,11 +37,12 @@ const FunctionAndRequirementsTable = () => {
       offer.functionalAreas.map((fa) => {
         fa.jobTitles.map((job) => {
           job.locations.map((venue) => {
+            venue.roleOffer.role_offer_id !== null &&
             setData((prev) => [
               ...prev,
               {
                 key: venue.roleOffer.id,
-                id: venue.roleOffer.role_offer_id,
+                roleId: venue.roleOffer.role_offer_id,
                 functionalAreaType: offer.name,
                 functionalAreaCode: fa.code,
                 functionalArea: fa.name,
@@ -97,8 +96,8 @@ const FunctionAndRequirementsTable = () => {
   const columns = [
     {
       title: "Role Offer - ID",
-      dataIndex: "id",
-      ...getColumnSearchProps("id"),
+      dataIndex: "roleId",
+      ...getColumnSearchProps("roleId"),
     },
     {
       title: "Functional Area Type",

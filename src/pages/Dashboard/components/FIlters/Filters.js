@@ -250,7 +250,8 @@ const Filters = ({ showUserData = false }) => {
       })
     );
     let venueMerged = removeDuplicateObjectFromArray(locations);
-    setVenues(venueMerged);
+    const venueListWithId = venueMerged.filter(venue => venue.roleOffer.role_offer_id !== null)
+    setVenues(venueListWithId);
   };
   const handleVenueChange = (value) => {
     const roles = role.filter((el) => value.includes(el.venue));
