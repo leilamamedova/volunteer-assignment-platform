@@ -1,6 +1,6 @@
 import { Button, message } from "antd";
 import useStore from "../../services/store";
-import { FilterUserFetch } from "../../services/fetch";
+import { FilterUserFetch, RoleOffersFetch } from "../../services/fetch";
 
 function FreeButton(props) {
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
@@ -8,6 +8,7 @@ function FreeButton(props) {
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setPagination = useStore(({ setPagination }) => setPagination);
   const userEmail = useStore(({ userEmail }) => userEmail);
+  const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
 
   const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/ChangeToAnyStatus/?email=${userEmail}`;
 
@@ -33,6 +34,8 @@ function FreeButton(props) {
       })
       .then((data) => {
         message.success("Success!");
+        RoleOffersFetch(setRoleOffers, setDataLoading);
+
         FilterUserFetch(
           filterFields,
           setUsersData,

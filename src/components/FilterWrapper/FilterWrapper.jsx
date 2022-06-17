@@ -86,7 +86,7 @@ function FilterWrapper(props) {
 
   return (
     <>
-      <div className={"card flexv overflow-y--auto"}>
+      <div className={"card outer flexv "}>
         <div style={{ width: "100%" }} className="flexv">
           <Space className="sticky" size="middle">
             <Button type="primary" onClick={handleNewField}>
@@ -99,24 +99,28 @@ function FilterWrapper(props) {
               Reset
             </Button>
           </Space>
-          {filterFields.length > 0 ? (
-            filterFields.map((el, index) => (
-              <FilterField
-                key={el.id}
-                id={index}
-                default={el.default}
-                operator={el.operator}
-                requirement={el.requirement_name}
-                value={el.value}
-                handleSelect={handleSelect}
-                handleChange={handleChange}
-                handleDelete={removeField}
-                isRoleOffer={props.isRoleOffer}
-              />
-            ))
-          ) : (
-            <Text>Click on Add..</Text>
-          )}
+          <div className={"card flexv overflow-y--auto"}>
+            <div style={{ width: "100%" }} className="flexv">
+              {filterFields.length > 0 ? (
+                filterFields.map((el, index) => (
+                  <FilterField
+                    key={el.id}
+                    id={index}
+                    default={el.default}
+                    operator={el.operator}
+                    requirement={el.requirement_name}
+                    value={el.value}
+                    handleSelect={handleSelect}
+                    handleChange={handleChange}
+                    handleDelete={removeField}
+                    isRoleOffer={props.isRoleOffer}
+                  />
+                ))
+              ) : (
+                <Text>Click on Add..</Text>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </>
