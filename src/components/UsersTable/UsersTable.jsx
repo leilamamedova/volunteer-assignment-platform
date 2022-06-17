@@ -13,21 +13,21 @@ import "./UsersTable.scss";
 const { Link } = Typography;
 
 const colors = {
-  "Assigned": "#ffff00",
-  "Pending": "#ffc00a0",
-  "Accepted": "#007500",
-  "Confirmed": "#007500",
-  "Complete": "#007500",
-  "Declined": "#ff0000",
-  "Removed": "#7030a0",
-  "Expired": "#808080",
+  Assigned: "#ffff00",
+  Pending: "#ffc00a0",
+  Accepted: "#007500",
+  Confirmed: "#007500",
+  Complete: "#007500",
+  Declined: "#ff0000",
+  Removed: "#7030a0",
+  Expired: "#808080",
   "Waitlist Offered": "#ffc00a0",
   "Waitlist Accepted": "#00b0f0",
   "Waitlist Declined": "#ff0000",
   "Pre-assigned": "#c6e0b4",
   "Not Approved": "#7030a0",
   "Waitlist Assigned": "#ffff00",
-}
+};
 
 const UsersTable = (props) => {
   const [isVolunteerModalVisible, setIsVolunteerModalVisible] = useState(false);
@@ -38,7 +38,6 @@ const UsersTable = (props) => {
   const [userID, setUserID] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-
   const usersData = useStore(({ usersData }) => usersData);
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
@@ -47,18 +46,12 @@ const UsersTable = (props) => {
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
   const setPagination = useStore(({ setPagination }) => setPagination);
   const filterFields = useStore(({ filterFields }) => filterFields);
+  const FilterTotal = useStore(({ FilterTotal }) => FilterTotal);
 
   const route = props.isAnyStatus ? "ChangeToAnyStatus" : "AssignOrWaitlist";
 
   useEffect(() => {
-    FilterUserFetch(
-      filterFields,
-      setUsersData,
-      setPagination,
-      setDataLoading,
-      1,
-      100
-    );
+    FilterUserFetch([], setUsersData, setPagination, setDataLoading, 1, 100);
   }, []);
 
   //Fetch the active modal data.
@@ -98,25 +91,27 @@ const UsersTable = (props) => {
         ),
       });
       if (props.isStatusColumn) {
-        dataKeys.splice(2, 0,
-          dataKeys.splice( 
-            dataKeys.findIndex((el) => el.title === "status"),1)[0]
+        dataKeys.splice(
+          2,
+          0,
+          dataKeys.splice(
+            dataKeys.findIndex((el) => el.title === "status"),
+            1
+          )[0]
         );
       }
       setColumns(dataKeys);
       setTableColumns(dataKeys);
 
-      dataKeys.find(el => el.title === "status")["render"] = (status) => (
-        status ?
-        <>
-          <Tag color={colors[status]} key={status}>
-            {status}
-          </Tag>
-        </>
-        :
-        null
-      )
-    }   
+      dataKeys.find((el) => el.title === "status")["render"] = (status) =>
+        status ? (
+          <>
+            <Tag color={colors[status]} key={status}>
+              {status}
+            </Tag>
+          </>
+        ) : null;
+    }
   }, [dataKeys]);
 
   const rowSelection = {
@@ -143,7 +138,7 @@ const UsersTable = (props) => {
 
   const handlePagination = (pageNumber, pageSize) => {
     const currentPageSize = 100;
-    if(currentPageSize === pageSize) {
+    if (currentPageSize === pageSize) {
       FilterUserFetch(
         filterFields,
         setUsersData,
@@ -153,7 +148,7 @@ const UsersTable = (props) => {
         pageSize
       );
       setCurrentPage(pageNumber);
-    }else{
+    } else {
       FilterUserFetch(
         filterFields,
         setUsersData,
@@ -173,6 +168,13 @@ const UsersTable = (props) => {
           <Col>
             <Space align="stretch">
               <ColumnFilter columns={columns} handleColumns={handleColumns} />
+              {FilterTotal !== 0 ? (
+                <p className="count-indicator">
+                  Filter Total Result: {FilterTotal}
+                </p>
+              ) : (
+                ""
+              )}
             </Space>
           </Col>
           <Col>
@@ -209,7 +211,7 @@ const UsersTable = (props) => {
           rowSelection={{
             ...rowSelection,
           }}
-          scroll={{ x: 240, y:500 }}
+          scroll={{ x: 240, y: 500 }}
           columns={tableColumns}
           dataSource={usersData}
           loading={dataLoading}
@@ -218,7 +220,7 @@ const UsersTable = (props) => {
             onChange: (pageNumber, pageSize) =>
               handlePagination(pageNumber, pageSize),
             total: pagination,
-            current: currentPage
+            current: currentPage,
           }}
         />
       </div>

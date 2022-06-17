@@ -7,7 +7,7 @@ function ResultButton({ fetchFiltered }) {
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
   const setPagination = useStore(({ setPagination }) => setPagination);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
-
+  const setFilterTotal = useStore(({ setFilterTotal }) => setFilterTotal);
   const warning = () => {
     message.warning(
       "Please select valid Filter (Requirement, Operator and Value must exist) !"
@@ -32,7 +32,8 @@ function ResultButton({ fetchFiltered }) {
           setPagination,
           setDataLoading,
           1,
-          100
+          100,
+          setFilterTotal
         );
     }
   };
