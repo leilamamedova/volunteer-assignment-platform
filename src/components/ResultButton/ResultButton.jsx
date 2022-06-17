@@ -19,11 +19,7 @@ function ResultButton({ fetchFiltered }) {
     e.preventDefault();
     let isFound = false;
     filterFields.forEach((el) => {
-      if (
-        el.operator === "Operator" ||
-        el.requirement_name === "Requirement" ||
-        el.value?.length === 0
-      ) {
+      if (el.operator === "Operator" || el.requirement_name === "Requirement") {
         isFound = true;
         warning();
       }

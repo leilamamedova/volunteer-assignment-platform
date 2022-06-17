@@ -8,10 +8,6 @@ function Submit() {
   const reportColumns = useStore((state) => state.reportColumns);
   const setReportTemplates = useStore((state) => state.setReportTemplates);
   const reportROColumns = useStore((state) => state.reportROColumns);
-  const filterFields = useStore((state) => state.filterFields);
-  const ROfilterFields = useStore((state) => state.ROfilterFields);
-  const [filtersValid, setFiltersValid] = useState(false);
-  const [ROfiltersValid, setROfiltersValid] = useState(false);
   function ValidateFilters(filterArray, isUser) {
     let isFound = false;
     if (filterArray.length > 0) {
@@ -46,11 +42,7 @@ function Submit() {
       typeof reportColumns === "undefined" ||
       reportColumns == [] ||
       typeof reportROColumns === "undefined" ||
-      reportROColumns == [] ||
-      filterFields.length === 0 ||
-      ROfilterFields.length === 0 ||
-      filtersValid === false ||
-      ROfiltersValid === false
+      reportROColumns == []
     ) {
       setDisabled(true);
     } else {
