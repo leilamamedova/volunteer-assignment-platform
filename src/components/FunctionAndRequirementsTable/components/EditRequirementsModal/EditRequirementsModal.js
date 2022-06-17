@@ -35,13 +35,16 @@ const EditRequirementsModal = ({
   const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
+    console.log("----------------");
+    console.log(filterFields);
+    console.log("----------------");
+
     let isFound = false;
 
-    for (let i = 0; i < filterFields.length; i++) {
+    for (let i = 0; i < filterFields?.length; i++) {
       if (
         filterFields[i].requirement_name === "Requirement" ||
-        filterFields[i].operator === "Operator" ||
-        filterFields[i].value?.length === 0
+        filterFields[i].operator === "Operator"
       ) {
         isFound = true;
       }
@@ -128,7 +131,7 @@ const EditRequirementsModal = ({
         footer={[
           <Button onClick={handleCancel}>Cancel</Button>,
           <Button type="primary" onClick={handleOk} disabled={isDisabled}>
-            Ok {isDisabled.toString()}
+            Ok
           </Button>,
         ]}
       >
