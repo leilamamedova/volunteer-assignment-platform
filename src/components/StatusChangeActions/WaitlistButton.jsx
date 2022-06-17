@@ -35,7 +35,6 @@ function WaitlistButton(props) {
         email: userEmail,
       })
     );
-    console.log(postData);
     fetch(endpoint, {
       method: "POST",
       headers: {

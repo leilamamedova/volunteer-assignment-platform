@@ -3,7 +3,6 @@ import { Modal } from "antd";
 import "./ListModal.scss";
 
 const ListModal = ({ isModalVisible, setIsModalVisible, list }) => {
-  
   const handleOk = () => {
     setIsModalVisible(false);
   };
@@ -21,8 +20,9 @@ const ListModal = ({ isModalVisible, setIsModalVisible, list }) => {
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
+        destroyOnClose
       >
-        { list.length>0 ?
+        {list.length > 0 ? (
           list.map((item, index) => (
             <p key={index} className="filter-list-text">
               <span className="requirement">{item.requirement_name}</span>{" "}
@@ -32,9 +32,9 @@ const ListModal = ({ isModalVisible, setIsModalVisible, list }) => {
               </span>
             </p>
           ))
-          :
+        ) : (
           <h1>Empty</h1>
-        }
+        )}
       </Modal>
     </>
   );

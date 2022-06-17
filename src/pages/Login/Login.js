@@ -29,7 +29,6 @@ const Login = () => {
         return response.json();
       })
       .then((data) => {
-        console.log("Login Data", data.value);
         localStorage.setItem("token", JSON.stringify(data.value.token));
         navigate("/");
         setLoading(false);

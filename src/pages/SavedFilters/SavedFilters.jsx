@@ -70,11 +70,15 @@ function SavedFilters() {
 
   //Collects the Template's filters and id
   //---------------------------------------
+
   const handleEditModal = (id) => {
     const el = favoriteFilters.find((el) => el.key === id);
     setFilterFields(el.filters);
     setId(id);
     setIsEditModalVisible(true);
+  };
+  const resetOnClose = () => {
+    SavedFiltersGet(addFavoriteFilter);
   };
   const handleFilterListModal = (id) => {
     const el = favoriteFilters.find((el) => el.key === id);
@@ -151,6 +155,7 @@ function SavedFilters() {
         isModalVisible={isEditModalVisible}
         setIsModalVisible={setIsEditModalVisible}
         templateId={id}
+        resetOnClose={resetOnClose}
         list={filterFields}
       />
       <ListModal

@@ -33,6 +33,7 @@ function FilterTemplateModal(props) {
 
   const handleCancel = () => {
     props.setIsModalVisible(false);
+    props.resetOnClose();
   };
 
   const handleSave = () => {

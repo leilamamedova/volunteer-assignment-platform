@@ -60,13 +60,14 @@ function FilterField(props) {
   const [roData, setRoData] = useState([]);
 
   useEffect(() => {
-    RoleOfferValuesFetch(setRoData);
+    setRoData(props.roData);
   }, []);
-
   useEffect(() => {
     setTagsArray(props.value);
-  }, [props]);
-
+  }, [props.value]);
+  useEffect(() => {
+    setRoData(props.roData);
+  }, [props.roData]);
   useEffect(() => {
     if (props.isRoleOffer) {
       const arr = [];
@@ -103,28 +104,20 @@ function FilterField(props) {
   };
 
   const handleFieldSelect = (e) => {
-    console.log("0000000000000000");
-    console.log(e);
-    console.log("000000000000000");
     let selectedObject;
     if (props.isRoleOffer) {
-      console.log("hei");
-      roData.forEach((el) =>
+      roData?.forEach((el) =>
         el[1].name === e ? (selectedObject = el[1]) : ""
       );
       setSelectEnum(true);
       setIsInput(false);
       setDateTime(false);
-      setEnumOptions(selectedObject.value_options);
+      setEnumOptions(selectedObject?.value_options);
     } else {
       newUserFieldsArray.forEach((el) =>
         el[0] === e ? (selectedObject = el) : ""
       );
       if (selectedObject) {
-        console.log("--------------------------");
-        console.log(selectedObject);
-        console.log("--------------------------");
-
         if (selectedObject[1].type === "input") {
           setIsInput(true);
           setSelectEnum(false);
@@ -253,7 +246,7 @@ function FilterField(props) {
           allowClear
           className="scrolling-tags"
         >
-          {enumOptions.map((el, index) => (
+          {enumOptions?.map((el, index) => (
             <Option key={index} value={el}>
               {el}
             </Option>

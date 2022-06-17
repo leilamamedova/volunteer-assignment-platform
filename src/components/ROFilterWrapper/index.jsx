@@ -1,12 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button, Space, Typography } from "antd";
 import useStore from "../../services/store";
 import FilterField from "../FilterField/FilterField";
 import ResultButton from "../ResultButton/ResultButton";
+import { RoleOfferValuesFetch } from "../../services/fetch";
 import "./index.scss";
 
 const { Text } = Typography;
 function ROFilterWrapper(props) {
+  const [roData, setRoData] = useState([]);
+
   const ROfilterFields = useStore(({ ROfilterFields }) => ROfilterFields);
   const setROFilterFields = useStore(
     ({ setROFilterFields }) => setROFilterFields
@@ -19,7 +22,11 @@ function ROFilterWrapper(props) {
   const resetROFilterFields = useStore(
     ({ resetROFilterFields }) => resetROFilterFields
   );
+  useEffect(() => {
+    RoleOfferValuesFetch(setRoData);
 
+    return resetROFilterFields();
+  }, []);
   // Creating a new field
   const handleNewField = () => {
     addROFilterField({
@@ -92,6 +99,7 @@ function ROFilterWrapper(props) {
                   handleChange={handleChange}
                   handleDelete={removeField}
                   isRoleOffer={props.isRoleOffer}
+                  roData={roData}
                 />
               </Space>
             ))

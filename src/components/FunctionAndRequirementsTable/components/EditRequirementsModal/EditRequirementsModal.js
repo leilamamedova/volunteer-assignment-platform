@@ -13,6 +13,7 @@ const EditRequirementsModal = ({
   headcount,
   levelOfConfidence,
   waitlistFulfillment,
+  defaultRequirements,
 }) => {
   const filterFields = useStore(({ filterFields }) => filterFields);
   const functionalRequirements = useStore(
@@ -23,6 +24,8 @@ const EditRequirementsModal = ({
     ({ selectedFavoriteFilters }) => selectedFavoriteFilters
   );
   const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
+  const setFilterFields = useStore(({ setFilterFields }) => setFilterFields);
+
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
   const [count, setCount] = useState();
@@ -73,8 +76,6 @@ const EditRequirementsModal = ({
         el["waitlist_demand"] = waitlist;
         el["total_demand"] = count;
         el["role_offer_id"] = el.key;
-
-        console.log("el", el);
         setRequirement(el);
       }
     });
@@ -109,14 +110,15 @@ const EditRequirementsModal = ({
 
     RoleOffersFetch(setRoleOffers, setDataLoading);
   }, [requirement]);
-
   const handleCancel = () => {
     setIsEditModalVisible(false);
+    setFilterFields(defaultRequirements);
   };
 
   return (
     <>
       <Modal
+        destroyOnClose
         centered
         closable={false}
         className="function-and-requirements-modal"
