@@ -1,12 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button, Space, Typography } from "antd";
 import useStore from "../../services/store";
 import FilterField from "../FilterField/FilterField";
 import ResultButton from "../ResultButton/ResultButton";
-import {
-  FilterUserFetch,
-  NewUsersFieldsFetch,
-} from "../../services/fetch";
+
+import { FilterUserFetch, NewUsersFieldsFetch } from "../../services/fetch";
 import "./FilterWrapper.scss";
 
 const { Text } = Typography;
@@ -34,8 +32,9 @@ function FilterWrapper(props) {
       resetFilterFields();
     }
     NewUsersFieldsFetch(setNewUsersDataFields);
-  }, []);
 
+    return resetFilterFields();
+  }, []);
   // Creating a new field
   const handleNewField = () => {
     addFilterField({
@@ -102,17 +101,17 @@ function FilterWrapper(props) {
           {filterFields.length > 0 ? (
             filterFields.map((el, index) => (
               <FilterField
-                  key={el.id}
-                  id={index}
-                  default={el.default}
-                  operator={el.operator}
-                  requirement={el.requirement_name}
-                  value={el.value}
-                  handleSelect={handleSelect}
-                  handleChange={handleChange}
-                  handleDelete={removeField}
-                  isRoleOffer={props.isRoleOffer}
-                />
+                key={el.id}
+                id={index}
+                default={el.default}
+                operator={el.operator}
+                requirement={el.requirement_name}
+                value={el.value}
+                handleSelect={handleSelect}
+                handleChange={handleChange}
+                handleDelete={removeField}
+                isRoleOffer={props.isRoleOffer}
+              />
             ))
           ) : (
             <Text>Click on Add..</Text>

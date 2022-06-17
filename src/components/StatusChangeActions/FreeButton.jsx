@@ -15,7 +15,6 @@ function FreeButton(props) {
     const postData = props.data.map((el) =>
       Object.assign({ id: el, status: null, email: userEmail })
     );
-    console.log(postData);
     fetch(endpoint, {
       method: "POST",
       headers: {

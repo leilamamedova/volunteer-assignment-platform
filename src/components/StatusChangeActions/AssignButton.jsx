@@ -33,7 +33,6 @@ function AssignButton(props) {
         status: "Pre-assigned",
       })
     );
-    console.log("postData", postData);
     fetch(endpoint, {
       method: "POST",
       headers: {

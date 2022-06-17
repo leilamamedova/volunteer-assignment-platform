@@ -8,7 +8,7 @@ function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
   const filterFields = useStore((state) => state.filterFields);
   const resetFilterFields = useStore((state) => state.resetFilterFields);
   const addFavoriteFilter = useStore((state) => state.addFavoriteFilter);
-  const [templateName, setTemplateName] = useState(false)
+  const [templateName, setTemplateName] = useState(false);
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -32,19 +32,19 @@ function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
         filters: filterFields,
       }),
     })
-    .then((response) =>{
-      if (!response.ok) {
-        throw new Error(
-          `This is an HTTP error: The status is ${response.status}`
-        );
-      }
-      return response.json();
-    })
-    .then((data) => {
-      message.success('Success!');
-      SavedFiltersGet(addFavoriteFilter);
-    })
-   .catch((err) => message.error(err.message))
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `This is an HTTP error: The status is ${response.status}`
+          );
+        }
+        return response.json();
+      })
+      .then((data) => {
+        message.success("Success!");
+        SavedFiltersGet(addFavoriteFilter);
+      })
+      .catch((err) => message.error(err.message));
 
     resetFilterFields();
     setTemplateName(true);
@@ -52,10 +52,10 @@ function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
   };
 
   const handleEnter = (event) => {
-    if (event.which == '13') {
+    if (event.which == "13") {
       event.preventDefault();
     }
-  }
+  };
 
   return (
     <Modal
@@ -66,6 +66,7 @@ function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
       onCancel={handleCancel}
       footer={[]}
       className="templates-page-modal"
+      destroyOnClose
     >
       <Form
         initialValues={{ remember: false }}
@@ -78,7 +79,7 @@ function NewFilterTemplateModal({ isModalVisible, setIsModalVisible }) {
           name="template-filter-name"
           rules={[{ required: true, message: "Name your filter" }]}
         >
-          {templateName ? <Input value=''/> : <Input/> }          
+          {templateName ? <Input value="" /> : <Input />}
         </Form.Item>
         <FilterWrapper seeResultBtn={false} />
         <Button className="mt-20" type="primary" htmlType="submit">

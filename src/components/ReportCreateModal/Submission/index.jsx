@@ -65,7 +65,6 @@ function Submit() {
   ]);
 
   const handleSubmit = () => {
-    console.log("Handling...");
     const postData = {
       name: templateReportName,
       volunteer_columns: reportColumns,
