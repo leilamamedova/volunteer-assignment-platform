@@ -29,7 +29,7 @@ function ReportCreateModal({ isModalVisible, setIsModalVisible }) {
       visible={isModalVisible}
       onOk={handleOk}
       onCancel={handleCancel}
-      footer={[<Submission />]}
+      footer={[<Submission cancel={handleCancel} />]}
       centered
     >
       <Tabs className="form-tab">
