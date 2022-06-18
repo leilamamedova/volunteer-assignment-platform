@@ -40,10 +40,6 @@ const SearchAndAssign = () => {
     <div className="search-and-assign">
       <Row justify="space-between">
         <Col>
-          <LoadFilterTemplate />
-        </Col>
-
-        <Col>
           <Row gutter={16}>
             {systemRole.some((el) => el === "Admin") ? (
               <Col>
@@ -59,10 +55,10 @@ const SearchAndAssign = () => {
         </Col>
       </Row>
       <Row gutter={15} wrap={true} justify="space-between">
-        <Col className="sa-right" xs={24} md={12} lg={10}>
+        <Col xs={24}>
           <AssigningTo />
         </Col>
-        <Col className="sa-left" xs={24} md={12} lg={14}>
+        <Col xs={24}>
           <FilterWrapper seeResultBtn={true} blankStart={true} isReset={true} />
         </Col>
       </Row>

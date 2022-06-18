@@ -57,6 +57,8 @@ const useStore = create((set) => ({
   activeRoleOfferId: 0,
   setActiveRoleOfferId: (data) =>
     set((state) => (state.activeRoleOfferId = data)),
+  activeOfferData: {},
+  setActiveOfferData: (data) => set((state) => (state.activeOfferData = data)),
   templateReportName: "",
   setTemplateReportName: (data) =>
     set((state) => (state.templateReportName = data)),

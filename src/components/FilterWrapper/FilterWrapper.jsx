@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button, Space, Typography } from "antd";
+import { FullscreenOutlined, FullscreenExitOutlined } from "@ant-design/icons";
 import useStore from "../../services/store";
 import FilterField from "../FilterField/FilterField";
 import ResultButton from "../ResultButton/ResultButton";
+import LoadFilterTemplate from "../LoadFilterTemplate/LoadFilterTemplate";
 
 import { FilterUserFetch, NewUsersFieldsFetch } from "../../services/fetch";
 import "./FilterWrapper.scss";
@@ -12,12 +14,13 @@ function FilterWrapper(props) {
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setFilterFields = useStore(({ setFilterFields }) => setFilterFields);
   const setFilterTotal = useStore(({ setFilterTotal }) => setFilterTotal);
-
   const addFilterField = useStore(({ addFilterField }) => addFilterField);
+
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const setPagination = useStore(({ setPagination }) => setPagination);
 
+  const [toogleSize, setToogleSize] = useState(false);
   const removeFilterField = useStore(
     ({ removeFilterField }) => removeFilterField
   );
@@ -69,6 +72,9 @@ function FilterWrapper(props) {
     list[index][name] = e;
     setFilterFields(list);
   };
+  const handleToggle = () => {
+    setToogleSize((prev) => !prev);
+  };
   //Handle Reset
   //Set default FilterFields , Fetch Users without Filter
   const resetHandler = () => {
@@ -86,7 +92,11 @@ function FilterWrapper(props) {
 
   return (
     <>
-      <div className={"card outer flexv "}>
+      <div
+        className={
+          toogleSize ? "card outer flexv min-h-500" : "card outer flexv"
+        }
+      >
         <div style={{ width: "100%" }} className="flexv">
           <Space className="sticky" size="middle">
             <Button type="primary" onClick={handleNewField}>
@@ -98,8 +108,34 @@ function FilterWrapper(props) {
             <Button onClick={resetHandler} type="primary">
               Reset
             </Button>
+            <LoadFilterTemplate />
+            <div onClick={handleToggle}>
+              {toogleSize ? (
+                <FullscreenExitOutlined
+                  style={{
+                    fontSize: "1.8rem",
+                    color: "#1890FF",
+                    cursor: "pointer",
+                  }}
+                />
+              ) : (
+                <FullscreenOutlined
+                  style={{
+                    fontSize: "1.8rem",
+                    color: "#1890FF",
+                    cursor: "pointer",
+                  }}
+                />
+              )}
+            </div>
           </Space>
-          <div className={"card flexv overflow-y--auto"}>
+          <div
+            className={
+              toogleSize
+                ? "card no-border no-shadow  flexv overflow-y--auto min-h-500"
+                : "card no-border no-shadow  flexv overflow-y--auto"
+            }
+          >
             <div style={{ width: "100%" }} className="flexv">
               {filterFields.length > 0 ? (
                 filterFields.map((el, index) => (
