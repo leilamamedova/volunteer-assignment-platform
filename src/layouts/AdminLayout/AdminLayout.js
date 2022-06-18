@@ -109,7 +109,7 @@ const MainLayout = () => {
           bottom: 0,
         }}
       >
-        <div className="logo" />
+        <div className="logo" >VAP</div>
         {
           location.pathname === '/savedfilters' ?
           <Menu
