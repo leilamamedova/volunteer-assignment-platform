@@ -1,15 +1,13 @@
 import { Col, Row, Space } from "antd";
 import FilterWrapper from "../../../components/FilterWrapper/FilterWrapper";
-import LoadFilterTemplate from "../../LoadFilterTemplate/LoadFilterTemplate";
 import ROFilterWrapper from "../../ROFilterWrapper";
-
+import "./index.scss";
 function Filters() {
   return (
     <div className="modal-filters">
-      <Row gutter={24} align='top'>
+      <Row gutter={24} align="top">
         <Col span={12} className="filter-column">
-          <Space align='top'>
-            <LoadFilterTemplate /> 
+          <Space align="top">
             <p>Volunteer Filters</p>
           </Space>
           <FilterWrapper />

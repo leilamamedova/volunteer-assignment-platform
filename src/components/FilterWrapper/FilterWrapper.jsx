@@ -24,7 +24,9 @@ function FilterWrapper(props) {
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const setPagination = useStore(({ setPagination }) => setPagination);
-
+  const setSelectedFavoriteFilters = useStore(
+    (state) => state.setSelectedFavoriteFilters
+  );
   const [toogleSize, setToogleSize] = useState(false);
   const removeFilterField = useStore(
     ({ removeFilterField }) => removeFilterField
@@ -112,13 +114,16 @@ function FilterWrapper(props) {
   const handleGroupReset = (e, groupType) => {
     e.stopPropagation();
     const mutate = filterFields.filter((el) => el.type !== groupType);
+    if (groupType === "SavedTemplate") {
+      setSelectedFavoriteFilters(0);
+    }
     setFilterFields(mutate);
   };
 
   const accordionExtra = (count, type) => {
     return (
       <Space className="align-center">
-        <p style={{ fontSize: "1.3rem" }}>Count: {count}</p>
+        <p style={{ fontSize: "1.1rem" }}>Count: {count}</p>
         <Button
           type="primary"
           danger
@@ -171,8 +176,8 @@ function FilterWrapper(props) {
           <div
             className={
               toogleSize
-                ? "card no-border no-shadow  flexv overflow-y--auto min-h-500"
-                : "card no-border no-shadow  flexv overflow-y--auto"
+                ? "card no-border no-shadow p-0 flexv overflow-y--auto min-h-500"
+                : "card no-border no-shadow p-0 flexv overflow-y--auto"
             }
           >
             <div style={{ width: "100%" }} className="flexv">

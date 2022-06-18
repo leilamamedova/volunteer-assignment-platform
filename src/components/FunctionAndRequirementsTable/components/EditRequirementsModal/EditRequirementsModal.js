@@ -149,9 +149,7 @@ const EditRequirementsModal = ({
             <InputNumber value={waitlist} min={0} onChange={setWaitlist} />
           </Col>
         </Row>
-        <Row>
-          <LoadFilterTemplate />
-        </Row>
+
         <FilterWrapper noReset={true} seeResultBtn={false} />
       </Modal>
     </>

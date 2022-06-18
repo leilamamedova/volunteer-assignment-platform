@@ -8,7 +8,9 @@
 }
 .ant-collapse {
   width: 100%;
-
+  .ant-collapse-content-box {
+    overflow-x: auto;
+  }
   .ant-collapse-header {
     display: flex !important;
     align-items: center !important;
