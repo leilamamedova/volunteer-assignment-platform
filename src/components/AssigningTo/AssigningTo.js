@@ -40,6 +40,10 @@ const AssigningTo = () => {
   const setActiveRoleOfferId = useStore(
     ({ setActiveRoleOfferId }) => setActiveRoleOfferId
   );
+  const setActiveOfferData = useStore(
+    ({ setActiveOfferData }) => setActiveOfferData
+  );
+
   const filterFields = useStore((state) => state.filterFields);
   const setFilterFields = useStore((state) => state.setFilterFields);
 
@@ -79,6 +83,7 @@ const AssigningTo = () => {
         .jobTitles.find((el) => el.name === jobTitle)
         .locations.find((el) => el.name === location).roleOffer;
       const offerRequirements = offer.functionalRequirement.requirements;
+      setActiveOfferData({ entity, functionalArea, jobTitle, location });
       setFilterFields([...filterFields, ...offerRequirements]);
       setSelectedRoleOffer(offer);
     }
@@ -114,7 +119,9 @@ const AssigningTo = () => {
     );
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
-    const venueListWithId = venueData.filter(venue => venue.roleOffer.role_offer_id !== null)
+    const venueListWithId = venueData.filter(
+      (venue) => venue.roleOffer.role_offer_id !== null
+    );
     setLocations(venueListWithId);
   };
   const handleVenueChange = (value, location) => {
@@ -124,14 +131,22 @@ const AssigningTo = () => {
 
   return (
     <div style={{ width: "100%" }}>
-      <Space className="assignin-to-component card">
+      <Space className="assignin-to-component card" direction="vertical">
         <Space direction="vertical">
           <form
-            style={{ display: "flex", gap: "10px", flexDirection: "column" }}
+            style={{
+              width: "100%",
+              display: "flex",
+              gap: "10px",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
             onSubmit={handleSubmit}
           >
             {roleOfferId !== 0 && (
-              <p style={{ marginBottom: "0" }}>Role Offer ID: {roleOfferId}</p>
+              <p style={{ marginBottom: "0", fontSize: "1.5rem" }}>
+                Role Offer ID: {roleOfferId}
+              </p>
             )}
             <Select
               defaultValue="Entity"
@@ -200,10 +215,12 @@ const AssigningTo = () => {
                 </Option>
               ))}
             </Select>
+
             <Button
               type="primary"
               htmlType="submit"
               disabled={isSubmitDisabled}
+              className="submit-btn"
             >
               Submit
             </Button>

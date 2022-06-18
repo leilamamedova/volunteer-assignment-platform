@@ -43,7 +43,7 @@ const ROLE_OFFER_DATA = ["Entity", "Functional_Area", "Job_Title", "Location"];
 
 function FilterField(props) {
   const usersDataFields = useStore(({ usersDataFields }) => usersDataFields);
-  const dataLoading = useStore(({ dataLoading }) => dataLoading);
+  // const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const NewUsersDataFields = useStore(
     ({ NewUsersDataFields }) => NewUsersDataFields
@@ -92,9 +92,9 @@ function FilterField(props) {
     handleFieldSelect(props.requirement);
   }, [usersDataFields, newUserFieldsArray]);
 
-  useEffect(() => {
-    requirements.length > 0 ? setDataLoading(false) : setDataLoading(true);
-  }, [requirements]);
+  // useEffect(() => {
+  //   requirements.length > 0 ? setDataLoading(false) : setDataLoading(true);
+  // }, [requirements]);
   useEffect(() => {
     const arr = Object.entries(NewUsersDataFields);
     setNewUserFieldsArray(arr);
@@ -166,7 +166,7 @@ function FilterField(props) {
         className="selectWidth"
         defaultValue={props.requirement}
         value={props.requirement}
-        loading={dataLoading}
+        // loading={dataLoading}
         onSelect={handleFieldSelect}
       >
         <Option value={props.requirement}>{props.requirement}</Option>

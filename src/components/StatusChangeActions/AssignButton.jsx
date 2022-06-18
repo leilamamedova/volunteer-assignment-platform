@@ -8,9 +8,15 @@ function AssignButton(props) {
   const activeRoleOfferId = useStore(
     ({ activeRoleOfferId }) => activeRoleOfferId
   );
+  const activeOfferData = useStore(({ activeOfferData }) => activeOfferData);
 
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const roleOffers = useStore(({ roleOffers }) => roleOffers);
+
   const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
+  const setSelectedRoleOffer = useStore(
+    ({ setSelectedRoleOffer }) => setSelectedRoleOffer
+  );
 
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setPagination = useStore(({ setPagination }) => setPagination);
@@ -20,11 +26,21 @@ function AssignButton(props) {
 
   useEffect(() => {
     activeRoleOfferId === 0 ? setIsDisabled(true) : setIsDisabled(false);
-
     return () => {
       setIsDisabled(true);
     };
   }, [activeRoleOfferId]);
+
+  const handleOfferDataUpdate = () => {
+    const offer = roleOffers
+      .find((el) => el.name === activeOfferData.entity)
+      .functionalAreas.find((el) => el.name === activeOfferData.functionalArea)
+      .jobTitles.find((el) => el.name === activeOfferData.jobTitle)
+      .locations.find((el) => el.name === activeOfferData.location).roleOffer;
+
+    setSelectedRoleOffer(offer);
+  };
+
   const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}/?email=${userEmail}`;
 
   const handleAssign = () => {
@@ -54,6 +70,7 @@ function AssignButton(props) {
       .then((data) => {
         message.success("Success!");
         RoleOffersFetch(setRoleOffers, setDataLoading);
+        handleOfferDataUpdate();
         FilterUserFetch(
           filterFields,
           setUsersData,

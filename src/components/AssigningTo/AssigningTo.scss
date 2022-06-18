@@ -2,14 +2,22 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   gap: 20px !important;
+  .ant-space {
+    width: 100%;
+  }
+  .ant-space-item {
+    width: 100%;
+  }
   .ant-select {
     width: 275px;
   }
+  .submit-btn {
+    width: 200px;
+    height: 40px;
+  }
   .fulfillment-wrapper {
     display: flex;
-    flex-direction: column;
     gap: 12px !important;
     .ant-card {
       min-width: 137px !important;
@@ -21,7 +29,6 @@
   .assignin-to-component {
     flex-direction: row;
     .fulfillment-wrapper {
-      flex-direction: column;
     }
   }
 }

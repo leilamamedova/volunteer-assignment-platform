@@ -1,4 +1,7 @@
 .search-and-assign {
+  .ant-col {
+    margin-bottom: 10px;
+  }
   .card {
     max-height: 320px;
   }
@@ -8,32 +11,5 @@
   .search-and-assign-filters {
     gap: 30px !important;
     width: 100%;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .search-and-assign {
-    .sa-left {
-      min-width: 100%;
-      max-width: 1200px;
-    }
-    .sa-right {
-      min-width: 70%;
-      max-width: 900px;
-      margin-bottom: 20px;
-    }
-  }
-}
-
-@media screen and (min-width: 1600px) {
-  .search-and-assign {
-    .sa-left {
-      min-width: 60%;
-      max-width: 60%;
-    }
-    .sa-right {
-      min-width: 40%;
-      max-width: 40%;
-    }
   }
 }
