@@ -47,7 +47,7 @@ const MainLayout = () => {
     {
       key: "1",
       icon: <DashboardOutlined />,
-      label: "Dashboard",
+      label: <a href="/" target="_blank">Dashboard</a>,
       onClick: () => navigate("/"),
     },
     {
@@ -57,17 +57,17 @@ const MainLayout = () => {
       children: [
         {
           key: "a",
-          label: `Function & Requirements`,
+          label: <a href="/function-and-requirements" target="_blank">{'Function & Requirements'}</a>,
           onClick: () => navigate("/function-and-requirements"),
         },
         {
           key: "b",
-          label: `Saved Filters`,
+          label: <a href="/savedfilters" target="_blank">Saved Filters</a>,
           onClick: () => navigate("/savedfilters"),
         },
         {
           key: "c",
-          label: `Search & Assign`,
+          label: <a href="/search-and-assign" target="_blank">{'Search & Assign'}</a>,
           onClick: () => navigate("/search-and-assign"),
         },
         // {
@@ -85,7 +85,7 @@ const MainLayout = () => {
     {
       key: "3",
       icon: <FileTextOutlined />,
-      label: "Report",
+      label: <a href="/reports" target="_blank">Report</a>,
       onClick: () => navigate("/reports"),
     },
   ];
