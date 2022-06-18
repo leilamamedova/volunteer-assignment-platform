@@ -43,12 +43,12 @@ const SearchAndAssign = () => {
           <Row gutter={16}>
             {systemRole.some((el) => el === "Admin") ? (
               <Col>
-                <BulkImport title={"Users"} url={importUrl} />
+                <BulkImport title={"Candidates"} url={importUrl} />
               </Col>
             ) : null}
             <Col>
               <a href={exportUrl} download>
-                <Button icon={<DownloadOutlined />}>Export Users</Button>
+                <Button icon={<DownloadOutlined />}>Export Candidates</Button>
               </a>
             </Col>
           </Row>

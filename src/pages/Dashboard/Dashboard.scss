@@ -29,5 +29,14 @@
     }
     .ant-card{
         max-width: 200px;
+        text-align: center;
+        .ant-card-body {
+          justify-content: center;
+        }
+        p {
+          font-size: 0.9rem;
+      
+          margin-bottom: 0;
+        }
     }
 }
