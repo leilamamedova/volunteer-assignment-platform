@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Space, Typography } from "antd";
+import { Button, Space, Typography, Collapse } from "antd";
 import { FullscreenOutlined, FullscreenExitOutlined } from "@ant-design/icons";
 import useStore from "../../services/store";
 import FilterField from "../FilterField/FilterField";
@@ -10,16 +10,23 @@ import { FilterUserFetch, NewUsersFieldsFetch } from "../../services/fetch";
 import "./FilterWrapper.scss";
 
 const { Text } = Typography;
+const { Panel } = Collapse;
 function FilterWrapper(props) {
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setFilterFields = useStore(({ setFilterFields }) => setFilterFields);
   const setFilterTotal = useStore(({ setFilterTotal }) => setFilterTotal);
   const addFilterField = useStore(({ addFilterField }) => addFilterField);
 
+  const [STfilters, setSTfilters] = useState([]);
+  const [FRfilters, setFRfilters] = useState([]);
+  const [DFfilters, setDFfilters] = useState([]);
+
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const setPagination = useStore(({ setPagination }) => setPagination);
-
+  const setSelectedFavoriteFilters = useStore(
+    (state) => state.setSelectedFavoriteFilters
+  );
   const [toogleSize, setToogleSize] = useState(false);
   const removeFilterField = useStore(
     ({ removeFilterField }) => removeFilterField
@@ -31,22 +38,36 @@ function FilterWrapper(props) {
     ({ setNewUsersDataFields }) => setNewUsersDataFields
   );
 
-	//Everytime componenet loads, we are resetting the store
-	useEffect(() => {
-		if (props.isReset) {
-			resetFilterFields();
-		}
-		NewUsersFieldsFetch(setNewUsersDataFields);
-	}, []);
-	// Creating a new field
-	const handleNewField = () => {
-		addFilterField({
-			default: false,
-			requirement_name: "Requirement",
-			operator: "Operator",
-			value: [],
-		});
-	};
+  //Everytime componenet loads, we are resetting the store
+  useEffect(() => {
+    if (props.isReset) {
+      resetFilterFields();
+    }
+    NewUsersFieldsFetch(setNewUsersDataFields);
+  }, []);
+  useEffect(() => {
+    const _fr = filterFields.filter(
+      (el) => el.type === "FunctionalRequirements"
+    );
+    const _st = filterFields.filter((el) => el.type === "SavedTemplate");
+    const _df = filterFields.filter(
+      (el) => el.type === undefined || el.type === "Default"
+    );
+
+    setSTfilters(_st);
+    setFRfilters(_fr);
+    setDFfilters(_df);
+  }, [filterFields]);
+  // Creating a new field
+  const handleNewField = () => {
+    addFilterField({
+      default: false,
+      type: "Default",
+      requirement_name: "Requirement",
+      operator: "Operator",
+      value: [],
+    });
+  };
 
 	// Removing a filter field
 	const removeField = (del_id) => {
@@ -90,6 +111,29 @@ function FilterWrapper(props) {
     );
   };
 
+  const handleGroupReset = (e, groupType) => {
+    e.stopPropagation();
+    const mutate = filterFields.filter((el) => el.type !== groupType);
+    if (groupType === "SavedTemplate") {
+      setSelectedFavoriteFilters(0);
+    }
+    setFilterFields(mutate);
+  };
+
+  const accordionExtra = (count, type) => {
+    return (
+      <Space className="align-center">
+        <p style={{ fontSize: "1.1rem" }}>Count: {count}</p>
+        <Button
+          type="primary"
+          danger
+          onClick={(e) => handleGroupReset(e, type)}
+        >
+          Delete All
+        </Button>
+      </Space>
+    );
+  };
   return (
     <>
       <div
@@ -132,26 +176,104 @@ function FilterWrapper(props) {
           <div
             className={
               toogleSize
-                ? "card no-border no-shadow  flexv overflow-y--auto min-h-500"
-                : "card no-border no-shadow  flexv overflow-y--auto"
+                ? "card no-border no-shadow p-0 flexv overflow-y--auto min-h-500"
+                : "card no-border no-shadow p-0 flexv overflow-y--auto"
             }
           >
             <div style={{ width: "100%" }} className="flexv">
               {filterFields.length > 0 ? (
-                filterFields.map((el, index) => (
-                  <FilterField
-                    key={index}
-                    id={index}
-                    default={el.default}
-                    operator={el.operator}
-                    requirement={el.requirement_name}
-                    value={el.value}
-                    handleSelect={handleSelect}
-                    handleChange={handleChange}
-                    handleDelete={removeField}
-                    isRoleOffer={props.isRoleOffer}
-                  />
-                ))
+                <Collapse accardion>
+                  {DFfilters.length > 0 ? (
+                    <Panel
+                      header="Defaults"
+                      key="1"
+                      extra={accordionExtra(DFfilters?.length, "Default")}
+                    >
+                      {filterFields.map((el, index) =>
+                        el.type === "Default" || el.type === undefined ? (
+                          <FilterField
+                            key={index}
+                            id={index}
+                            type={el.type}
+                            default={el.default}
+                            operator={el.operator}
+                            requirement={el.requirement_name}
+                            value={el.value}
+                            handleSelect={handleSelect}
+                            handleChange={handleChange}
+                            handleDelete={removeField}
+                            isRoleOffer={props.isRoleOffer}
+                          />
+                        ) : (
+                          ""
+                        )
+                      )}
+                    </Panel>
+                  ) : (
+                    ""
+                  )}
+                  {STfilters.length > 0 ? (
+                    <Panel
+                      header="Saved Template"
+                      key="2"
+                      extra={accordionExtra(STfilters?.length, "SavedTemplate")}
+                    >
+                      {filterFields.map((el, index) =>
+                        el.type === "SavedTemplate" ? (
+                          <FilterField
+                            key={index}
+                            id={index}
+                            type={el.type}
+                            default={el.default}
+                            operator={el.operator}
+                            requirement={el.requirement_name}
+                            value={el.value}
+                            handleSelect={handleSelect}
+                            handleChange={handleChange}
+                            handleDelete={removeField}
+                            isRoleOffer={props.isRoleOffer}
+                          />
+                        ) : (
+                          ""
+                        )
+                      )}
+                    </Panel>
+                  ) : (
+                    ""
+                  )}
+                  {FRfilters.length > 0 ? (
+                    <Panel
+                      header="Functional Requirements"
+                      key="3"
+                      extra={accordionExtra(
+                        FRfilters?.length,
+                        "FunctionalRequirements"
+                      )}
+                    >
+                      {filterFields.map((el, index) =>
+                        el.type === "FunctionalRequirements" ? (
+                          <FilterField
+                            key={index}
+                            id={index}
+                            type={el.type}
+                            default={el.default}
+                            operator={el.operator}
+                            requirement={el.requirement_name}
+                            value={el.value}
+                            handleSelect={handleSelect}
+                            handleChange={handleChange}
+                            handleDelete={removeField}
+                            isRoleOffer={props.isRoleOffer}
+                          />
+                        ) : (
+                          ""
+                        )
+                      )}
+                    </Panel>
+                  ) : (
+                    ""
+                  )}
+                </Collapse>
               ) : (
                 <Text>Click on Add..</Text>
               )}

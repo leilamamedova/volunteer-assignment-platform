@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal, Tabs } from "antd";
 import TemplateForm from "./TemplateForm";
 import Filters from "./Filters";
@@ -6,9 +6,18 @@ import Submission from "./Submission/index";
 import Columns from "./Columns/index";
 
 import "./index.scss";
+import useStore from "../../services/store";
 const { TabPane } = Tabs;
 function ReportCreateModal({ isModalVisible, setIsModalVisible }) {
+  const resetFilterFields = useStore((state) => state.resetFilterFields);
   const [activeTab, setActiveTab] = useState(1);
+
+  useEffect(() => {
+    resetFilterFields();
+
+    return resetFilterFields();
+  }, []);
+
   const handleOk = () => {
     setIsModalVisible(false);
   };

@@ -11,6 +11,10 @@ $retro-yellow: #fcfc02;
 
 //Layout -- End
 
+p {
+  margin: 0;
+}
+
 // Utility Selector -- Start
 //Colors -- Start
 
@@ -79,6 +83,9 @@ $retro-yellow: #fcfc02;
 
 .no-shadow {
   box-shadow: rgba(0, 0, 0, 0) 0 0 0 !important;
+}
+.p-0 {
+  padding: 0 !important;
 }
 .min-h-500 {
   min-height: 700px !important;
@@ -151,6 +158,9 @@ $retro-yellow: #fcfc02;
 }
 .d-flex {
   display: flex;
+}
+.align-center {
+  align-items: center;
 }
 .justify-content-between {
   justify-content: space-between;

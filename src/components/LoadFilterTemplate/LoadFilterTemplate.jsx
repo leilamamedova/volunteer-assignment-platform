@@ -11,36 +11,40 @@ function LoadFilterTemplate() {
   const dataLoading = useStore(({ dataLoading }) => dataLoading);
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
   const addFavoriteFilter = useStore((state) => state.addFavoriteFilter);
-  const setSelectedFavoriteFilters = useStore((state) => state.setSelectedFavoriteFilters);
+  const setSelectedFavoriteFilters = useStore(
+    (state) => state.setSelectedFavoriteFilters
+  );
+  const selectedFavoriteFilters = useStore(
+    (state) => state.selectedFavoriteFilters
+  );
 
   const handleSelect = (e) => {
     setSelectedFavoriteFilters(e);
     const el = favoriteFilters.find((el) => el.key === e);
-    setFilterFields([...filterFields, ...el.filters]);
+    const typedFilters = el?.filters.map((el) =>
+      Object.assign({ type: "SavedTemplate" }, el)
+    );
+    setFilterFields([...filterFields, ...typedFilters]);
   };
 
   useEffect(() => {
     SavedFiltersGet(addFavoriteFilter, setDataLoading);
-  }, [])
+  }, []);
 
   return (
     <Select
+      defaultValue={selectedFavoriteFilters}
+      value={selectedFavoriteFilters}
       onChange={handleSelect}
       showSearch
       style={{ width: 200 }}
       placeholder="Search to Select"
       optionFilterProp="children"
-      loading={dataLoading}
-      filterOption={(input, option) =>
-        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-      }
-      filterSort={(optionA, optionB) =>
-        optionA.children
-          .toLowerCase()
-          .localeCompare(optionB.children.toLowerCase())
-      }
+      // loading={dataLoading}
     >
-      <Option key="default" value="default"> Search to Select</Option>
+      <Option key="default" value={0}>
+        Search to Select
+      </Option>
       {favoriteFilters &&
         favoriteFilters.map((el) => (
           <Option key={el.key} value={el.key}>

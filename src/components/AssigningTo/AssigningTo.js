@@ -83,8 +83,11 @@ const AssigningTo = () => {
         .jobTitles.find((el) => el.name === jobTitle)
         .locations.find((el) => el.name === location).roleOffer;
       const offerRequirements = offer.functionalRequirement.requirements;
+      const typedFilters = offerRequirements?.map((el) =>
+        Object.assign({ type: "FunctionalRequirements" }, el)
+      );
       setActiveOfferData({ entity, functionalArea, jobTitle, location });
-      setFilterFields([...filterFields, ...offerRequirements]);
+      setFilterFields([...filterFields, ...typedFilters]);
       setSelectedRoleOffer(offer);
     }
   };
@@ -143,11 +146,6 @@ const AssigningTo = () => {
             }}
             onSubmit={handleSubmit}
           >
-            {roleOfferId !== 0 && (
-              <p style={{ marginBottom: "0", fontSize: "1.5rem" }}>
-                Role Offer ID: {roleOfferId}
-              </p>
-            )}
             <Select
               defaultValue="Entity"
               showSearch
@@ -241,6 +239,11 @@ const AssigningTo = () => {
             percent={selectedRoleOffer.waitlistDemandPercentage}
           />
         </Space>
+        {roleOfferId !== 0 && (
+          <p style={{ marginBottom: "0", fontSize: "1.2rem" }}>
+            Role Offer ID: {roleOfferId}
+          </p>
+        )}
       </Space>
     </div>
   );
