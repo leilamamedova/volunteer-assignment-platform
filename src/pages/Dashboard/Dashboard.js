@@ -63,12 +63,12 @@ const Dashboard = () => {
         backgroundColor: 'orange',
       },
       {
-        label: 'Wailist  Offered',
+        label: 'Waitlist  Offered',
         data: [dashboardData.waitlistOffered],
         backgroundColor: 'green',
       },
       {
-        label: 'Wailist Accepted',
+        label: 'Waitlist Accepted',
         data: [dashboardData.waitlistAccepted],
         backgroundColor: 'Blue',
       },
