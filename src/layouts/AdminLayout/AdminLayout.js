@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, useNavigate, useLocation, Link  } from "react-router-dom";
 import { Layout, Menu, Row, Col } from "antd";
 import {
   ControlOutlined,
@@ -47,8 +47,7 @@ const MainLayout = () => {
     {
       key: "1",
       icon: <DashboardOutlined />,
-      label: <a href="/" >Dashboard</a>,
-      onClick: () => navigate("/"),
+      label: <Link to="/">Dashboard</Link>
     },
     {
       key: "2",
@@ -57,18 +56,15 @@ const MainLayout = () => {
       children: [
         {
           key: "a",
-          label: <a href="/function-and-requirements" >{'Function & Requirements'}</a>,
-          onClick: () => navigate("/function-and-requirements"),
+          label: <Link to='/function-and-requirements'>{'Function & Requirements'}</Link>
         },
         {
           key: "b",
-          label: <a href="/savedfilters" >Saved Filters</a>,
-          onClick: () => navigate("/savedfilters"),
+          label: <Link to="/savedfilters">Saved Filters</Link>
         },
         {
           key: "c",
-          label: <a href="/search-and-assign" >{'Search & Assign'}</a>,
-          onClick: () => navigate("/search-and-assign"),
+          label: <Link to='/search-and-assign'>{'Search & Assign'}</Link>
         },
         // {
         //   key: "c",
@@ -85,8 +81,7 @@ const MainLayout = () => {
     {
       key: "3",
       icon: <FileTextOutlined />,
-      label: <a href="/reports" >Report</a>,
-      onClick: () => navigate("/reports"),
+      label: <Link to="/reports">Report</Link>
     },
   ];
 
