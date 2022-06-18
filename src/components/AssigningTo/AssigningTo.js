@@ -146,11 +146,6 @@ const AssigningTo = () => {
             }}
             onSubmit={handleSubmit}
           >
-            {roleOfferId !== 0 && (
-              <p style={{ marginBottom: "0", fontSize: "1.5rem" }}>
-                Role Offer ID: {roleOfferId}
-              </p>
-            )}
             <Select
               defaultValue="Entity"
               showSearch
@@ -244,6 +239,11 @@ const AssigningTo = () => {
             percent={selectedRoleOffer.waitlistDemandPercentage}
           />
         </Space>
+        {roleOfferId !== 0 && (
+          <p style={{ marginBottom: "0", fontSize: "1.2rem" }}>
+            Role Offer ID: {roleOfferId}
+          </p>
+        )}
       </Space>
     </div>
   );

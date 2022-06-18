@@ -14,6 +14,9 @@ function LoadFilterTemplate() {
   const setSelectedFavoriteFilters = useStore(
     (state) => state.setSelectedFavoriteFilters
   );
+  const selectedFavoriteFilters = useStore(
+    (state) => state.selectedFavoriteFilters
+  );
 
   const handleSelect = (e) => {
     setSelectedFavoriteFilters(e);
@@ -30,15 +33,16 @@ function LoadFilterTemplate() {
 
   return (
     <Select
+      defaultValue={selectedFavoriteFilters}
+      value={selectedFavoriteFilters}
       onChange={handleSelect}
       showSearch
       style={{ width: 200 }}
       placeholder="Search to Select"
       optionFilterProp="children"
-      loading={dataLoading}
+      // loading={dataLoading}
     >
-      <Option key="default" value="default">
-        {" "}
+      <Option key="default" value={0}>
         Search to Select
       </Option>
       {favoriteFilters &&
