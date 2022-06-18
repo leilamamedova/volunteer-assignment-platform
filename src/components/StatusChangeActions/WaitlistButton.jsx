@@ -14,8 +14,24 @@ function WaitlistButton(props) {
   const setPagination = useStore(({ setPagination }) => setPagination);
   const userEmail = useStore(({ userEmail }) => userEmail);
   const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
+  const activeOfferData = useStore(({ activeOfferData }) => activeOfferData);
 
+  const roleOffers = useStore(({ roleOffers }) => roleOffers);
+
+  const setSelectedRoleOffer = useStore(
+    ({ setSelectedRoleOffer }) => setSelectedRoleOffer
+  );
   const [isDisabled, setIsDisabled] = useState(true);
+
+  const handleOfferDataUpdate = () => {
+    const offer = roleOffers
+      .find((el) => el.name === activeOfferData.entity)
+      .functionalAreas.find((el) => el.name === activeOfferData.functionalArea)
+      .jobTitles.find((el) => el.name === activeOfferData.jobTitle)
+      .locations.find((el) => el.name === activeOfferData.location).roleOffer;
+
+    setSelectedRoleOffer(offer);
+  };
 
   const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}/?email=${userEmail}`;
 
@@ -55,7 +71,7 @@ function WaitlistButton(props) {
       .then((data) => {
         message.success("Success!");
         RoleOffersFetch(setRoleOffers, setDataLoading);
-
+        handleOfferDataUpdate();
         FilterUserFetch(
           filterFields,
           setUsersData,

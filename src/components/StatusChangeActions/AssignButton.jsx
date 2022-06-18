@@ -8,9 +8,10 @@ function AssignButton(props) {
   const activeRoleOfferId = useStore(
     ({ activeRoleOfferId }) => activeRoleOfferId
   );
-  const activeOfferData = useStore(({ activeOfferData }) => activeOfferData);
 
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const activeOfferData = useStore(({ activeOfferData }) => activeOfferData);
+
   const roleOffers = useStore(({ roleOffers }) => roleOffers);
 
   const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
