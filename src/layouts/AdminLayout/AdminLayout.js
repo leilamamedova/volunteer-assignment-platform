@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, useNavigate, useLocation, Link  } from "react-router-dom";
 import { Layout, Menu, Row, Col } from "antd";
 import {
   ControlOutlined,
@@ -47,8 +47,7 @@ const MainLayout = () => {
     {
       key: "1",
       icon: <DashboardOutlined />,
-      label: "Dashboard",
-      onClick: () => navigate("/"),
+      label: <Link to="/">Dashboard</Link>
     },
     {
       key: "2",
@@ -57,18 +56,15 @@ const MainLayout = () => {
       children: [
         {
           key: "a",
-          label: `Function & Requirements`,
-          onClick: () => navigate("/function-and-requirements"),
+          label: <Link to='/function-and-requirements'>{'Function & Requirements'}</Link>
         },
         {
           key: "b",
-          label: `Saved Filters`,
-          onClick: () => navigate("/savedfilters"),
+          label: <Link to="/savedfilters">Saved Filters</Link>
         },
         {
           key: "c",
-          label: `Search & Assign`,
-          onClick: () => navigate("/search-and-assign"),
+          label: <Link to='/search-and-assign'>{'Search & Assign'}</Link>
         },
         // {
         //   key: "c",
@@ -85,8 +81,7 @@ const MainLayout = () => {
     {
       key: "3",
       icon: <FileTextOutlined />,
-      label: "Report",
-      onClick: () => navigate("/reports"),
+      label: <Link to="/reports">Report</Link>
     },
   ];
 

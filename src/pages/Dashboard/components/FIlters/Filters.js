@@ -27,7 +27,7 @@ const statusList = [
   "Waitlist Assigned",
 ];
 
-const locationList = ["local", "international"];
+const locationList = ["Local", "International"];
 
 const Filters = ({ showUserData = false }) => {
   const roleOffers = useStore(({ roleOffers }) => roleOffers);
@@ -250,7 +250,9 @@ const Filters = ({ showUserData = false }) => {
       })
     );
     let venueMerged = removeDuplicateObjectFromArray(locations);
-    const venueListWithId = venueMerged.filter(venue => venue.roleOffer.role_offer_id !== null)
+    const venueListWithId = venueMerged.filter(
+      (venue) => venue.roleOffer.role_offer_id !== null
+    );
     setVenues(venueListWithId);
   };
   const handleVenueChange = (value) => {

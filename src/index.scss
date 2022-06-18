@@ -61,20 +61,28 @@ $retro-yellow: #fcfc02;
   border-radius: 15px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 25px;
   min-height: 140px;
-  max-height: 700px;
-
+  max-height: 900px;
   min-width: 500px;
 }
 @media screen and (min-width: 1500px) {
   .card {
-    min-height: 320px;
+    min-height: 200px;
   }
 }
 .card.outer {
   min-height: 250px;
-  max-height: 700px;
+  max-height: 900px;
+}
+.no-border {
+  border-radius: 0 !important;
 }
 
+.no-shadow {
+  box-shadow: rgba(0, 0, 0, 0) 0 0 0 !important;
+}
+.min-h-500 {
+  min-height: 700px !important;
+}
 //Components -- End
 //-----------------------------
 
@@ -141,12 +149,18 @@ $retro-yellow: #fcfc02;
   color: #fff;
   background-color: #00c800;
 }
-
+.d-flex {
+  display: flex;
+}
 .justify-content-between {
   justify-content: space-between;
 }
 .flex-column {
   flex-direction: column;
+}
+.ant-card-body {
+  display: flex;
+  gap: 20px;
 }
 //-----------------------------
 

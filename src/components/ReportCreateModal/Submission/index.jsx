@@ -2,7 +2,7 @@ import { Button } from "antd";
 import { useEffect, useState } from "react";
 import useStore from "../../../services/store";
 import { ReportTemplateFetch } from "../../../services/fetch";
-function Submit() {
+function Submit(props) {
   const [disabled, setDisabled] = useState(true);
   const templateReportName = useStore((state) => state.templateReportName);
   const reportColumns = useStore((state) => state.reportColumns);
@@ -42,7 +42,7 @@ function Submit() {
     })
       .then((res) => {
         ReportTemplateFetch(setReportTemplates);
-        window.location.reload();
+        props.cancel();
       })
       .catch((err) => console.log(err));
   };
