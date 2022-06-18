@@ -6,7 +6,6 @@ function AssignmentModal(props) {
   const [status, setStatus] = useState(props.status);
   const handleOk = () => {
     //Update status on OK with POST request
-    console.log(status);
     //Hide Modal
     props.setIsStatusModalVisible(false);
   };

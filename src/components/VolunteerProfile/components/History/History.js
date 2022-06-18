@@ -38,7 +38,6 @@ const History = ({userID}) => {
     }, [userID])
 
     useEffect(() => {
-        console.log('history', history);
         const historyObject = history.map((item, index) => {
             return {
                 key: index,

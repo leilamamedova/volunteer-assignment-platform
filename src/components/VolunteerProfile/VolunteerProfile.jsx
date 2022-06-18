@@ -21,6 +21,7 @@ function VolunteerProfile({isModalVisible, setIsVolunteerModalVisible, userID}) 
       onOk={handleOk}
       onCancel={handleCancel}
       centered
+      destroyOnClose
     >
 
       <Tabs defaultActiveKey="1" >

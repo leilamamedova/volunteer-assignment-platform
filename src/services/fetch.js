@@ -12,7 +12,6 @@ export const UsersFieldsFetch = (setUsersDataFields) => {
       return response.json();
     })
     .then((data) => {
-      console.log("Users data fields", data);
       setUsersDataFields(data);
     })
     .catch((err) => {
@@ -31,7 +30,6 @@ export const ReportTemplateFetch = (setReportTemplates) => {
       return response.json();
     })
     .then((data) => {
-      console.log("NEW USER data fields", data);
       setReportTemplates(data.value);
     })
     .catch((err) => {
@@ -45,7 +43,8 @@ export const FilterUserFetch = (
   setPagination,
   setDataLoading,
   page_number,
-  page_size
+  page_size,
+  setFilterTotal
 ) => {
   setDataLoading(true);
   fetch(
@@ -61,7 +60,9 @@ export const FilterUserFetch = (
   )
     .then((response) => response.json())
     .then((data) => {
-      console.log("Filtered Users", data);
+      if (setFilterTotal) {
+        setFilterTotal(data.total_pages);
+      }
       const mutateData = data.data.map((el) =>
         Object.assign(el, { key: el.candidate_id })
       );
@@ -87,7 +88,6 @@ export const NewUsersFieldsFetch = (setNewUsersDataFields) => {
       return response.json();
     })
     .then((data) => {
-      console.log("NEW USER data fields", data);
       setNewUsersDataFields(data);
     })
     .catch((err) => {
@@ -105,7 +105,6 @@ export const RoleOfferValuesFetch = (setMethod) => {
       return response.json();
     })
     .then((data) => {
-      console.log("Role Offer Values", Object.entries(data.value));
       setMethod(Object.entries(data.value));
     })
     .catch((err) => {
@@ -128,7 +127,6 @@ export const SavedFiltersGet = (addFavoriteFilter, setDataLoading) => {
       const mutateData = data.value.map((el) =>
         Object.assign(el, { key: el.id })
       );
-      console.log("Saved Filters", mutateData);
       addFavoriteFilter(mutateData);
       setDataLoading && setDataLoading(false);
     })
@@ -150,7 +148,6 @@ export const RoleOffersFetch = (setRoleOffers, setDataLoading) => {
       return response.json();
     })
     .then((data) => {
-      console.log("RoleOffers data", data.value);
       setRoleOffers(data.value);
       setDataLoading(false);
     })
@@ -172,7 +169,6 @@ export const HistoryFetch = (setHistory, setDataLoading, userId) => {
       return response.json();
     })
     .then((data) => {
-      console.log("History", data);
       setHistory(data);
       setDataLoading(false);
     })
@@ -194,7 +190,6 @@ export const DashboardGet = (setDashboardData, setDataLoading) => {
       return response.json();
     })
     .then((data) => {
-      console.log("Dashboard Data", data.value);
       setDashboardData(data.value);
       setDataLoading(false);
     })
@@ -227,7 +222,6 @@ export const OverallAssignmentsPost = (
       return response.json();
     })
     .then((data) => {
-      console.log("Overall Assignments Data", data.value);
       const mutateData = data.value.map((el, index) =>
         Object.assign(el, { key: index })
       );
@@ -261,7 +255,6 @@ export const VolunteerDemographicsPost = (
       return response.json();
     })
     .then((data) => {
-      console.log("Volunteer Demographics Data", data.value);
       setVolunteerDemographics(data.value);
       setDataLoading(false);
     })

@@ -9,6 +9,8 @@ const VolunteerData = ({userID}) => {
     const usersData = useStore(({usersData}) => usersData);  
     const [priorityData, setPriorityData] = useState({});
 
+    console.log("usersData", usersData);
+
     const findPriorityData = (type, arr, userData) => {
         userPriorityList[type].forEach(item => arr.push(userData.find(el => el[0] === item))); 
     }
@@ -55,7 +57,7 @@ const VolunteerData = ({userID}) => {
             ["medical"]: medicalArr, 
             ["system"]: systemArr, 
         });
-    }, [usersData])
+    }, [usersData, userID])
 
     return (
         <Collapse
@@ -67,7 +69,11 @@ const VolunteerData = ({userID}) => {
                         <Panel header={title} key={key}>
                             {
                                 priorityData[title].map((item, index) => (
-                                    <p key={index}>{item[0].replaceAll('_', ' ')} : {item[1]} </p>
+                                    <div key={index} style={{display: "flex"}}>
+                                        <p className='bold'>{item[0].replaceAll('_', ' ')}</p>
+                                        <pre>: </pre>
+                                        <p>{item[1]}</p>
+                                    </div>
                                 ))
                             }
                         </Panel>

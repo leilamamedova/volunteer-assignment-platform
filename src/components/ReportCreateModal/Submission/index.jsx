@@ -10,62 +10,22 @@ function Submit() {
   const reportROColumns = useStore((state) => state.reportROColumns);
   const filterFields = useStore((state) => state.filterFields);
   const ROfilterFields = useStore((state) => state.ROfilterFields);
-  const [filtersValid, setFiltersValid] = useState(false);
-  const [ROfiltersValid, setROfiltersValid] = useState(false);
-  function ValidateFilters(filterArray, isUser) {
-    let isFound = false;
-    if (filterArray.length > 0) {
-      filterArray.forEach((el) => {
-        if (
-          el.requirement_name === "Requirement" ||
-          el.operator === "Operator"
-        ) {
-          isFound = true;
-          if (isUser) {
-            setFiltersValid(false);
-          } else {
-            setROfiltersValid(false);
-          }
-        }
-      });
-      if (!isFound) {
-        if (isUser) {
-          setFiltersValid(true);
-        } else {
-          setROfiltersValid(true);
-        }
-      }
-    }
-  }
 
   useEffect(() => {
-    ValidateFilters(filterFields, true);
-    ValidateFilters(ROfilterFields);
     if (
       templateReportName.trim() === "" ||
       typeof reportColumns === "undefined" ||
       reportColumns == [] ||
       typeof reportROColumns === "undefined" ||
-      reportROColumns == [] ||
-      filterFields.length === 0 ||
-      ROfilterFields.length === 0 ||
-      filtersValid === false ||
-      ROfiltersValid === false
+      reportROColumns == []
     ) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [
-    templateReportName,
-    reportColumns,
-    reportROColumns,
-    filterFields,
-    ROfilterFields,
-  ]);
+  }, [templateReportName, reportColumns, reportROColumns, filterFields]);
 
   const handleSubmit = () => {
-    console.log("Handling...");
     const postData = {
       name: templateReportName,
       volunteer_columns: reportColumns,

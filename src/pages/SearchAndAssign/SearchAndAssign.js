@@ -13,6 +13,7 @@ import "./SearchAndAssign.scss";
 const SearchAndAssign = () => {
   const importUrl = `${process.env.REACT_APP_API_BASE}/import-users-data`;
   const exportUrl = `${process.env.REACT_APP_API_BASE}/export-volunteers`;
+  const setFilterTotal = useStore(({ setFilterTotal }) => setFilterTotal);
 
   const setUsersDataFields = useStore(
     ({ setUsersDataFields }) => setUsersDataFields
@@ -29,7 +30,10 @@ const SearchAndAssign = () => {
     UsersFieldsFetch(setUsersDataFields);
     NewUsersFieldsFetch(setNewUsersDataFields);
 
-    return () => setActiveRoleOfferId(0);
+    return () => {
+      setActiveRoleOfferId(0);
+      setFilterTotal(0);
+    };
   }, []);
 
   return (

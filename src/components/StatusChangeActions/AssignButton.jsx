@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, message } from "antd";
 import useStore from "../../services/store";
-import { FilterUserFetch } from "../../services/fetch";
+import { FilterUserFetch, RoleOffersFetch } from "../../services/fetch";
 
 function AssignButton(props) {
   const setUsersData = useStore(({ setUsersData }) => setUsersData);
@@ -10,6 +10,8 @@ function AssignButton(props) {
   );
 
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
+  const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
+
   const filterFields = useStore(({ filterFields }) => filterFields);
   const setPagination = useStore(({ setPagination }) => setPagination);
   const userEmail = useStore(({ userEmail }) => userEmail);
@@ -33,7 +35,6 @@ function AssignButton(props) {
         status: "Pre-assigned",
       })
     );
-    console.log("postData", postData);
     fetch(endpoint, {
       method: "POST",
       headers: {
@@ -52,6 +53,7 @@ function AssignButton(props) {
       })
       .then((data) => {
         message.success("Success!");
+        RoleOffersFetch(setRoleOffers, setDataLoading);
         FilterUserFetch(
           filterFields,
           setUsersData,

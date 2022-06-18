@@ -14,8 +14,7 @@ function FilterTemplateModal(props) {
     for (let i = 0; i < props.list.length; i++) {
       if (
         props.list[i].requirement_name === "Requirement" ||
-        props.list[i].operator === "Operator" ||
-        filterFields[i].value?.length === 0
+        props.list[i].operator === "Operator"
       ) {
         isFound = true;
       }
@@ -33,6 +32,7 @@ function FilterTemplateModal(props) {
 
   const handleCancel = () => {
     props.setIsModalVisible(false);
+    props.resetOnClose();
   };
 
   const handleSave = () => {

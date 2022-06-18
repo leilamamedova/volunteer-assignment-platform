@@ -13,6 +13,7 @@ const EditRequirementsModal = ({
   headcount,
   levelOfConfidence,
   waitlistFulfillment,
+  defaultRequirements,
 }) => {
   const filterFields = useStore(({ filterFields }) => filterFields);
   const functionalRequirements = useStore(
@@ -23,6 +24,8 @@ const EditRequirementsModal = ({
     ({ selectedFavoriteFilters }) => selectedFavoriteFilters
   );
   const setRoleOffers = useStore(({ setRoleOffers }) => setRoleOffers);
+  const setFilterFields = useStore(({ setFilterFields }) => setFilterFields);
+
   const setDataLoading = useStore(({ setDataLoading }) => setDataLoading);
 
   const [count, setCount] = useState();
@@ -32,13 +35,16 @@ const EditRequirementsModal = ({
   const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
+    console.log("----------------");
+    console.log(filterFields);
+    console.log("----------------");
+
     let isFound = false;
 
-    for (let i = 0; i < filterFields.length; i++) {
+    for (let i = 0; i < filterFields?.length; i++) {
       if (
         filterFields[i].requirement_name === "Requirement" ||
-        filterFields[i].operator === "Operator" ||
-        filterFields[i].value?.length === 0
+        filterFields[i].operator === "Operator"
       ) {
         isFound = true;
       }
@@ -73,8 +79,6 @@ const EditRequirementsModal = ({
         el["waitlist_demand"] = waitlist;
         el["total_demand"] = count;
         el["role_offer_id"] = el.key;
-
-        console.log("el", el);
         setRequirement(el);
       }
     });
@@ -109,14 +113,15 @@ const EditRequirementsModal = ({
 
     RoleOffersFetch(setRoleOffers, setDataLoading);
   }, [requirement]);
-
   const handleCancel = () => {
     setIsEditModalVisible(false);
+    setFilterFields(defaultRequirements);
   };
 
   return (
     <>
       <Modal
+        destroyOnClose
         centered
         closable={false}
         className="function-and-requirements-modal"
@@ -126,7 +131,7 @@ const EditRequirementsModal = ({
         footer={[
           <Button onClick={handleCancel}>Cancel</Button>,
           <Button type="primary" onClick={handleOk} disabled={isDisabled}>
-            Ok {isDisabled.toString()}
+            Ok
           </Button>,
         ]}
       >

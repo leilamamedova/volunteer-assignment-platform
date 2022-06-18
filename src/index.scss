@@ -55,12 +55,14 @@ $retro-yellow: #fcfc02;
 //-----------------------------
 //Components -- Start
 .card {
+  position: relative;
   padding: 20px 30px;
   background: #fff;
   border-radius: 15px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 25px;
-  min-height: 190px;
-  max-height: 500px;
+  min-height: 140px;
+  max-height: 700px;
+
   min-width: 500px;
 }
 @media screen and (min-width: 1500px) {
@@ -68,6 +70,11 @@ $retro-yellow: #fcfc02;
     min-height: 320px;
   }
 }
+.card.outer {
+  min-height: 250px;
+  max-height: 700px;
+}
+
 //Components -- End
 //-----------------------------
 

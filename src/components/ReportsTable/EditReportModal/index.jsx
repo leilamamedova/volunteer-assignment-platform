@@ -44,7 +44,6 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
   );
 
   useEffect(() => {
-    console.log(reportTemplate);
     setReportColumns(reportTemplate.volunteer_columns);
     setReportROColumns(reportTemplate.role_offer_columns);
     if (reportTemplate.volunteer_filters) {
@@ -55,12 +54,7 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
     }
   }, [reportTemplate]);
   useEffect(() => {
-    console.log(ROfilterFields);
-  }, [ROfilterFields]);
-  useEffect(() => {
     const arr = Object.entries(NewUsersDataFields);
-    console.log("--------");
-    console.log(arr);
     setUserFields(arr);
   }, [NewUsersDataFields]);
   useEffect(() => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row, Select, Table } from 'antd';
-import './MatchingData.scss';
 import useStore from '../../../../services/store';
+import './MatchingData.scss';
 
 const { Option } = Select;
 
@@ -99,9 +99,10 @@ const MatchingData = ({userID}) => {
         <div className='matching-modal'>
             <div className='matching-modal-select'>
                 <Select 
-                    defaultValue="Select requirement" 
+                    defaultValue="default" 
                     onChange={handleChange}
                 >
+                    <Option key='default' value='default' disabled>Select requirement</Option>
                     <Option key='1' value='fq' disabled={isFunctionalRequirements}>Functional Requirements</Option>
                     <Option key='2' value='template' disabled={isTemplate}>Template Requirements</Option>
                     <Option key='3' value='both' disabled={isBoth}>Both</Option>

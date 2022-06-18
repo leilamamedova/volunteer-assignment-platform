@@ -7,10 +7,12 @@ const FaRoleVenueStatistics = () => {
     const [dataSource, setDataSource] = useState([]);
 
     useEffect(() => {
+        console.log("overallAssignments", overallAssignments);
         if(overallAssignments.length > 0) {
             const data = overallAssignments.map(el => {
                 return {
                     key: el.key,
+                    role_id: el.role_offer_id,
                     entity: el.functionalAreaType.name,
                     fa: el.functionalArea.name,
                     role: el.jobTitle.name,
@@ -35,6 +37,11 @@ const FaRoleVenueStatistics = () => {
     }, [overallAssignments])
 
     const columns = [
+        {
+            title: 'Role Offer Id',
+            dataIndex: 'role_id',
+            key: 'role_id',
+        },
         {
             title: 'Entity',
             dataIndex: 'entity',

@@ -26,7 +26,6 @@ const BulkImport = ({ title, url }) => {
     onChange(info) {
       setShowUploadList(true);
       if (info.file.status !== "uploading") {
-        console.log(info);
       }
       if (info.file.status === "done") {
         setShowUploadList(false);
