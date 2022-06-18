@@ -6,3 +6,18 @@
   gap: 15px;
   flex-direction: column;
 }
+.ant-collapse {
+  width: 100%;
+
+  .ant-collapse-header {
+    display: flex !important;
+    align-items: center !important;
+    font-size: 1.3rem;
+    .anticon {
+      svg {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+  }
+}

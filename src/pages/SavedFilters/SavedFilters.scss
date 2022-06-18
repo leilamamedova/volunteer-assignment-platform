@@ -1,6 +1,7 @@
-.templates-page-modal{
-    width: auto !important;
-    .card{
-        max-height: 400px;
-    }
+.templates-page-modal {
+  width: auto !important;
+  min-width: 80vw;
+  .card {
+    max-height: 400px;
+  }
 }

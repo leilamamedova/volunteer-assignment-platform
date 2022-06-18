@@ -83,8 +83,11 @@ const AssigningTo = () => {
         .jobTitles.find((el) => el.name === jobTitle)
         .locations.find((el) => el.name === location).roleOffer;
       const offerRequirements = offer.functionalRequirement.requirements;
+      const typedFilters = offerRequirements?.map((el) =>
+        Object.assign({ type: "FunctionalRequirements" }, el)
+      );
       setActiveOfferData({ entity, functionalArea, jobTitle, location });
-      setFilterFields([...filterFields, ...offerRequirements]);
+      setFilterFields([...filterFields, ...typedFilters]);
       setSelectedRoleOffer(offer);
     }
   };

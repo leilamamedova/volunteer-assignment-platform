@@ -11,6 +11,10 @@ $retro-yellow: #fcfc02;
 
 //Layout -- End
 
+p {
+  margin: 0;
+}
+
 // Utility Selector -- Start
 //Colors -- Start
 
@@ -151,6 +155,9 @@ $retro-yellow: #fcfc02;
 }
 .d-flex {
   display: flex;
+}
+.align-center {
+  align-items: center;
 }
 .justify-content-between {
   justify-content: space-between;
