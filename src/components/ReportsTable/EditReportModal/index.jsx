@@ -44,6 +44,7 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
   );
 
   useEffect(() => {
+    console.log(reportTemplate);
     setReportColumns(reportTemplate.volunteer_columns);
     setReportROColumns(reportTemplate.role_offer_columns);
     if (reportTemplate.volunteer_filters) {
@@ -82,10 +83,10 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
   };
   const handleCancel = () => {
     setIsEditModal(false);
-    setReportROColumns([]);
-    setSelectedVolunteerColumns([]);
-    setFilterFields([]);
-    setROFilterFields([]);
+    // setReportROColumns([]);
+    // setSelectedVolunteerColumns([]);
+    // setFilterFields([]);
+    // setROFilterFields([]);
   };
 
   const handleUpdate = () => {
@@ -113,6 +114,7 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
 
   return (
     <Modal
+      destroyOnClose
       className="min-w-50vw report-edit"
       visible={isEditModal}
       onOk={handleOk}
