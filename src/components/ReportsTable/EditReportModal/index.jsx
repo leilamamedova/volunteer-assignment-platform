@@ -52,6 +52,13 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
     if (reportTemplate.role_offer_filters) {
       setROFilterFields(reportTemplate.role_offer_filters);
     }
+
+    return () => {
+      setReportROColumns([]);
+      setSelectedVolunteerColumns([]);
+      setFilterFields([]);
+      setROFilterFields([]);
+    };
   }, [reportTemplate]);
   useEffect(() => {
     const arr = Object.entries(NewUsersDataFields);
@@ -75,6 +82,10 @@ function EditReportModal({ templateId, isEditModal, setIsEditModal }) {
   };
   const handleCancel = () => {
     setIsEditModal(false);
+    setReportROColumns([]);
+    setSelectedVolunteerColumns([]);
+    setFilterFields([]);
+    setROFilterFields([]);
   };
 
   const handleUpdate = () => {
