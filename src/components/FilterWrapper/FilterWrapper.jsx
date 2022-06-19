@@ -69,17 +69,17 @@ function FilterWrapper(props) {
     });
   };
 
-  // Removing a filter field
-  const removeField = (del_id) => {
-    const list = [...filterFields];
-    list.splice(del_id, 1);
+	// Removing a filter field
+	const removeField = (del_id) => {
+		const list = [...filterFields];
+		list.splice(del_id, 1);
 
-    //Remove From store if exists
-    if (filterFields.find((el) => el.id === del_id) !== "undefined") {
-      removeFilterField(del_id);
-    }
-    setFilterFields(list);
-  };
+		//Remove From store if exists
+		if (filterFields.find((el) => el.id === del_id) !== "undefined") {
+			removeFilterField(del_id);
+		}
+		setFilterFields(list);
+	};
 
   // Handling Change events
   const handleChange = (index, valueArr) => {
