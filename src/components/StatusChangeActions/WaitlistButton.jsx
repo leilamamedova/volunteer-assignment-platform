@@ -42,11 +42,11 @@ function WaitlistButton(props) {
       setIsDisabled(true);
     };
   }, [activeRoleOfferId]);
-  useEffect(() => {
-    if (roleOffers !== undefined && roleOffers.length > 0) {
-      handleOfferDataUpdate();
-    }
-  }, [roleOffers]);
+  // useEffect(() => {
+  //   if (roleOffers !== undefined && roleOffers.length > 0) {
+  //     handleOfferDataUpdate();
+  //   }
+  // }, [roleOffers]);
   const handleWaitlist = () => {
     const postData = props.data.map((el) =>
       Object.assign({
