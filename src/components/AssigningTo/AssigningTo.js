@@ -103,6 +103,9 @@ const AssigningTo = () => {
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
     setFunctionalAreas([...functionalAreaData]);
+    setFunctionalArea(0);
+    setJobTitle(0);
+    setLocation(0);
   };
   const handleFAChange = (value) => {
     setFunctionalArea(value);
@@ -113,6 +116,8 @@ const AssigningTo = () => {
     setRoleOfferId(0);
     setActiveRoleOfferId(0);
     setJobTitles(jobTitleData);
+    setJobTitle(0);
+    setLocation(0);
   };
   const handleJobTitleChange = (value) => {
     setJobTitle(value);
@@ -126,6 +131,7 @@ const AssigningTo = () => {
       (venue) => venue.roleOffer.role_offer_id !== null
     );
     setLocations(venueListWithId);
+    setLocation(0);
   };
   const handleVenueChange = (value, location) => {
     setLocation(location.children);
@@ -153,7 +159,7 @@ const AssigningTo = () => {
               loading={dataLoading}
               onChange={handleEntityChange}
             >
-              <Option default disabled>
+              <Option default value="0" disabled>
                 Entity
               </Option>
               {entities.length > 0 &&
@@ -170,7 +176,7 @@ const AssigningTo = () => {
               optionFilterProp="children"
               onChange={handleFAChange}
             >
-              <Option default disabled>
+              <Option default value="0" disabled>
                 Functional Area
               </Option>
               {functionalAreas.map((el, index) => (
@@ -187,7 +193,7 @@ const AssigningTo = () => {
               optionFilterProp="children"
               onChange={handleJobTitleChange}
             >
-              <Option default disabled>
+              <Option default value="0" disabled>
                 Role - Job Title
               </Option>
               {jobTitles.map((el, index) => (
@@ -204,7 +210,7 @@ const AssigningTo = () => {
               optionFilterProp="children"
               onChange={handleVenueChange}
             >
-              <Option default disabled>
+              <Option default value="0" disabled>
                 Venue
               </Option>
               {locations.map((el, index) => (
