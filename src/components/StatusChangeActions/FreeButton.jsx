@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Button, message } from "antd";
 import useStore from "../../services/store";
 import { FilterUserFetch, RoleOffersFetch } from "../../services/fetch";
@@ -16,6 +17,12 @@ function FreeButton(props) {
   const setSelectedRoleOffer = useStore(
     ({ setSelectedRoleOffer }) => setSelectedRoleOffer
   );
+  useEffect(() => {
+    if (roleOffers !== undefined && roleOffers.length > 0) {
+      handleOfferDataUpdate();
+    }
+  }, [roleOffers]);
+
   const handleOfferDataUpdate = () => {
     const offer = roleOffers
       .find((el) => el.name === activeOfferData.entity)

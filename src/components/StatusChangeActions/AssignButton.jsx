@@ -31,17 +31,20 @@ function AssignButton(props) {
       setIsDisabled(true);
     };
   }, [activeRoleOfferId]);
-
-  const handleOfferDataUpdate = () => {
+  useEffect(() => {
+    if (roleOffers !== undefined && roleOffers.length > 0) {
+      handleOfferDataUpdate();
+    }
+  }, [roleOffers]);
+  function handleOfferDataUpdate() {
     const offer = roleOffers
-      .find((el) => el.name === activeOfferData.entity)
+      ?.find((el) => el.name === activeOfferData.entity)
       .functionalAreas.find((el) => el.name === activeOfferData.functionalArea)
       .jobTitles.find((el) => el.name === activeOfferData.jobTitle)
       .locations.find((el) => el.name === activeOfferData.location).roleOffer;
 
     setSelectedRoleOffer(offer);
-  };
-
+  }
   const endpoint = `${process.env.REACT_APP_VAP_API_BASE}/Assignments/${props.route}/?email=${userEmail}`;
 
   const handleAssign = () => {
