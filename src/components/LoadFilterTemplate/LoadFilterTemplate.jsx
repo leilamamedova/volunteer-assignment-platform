@@ -21,9 +21,12 @@ function LoadFilterTemplate() {
   const handleSelect = (e) => {
     setSelectedFavoriteFilters(e);
     const el = favoriteFilters.find((el) => el.key === e);
-    const typedFilters = el?.filters.map((el) =>
-      Object.assign({ type: "SavedTemplate" }, el)
-    );
+    const typedFilters = el?.filters.map((el) => {
+      Object.assign({ type: "SavedTemplate" }, el);
+      el.id = null;
+      return el;
+    });
+    console.log(typedFilters);
     setFilterFields([...filterFields, ...typedFilters]);
   };
 
