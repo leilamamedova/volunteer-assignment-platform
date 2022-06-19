@@ -31,11 +31,11 @@ function AssignButton(props) {
       setIsDisabled(true);
     };
   }, [activeRoleOfferId]);
-  useEffect(() => {
-    if (roleOffers !== undefined && roleOffers.length > 0) {
-      handleOfferDataUpdate();
-    }
-  }, [roleOffers]);
+  // useEffect(() => {
+  //   if (roleOffers !== undefined && roleOffers.length > 0) {
+  //     handleOfferDataUpdate();
+  //   }
+  // }, [roleOffers]);
   function handleOfferDataUpdate() {
     const offer = roleOffers
       ?.find((el) => el.name === activeOfferData.entity)

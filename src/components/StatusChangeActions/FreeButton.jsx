@@ -17,11 +17,11 @@ function FreeButton(props) {
   const setSelectedRoleOffer = useStore(
     ({ setSelectedRoleOffer }) => setSelectedRoleOffer
   );
-  useEffect(() => {
-    if (roleOffers !== undefined && roleOffers.length > 0) {
-      handleOfferDataUpdate();
-    }
-  }, [roleOffers]);
+  // useEffect(() => {
+  //   if (roleOffers !== undefined && roleOffers.length > 0) {
+  //     handleOfferDataUpdate();
+  //   }
+  // }, [roleOffers]);
 
   const handleOfferDataUpdate = () => {
     const offer = roleOffers
