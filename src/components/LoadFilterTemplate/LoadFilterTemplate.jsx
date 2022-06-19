@@ -22,11 +22,10 @@ function LoadFilterTemplate() {
     setSelectedFavoriteFilters(e);
     const el = favoriteFilters.find((el) => el.key === e);
     const typedFilters = el?.filters.map((el) => {
-      Object.assign({ type: "SavedTemplate" }, el);
       el.id = null;
+      el.type = "SavedTemplate";
       return el;
     });
-    console.log(typedFilters);
     setFilterFields([...filterFields, ...typedFilters]);
   };
 
