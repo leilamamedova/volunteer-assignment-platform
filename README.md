@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+# Volunteer Assignment Platform for FIFA 2022 Qatar
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a platform designed to manage and assign volunteers for the FIFA 2022 World Cup in Qatar. The platform allows organizers to efficiently handle volunteer registration, assignments, schedules, and other necessary operations to ensure smooth event management.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Volunteer Registration**: Volunteers can sign up through the platform to be part of FIFA 2022 Qatar event.
+- **Assignment Management**: Organizers can assign tasks to volunteers based on their availability and preferences.
+- **Scheduling**: Volunteers and organizers can view schedules to ensure smooth operations during the event.
+- **Real-Time Data**: Displays real-time volunteer assignment statuses and charts on performance.
+- **Admin Dashboard**: Provides comprehensive statistics and management tools for event organizers.
+- **Graphical Analytics**: Uses Chart.js and React-Chartjs-2 for visualizing data related to volunteer assignments and performance.
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React 18**: Frontend framework for building dynamic user interfaces.
+- **Apollo Client**: For data fetching and state management with GraphQL.
+- **GraphQL**: API query language for data fetching.
+- **Ant Design (antd)**: A popular UI framework used for building responsive and modern interfaces.
+- **Chart.js**: For rendering interactive data visualizations.
+- **JWT Decode**: For decoding JSON Web Tokens and user authentication.
+- **React Router v6**: For navigation and routing within the application.
+- **Zustand**: For simple and fast state management.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+  <img src="https://github.com/user-attachments/assets/3b388cab-098d-44e1-93a5-047d47b362e8" alt="FIFA Image 1" width="45%" />
+  <img src="https://github.com/user-attachments/assets/9363aac0-1357-4f62-b53f-c48f221cb477" alt="FIFA Image 2" width="45%" />
+</div>
